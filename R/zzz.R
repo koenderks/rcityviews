@@ -18,6 +18,7 @@
   sysfonts::font_add_google("Imbue")
   sysfonts::font_add_google("Damion")
   sysfonts::font_add_google("Neonderthaw")
+  sysfonts::font_add_google("Oswald")
   showtext::showtext_auto()
 }
 

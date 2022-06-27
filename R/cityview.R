@@ -19,13 +19,13 @@
 #'
 #'
 #' @usage cityview(name, zoom = 1,
-#'          theme = c("original", "classic", "colored", "neon"),
+#'          theme = c("original", "light", "dark", "rouge", "colored", "neon"),
 #'          border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
 #'          filename = NULL, verbose = TRUE, bot = FALSE)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{classic}, \code{colored}, and \code{neon}.
+#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{rouge}, \code{colored}, and \code{neon}.
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
@@ -45,24 +45,28 @@
 #' @export
 
 cityview <- function(name, zoom = 1,
-                     theme = c("original", "classic", "colored", "neon"),
+                     theme = c("original", "light", "dark", "rouge", "colored", "neon"),
                      border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
                      filename = NULL, verbose = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
   border <- match.arg(border)
   line.col <- switch(theme,
                      "original" = "#32130f",
-                     "classic" = "#000000",
+                     "light" = "#000000",
+                     "dark" = "#ffffff",
+                     "rouge" = "#f2deb8",
                      "colored" = "#eff0db",
                      "neon" = "#0be8ed"
   )
   bg.col <- switch(theme,
                    "original" = "#fdf9f5",
-                   "classic" = "#fafafa",
+                   "light" = "#fafafa",
+                   "dark" = "#000000",
+                   "rouge" = "#a25543",
                    "colored" = "#eff0db",
                    "neon" = "#000000"
   )
-  if (theme %in% c("original", "classic")) {
+  if (theme %in% c("original", "light", "dark", "rouge")) {
     water.col <- bg.col
     building.col <- bg.col
     text.col <- line.col
@@ -80,11 +84,13 @@ cityview <- function(name, zoom = 1,
   }
   font <- switch(theme,
                  "original" = "Caveat",
-                 "classic" = "Imbue",
+                 "light" = "Imbue",
+                 "dark" = "Imbue",
+                 "rouge" = "Oswald",
                  "colored" = "Damion",
                  "neon" = "Neonderthaw"
   )
-  boldFont <- if (theme %in% c("classic", "colored")) "plain" else "bold"
+  boldFont <- if (theme %in% c("light", "dark", "colored")) "plain" else "bold"
   cities <- rcityviews::cities
   cityIndex <- which(cities$name == name)
   cityIndex <- .resolveIndexConflicts(name, cityIndex, cities, bot)
@@ -250,7 +256,7 @@ cityview <- function(name, zoom = 1,
         ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = text.col, size = 1, inherit.aes = FALSE)
     })
   }
-  plotName <- if (theme == "classic") paste0("\u2014", row$name, "\u2014") else row$name
+  plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name
   p <- cowplot::ggdraw(int_p) +
     cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = text.col, family = font, fontface = boldFont) +
     cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = text.col, family = font) +

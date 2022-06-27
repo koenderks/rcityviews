@@ -1,4 +1,4 @@
-[![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)](https://github.com/koenderks/rcityviews/tree/master/R)
+c[![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)](https://github.com/koenderks/rcityviews/tree/master/R)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rcityviews)
 [![R_build_status](https://github.com/koenderks/rcityviews/workflows/Build/badge.svg)](https://github.com/koenderks/rcityviews/actions)
 [![Bugs](https://img.shields.io/github/issues/koenderks/rcityviews/bug?label=Bugs&logo=github&logoColor=%23FFF&color=brightgreen)](https://github.com/koenderks/rcityviews/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
@@ -88,10 +88,10 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `classic` (left), `colored` (middle) and `neon` (right).
+You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (left), `colored` (middle) and `neon` (right).
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_classic.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_colored.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_neon.png' width='250' height='250'>
 </p>
