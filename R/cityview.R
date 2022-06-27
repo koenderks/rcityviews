@@ -51,20 +51,20 @@ cityview <- function(name, zoom = 1,
   theme <- match.arg(theme)
   border <- match.arg(border)
   line.col <- switch(theme,
-                     "original" = "#32130f",
-                     "light" = "#000000",
-                     "dark" = "#ffffff",
-                     "rouge" = "#f2deb8",
-                     "colored" = "#eff0db",
-                     "neon" = "#0be8ed"
+    "original" = "#32130f",
+    "light" = "#000000",
+    "dark" = "#ffffff",
+    "rouge" = "#f2deb8",
+    "colored" = "#eff0db",
+    "neon" = "#0be8ed"
   )
   bg.col <- switch(theme,
-                   "original" = "#fdf9f5",
-                   "light" = "#fafafa",
-                   "dark" = "#000000",
-                   "rouge" = "#a25543",
-                   "colored" = "#eff0db",
-                   "neon" = "#000000"
+    "original" = "#fdf9f5",
+    "light" = "#fafafa",
+    "dark" = "#000000",
+    "rouge" = "#a25543",
+    "colored" = "#eff0db",
+    "neon" = "#000000"
   )
   if (theme %in% c("original", "light", "dark", "rouge")) {
     water.col <- if (theme %in% c("original", "light")) bg.col else line.col
@@ -83,12 +83,12 @@ cityview <- function(name, zoom = 1,
     rail.col <- "#e7d073"
   }
   font <- switch(theme,
-                 "original" = "Caveat",
-                 "light" = "Imbue",
-                 "dark" = "Imbue",
-                 "rouge" = "Oswald",
-                 "colored" = "Damion",
-                 "neon" = "Neonderthaw"
+    "original" = "Caveat",
+    "light" = "Imbue",
+    "dark" = "Imbue",
+    "rouge" = "Oswald",
+    "colored" = "Damion",
+    "neon" = "Neonderthaw"
   )
   boldFont <- if (theme %in% c("light", "dark", "colored")) "plain" else "bold"
   cities <- rcityviews::cities
@@ -126,9 +126,9 @@ cityview <- function(name, zoom = 1,
     cropped <- sf::st_sf(sf::st_sfc(sf::st_polygon(list(as.matrix(borders)))), crs = 4326)
   } else if (border == "hexagon" | border == "octagon" | border == "decagon") {
     nsides <- switch(border,
-                     "hexagon" = 6,
-                     "octagon" = 8,
-                     "decagon" = 10
+      "hexagon" = 6,
+      "octagon" = 8,
+      "decagon" = 10
     )
     borders <- data.frame(
       x = row[["long"]] + (abs(box[3]) - abs(box[1])) / 2 * cos(2 * pi * 0:nsides / nsides),
