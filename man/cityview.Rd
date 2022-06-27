@@ -24,7 +24,7 @@ cityview(name, zoom = 1,
 
 \item{bot}{logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.}
 
-\item{colors}{if specified, overrides the \code{theme} argument allowing for custom colors. The input for this argument must be a list containing vector of color(s). The list elements correspond to 1) line color (length 1), 2) background color (length 1), 3) water color (length 1), 4) landuse color (length >= 1), 5) text color (length 1) and 6) rail color (length 1).}
+\item{colors}{if specified, overrides the colors from the \code{theme} argument (but not the font type) allowing for custom colors. The input for this argument must be a list containing vector of color(s). The list elements correspond to 1) line color (length 1), 2) background color (length 1), 3) water color (length 1), 4) landuse color (length >= 1), 5) text color (length 1) and 6) rail color (length 1).}
 }
 \description{
 Create an aerial city view.
@@ -33,6 +33,16 @@ Create an aerial city view.
 \dontrun{
 # Create a city view of Amsterdam in a circle
 cityview(name = "Amsterdam", border = "circle")
+
+colors <- list(
+ "black", # line color
+ "white", # background color
+ "dodgerblue", # water color
+ c("orange", "red", "yellow"), # landuse color
+ "black", # text color
+ "black", # rail color
+)
+cityview(name = "Amsterdam", border = "circle", colors = colors)
 }
 }
 \seealso{
