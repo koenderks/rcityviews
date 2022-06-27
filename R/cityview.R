@@ -19,13 +19,13 @@
 #'
 #'
 #' @usage cityview(name, zoom = 1,
-#'          theme = c("original", "classic", "vice", "destination"),
+#'          theme = c("original", "classic", "colored", "destination"),
 #'          border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
 #'          filename = NULL, verbose = TRUE, bot = FALSE)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{classic}, \code{vice}, and \code{destination}.
+#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{classic}, \code{colored}, and \code{destination}.
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
@@ -45,7 +45,7 @@
 #' @export
 
 cityview <- function(name, zoom = 1,
-                     theme = c("original", "classic", "vice", "destination"),
+                     theme = c("original", "classic", "colored", "destination"),
                      border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
                      filename = NULL, verbose = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
@@ -53,22 +53,25 @@ cityview <- function(name, zoom = 1,
   line.col <- switch(theme,
     "original" = "#32130f",
     "classic" = "#000000",
-    "vice" = "#f27eb3",
+    "colored" = "#eff0db",
     "destination" = "#466f75"
   )
   bg.col <- switch(theme,
     "original" = "#fdf9f5",
     "classic" = "#fafafa",
-    "vice" = "#ffffff",
+    "colored" = "#eff0db",
     "destination" = "#e5d060"
   )
+  water.col <- if (theme != "colored") bg.col else "#b0e3cf"
+  building.col <- if (theme != "colored") bg.col else c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e")
+  text.col <- if (theme != "colored") line.col else "#000000"
   font <- switch(theme,
     "original" = "Caveat",
     "classic" = "Imbue",
-    "vice" = "Sarina",
+    "colored" = "Damion",
     "destination" = "Wallpoet"
   )
-  boldFont <- if (theme %in% c("original", "vice")) "plain" else "bold"
+  boldFont <- if (theme %in% c("original", "colored")) "plain" else "bold"
   cities <- rcityviews::cities
   cityIndex <- which(cities$name == name)
   cityIndex <- .resolveIndexConflicts(name, cityIndex, cities, bot)
@@ -77,7 +80,7 @@ cityview <- function(name, zoom = 1,
     cat(paste0(row[["name"]], ", ", row[["country"]]))
   }
   if (verbose) {
-    ticks <- 11 + as.numeric(!is.null(filename))
+    ticks <- 12 + as.numeric(!is.null(filename))
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
@@ -126,16 +129,13 @@ cityview <- function(name, zoom = 1,
     "\"landuse\"=\"farmland\"",
     "\"landuse\"=\"forest\"",
     "\"landuse\"=\"forest\"",
+    "\"landuse\"=\"construction\"",
     "\"natural\"=\"scrub\"",
-    "\"natural\"=\"water\"",
     "\"natural\"=\"straight\"",
     "\"natural\"=\"coastline\"",
     "\"natural\"=\"beach\"",
     "\"natural\"=\"peninsula\"",
     "\"man_made\"=\"pier\"",
-    "\"waterway\"=\"riverbank\"",
-    "\"waterway\"=\"stream\"",
-    "\"waterway\"=\"ditch\"",
     "\"waterway\"=\"dock\"",
     "\"waterway\"=\"dam\"",
     "\"waterway\"=\"lock_gate\"",
@@ -144,12 +144,25 @@ cityview <- function(name, zoom = 1,
     "\"amenity\"=\"parking\"",
     "\"leisure\"=\"playground\"",
     "\"leisure\"=\"parc\"",
+    "\"leisure\"=\"pitch\"",
     "\"leisure\"=\"nature_reserve\""
   ))
   queryLanduse <- osmdata::osmdata_sf(q = featuresLanduse)
   landuseMultipolygons <- .checkAndCrop(queryLanduse$osm_multipolygons$geometry, cropped, border)
   landusePolygons <- .checkAndCrop(queryLanduse$osm_polygons$geometry, cropped, border)
   landuseLines <- .checkAndCrop(queryLanduse$osm_lines$geometry, cropped, border)
+  if (verbose) {
+    progBar$tick()
+  }
+  featuresWater <- osmdata::add_osm_features(opq = osmbox, features = c(
+    "\"natural\"=\"water\"",
+    "\"waterway\"=\"riverbank\"",
+    "\"waterway\"=\"stream\"",
+    "\"waterway\"=\"ditch\""
+  ))
+  queryWater <- osmdata::osmdata_sf(q = featuresWater)
+  waterMultipolygons <- .checkAndCrop(queryWater$osm_multipolygons$geometry, cropped, border)
+  waterPolygons <- .checkAndCrop(queryWater$osm_polygons$geometry, cropped, border)
   if (verbose) {
     progBar$tick()
   }
@@ -202,8 +215,10 @@ cityview <- function(name, zoom = 1,
     progBar$tick()
   }
   int_p <- ggplot2::ggplot() +
-    ggplot2::geom_sf(data = landuseMultipolygons, fill = bg.col, color = line.col, size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landusePolygons, fill = bg.col, color = line.col, size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = waterMultipolygons, fill = water.col, color = line.col, size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = waterPolygons, fill = water.col, color = line.col, size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(building.col, size = length(landuseMultipolygons), replace = TRUE), color = line.col, size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landusePolygons, fill = sample(building.col, size = length(landusePolygons), replace = TRUE), color = line.col, size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = landuseLines, color = line.col, size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = taxiwayLines, color = line.col, size = 0.7, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = runwayLines, color = line.col, size = 3, inherit.aes = FALSE) +
@@ -212,24 +227,24 @@ cityview <- function(name, zoom = 1,
     ggplot2::geom_sf(data = sstreetLines, color = line.col, size = 0.4, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = fstreetsLines, color = line.col, size = 0.1, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = lstreetsLines, color = line.col, size = 0.7, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = buildingsPolygons, fill = bg.col, color = line.col, size = 0.25, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = buildingsPolygons, fill = sample(building.col, size = length(buildingsPolygons), replace = TRUE), color = line.col, size = 0.25, inherit.aes = FALSE) +
     ggplot2::coord_sf(xlim = c(box[1], box[3]), ylim = c(box[2], box[4]), expand = TRUE) +
     ggplot2::theme_void() +
     ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
   if (border != "none") {
     suppressMessages(expr = {
       int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = bg.col, size = 1) +
-        ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = line.col, size = 1, inherit.aes = FALSE)
+        ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = text.col, size = 1, inherit.aes = FALSE)
     })
   }
   plotName <- if (theme == "classic") paste0("\u2014", row$name, "\u2014") else row$name
   p <- cowplot::ggdraw(int_p) +
-    cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = line.col, family = font, fontface = boldFont) +
-    cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = line.col, family = font) +
+    cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = text.col, family = font, fontface = boldFont) +
+    cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = text.col, family = font) +
     ggspatial::annotation_north_arrow(
       location = "bl", height = ggplot2::unit(4, "cm"), width = ggplot2::unit(4, "cm"),
       pad_x = ggplot2::unit(1, "cm"), pad_y = ggplot2::unit(1, "cm"),
-      style = ggspatial::north_arrow_nautical(line_col = line.col, text_size = 25, text_face = boldFont, text_family = font, text_col = line.col, fill = c(line.col, bg.col))
+      style = ggspatial::north_arrow_nautical(line_col = text.col, text_size = 25, text_face = boldFont, text_family = font, text_col = text.col, fill = c(text.col, bg.col))
     ) +
     ggplot2::theme(
       plot.background = ggplot2::element_rect(fill = bg.col, color = line.col),
@@ -245,9 +260,9 @@ cityview <- function(name, zoom = 1,
   } else {
     long <- paste0(format(row[["long"]], digits = 6), "\u00B0 E")
   }
-  p <- p + cowplot::draw_text(text = paste0(lat, " / ", long), x = 0.97, y = 0.03, size = 40, color = line.col, family = font, hjust = 1)
+  p <- p + cowplot::draw_text(text = paste0(lat, " / ", long), x = 0.97, y = 0.03, size = 40, color = text.col, family = font, hjust = 1)
   if (bot) {
-    p <- p + cowplot::draw_text(text = "Data by \u00A9 OpenStreetMap contributors", x = 0.97, y = 0.01, size = 20, color = line.col, family = font, hjust = 1)
+    p <- p + cowplot::draw_text(text = "Data by \u00A9 OpenStreetMap contributors", x = 0.97, y = 0.01, size = 20, color = text.col, family = font, hjust = 1)
   }
   if (is.null(filename)) {
     if (verbose) {

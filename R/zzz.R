@@ -16,7 +16,7 @@
 .onLoad <- function(libname, pkgname) {
   sysfonts::font_add_google("Caveat")
   sysfonts::font_add_google("Imbue")
-  sysfonts::font_add_google("Sarina")
+  sysfonts::font_add_google("Damion")
   sysfonts::font_add_google("Wallpoet")
   showtext::showtext_auto()
 }

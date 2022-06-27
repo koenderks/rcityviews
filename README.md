@@ -88,7 +88,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `classic` (left), `vice` (middle) and `destination` (right).
+You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `classic` (left), `colored` (middle) and `destination` (right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_classic.png' width='250' height='250'>
