@@ -35,3 +35,40 @@
   yy <- lat + rlat * sin(tt)
   return(data.frame(x = xx, y = yy))
 }
+
+.theme_colors <- function(theme) {
+  line.col <- switch(theme,
+    "original" = "#32130f",
+    "light" = "#000000",
+    "dark" = "#ffffff",
+    "rouge" = "#f2deb8",
+    "colored" = "#eff0db",
+    "neon" = "#0be8ed"
+  )
+  bg.col <- switch(theme,
+    "original" = "#fdf9f5",
+    "light" = "#fafafa",
+    "dark" = "#000000",
+    "rouge" = "#a25543",
+    "colored" = "#eff0db",
+    "neon" = "#000000"
+  )
+  if (theme %in% c("original", "light", "dark", "rouge")) {
+    water.col <- if (theme %in% c("original", "light")) bg.col else line.col
+    building.col <- bg.col
+    text.col <- line.col
+    rail.col <- line.col
+  } else if (theme == "colored") {
+    water.col <- "#b0e3cf"
+    building.col <- c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e")
+    text.col <- "#000000"
+    rail.col <- line.col
+  } else if (theme == "neon") {
+    water.col <- "#ec3b8d"
+    building.col <- "#000000"
+    text.col <- "#e7d073"
+    rail.col <- "#e7d073"
+  }
+  colors <- list(line.col, bg.col, water.col, building.col, text.col, rail.col)
+  return(colors)
+}

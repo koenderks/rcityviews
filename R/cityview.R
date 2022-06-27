@@ -50,38 +50,7 @@ cityview <- function(name, zoom = 1,
                      filename = NULL, verbose = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
   border <- match.arg(border)
-  line.col <- switch(theme,
-    "original" = "#32130f",
-    "light" = "#000000",
-    "dark" = "#ffffff",
-    "rouge" = "#f2deb8",
-    "colored" = "#eff0db",
-    "neon" = "#0be8ed"
-  )
-  bg.col <- switch(theme,
-    "original" = "#fdf9f5",
-    "light" = "#fafafa",
-    "dark" = "#000000",
-    "rouge" = "#a25543",
-    "colored" = "#eff0db",
-    "neon" = "#000000"
-  )
-  if (theme %in% c("original", "light", "dark", "rouge")) {
-    water.col <- if (theme %in% c("original", "light")) bg.col else line.col
-    building.col <- bg.col
-    text.col <- line.col
-    rail.col <- line.col
-  } else if (theme == "colored") {
-    water.col <- "#b0e3cf"
-    building.col <- c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e")
-    text.col <- "#000000"
-    rail.col <- line.col
-  } else if (theme == "neon") {
-    water.col <- "#ec3b8d"
-    building.col <- "#000000"
-    text.col <- "#e7d073"
-    rail.col <- "#e7d073"
-  }
+  colors <- .theme_colors(theme)
   font <- switch(theme,
     "original" = "Caveat",
     "light" = "Imbue",
@@ -162,7 +131,7 @@ cityview <- function(name, zoom = 1,
     "\"waterway\"=\"bridge\"",
     "\"amenity\"=\"parking\"",
     "\"leisure\"=\"playground\"",
-    "\"leisure\"=\"parc\"",
+    "\"leisure\"=\"park\"",
     "\"leisure\"=\"pitch\"",
     "\"leisure\"=\"nature_reserve\""
   ))
@@ -234,40 +203,40 @@ cityview <- function(name, zoom = 1,
     progBar$tick()
   }
   int_p <- ggplot2::ggplot() +
-    ggplot2::geom_sf(data = waterMultipolygons, fill = water.col, color = line.col, size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = waterPolygons, fill = water.col, color = line.col, size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(building.col, size = length(landuseMultipolygons), replace = TRUE), color = line.col, size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landusePolygons, fill = sample(building.col, size = length(landusePolygons), replace = TRUE), color = line.col, size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landuseLines, color = line.col, size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = taxiwayLines, color = line.col, size = 0.7, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = runwayLines, color = line.col, size = 3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = railsLines, color = rail.col, size = 0.35, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = mstreetsLines, color = line.col, size = 0.6, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = sstreetLines, color = line.col, size = 0.4, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = fstreetsLines, color = line.col, size = 0.1, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = lstreetsLines, color = line.col, size = 0.7, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = buildingsPolygons, fill = sample(building.col, size = length(buildingsPolygons), replace = TRUE), color = line.col, size = 0.25, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = waterMultipolygons, fill = colors[[3]], color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = waterPolygons, fill = colors[[3]], color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(colors[[4]], size = length(landuseMultipolygons), replace = TRUE), color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landusePolygons, fill = sample(colors[[4]], size = length(landusePolygons), replace = TRUE), color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landuseLines, color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = taxiwayLines, color = colors[[1]], size = 0.7, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = runwayLines, color = colors[[1]], size = 3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = railsLines, color = colors[[6]], size = 0.35, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = mstreetsLines, color = colors[[1]], size = 0.6, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = sstreetLines, color = colors[[1]], size = 0.4, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = fstreetsLines, color = colors[[1]], size = 0.1, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = lstreetsLines, color = colors[[1]], size = 0.7, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = buildingsPolygons, fill = sample(colors[[4]], size = length(buildingsPolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
     ggplot2::coord_sf(xlim = c(box[1], box[3]), ylim = c(box[2], box[4]), expand = TRUE) +
     ggplot2::theme_void() +
     ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
   if (border != "none") {
     suppressMessages(expr = {
-      int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = bg.col, size = 1) +
-        ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = text.col, size = 1, inherit.aes = FALSE)
+      int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = colors[[2]], size = 1) +
+        ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = colors[[5]], size = 1, inherit.aes = FALSE)
     })
   }
   plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name
   p <- cowplot::ggdraw(int_p) +
-    cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = text.col, family = font, fontface = boldFont) +
-    cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = text.col, family = font) +
+    cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = colors[[5]], family = font, fontface = boldFont) +
+    cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = colors[[5]], family = font) +
     ggspatial::annotation_north_arrow(
       location = "bl", height = ggplot2::unit(4, "cm"), width = ggplot2::unit(4, "cm"),
       pad_x = ggplot2::unit(1, "cm"), pad_y = ggplot2::unit(1, "cm"),
-      style = ggspatial::north_arrow_nautical(line_col = text.col, text_size = 25, text_face = boldFont, text_family = font, text_col = text.col, fill = c(text.col, bg.col))
+      style = ggspatial::north_arrow_nautical(line_col = colors[[5]], text_size = 25, text_face = boldFont, text_family = font, text_col = colors[[5]], fill = c(colors[[5]], colors[[2]]))
     ) +
     ggplot2::theme(
-      plot.background = ggplot2::element_rect(fill = bg.col, color = line.col),
-      panel.background = ggplot2::element_rect(fill = bg.col, color = bg.col)
+      plot.background = ggplot2::element_rect(fill = colors[[2]], color = colors[[1]]),
+      panel.background = ggplot2::element_rect(fill = colors[[2]], color = colors[[2]])
     )
   if (row[["lat"]] < 0) {
     lat <- paste0(format(abs(row[["lat"]]), digits = 6), "\u00B0 S")
@@ -279,9 +248,9 @@ cityview <- function(name, zoom = 1,
   } else {
     long <- paste0(format(row[["long"]], digits = 6), "\u00B0 E")
   }
-  p <- p + cowplot::draw_text(text = paste0(lat, " / ", long), x = 0.97, y = 0.03, size = 40, color = text.col, family = font, hjust = 1)
+  p <- p + cowplot::draw_text(text = paste0(lat, " / ", long), x = 0.97, y = 0.03, size = 40, color = colors[[5]], family = font, hjust = 1)
   if (bot) {
-    p <- p + cowplot::draw_text(text = "Data by \u00A9 OpenStreetMap contributors", x = 0.97, y = 0.01, size = 20, color = text.col, family = font, hjust = 1)
+    p <- p + cowplot::draw_text(text = "Data by \u00A9 OpenStreetMap contributors", x = 0.97, y = 0.01, size = 20, color = colors[[5]], family = font, hjust = 1)
   }
   if (is.null(filename)) {
     if (verbose) {
