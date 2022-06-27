@@ -219,9 +219,9 @@ cityview <- function(name, zoom = 1,
   int_p <- ggplot2::ggplot() +
     ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(colors[[4]], size = length(landuseMultipolygons), replace = TRUE), color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = landusePolygons, fill = sample(colors[[4]], size = length(landusePolygons), replace = TRUE), color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landuseLines, color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = waterMultipolygons, fill = colors[[3]], color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = waterPolygons, fill = colors[[3]], color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landuseLines, color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = taxiwayLines, color = colors[[1]], size = 0.7, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = runwayLines, color = colors[[1]], size = 3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = railsLines, color = colors[[6]], size = 0.35, inherit.aes = FALSE) +
