@@ -92,7 +92,7 @@ You can select different themes for the plot. The images above are created using
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_classic.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_vice.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_colored.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_destination.png' width='250' height='250'>
 </p>
 
