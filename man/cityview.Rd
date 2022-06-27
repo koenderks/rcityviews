@@ -5,9 +5,9 @@
 \title{Create an Aerial City View}
 \usage{
 cityview(name, zoom = 1,
-         theme = c("original", "light", "dark", "destination", 
+         theme = c("original", "light", "dark", "destination",
                    "rouge", "colored", "neon"),
-         border = c("none", "circle", "rhombus", "square", 
+         border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
          filename = NULL, verbose = TRUE, bot = FALSE, colors = NULL)
 }
@@ -37,12 +37,12 @@ Create an aerial city view.
 cityview(name = "Amsterdam", border = "circle")
 
 colors <- list(
- "black", # line color
- "white", # background color
- "dodgerblue", # water color
- c("orange", "red", "yellow"), # landuse color
- "black", # text color
- "black", # rail color
+  "black", # line color
+  "white", # background color
+  "dodgerblue", # water color
+  c("orange", "red", "yellow"), # landuse color
+  "black", # text color
+  "black", # rail color
 )
 cityview(name = "Amsterdam", border = "circle", colors = colors)
 }
