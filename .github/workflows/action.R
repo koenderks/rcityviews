@@ -5,6 +5,6 @@ border <- sample(x = c("circle", "rhombus", "hexagon", "octagon", "decagon"), si
 theme <- sample(x = c("original", "light", "dark", "destination", "rouge", "colored", "neon"), size = 1)
 
 sink(file = "png/name.txt")
-p <- rcityviews::cityview(name = city[["name"]], theme = theme, border = border,
+p <- rcityviews::cityview(name = city[["name"]], zoom = runif(1, 0.5, 1), theme = theme, border = border,
                           filename = "png/daily.png", verbose = FALSE, bot = TRUE)
 sink()
