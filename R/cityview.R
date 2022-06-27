@@ -60,7 +60,7 @@ cityview <- function(name, zoom = 1,
                    "original" = "#fdf9f5",
                    "classic" = "#fafafa",
                    "colored" = "#eff0db",
-                   "neon" = "#522f60"
+                   "neon" = "#000000"
   )
   if (theme %in% c("original", "classic")) {
     water.col <- bg.col
@@ -74,7 +74,7 @@ cityview <- function(name, zoom = 1,
     rail.col <- line.col
   } else if (theme == "neon") {
     water.col <- "#ec3b8d"
-    building.col <- "#522f60"
+    building.col <- "#000000"
     text.col <- "#e7d073"
     rail.col <- "#e7d073"
   }
