@@ -17,7 +17,7 @@
   sysfonts::font_add_google("Caveat")
   sysfonts::font_add_google("Imbue")
   sysfonts::font_add_google("Damion")
-  sysfonts::font_add_google("Wallpoet")
+  sysfonts::font_add_google("Neonderthaw")
   showtext::showtext_auto()
 }
 

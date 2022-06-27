@@ -19,13 +19,13 @@
 #'
 #'
 #' @usage cityview(name, zoom = 1,
-#'          theme = c("original", "classic", "colored", "destination"),
+#'          theme = c("original", "classic", "colored", "neon"),
 #'          border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
 #'          filename = NULL, verbose = TRUE, bot = FALSE)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{classic}, \code{colored}, and \code{destination}.
+#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{classic}, \code{colored}, and \code{neon}.
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
@@ -45,31 +45,44 @@
 #' @export
 
 cityview <- function(name, zoom = 1,
-                     theme = c("original", "classic", "colored", "destination"),
+                     theme = c("original", "classic", "colored", "neon"),
                      border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
                      filename = NULL, verbose = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
   border <- match.arg(border)
   line.col <- switch(theme,
-    "original" = "#32130f",
-    "classic" = "#000000",
-    "colored" = "#eff0db",
-    "destination" = "#466f75"
+                     "original" = "#32130f",
+                     "classic" = "#000000",
+                     "colored" = "#eff0db",
+                     "neon" = "#0be8ed"
   )
   bg.col <- switch(theme,
-    "original" = "#fdf9f5",
-    "classic" = "#fafafa",
-    "colored" = "#eff0db",
-    "destination" = "#e5d060"
+                   "original" = "#fdf9f5",
+                   "classic" = "#fafafa",
+                   "colored" = "#eff0db",
+                   "neon" = "#522f60"
   )
-  water.col <- if (theme != "colored") bg.col else "#b0e3cf"
-  building.col <- if (theme != "colored") bg.col else c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e")
-  text.col <- if (theme != "colored") line.col else "#000000"
+  if (theme %in% c("original", "classic")) {
+    water.col <- bg.col
+    building.col <- bg.col
+    text.col <- line.col
+    rail.col <- line.col
+  } else if (theme == "colored") {
+    water.col <- "#b0e3cf"
+    building.col <- c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e")
+    text.col <- "#000000"
+    rail.col <- line.col
+  } else if (theme == "neon") {
+    water.col <- "#ec3b8d"
+    building.col <- "#522f60"
+    text.col <- line.col
+    rail.col <- "#e7d073"
+  }
   font <- switch(theme,
-    "original" = "Caveat",
-    "classic" = "Imbue",
-    "colored" = "Damion",
-    "destination" = "Wallpoet"
+                 "original" = "Caveat",
+                 "classic" = "Imbue",
+                 "colored" = "Damion",
+                 "neon" = "Neonderthaw"
   )
   boldFont <- if (theme %in% c("original", "colored")) "plain" else "bold"
   cities <- rcityviews::cities
@@ -107,9 +120,9 @@ cityview <- function(name, zoom = 1,
     cropped <- sf::st_sf(sf::st_sfc(sf::st_polygon(list(as.matrix(borders)))), crs = 4326)
   } else if (border == "hexagon" | border == "octagon" | border == "decagon") {
     nsides <- switch(border,
-      "hexagon" = 6,
-      "octagon" = 8,
-      "decagon" = 10
+                     "hexagon" = 6,
+                     "octagon" = 8,
+                     "decagon" = 10
     )
     borders <- data.frame(
       x = row[["long"]] + (abs(box[3]) - abs(box[1])) / 2 * cos(2 * pi * 0:nsides / nsides),
@@ -222,7 +235,7 @@ cityview <- function(name, zoom = 1,
     ggplot2::geom_sf(data = landuseLines, color = line.col, size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = taxiwayLines, color = line.col, size = 0.7, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = runwayLines, color = line.col, size = 3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = railsLines, color = line.col, size = 0.35, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = railsLines, color = rail.col, size = 0.35, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = mstreetsLines, color = line.col, size = 0.6, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = sstreetLines, color = line.col, size = 0.4, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = fstreetsLines, color = line.col, size = 0.1, inherit.aes = FALSE) +
