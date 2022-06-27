@@ -76,6 +76,12 @@ cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png' width='400' height='400'>
 </p>
 
+For printing, it is recommended to save the image to an `svg` file, see below. Afterwards, you can best print it in a `50x50` cm format.
+
+```r
+cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.svg")
+```
+
 ### Border styles
 
 You can select different types of borders to enclose the city. The image above is created using `border = "circle"`, but other options for the `border` argument include `none` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
