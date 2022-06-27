@@ -19,9 +19,11 @@
 #'
 #'
 #' @usage cityview(name, zoom = 1,
-#'          theme = c("original", "light", "dark", "destination", "rouge", "colored", "neon"),
-#'          border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
-#'          filename = NULL, verbose = TRUE, bot = FALSE)
+#'          theme = c("original", "light", "dark", "destination",
+#'                    "rouge", "colored", "neon"),
+#'          border = c("none", "circle", "rhombus", "square",
+#'                     "hexagon", "octagon", "decagon"),
+#'          filename = NULL, verbose = TRUE, bot = FALSE, colors = NULL)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
@@ -42,22 +44,28 @@
 #' \dontrun{
 #' # Create a city view of Amsterdam in a circle
 #' cityview(name = "Amsterdam", border = "circle")
-#' 
+#'
 #' colors <- list(
-#'  "black", # line color
-#'  "white", # background color
-#'  "dodgerblue", # water color
-#'  c("orange", "red", "yellow"), # landuse color
-#'  "black", # text color
-#'  "black", # rail color
+#'   "black", # line color
+#'   "white", # background color
+#'   "dodgerblue", # water color
+#'   c("orange", "red", "yellow"), # landuse color
+#'   "black", # text color
+#'   "black", # rail color
 #' )
 #' cityview(name = "Amsterdam", border = "circle", colors = colors)
 #' }
 #' @export
 
 cityview <- function(name, zoom = 1,
-                     theme = c("original", "light", "dark", "destination", "rouge", "colored", "neon"),
-                     border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
+                     theme = c(
+                       "original", "light", "dark", "destination",
+                       "rouge", "colored", "neon"
+                     ),
+                     border = c(
+                       "none", "circle", "rhombus", "square",
+                       "hexagon", "octagon", "decagon"
+                     ),
                      filename = NULL, verbose = TRUE, bot = FALSE, colors = NULL) {
   theme <- match.arg(theme)
   border <- match.arg(border)

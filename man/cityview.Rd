@@ -5,9 +5,11 @@
 \title{Create an Aerial City View}
 \usage{
 cityview(name, zoom = 1,
-         theme = c("original", "light", "dark", "destination", "rouge", "colored", "neon"),
-         border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
-         filename = NULL, verbose = TRUE, bot = FALSE)
+         theme = c("original", "light", "dark", "destination", 
+                   "rouge", "colored", "neon"),
+         border = c("none", "circle", "rhombus", "square", 
+                    "hexagon", "octagon", "decagon"),
+         filename = NULL, verbose = TRUE, bot = FALSE, colors = NULL)
 }
 \arguments{
 \item{name}{a character specifying the name of the city as provided by \code{list_cities()}.}
