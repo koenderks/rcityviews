@@ -75,7 +75,7 @@ cityview <- function(name, zoom = 1,
   } else if (theme == "neon") {
     water.col <- "#ec3b8d"
     building.col <- "#522f60"
-    text.col <- line.col
+    text.col <- "#e7d073"
     rail.col <- "#e7d073"
   }
   font <- switch(theme,
@@ -84,7 +84,7 @@ cityview <- function(name, zoom = 1,
                  "colored" = "Damion",
                  "neon" = "Neonderthaw"
   )
-  boldFont <- if (theme %in% c("original", "colored")) "plain" else "bold"
+  boldFont <- if (theme %in% c("classic", "colored")) "plain" else "bold"
   cities <- rcityviews::cities
   cityIndex <- which(cities$name == name)
   cityIndex <- .resolveIndexConflicts(name, cityIndex, cities, bot)
