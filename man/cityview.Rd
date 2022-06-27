@@ -5,7 +5,7 @@
 \title{Create an Aerial City View}
 \usage{
 cityview(name, zoom = 1,
-         theme = c("original", "light", "dark", "rouge", "colored", "neon"),
+         theme = c("original", "light", "dark", "destination", "rouge", "colored", "neon"),
          border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
          filename = NULL, verbose = TRUE, bot = FALSE)
 }
@@ -14,7 +14,7 @@ cityview(name, zoom = 1,
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
-\item{theme}{a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{rouge}, \code{colored}, and \code{neon}.}
+\item{theme}{a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{destination}, \code{rouge}, \code{colored}, and \code{neon}.}
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).}
 

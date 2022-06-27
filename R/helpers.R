@@ -41,6 +41,7 @@
     "original" = "#32130f",
     "light" = "#000000",
     "dark" = "#ffffff",
+    "destination" = "#365d65",
     "rouge" = "#f2deb8",
     "colored" = "#eff0db",
     "neon" = "#0be8ed"
@@ -49,26 +50,47 @@
     "original" = "#fdf9f5",
     "light" = "#fafafa",
     "dark" = "#000000",
+    "destination" = "#dec84e",
     "rouge" = "#a25543",
     "colored" = "#eff0db",
     "neon" = "#000000"
   )
-  if (theme %in% c("original", "light", "dark", "rouge")) {
-    water.col <- if (theme %in% c("original", "light")) bg.col else line.col
-    building.col <- bg.col
-    text.col <- line.col
-    rail.col <- line.col
-  } else if (theme == "colored") {
-    water.col <- "#b0e3cf"
-    building.col <- c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e")
-    text.col <- "#000000"
-    rail.col <- line.col
-  } else if (theme == "neon") {
-    water.col <- "#ec3b8d"
-    building.col <- "#000000"
-    text.col <- "#e7d073"
-    rail.col <- "#e7d073"
-  }
-  colors <- list(line.col, bg.col, water.col, building.col, text.col, rail.col)
+  water.col <- switch(theme,
+    "original" = bg.col,
+    "light" = bg.col,
+    "dark" = "#fafafa",
+    "destination" = line.col,
+    "rouge" = line.col,
+    "colored" = "#b0e3cf",
+    "neon" = "#ec3b8d"
+  )
+  landuse.col <- switch(theme,
+    "original" = bg.col,
+    "light" = bg.col,
+    "dark" = bg.col,
+    "destination" = bg.col,
+    "rouge" = bg.col,
+    "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
+    "neon" = bg.col
+  )
+  text.col <- switch(theme,
+    "original" = line.col,
+    "light" = line.col,
+    "dark" = line.col,
+    "destination" = line.col,
+    "rouge" = line.col,
+    "colored" = "#000000",
+    "neon" = "#e7d073"
+  )
+  rail.col <- switch(theme,
+    "original" = line.col,
+    "light" = line.col,
+    "dark" = line.col,
+    "destination" = line.col,
+    "rouge" = line.col,
+    "colored" = line.col,
+    "neon" = text.col
+  )
+  colors <- list(line.col, bg.col, water.col, landuse.col, text.col, rail.col)
   return(colors)
 }

@@ -88,12 +88,12 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"` (top left), but other options for the `theme` argument include `light` (top middle), `dark` (top right), `rouge` (bottom left), `colored` (bottom middle), and `neon` (bottom right).
+You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (top middle), `destination` (top right), `rouge` (bottom left), `colored` (bottom middle), and `neon` (bottom right).
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_dark.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_destination.png' width='250' height='250'>
   </br>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_rouge.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_colored.png' width='250' height='250'>

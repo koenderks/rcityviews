@@ -19,13 +19,13 @@
 #'
 #'
 #' @usage cityview(name, zoom = 1,
-#'          theme = c("original", "light", "dark", "rouge", "colored", "neon"),
+#'          theme = c("original", "light", "dark", "destination", "rouge", "colored", "neon"),
 #'          border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
 #'          filename = NULL, verbose = TRUE, bot = FALSE)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{rouge}, \code{colored}, and \code{neon}.
+#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{destination}, \code{rouge}, \code{colored}, and \code{neon}.
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
@@ -45,7 +45,7 @@
 #' @export
 
 cityview <- function(name, zoom = 1,
-                     theme = c("original", "light", "dark", "rouge", "colored", "neon"),
+                     theme = c("original", "light", "dark", "destination", "rouge", "colored", "neon"),
                      border = c("none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon"),
                      filename = NULL, verbose = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
@@ -57,9 +57,10 @@ cityview <- function(name, zoom = 1,
     "dark" = "Imbue",
     "rouge" = "Oswald",
     "colored" = "Damion",
-    "neon" = "Neonderthaw"
+    "neon" = "Neonderthaw",
+    "destination" = "Wallpoet"
   )
-  boldFont <- if (theme %in% c("light", "dark", "colored")) "plain" else "bold"
+  boldFont <- if (theme %in% c("original", "destination", "rouge", "neon")) "bold" else "plain"
   cities <- rcityviews::cities
   cityIndex <- which(cities$name == name)
   cityIndex <- .resolveIndexConflicts(name, cityIndex, cities, bot)
@@ -73,7 +74,7 @@ cityview <- function(name, zoom = 1,
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
   }
-  defaultRadius <- 0.045 / 2
+  defaultRadius <- 0.0225
   radius <- geosphere::distm(x = c(row[["long"]], row[["lat"]]), y = c(row[["long"]], row[["lat"]] + defaultRadius * (1 / zoom)), fun = geosphere::distHaversine)
   cropped <- data.frame(lat = row[["lat"]], long = row[["long"]]) |>
     sf::st_as_sf(coords = c("long", "lat"), crs = 4326) |>
