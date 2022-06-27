@@ -1,0 +1,14 @@
+name: rcityviews
+title: rcityviews
+username:
+account: koenderks
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5389156
+bundleId: 6000959
+url: https://koenderks.shinyapps.io/rcityviews/
+when: 1655069178.57153
+lastSyncTime: 1655069178.57155
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .Rbuildignore|CITATION.cff|data/cities.RData|DESCRIPTION|inst/CITATION|LICENSE.md|man/cities.Rd|man/cityview.Rd|man/list_cities.Rd|NAMESPACE|NEWS.md|R/cities-data.R|R/cityview.R|R/list_cities.R|R/zzz.R|rcvRelease.R|README.md|tests/testthat/tests.R|tests/testthat.R|.github|png

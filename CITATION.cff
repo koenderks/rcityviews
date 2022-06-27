@@ -1,0 +1,202 @@
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.2.2
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "rcityviews" in publications use:'
+type: software
+license: GPL-3.0-or-later
+title: 'rcityviews: Minimalistic Aerial City Views using ''ggplot2'''
+version: 1.0.1
+abstract: A toolkit to create minimalistic aerial city views using R and 'ggplot2'.
+authors:
+- family-names: Derks
+  given-names: Koen
+  email: koen-derks@hotmail.com
+preferred-citation:
+  type: manual
+  title: 'rcityviews: Minimalistic City Views using R and ''ggplot2'''
+  authors:
+  - family-names: Derks
+    given-names: Koen
+    email: koen-derks@hotmail.com
+  year: '2022'
+  notes: R package version 1.0.0
+repository-code: https://github.com/koenderks/rcityviews
+url: https://koenderks.shinyapps.io/rcityviews/
+date-released: '2022-06-11'
+contact:
+- family-names: Derks
+  given-names: Koen
+  email: koen-derks@hotmail.com
+keywords:
+- openstreetmap
+- osm
+- r
+- shiny
+references:
+- type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2022'
+  url: https://www.R-project.org/
+  institution:
+    name: R Foundation for Statistical Computing
+  version: '>= 2.10'
+- type: software
+  title: cowplot
+  abstract: 'cowplot: Streamlined Plot Theme and Plot Annotations for ''ggplot2'''
+  notes: Imports
+  authors:
+  - family-names: Wilke
+    given-names: Claus O.
+    email: wilke@austin.utexas.edu
+    orcid: https://orcid.org/0000-0002-7470-9261
+  year: '2022'
+  url: https://CRAN.R-project.org/package=cowplot
+- type: software
+  title: geosphere
+  abstract: 'geosphere: Spherical Trigonometry'
+  notes: Imports
+  authors:
+  - family-names: Hijmans
+    given-names: Robert J.
+    email: r.hijmans@gmail.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=geosphere
+- type: software
+  title: ggplot2
+  abstract: 'ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics'
+  notes: Imports
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: Chang
+    given-names: Winston
+    orcid: https://orcid.org/0000-0002-1576-2126
+  - family-names: Henry
+    given-names: Lionel
+  - family-names: Pedersen
+    given-names: Thomas Lin
+    email: thomas.pedersen@rstudio.com
+    orcid: https://orcid.org/0000-0002-5147-4711
+  - family-names: Takahashi
+    given-names: Kohske
+  - family-names: Wilke
+    given-names: Claus
+    orcid: https://orcid.org/0000-0002-7470-9261
+  - family-names: Woo
+    given-names: Kara
+    orcid: https://orcid.org/0000-0002-5125-4188
+  - family-names: Yutani
+    given-names: Hiroaki
+    orcid: https://orcid.org/0000-0002-3385-7233
+  - family-names: Dunnington
+    given-names: Dewey
+    orcid: https://orcid.org/0000-0002-9415-4582
+  year: '2022'
+  url: https://CRAN.R-project.org/package=ggplot2
+- type: software
+  title: ggspatial
+  abstract: 'ggspatial: Spatial Data Framework for ggplot2'
+  notes: Imports
+  authors:
+  - family-names: Dunnington
+    given-names: Dewey
+    email: dewey@fishandwhistle.net
+    orcid: https://orcid.org/0000-0002-9415-4582
+  year: '2022'
+  url: https://CRAN.R-project.org/package=ggspatial
+- type: software
+  title: osmdata
+  abstract: 'osmdata: Import ''OpenStreetMap'' Data as Simple Features or Spatial
+    Objects'
+  notes: Imports
+  authors:
+  - family-names: Padgham
+    given-names: Mark
+    email: mark.padgham@email.com
+  - family-names: Rudis
+    given-names: Bob
+  - family-names: Lovelace
+    given-names: Robin
+  - family-names: Salmon
+    given-names: Maëlle
+  year: '2022'
+  url: https://CRAN.R-project.org/package=osmdata
+- type: software
+  title: progress
+  abstract: 'progress: Terminal Progress Bars'
+  notes: Imports
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+  - family-names: FitzJohn
+    given-names: Rich
+  year: '2022'
+  url: https://CRAN.R-project.org/package=progress
+- type: software
+  title: sf
+  abstract: 'sf: Simple Features for R'
+  notes: Imports
+  authors:
+  - family-names: Pebesma
+    given-names: Edzer
+    email: edzer.pebesma@uni-muenster.de
+    orcid: https://orcid.org/0000-0001-8049-7069
+  year: '2022'
+  url: https://CRAN.R-project.org/package=sf
+- type: software
+  title: showtext
+  abstract: 'showtext: Using Fonts More Easily in R Graphs'
+  notes: Imports
+  authors:
+  - family-names: Qiu
+    given-names: Yixuan
+  - family-names: details.
+    given-names: authors/contributors of the included software. See file AUTHORS for
+  year: '2022'
+  url: https://CRAN.R-project.org/package=showtext
+- type: software
+  title: sysfonts
+  abstract: 'sysfonts: Loading Fonts into R'
+  notes: Imports
+  authors:
+  - family-names: Qiu
+    given-names: Yixuan
+  - family-names: details.
+    given-names: authors/contributors of the included fonts. See file AUTHORS for
+  year: '2022'
+  url: https://CRAN.R-project.org/package=sysfonts
+- type: software
+  title: utils
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2022'
+  url: https://www.R-project.org/
+  institution:
+    name: R Foundation for Statistical Computing
+- type: software
+  title: testthat
+  abstract: 'testthat: Unit Testing for R'
+  notes: Suggests
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=testthat
+identifiers:
+- type: url
+  value: https://twitter.com/rcityviews

@@ -1,0 +1,20 @@
+Package: rcityviews
+Title: Minimalistic Aerial City Views using 'ggplot2'
+Version: 1.0.1
+Date: 2022-06-11
+Authors@R:
+    person(given = "Koen",
+           family = "Derks",
+           role = c("aut", "cre"),
+           email = "koen-derks@hotmail.com")
+Description: A toolkit to create minimalistic aerial city views using R and 'ggplot2'.
+BugReports: https://github.com/koenderks/rcityviews/issues
+URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
+Depends: R (>= 2.10)
+Imports: cowplot, geosphere, ggplot2, ggspatial, osmdata, progress, sf, showtext, sysfonts, utils
+Suggests: testthat
+Language: en-US
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.0

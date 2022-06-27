@@ -1,0 +1,8 @@
+citHeader("To cite rcityviews in publications, please use:")
+
+bibentry(bibtype = "Manual",
+         title = "rcityviews: Minimalistic City Views using R and 'ggplot2'",
+         author = person("Koen", "Derks"),
+         year = "2022",
+         note = "R package version 1.0.0",
+         textVersion = "Derks, K. (2022). rcityviews: Minimalistic City Views using R and 'ggplot2'.")
