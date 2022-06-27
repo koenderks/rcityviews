@@ -8,6 +8,6 @@ rcvRelease.R
 ^LICENSE\.md$
 ^CITATION\.cff$
 ^\.github$
-png
+^png$
 rsconnect
 app.R
