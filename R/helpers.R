@@ -91,6 +91,15 @@
     "colored" = line.col,
     "neon" = text.col
   )
-  colors <- list(line.col, bg.col, water.col, landuse.col, text.col, rail.col)
+  water.line.col <- switch(theme,
+    "original" = line.col,
+    "light" = line.col,
+    "dark" = water.col,
+    "destination" = water.col,
+    "rouge" = water.col,
+    "colored" = water.col,
+    "neon" = water.col
+  )
+  colors <- list(line.col, bg.col, water.col, landuse.col, text.col, rail.col, water.line.col)
   return(colors)
 }

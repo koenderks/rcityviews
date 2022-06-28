@@ -32,7 +32,7 @@
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
 #' @param bot       logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
-#' @param colors    if specified, overrides the colors from the \code{theme} argument (but not the font type) allowing for custom colors. The input for this argument must be a list containing vector of color(s). The list elements correspond to 1) line color (length 1), 2) background color (length 1), 3) water color (length 1), 4) landuse color (length >= 1), 5) text color (length 1) and 6) rail color (length 1).
+#' @param colors    if specified, overrides the colors from the \code{theme} argument (but not the font type) allowing for custom colors. The input for this argument must be a list containing vector of color(s). The list elements correspond to 1) line color (length 1), 2) background color (length 1), 3) water color (length 1), 4) landuse color (length >= 1), 5) text color (length 1), 6) rail color (length 1), and 7) water border color (length 1).
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -147,7 +147,6 @@ cityview <- function(name, zoom = 1,
     "\"natural\"=\"coastline\"",
     "\"natural\"=\"beach\"",
     "\"natural\"=\"peninsula\"",
-    "\"place\"=\"island\"",
     "\"place\"=\"islet\"",
     "\"place\"=\"archipelago\"",
     "\"man_made\"=\"pier\"",
@@ -171,6 +170,7 @@ cityview <- function(name, zoom = 1,
   }
   featuresWater <- osmdata::add_osm_features(opq = osmbox, features = c(
     "\"natural\"=\"water\"",
+    "\"natural\"=\"bay\"",
     "\"waterway\"=\"riverbank\"",
     "\"waterway\"=\"stream\"",
     "\"waterway\"=\"ditch\""
@@ -231,8 +231,8 @@ cityview <- function(name, zoom = 1,
     progBar$tick()
   }
   int_p <- ggplot2::ggplot() +
-    ggplot2::geom_sf(data = waterMultipolygons, fill = colors[[3]], color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = waterPolygons, fill = colors[[3]], color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = waterMultipolygons, fill = colors[[3]], color = colors[[7]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = waterPolygons, fill = colors[[3]], color = colors[[7]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(colors[[4]], size = length(landuseMultipolygons), replace = TRUE), color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = landusePolygons, fill = sample(colors[[4]], size = length(landusePolygons), replace = TRUE), color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = landuseLines, color = colors[[1]], size = 0.3, inherit.aes = FALSE) +
