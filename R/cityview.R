@@ -19,20 +19,20 @@
 #'
 #'
 #' @usage cityview(name, zoom = 1,
-#'          theme = c("original", "light", "dark", "destination",
-#'                    "rouge", "colored", "neon"),
+#'          theme = c("original", "light", "dark", "colored",
+#'                    "rouge", "verde", "neon"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
 #'          filename = NULL, verbose = TRUE, bot = FALSE, colors = NULL)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{destination}, \code{rouge}, \code{colored}, and \code{neon}.
+#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, and \code{neon}.
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
 #' @param bot       logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
-#' @param colors    if specified, overrides the colors from the \code{theme} argument (but not the font type) allowing for custom colors. The input for this argument must be a list containing vector of color(s). The list elements correspond to 1) line color (length 1), 2) background color (length 1), 3) water color (length 1), 4) landuse color (length >= 1), 5) text color (length 1), 6) rail color (length 1), and 7) water border color (length 1).
+#' @param colors    if specified, overrides the colors from the \code{theme} argument (but not the font type) allowing for custom colors. The input for this argument must be a list containing vector of color(s). The list elements correspond to 1) line color (length 1), 2) background color (length 1), 3) water color (length 1), 4) landuse color (length >= 1), 5) text color (length 1), 6) rail color (length 1), 7) water border color (length 1), and 8) building color (length >= 1).
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -59,8 +59,8 @@
 
 cityview <- function(name, zoom = 1,
                      theme = c(
-                       "original", "light", "dark", "destination",
-                       "rouge", "colored", "neon"
+                       "original", "light", "dark", "colored",
+                       "rouge", "verde", "neon"
                      ),
                      border = c(
                        "none", "circle", "rhombus", "square",
@@ -76,12 +76,12 @@ cityview <- function(name, zoom = 1,
     "original" = "Caveat",
     "light" = "Imbue",
     "dark" = "Imbue",
-    "rouge" = "Oswald",
     "colored" = "Damion",
-    "neon" = "Neonderthaw",
-    "destination" = "Wallpoet"
+    "rouge" = "Oswald",
+    "verde" = "Wallpoet",
+    "neon" = "Neonderthaw"
   )
-  boldFont <- if (theme %in% c("original", "destination", "rouge", "neon")) "bold" else "plain"
+  boldFont <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
   cities <- rcityviews::cities
   cityIndex <- which(cities$name == name)
   cityIndex <- .resolveIndexConflicts(name, cityIndex, cities, bot)
@@ -243,8 +243,8 @@ cityview <- function(name, zoom = 1,
     ggplot2::geom_sf(data = sstreetLines, color = colors[[1]], size = 0.4, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = fstreetsLines, color = colors[[1]], size = 0.1, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = lstreetsLines, color = colors[[1]], size = 0.7, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = buildingsMultipolygons, fill = sample(colors[[4]], size = length(buildingsMultipolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = buildingsPolygons, fill = sample(colors[[4]], size = length(buildingsPolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = buildingsMultipolygons, fill = sample(colors[[8]], size = length(buildingsMultipolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = buildingsPolygons, fill = sample(colors[[8]], size = length(buildingsPolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
     ggplot2::coord_sf(xlim = c(box[1], box[3]), ylim = c(box[2], box[4]), expand = TRUE) +
     ggplot2::theme_void() +
     ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))

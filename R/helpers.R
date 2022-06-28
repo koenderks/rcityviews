@@ -41,65 +41,74 @@
     "original" = "#32130f",
     "light" = "#000000",
     "dark" = "#ffffff",
-    "destination" = "#365d65",
-    "rouge" = "#f2deb8",
     "colored" = "#eff0db",
+    "rouge" = "#f2deb8",
+    "verde" = "#fafafa",
     "neon" = "#0be8ed"
   )
   bg.col <- switch(theme,
     "original" = "#fdf9f5",
     "light" = "#fafafa",
     "dark" = "#000000",
-    "destination" = "#dec84e",
+    "colored" = line.col,
     "rouge" = "#a25543",
-    "colored" = "#eff0db",
+    "verde" = "#6ca67a",
     "neon" = "#000000"
   )
   water.col <- switch(theme,
     "original" = bg.col,
     "light" = bg.col,
     "dark" = "#fafafa",
-    "destination" = line.col,
-    "rouge" = line.col,
     "colored" = "#b0e3cf",
+    "rouge" = line.col,
+    "verde" = line.col,
     "neon" = "#ec3b8d"
   )
   landuse.col <- switch(theme,
     "original" = bg.col,
     "light" = bg.col,
     "dark" = bg.col,
-    "destination" = bg.col,
-    "rouge" = bg.col,
     "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
+    "rouge" = bg.col,
+    "verde" = bg.col,
     "neon" = bg.col
   )
   text.col <- switch(theme,
     "original" = line.col,
     "light" = line.col,
     "dark" = line.col,
-    "destination" = line.col,
-    "rouge" = line.col,
     "colored" = "#000000",
+    "rouge" = line.col,
+    "verde" = line.col,
     "neon" = "#e7d073"
   )
   rail.col <- switch(theme,
     "original" = line.col,
     "light" = line.col,
     "dark" = line.col,
-    "destination" = line.col,
-    "rouge" = line.col,
     "colored" = line.col,
+    "rouge" = line.col,
+    "verde" = line.col,
     "neon" = text.col
   )
   water.line.col <- switch(theme,
     "original" = line.col,
     "light" = line.col,
     "dark" = water.col,
-    "destination" = water.col,
-    "rouge" = water.col,
     "colored" = water.col,
+    "rouge" = line.col,
+    "verde" = line.col,
     "neon" = water.col
   )
-  colors <- list(line.col, bg.col, water.col, landuse.col, text.col, rail.col, water.line.col)
+  building.col <- switch(theme,
+    "original" = bg.col,
+    "light" = bg.col,
+    "dark" = bg.col,
+    "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
+    "rouge" = bg.col,
+    "verde" = line.col,
+    "neon" = bg.col
+  )
+  colors <- list(line.col, bg.col, water.col, landuse.col, text.col, rail.col, water.line.col, building.col)
   return(colors)
 }
