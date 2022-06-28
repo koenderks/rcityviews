@@ -19,7 +19,7 @@
   sysfonts::font_add_google("Damion")
   sysfonts::font_add_google("Neonderthaw")
   sysfonts::font_add_google("Oswald")
-  sysfonts::font_add_google("Wallpoet")
+  sysfonts::font_add_google("Righteous")
   showtext::showtext_auto()
 }
 

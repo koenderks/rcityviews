@@ -65,7 +65,7 @@ cityview <- function(name, zoom = 1,
     "dark" = "Imbue",
     "colored" = "Damion",
     "rouge" = "Oswald",
-    "verde" = "Wallpoet",
+    "verde" = "Righteous",
     "neon" = "Neonderthaw"
   )
   boldFont <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
