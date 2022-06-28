@@ -138,8 +138,9 @@ cityview <- function(name, zoom = 1,
     "\"landuse\"=\"meadow\"",
     "\"landuse\"=\"farmland\"",
     "\"landuse\"=\"forest\"",
-    "\"landuse\"=\"forest\"",
     "\"landuse\"=\"construction\"",
+    "\"landuse\"=\"cemetery\"",
+    "\"natural\"=\"mud\"",
     "\"natural\"=\"wood\"",
     "\"natural\"=\"scrub\"",
     "\"natural\"=\"straight\"",
@@ -157,9 +158,9 @@ cityview <- function(name, zoom = 1,
     "\"waterway\"=\"bridge\"",
     "\"amenity\"=\"parking\"",
     "\"leisure\"=\"playground\"",
-    "\"leisure\"=\"park\"",
     "\"leisure\"=\"pitch\"",
-    "\"leisure\"=\"nature_reserve\""
+    "\"leisure\"=\"dog_park\"",
+    "\"leisure\"=\"garden\""
   ))
   queryLanduse <- osmdata::osmdata_sf(q = featuresLanduse)
   landuseMultipolygons <- .checkAndCrop(queryLanduse$osm_multipolygons$geometry, cropped, border)
@@ -182,17 +183,18 @@ cityview <- function(name, zoom = 1,
   }
   featuresBuildings <- osmdata::add_osm_feature(opq = osmbox, key = "building")
   queryBuildings <- osmdata::osmdata_sf(q = featuresBuildings)
+  buildingsMultipolygons <- .checkAndCrop(queryBuildings$osm_multipolygons$geometry, cropped, border)
   buildingsPolygons <- .checkAndCrop(queryBuildings$osm_polygons$geometry, cropped, border)
   if (verbose) {
     progBar$tick()
   }
-  featuresSstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("residential", "living_street", "unclassified", "service"))
+  featuresSstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("residential", "living_street", "unclassified", "service", "constrution"))
   querySstreets <- osmdata::osmdata_sf(q = featuresSstreets)
   sstreetLines <- .checkAndCrop(querySstreets$osm_lines$geometry, cropped, border)
   if (verbose) {
     progBar$tick()
   }
-  featuresFstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("footway", "cycleway"))
+  featuresFstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("footway", "cycleway", "pedestrian", "path"))
   queryFstreets <- osmdata::osmdata_sf(q = featuresFstreets)
   fstreetsLines <- .checkAndCrop(queryFstreets$osm_lines$geometry, cropped, border)
   if (verbose) {
@@ -241,6 +243,7 @@ cityview <- function(name, zoom = 1,
     ggplot2::geom_sf(data = sstreetLines, color = colors[[1]], size = 0.4, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = fstreetsLines, color = colors[[1]], size = 0.1, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = lstreetsLines, color = colors[[1]], size = 0.7, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = buildingsMultipolygons, fill = sample(colors[[4]], size = length(buildingsMultipolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = buildingsPolygons, fill = sample(colors[[4]], size = length(buildingsPolygons), replace = TRUE), color = colors[[1]], size = 0.25, inherit.aes = FALSE) +
     ggplot2::coord_sf(xlim = c(box[1], box[3]), ylim = c(box[2], box[4]), expand = TRUE) +
     ggplot2::theme_void() +
