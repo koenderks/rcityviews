@@ -37,7 +37,7 @@
 }
 
 .theme_colors <- function(theme) {
-  line.col <- switch(theme,
+  lines.col <- switch(theme,
     "original" = "#32130f",
     "light" = "#000000",
     "dark" = "#ffffff",
@@ -46,69 +46,76 @@
     "verde" = "#fafafa",
     "neon" = "#0be8ed"
   )
-  bg.col <- switch(theme,
+  background.col <- switch(theme,
     "original" = "#fdf9f5",
     "light" = "#fafafa",
     "dark" = "#000000",
-    "colored" = line.col,
+    "colored" = lines.col,
     "rouge" = "#a25543",
     "verde" = "#6ca67a",
     "neon" = "#000000"
   )
   water.col <- switch(theme,
-    "original" = bg.col,
-    "light" = bg.col,
+    "original" = background.col,
+    "light" = background.col,
     "dark" = "#fafafa",
     "colored" = "#b0e3cf",
-    "rouge" = line.col,
-    "verde" = line.col,
+    "rouge" = lines.col,
+    "verde" = lines.col,
     "neon" = "#ec3b8d"
   )
+  waterlines.col <- switch(theme,
+                           "original" = lines.col,
+                           "light" = lines.col,
+                           "dark" = water.col,
+                           "colored" = water.col,
+                           "rouge" = lines.col,
+                           "verde" = lines.col,
+                           "neon" = water.col
+  )
   landuse.col <- switch(theme,
-    "original" = bg.col,
-    "light" = bg.col,
-    "dark" = bg.col,
+    "original" = background.col,
+    "light" = background.col,
+    "dark" = background.col,
     "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
-    "rouge" = bg.col,
-    "verde" = bg.col,
-    "neon" = bg.col
+    "rouge" = background.col,
+    "verde" = lines.col,
+    "neon" = background.col
   )
   text.col <- switch(theme,
-    "original" = line.col,
-    "light" = line.col,
-    "dark" = line.col,
+    "original" = lines.col,
+    "light" = lines.col,
+    "dark" = lines.col,
     "colored" = "#000000",
-    "rouge" = line.col,
-    "verde" = line.col,
+    "rouge" = lines.col,
+    "verde" = lines.col,
     "neon" = "#e7d073"
   )
-  rail.col <- switch(theme,
-    "original" = line.col,
-    "light" = line.col,
-    "dark" = line.col,
-    "colored" = line.col,
-    "rouge" = line.col,
-    "verde" = line.col,
+  rails.col <- switch(theme,
+    "original" = lines.col,
+    "light" = lines.col,
+    "dark" = lines.col,
+    "colored" = lines.col,
+    "rouge" = lines.col,
+    "verde" = lines.col,
     "neon" = text.col
   )
-  water.line.col <- switch(theme,
-    "original" = line.col,
-    "light" = line.col,
-    "dark" = water.col,
-    "colored" = water.col,
-    "rouge" = line.col,
-    "verde" = line.col,
-    "neon" = water.col
-  )
-  building.col <- switch(theme,
-    "original" = bg.col,
-    "light" = bg.col,
-    "dark" = bg.col,
+  buildings.col <- switch(theme,
+    "original" = background.col,
+    "light" = background.col,
+    "dark" = background.col,
     "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
-    "rouge" = bg.col,
-    "verde" = line.col,
-    "neon" = bg.col
+    "rouge" = background.col,
+    "verde" = lines.col,
+    "neon" = background.col
   )
-  colors <- list(line.col, bg.col, water.col, landuse.col, text.col, rail.col, water.line.col, building.col)
+  colors <- list(lines = lines.col, 
+                 background = background.col, 
+                 water = water.col, 
+                 water.line = waterlines.col,
+                 landuse = landuse.col, 
+                 text = text.col, 
+                 rails = rails.col, 
+                 buildings = buildings.col)
   return(colors)
 }
