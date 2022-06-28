@@ -43,7 +43,7 @@
     "dark" = "#ffffff",
     "colored" = "#eff0db",
     "rouge" = "#f2deb8",
-    "verde" = "#284566", # fafafa
+    "verde" = "#284566",
     "neon" = "#0be8ed"
   )
   background.col <- switch(theme,
@@ -88,7 +88,7 @@
     "dark" = lines.col,
     "colored" = "#000000",
     "rouge" = lines.col,
-    "verde" = "#fafafa", # lines.col
+    "verde" = lines.col,
     "neon" = "#e7d073"
   )
   rails.col <- switch(theme,
