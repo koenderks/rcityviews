@@ -1,4 +1,4 @@
-c[![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)](https://github.com/koenderks/rcityviews/tree/master/R)
+[![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)](https://github.com/koenderks/rcityviews/tree/master/R)
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rcityviews)
 [![R_build_status](https://github.com/koenderks/rcityviews/workflows/Build/badge.svg)](https://github.com/koenderks/rcityviews/actions)
 [![Bugs](https://img.shields.io/github/issues/koenderks/rcityviews/bug?label=Bugs&logo=github&logoColor=%23FFF&color=brightgreen)](https://github.com/koenderks/rcityviews/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
