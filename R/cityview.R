@@ -77,7 +77,7 @@ cityview <- function(name, zoom = 1,
     cat(paste0(row[["name"]], ", ", row[["country"]]))
   }
   if (verbose) {
-    ticks <- 12 + as.numeric(!is.null(filename))
+    ticks <- 13 + as.numeric(!is.null(filename))
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
@@ -116,7 +116,38 @@ cityview <- function(name, zoom = 1,
     newbox <- lapply(sf::st_geometry(cropped), sf::st_bbox)[[1]]
     box <- c(newbox$xmin, newbox$ymin, newbox$xmax, newbox$ymax)
   }
-  osmbox <- osmdata::opq(bbox = box, timeout = 1000)
+  osmbox <- osmdata::opq(bbox = box)
+  if (verbose) {
+    progBar$tick()
+  }
+  featuresCoastlines <- osmdata::add_osm_feature(opq = osmbox, key = "natural", value = "coastline")
+  queryCoastlines <- osmdata::osmdata_sf(q = featuresCoastlines)
+  seaPolygons <- islandPolygons <- landPolygons <- NULL
+  coastlinePolygons <- .checkAndCrop(queryCoastlines$osm_polygons$geometry, cropped, border)
+  if (!is.null(queryCoastlines$osm_lines)) {
+    obj <- .line2poly(obj = queryCoastlines$osm_lines, bbox = box)
+    if (!is.null(obj[["sea"]])) {
+      seaPolygons <- .checkAndCrop(obj[["sea"]]$geometry, cropped, border)
+    }
+    if (!is.null(obj[["land"]])) {
+      landPolygons <- .checkAndCrop(obj[["land"]]$geometry, cropped, border)
+    }
+    if (!is.null(obj[["islands"]])) {
+      islandPolygons <- .checkAndCrop(obj[["islands"]]$geometry, cropped, border)
+    }
+  }
+  if (verbose) {
+    progBar$tick()
+  }
+  featuresWater <- osmdata::add_osm_features(opq = osmbox, features = c(
+    "\"natural\"=\"water\"",
+    "\"waterway\"=\"riverbank\"",
+    "\"waterway\"=\"stream\"",
+    "\"waterway\"=\"ditch\""
+  ))
+  queryWater <- osmdata::osmdata_sf(q = featuresWater)
+  waterMultipolygons <- .checkAndCrop(queryWater$osm_multipolygons$geometry, cropped, border)
+  waterPolygons <- .checkAndCrop(queryWater$osm_polygons$geometry, cropped, border)
   if (verbose) {
     progBar$tick()
   }
@@ -131,7 +162,6 @@ cityview <- function(name, zoom = 1,
     "\"natural\"=\"wood\"",
     "\"natural\"=\"scrub\"",
     "\"natural\"=\"straight\"",
-    "\"natural\"=\"coastline\"",
     "\"natural\"=\"beach\"",
     "\"natural\"=\"peninsula\"",
     "\"place\"=\"islet\"",
@@ -152,19 +182,6 @@ cityview <- function(name, zoom = 1,
   landuseMultipolygons <- .checkAndCrop(queryLanduse$osm_multipolygons$geometry, cropped, border)
   landusePolygons <- .checkAndCrop(queryLanduse$osm_polygons$geometry, cropped, border)
   landuseLines <- .checkAndCrop(queryLanduse$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresWater <- osmdata::add_osm_features(opq = osmbox, features = c(
-    "\"natural\"=\"water\"",
-    "\"natural\"=\"bay\"",
-    "\"waterway\"=\"riverbank\"",
-    "\"waterway\"=\"stream\"",
-    "\"waterway\"=\"ditch\""
-  ))
-  queryWater <- osmdata::osmdata_sf(q = featuresWater)
-  waterMultipolygons <- .checkAndCrop(queryWater$osm_multipolygons$geometry, cropped, border)
-  waterPolygons <- .checkAndCrop(queryWater$osm_polygons$geometry, cropped, border)
   if (verbose) {
     progBar$tick()
   }
@@ -218,6 +235,10 @@ cityview <- function(name, zoom = 1,
     progBar$tick()
   }
   int_p <- ggplot2::ggplot() +
+    ggplot2::geom_sf(data = seaPolygons, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = landPolygons, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = islandPolygons, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
+    ggplot2::geom_sf(data = coastlinePolygons, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = waterMultipolygons, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = waterPolygons, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE) +
     ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(colors[["landuse"]], size = length(landuseMultipolygons), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +

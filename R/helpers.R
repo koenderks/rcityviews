@@ -65,13 +65,13 @@
     "neon" = "#ec3b8d"
   )
   waterlines.col <- switch(theme,
-                           "original" = lines.col,
-                           "light" = lines.col,
-                           "dark" = water.col,
-                           "colored" = water.col,
-                           "rouge" = lines.col,
-                           "verde" = lines.col,
-                           "neon" = water.col
+    "original" = lines.col,
+    "light" = lines.col,
+    "dark" = water.col,
+    "colored" = water.col,
+    "rouge" = lines.col,
+    "verde" = lines.col,
+    "neon" = water.col
   )
   landuse.col <- switch(theme,
     "original" = background.col,
@@ -109,13 +109,207 @@
     "verde" = lines.col,
     "neon" = background.col
   )
-  colors <- list(lines = lines.col, 
-                 background = background.col, 
-                 water = water.col, 
-                 water.line = waterlines.col,
-                 landuse = landuse.col, 
-                 text = text.col, 
-                 rails = rails.col, 
-                 buildings = buildings.col)
+  colors <- list(
+    lines = lines.col,
+    background = background.col,
+    water = water.col,
+    water.line = waterlines.col,
+    landuse = landuse.col,
+    text = text.col,
+    rails = rails.col,
+    buildings = buildings.col
+  )
   return(colors)
+}
+
+# Fix for osmplotr package bug
+# From https://github.com/ropensci/osmplotr
+.line2poly <- function(obj, bbox) {
+  if (!is(obj$geometry, "sfc_LINESTRING")) {
+    stop("obj must be class 'sf' with fields of class 'sfc_LINESTRING'")
+  }
+  g <- obj$geom
+  bbox <- matrix(bbox, nrow = 2)
+  colnames(bbox) <- c("min", "max")
+  rownames(bbox) <- c("x", "y")
+  head_tail <- t(sapply(g, function(x) rownames(x)[c(1, nrow(x))]))
+  m2 <- match(head_tail[, 2], head_tail[, 1])
+  m1 <- match(head_tail[, 1], head_tail[, 2])
+  startidx <- which(is.na(m1))
+  if (nrow(head_tail) > 1 & length(startidx) >= 1) {
+    linkorders <- lapply(startidx, function(x, v) .unroll(x, v), v = m2)
+    linkorders <- lapply(linkorders, function(x) x[!is.na(x)])
+    links <- lapply(linkorders, function(x) head_tail[x, , drop = FALSE])
+    head_tail <- head_tail[-unlist(linkorders), , drop = FALSE]
+    links <- lapply(links, function(x, g) .lookup_ways(x, g), g = g)
+  } else {
+    links <- list()
+  }
+  to_become_polygons <- list()
+  lidx <- 1
+  while (nrow(head_tail) > 0) {
+    m2 <- match(head_tail[, 2], head_tail[, 1])
+    if (any(!is.na(m2))) {
+      l1 <- .unroll_loop(1, m2)
+      to_become_polygons[[lidx]] <- head_tail[l1, ]
+      lidx <- lidx + 1
+      head_tail <- head_tail[-l1, ]
+    } else {
+      head_tail <- head_tail[-1, ]
+    }
+  }
+  to_become_polygons <- lapply(to_become_polygons, .lookup_ways, g = g)
+  to_become_polygons <- lapply(to_become_polygons, .make_sf, g = g)
+  to_become_polygons <- do.call(rbind, to_become_polygons)
+  bbxcorners_rh <- c("NE", "SE", "SW", "NW")
+  bbxcoords <- rbind(
+    c(bbox[1, 2], bbox[2, 2]),
+    c(bbox[1, 2], bbox[2, 1]),
+    c(bbox[1, 1], bbox[2, 1]),
+    c(bbox[1, 1], bbox[2, 2])
+  )
+  rownames(bbxcoords) <- bbxcorners_rh
+  p1 <- p2 <- NULL
+  if (length(links) >= 1) {
+    links <- lapply(links, function(x, bbox) .clip_one(x, bbox), bbox = bbox)
+    linkpoly <- lapply(links, .make_poly, bbox = bbox, g = g)
+    p1 <- lapply(linkpoly, "[[", "p1")
+    p2 <- lapply(linkpoly, "[[", "p2")
+  } else {
+    warning("No open curves found - check for polygons")
+  }
+  res <- NULL
+  if (!is.null(p1) & !is.null(p2)) {
+    res <- list(sea = do.call(rbind, p1), land = do.call(
+      rbind,
+      p2
+    ))
+  }
+  if (length(to_become_polygons) >= 1) {
+    res$islands <- to_become_polygons
+  }
+  return(res)
+}
+
+.unroll <- function(firstpos, v) {
+  res <- firstpos
+  a <- v[firstpos]
+  while (!is.na(a)) {
+    res <- c(res, a)
+    a <- v[a]
+  }
+  return(res)
+}
+
+.lookup_ways <- function(ll, g) {
+  gg <- g[rownames(ll)]
+  gg <- do.call(rbind, lapply(gg, as.matrix))
+  rr <- duplicated(rownames(gg))
+  gg <- gg[!rr, ]
+  return(gg)
+}
+
+.make_sf <- function(x, g) {
+  x <- list(x)
+  class(x) <- c("XY", "POLYGON", "sfg")
+  x <- list(x)
+  attr(x, "n_empty") <- 0
+  class(x) <- c("sfc_POLYGON", "sfc")
+  attr(x, "precision") <- 0
+  attr(x, "bbox") <- attr(g, "bbox")
+  attr(x, "crs") <- attr(g, "crs")
+  df <- data.frame(row.names = "1")
+  df[["geometry"]] <- x
+  attr(df, "sf_column") <- "geometry"
+  f <- factor(rep(NA_character_, length.out = ncol(df) - 1),
+    levels = c("constant", "aggregate", "identity")
+  )
+  names(f) <- names(df)[-ncol(df)]
+  attr(df, "agr") <- f
+  class(df) <- c("sf", class(df))
+  return(df)
+}
+
+.make_poly <- function(out, bbox, g) {
+  p1 <- p2 <- NULL
+  n <- nrow(out)
+  first_pt <- out[1, ]
+  last_pt <- out[n, ]
+  first_pt_dir <- .classify_pt_dir(first_pt, bbox)
+  last_pt_dir <- .classify_pt_dir(last_pt, bbox)
+  bb <- bbox
+  bb["x", "min"] <- min(c(bb["x", "min"], out[, 1]))
+  bb["x", "max"] <- max(c(bb["x", "max"], out[, 1]))
+  bb["y", "min"] <- min(c(bb["y", "min"], out[, 2]))
+  bb["y", "max"] <- max(c(bb["y", "max"], out[, 2]))
+  bb21 <- bb[2, 1]
+  bb12 <- bb[1, 2]
+  bb22 <- bb[2, 2]
+  bb11 <- bb[1, 1]
+  ext_corners <- rbind(c(bb12, bb22), c(bb12, bb21), c(
+    bb11,
+    bb21
+  ), c(bb11, bb22))
+  if (last_pt_dir == first_pt_dir) {
+    v_first_last <- last_pt - first_pt
+    v_edge <- ext_corners[first_pt_dir, ] - ext_corners[.wrp(first_pt_dir - 1), ]
+    dp <- sign(sum(v_first_last * v_edge))
+    if (dp < 0) {
+      cw_indx <- c(.wrp(last_pt_dir - 1), last_pt_dir)
+      ccw_indx <- (last_pt_dir - 1):(last_pt_dir - 4)
+      ccw_indx <- .wrp(ccw_indx)
+      ccw_indx <- ccw_indx[1:which.max(ccw_indx == first_pt_dir)]
+    } else {
+      cw_indx <- last_pt_dir:(last_pt_dir + 4)
+      cw_indx <- .wrp(cw_indx)
+      cw_indx <- cw_indx[1:which.max(cw_indx == .wrp(first_pt_dir -
+        1))]
+      ccw_indx <- c(last_pt_dir, .wrp(last_pt_dir - 1))
+    }
+  } else {
+    cw_indx <- last_pt_dir:(last_pt_dir + 4)
+    cw_indx <- .wrp(cw_indx)
+    cw_indx <- cw_indx[1:which.max(cw_indx == first_pt_dir)]
+    ccw_indx <- (last_pt_dir - 1):(last_pt_dir - 4)
+    ccw_indx <- .wrp(ccw_indx)
+    ccw_indx <- ccw_indx[1:which.max(ccw_indx == first_pt_dir)]
+  }
+  p1 <- rbind(out, ext_corners[cw_indx, ], out[1, ])
+  p2 <- rbind(out, ext_corners[ccw_indx, ], out[1, ])
+  return(list(p1 = .make_sf(p1, g), p2 = .make_sf(p2, g)))
+}
+
+.unroll_loop <- function(firstpos, v) {
+  res <- firstpos
+  a <- v[firstpos]
+  visted <- rep(FALSE, length(v))
+  visted[firstpos] <- TRUE
+  while (!visted[a]) {
+    res <- c(res, a)
+    visted[a] <- TRUE
+    a <- v[a]
+  }
+  return(res)
+}
+
+.clip_one <- function(out, bbox) {
+  indx <- (out[, 1] >= bbox[1, 1] & out[, 1] <= bbox[1, 2] &
+    out[, 2] >= bbox[2, 1] & out[, 2] <= bbox[2, 2])
+  indx <- as.logical(pmax(indx, c(indx[-1], FALSE), c(FALSE, indx[-length(indx)])))
+  out[indx, ]
+}
+
+.classify_pt_dir <- function(pt, bbox) {
+  directions <- 1:4
+  names(directions) <- c("N", "E", "S", "W")
+  compass <- c("W", "S", "E", "N")
+  dim(compass) <- c(2, 2)
+  lt <- pt < bbox[, "min"]
+  gt <- pt > bbox[, "max"]
+  td <- cbind(lt, gt)
+  return(directions[compass[td]])
+}
+
+.wrp <- function(idxs) {
+  (idxs - 1) %% 4 + 1
 }
