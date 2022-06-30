@@ -18,6 +18,41 @@
   return(cityIndex)
 }
 
+.get_features <- function(osmbox, cropped, border, features) {
+  feat <- osmdata::add_osm_features(opq = osmbox, features = features)
+  spl <- strsplit(features, split = "=")[[1]]
+  key <- gsub(pattern = '["\"]', replacement = "", x = spl[1])
+  value <- gsub(pattern = '["\"]', replacement = "", x = spl[2])
+  query <- osmdata::osmdata_sf(q = feat)
+  if (!is.na(value) && value == "water") {
+    # Remove unwanted water polygons (not exact match)
+    query$osm_multipolygons <- subset(query$osm_multipolygons, query$osm_multipolygons[[key]] == value)
+    query$osm_polygons <- subset(query$osm_polygons, query$osm_polygons[[key]] == value)
+  }
+  multipolygons <- .checkAndCrop(query$osm_multipolygons$geometry, cropped, border)
+  polygons <- .checkAndCrop(query$osm_polygons$geometry, cropped, border)
+  if (length(multipolygons) > 0 && length(polygons) > 0) {
+    pp <- c(multipolygons, polygons)
+  } else if (length(multipolygons) == 0) {
+    pp <- polygons
+  } else if (length(polygons) == 0) {
+    pp <- multipolygons
+  } else {
+    pp <- NULL
+  }
+  lines <- .checkAndCrop(query$osm_lines$geometry, cropped, border)
+  result <- list()
+  result[["polygons"]] <- pp
+  result[["lines"]] <- if (length(lines) > 0) lines else NULL
+  return(result)
+}
+
+.tick <- function(progBar, verbose) {
+  if (verbose) {
+    progBar$tick()
+  }
+}
+
 .checkAndCrop <- function(object, crop, border) {
   if (!is.null(object)) {
     object <- sf::st_make_valid(object)
@@ -122,8 +157,8 @@
   return(colors)
 }
 
-# Fix for osmplotr package bug
-# From https://github.com/ropensci/osmplotr
+# Fix for 'osmplotr' package bug
+# The following functions are taken over from 'osmplotr'
 .line2poly <- function(obj, bbox) {
   if (!is(obj$geometry, "sfc_LINESTRING")) {
     stop("obj must be class 'sf' with fields of class 'sfc_LINESTRING'")
@@ -175,8 +210,6 @@
     linkpoly <- lapply(links, .make_poly, bbox = bbox, g = g)
     p1 <- lapply(linkpoly, "[[", "p1")
     p2 <- lapply(linkpoly, "[[", "p2")
-  } else {
-    warning("No open curves found - check for polygons")
   }
   res <- NULL
   if (!is.null(p1) & !is.null(p2)) {

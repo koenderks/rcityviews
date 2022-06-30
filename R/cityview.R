@@ -58,6 +58,7 @@ cityview <- function(name, zoom = 1,
                      filename = NULL, verbose = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
   border <- match.arg(border)
+  # Set theme options ##########################################################
   colors <- .theme_colors(theme)
   font <- switch(theme,
     "original" = "Caveat",
@@ -69,6 +70,7 @@ cityview <- function(name, zoom = 1,
     "neon" = "Neonderthaw"
   )
   boldFont <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
+  # Look up city ###############################################################
   cities <- rcityviews::cities
   cityIndex <- which(cities$name == name)
   cityIndex <- .resolveIndexConflicts(name, cityIndex, cities, bot)
@@ -77,11 +79,12 @@ cityview <- function(name, zoom = 1,
     cat(paste0(row[["name"]], ", ", row[["country"]]))
   }
   if (verbose) {
-    ticks <- 13 + as.numeric(!is.null(filename))
+    ticks <- 61 + as.numeric(!is.null(filename))
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
   }
+  # Create the bounding box ####################################################
   defaultRadius <- 0.0225
   radius <- geosphere::distm(x = c(row[["long"]], row[["lat"]]), y = c(row[["long"]], row[["lat"]] + defaultRadius * (1 / zoom)), fun = geosphere::distHaversine)
   cropped <- data.frame(lat = row[["lat"]], long = row[["long"]]) |>
@@ -90,6 +93,7 @@ cityview <- function(name, zoom = 1,
   newbox <- lapply(sf::st_geometry(cropped), sf::st_bbox)[[1]]
   borders <- .make_circle(long = row[["long"]], lat = row[["lat"]], rlong = (abs(newbox$xmax) - abs(newbox$xmin)) / 2 * 1.0075, rlat = (abs(newbox$ymax) - abs(newbox$ymin)) / 2 * 1.0075)
   box <- c(newbox$xmin, newbox$ymin, newbox$xmax, newbox$ymax)
+  # Create the border ##########################################################
   if (border == "rhombus") {
     borders <- data.frame(
       x = c(box[1], row[["long"]], box[3], row[["long"]], box[1]),
@@ -116,152 +120,227 @@ cityview <- function(name, zoom = 1,
     newbox <- lapply(sf::st_geometry(cropped), sf::st_bbox)[[1]]
     box <- c(newbox$xmin, newbox$ymin, newbox$xmax, newbox$ymax)
   }
+  # Crop the bounding box to the border ########################################
   osmbox <- osmdata::opq(bbox = box)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresCoastlines <- osmdata::add_osm_feature(opq = osmbox, key = "natural", value = "coastline")
-  queryCoastlines <- osmdata::osmdata_sf(q = featuresCoastlines)
-  seaPolygons <- islandPolygons <- landPolygons <- NULL
-  coastlinePolygons <- .checkAndCrop(queryCoastlines$osm_polygons$geometry, cropped, border)
-  if (!is.null(queryCoastlines$osm_lines)) {
-    obj <- .line2poly(obj = queryCoastlines$osm_lines, bbox = box)
-    if (!is.null(obj[["sea"]])) {
-      seaPolygons <- .checkAndCrop(obj[["sea"]]$geometry, cropped, border)
+  # Initialize an empty plot ###################################################
+  int_p <- ggplot2::ggplot()
+  .tick(progBar, verbose)
+  # Ocean and land features get special treatment ##############################
+  query <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = osmbox, key = "natural", value = "coastline"))
+  if (!is.null(query$osm_lines)) {
+    motherObj <- .line2poly(obj = query$osm_lines, bbox = box)
+    if (!is.null(motherObj[["sea"]])) {
+      obj <- .checkAndCrop(motherObj[["sea"]]$geometry, cropped, border)
+      int_p <- int_p + ggplot2::geom_sf(data = obj, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE)
     }
-    if (!is.null(obj[["land"]])) {
-      landPolygons <- .checkAndCrop(obj[["land"]]$geometry, cropped, border)
+    if (!is.null(motherObj[["land"]])) {
+      obj <- .checkAndCrop(motherObj[["land"]]$geometry, cropped, border)
+      int_p <- int_p + ggplot2::geom_sf(data = obj, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
     }
-    if (!is.null(obj[["islands"]])) {
-      islandPolygons <- .checkAndCrop(obj[["islands"]]$geometry, cropped, border)
+    if (!is.null(motherObj[["islands"]])) {
+      obj <- .checkAndCrop(motherObj[["islands"]]$geometry, cropped, border)
+      int_p <- int_p + ggplot2::geom_sf(data = obj, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
     }
   }
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresWater <- osmdata::add_osm_features(opq = osmbox, features = c(
-    "\"natural\"=\"water\"",
-    "\"waterway\"=\"riverbank\"",
-    "\"waterway\"=\"stream\"",
-    "\"waterway\"=\"ditch\""
-  ))
-  queryWater <- osmdata::osmdata_sf(q = featuresWater)
-  waterMultipolygons <- .checkAndCrop(queryWater$osm_multipolygons$geometry, cropped, border)
-  waterPolygons <- .checkAndCrop(queryWater$osm_polygons$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresLanduse <- osmdata::add_osm_features(opq = osmbox, features = c(
-    "\"landuse\"=\"grass\"",
-    "\"landuse\"=\"meadow\"",
-    "\"landuse\"=\"farmland\"",
-    "\"landuse\"=\"forest\"",
-    "\"landuse\"=\"construction\"",
-    "\"landuse\"=\"cemetery\"",
-    "\"natural\"=\"mud\"",
-    "\"natural\"=\"wood\"",
-    "\"natural\"=\"scrub\"",
-    "\"natural\"=\"straight\"",
-    "\"natural\"=\"beach\"",
-    "\"natural\"=\"peninsula\"",
-    "\"place\"=\"islet\"",
-    "\"place\"=\"archipelago\"",
-    "\"man_made\"=\"pier\"",
-    "\"waterway\"=\"dock\"",
-    "\"waterway\"=\"dam\"",
-    "\"waterway\"=\"lock_gate\"",
-    "\"waterway\"=\"sluice_gate\"",
-    "\"waterway\"=\"bridge\"",
-    "\"amenity\"=\"parking\"",
-    "\"leisure\"=\"playground\"",
-    "\"leisure\"=\"pitch\"",
-    "\"leisure\"=\"dog_park\"",
-    "\"leisure\"=\"garden\""
-  ))
-  queryLanduse <- osmdata::osmdata_sf(q = featuresLanduse)
-  landuseMultipolygons <- .checkAndCrop(queryLanduse$osm_multipolygons$geometry, cropped, border)
-  landusePolygons <- .checkAndCrop(queryLanduse$osm_polygons$geometry, cropped, border)
-  landuseLines <- .checkAndCrop(queryLanduse$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresBuildings <- osmdata::add_osm_feature(opq = osmbox, key = "building")
-  queryBuildings <- osmdata::osmdata_sf(q = featuresBuildings)
-  buildingsMultipolygons <- .checkAndCrop(queryBuildings$osm_multipolygons$geometry, cropped, border)
-  buildingsPolygons <- .checkAndCrop(queryBuildings$osm_polygons$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresSstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("residential", "living_street", "unclassified", "service", "constrution"))
-  querySstreets <- osmdata::osmdata_sf(q = featuresSstreets)
-  sstreetLines <- .checkAndCrop(querySstreets$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresFstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("footway", "cycleway", "pedestrian", "path"))
-  queryFstreets <- osmdata::osmdata_sf(q = featuresFstreets)
-  fstreetsLines <- .checkAndCrop(queryFstreets$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresRails <- osmdata::add_osm_feature(opq = osmbox, key = "railway", value = "rail")
-  queryRails <- osmdata::osmdata_sf(q = featuresRails)
-  railsLines <- .checkAndCrop(queryRails$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresMstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("secondary", "tertiary", "secondary_link", "tertiary_link"))
-  queryMstreets <- osmdata::osmdata_sf(q = featuresMstreets)
-  mstreetsLines <- .checkAndCrop(queryMstreets$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresLstreets <- osmdata::add_osm_feature(opq = osmbox, key = "highway", value = c("motorway", "motorway_link", "primary", "primary_link", "trunk", "trunk_link", "trunk_loop"))
-  queryLstreets <- osmdata::osmdata_sf(q = featuresLstreets)
-  lstreetsLines <- .checkAndCrop(queryLstreets$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresTaxiway <- osmdata::add_osm_feature(opq = osmbox, key = "aeroway", value = "taxiway")
-  queryTaxiway <- osmdata::osmdata_sf(q = featuresTaxiway)
-  taxiwayLines <- .checkAndCrop(queryTaxiway$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  featuresRunway <- osmdata::add_osm_feature(opq = osmbox, key = "aeroway", value = "runway")
-  queryRunway <- osmdata::osmdata_sf(q = featuresRunway)
-  runwayLines <- .checkAndCrop(queryRunway$osm_lines$geometry, cropped, border)
-  if (verbose) {
-    progBar$tick()
-  }
-  int_p <- ggplot2::ggplot() +
-    ggplot2::geom_sf(data = seaPolygons, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landPolygons, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = islandPolygons, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = coastlinePolygons, fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = waterMultipolygons, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = waterPolygons, fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landuseMultipolygons, fill = sample(colors[["landuse"]], size = length(landuseMultipolygons), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landusePolygons, fill = sample(colors[["landuse"]], size = length(landusePolygons), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = landuseLines, color = colors[["lines"]], size = 0.3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = taxiwayLines, color = colors[["lines"]], size = 0.7, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = runwayLines, color = colors[["lines"]], size = 3, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = railsLines, color = colors[["rails"]], size = 0.35, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = mstreetsLines, color = colors[["lines"]], size = 0.6, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = sstreetLines, color = colors[["lines"]], size = 0.4, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = fstreetsLines, color = colors[["lines"]], size = 0.1, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = lstreetsLines, color = colors[["lines"]], size = 0.7, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = buildingsMultipolygons, fill = sample(colors[["buildings"]], size = length(buildingsMultipolygons), replace = TRUE), color = colors[["lines"]], size = 0.25, inherit.aes = FALSE) +
-    ggplot2::geom_sf(data = buildingsPolygons, fill = sample(colors[["buildings"]], size = length(buildingsPolygons), replace = TRUE), color = colors[["lines"]], size = 0.25, inherit.aes = FALSE) +
-    ggplot2::coord_sf(xlim = c(box[1], box[3]), ylim = c(box[2], box[4]), expand = TRUE) +
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"coastline\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Landuse ####################################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"leisure\"=\"park\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"landuse\"=\"forest\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"wood\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"landuse\"=\"grass\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"scrub\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"mud\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"beach\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"landuse\"=\"meadow\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"landuse\"=\"farmland\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"wood\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"landuse\"=\"cemetery\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"landuse\"=\"construction\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"amenity\"=\"parking\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"leisure\"=\"playground\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"leisure\"=\"pitch\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  dog_park <- .get_features(osmbox, cropped, border, features = "\"leisure\"=\"dog_park\"")
+  int_p <- int_p + ggplot2::geom_sf(data = dog_park[["polygons"]], fill = sample(colors[["landuse"]], size = length(dog_park[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"leisure\"=\"garden\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Water ######################################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"river\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], fill = colors[["water"]], color = colors[["water.line"]], size = 0.6, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"canal\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], fill = colors[["water"]], color = colors[["water.line"]], size = 0.5, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"water\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = colors[["water"]], color = colors[["water.line"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Islands ####################################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"wetland\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"place\"=\"islet\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = colors[["background"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"man_made\"=\"pier\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"dock\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Water lines ################################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"riverbank\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["water"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"stream\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["water"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"ditch\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["water"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Landuse lines ##############################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"coastline\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"peninsula\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"place\"=\"archipelago\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Airports ###################################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"aeroway\"=\"taxiway\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.7, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"aeroway\"=\"runway\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"railway\"=\"rail\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.35, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Small streets ##############################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"dam\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.5, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"lock_gate\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.5, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"sluice_gate\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.5, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"bridge\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.5, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"footway\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.1, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"cycleway\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.1, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"pedestrian\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.1, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"path\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.1, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"residential\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"living_street\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"unclassified\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"service\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"construction\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.4, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Medium streets #############################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"tertiary_link\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.6, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"tertiary\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.6, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"secondary_link\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.6, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"secondary\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.6, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Large streets ##############################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"primary_link\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.7, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"primary\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.7, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"trunk_link\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.7, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"trunk_loop\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.7, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"trunk\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.7, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.8, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"motorway\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = colors[["lines"]], size = 0.8, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Buildings ##################################################################
+  obj <- .get_features(osmbox, cropped, border, features = "\"building\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = sample(colors[["buildings"]], size = length(obj[["polygons"]]), replace = TRUE), color = colors[["lines"]], size = 0.3, inherit.aes = FALSE)
+  .tick(progBar, verbose)
+  # Specify coordinate system for plot #########################################
+  int_p <- int_p + ggplot2::coord_sf(xlim = c(box[1], box[3]), ylim = c(box[2], box[4]), expand = TRUE) +
     ggplot2::theme_void() +
     ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
+  # Draw the border of the plot ################################################
   if (border != "none") {
     suppressMessages(expr = {
       int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = colors[["background"]], size = 1) +
         ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = colors[["text"]], size = 1, inherit.aes = FALSE)
     })
   }
+  # Add the city name to the plot ##############################################
   plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name
   p <- cowplot::ggdraw(int_p) +
     cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = colors[["text"]], family = font, fontface = boldFont) +
@@ -275,6 +354,7 @@ cityview <- function(name, zoom = 1,
       plot.background = ggplot2::element_rect(fill = colors[["background"]], color = colors[["lines"]]),
       panel.background = ggplot2::element_rect(fill = colors[["background"]], color = colors[["background"]])
     )
+  # Add the coordinates to the plot ############################################
   if (row[["lat"]] < 0) {
     lat <- paste0(format(abs(row[["lat"]]), digits = 6), "\u00B0 S")
   } else {
@@ -286,22 +366,18 @@ cityview <- function(name, zoom = 1,
     long <- paste0(format(row[["long"]], digits = 6), "\u00B0 E")
   }
   p <- p + cowplot::draw_text(text = paste0(lat, " / ", long), x = 0.97, y = 0.03, size = 40, color = colors[["text"]], family = font, hjust = 1)
+  # Add the OpenStreetMap licence to the plot ##################################
   if (bot) {
     p <- p + cowplot::draw_text(text = "Data by \u00A9 OpenStreetMap contributors", x = 0.97, y = 0.01, size = 20, color = colors[["text"]], family = font, hjust = 1)
   }
+  # Save or return the plot ####################################################
   if (is.null(filename)) {
-    if (verbose) {
-      progBar$tick()
-    }
+    .tick(progBar, verbose)
     return(p)
   } else {
-    if (verbose) {
-      progBar$tick()
-    }
+    .tick(progBar, verbose)
     ggplot2::ggsave(filename = filename, plot = p, height = 500, width = 500, units = "mm", dpi = 100)
-    if (verbose) {
-      progBar$tick()
-    }
+    .tick(progBar, verbose)
     return(invisible())
   }
 }
