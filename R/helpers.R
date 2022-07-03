@@ -160,7 +160,7 @@
 # Fix for 'osmplotr' package bug
 # The following functions are taken over from 'osmplotr'
 .line2poly <- function(obj, bbox) {
-  if (!is(obj$geometry, "sfc_LINESTRING")) {
+  if (!methods::is(obj$geometry, "sfc_LINESTRING")) {
     stop("obj must be class 'sf' with fields of class 'sfc_LINESTRING'")
   }
   g <- obj$geom
