@@ -71,7 +71,7 @@
   return(data.frame(x = xx, y = yy))
 }
 
-.theme_colors <- function(theme) {
+.theme_options <- function(theme) {
   lines.col <- switch(theme,
     "original" = "#32130f",
     "light" = "#000000",
@@ -144,7 +144,17 @@
     "verde" = lines.col,
     "neon" = background.col
   )
-  colors <- list(
+  font <- switch(theme,
+                 "original" = "Caveat",
+                 "light" = "Imbue",
+                 "dark" = "Imbue",
+                 "colored" = "Damion",
+                 "rouge" = "Oswald",
+                 "verde" = "Righteous",
+                 "neon" = "Neonderthaw"
+  )
+  face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
+  opts <- list(
     lines = lines.col,
     background = background.col,
     water = water.col,
@@ -152,9 +162,11 @@
     landuse = landuse.col,
     text = text.col,
     rails = rails.col,
-    buildings = buildings.col
+    buildings = buildings.col,
+    font = font,
+    face = face
   )
-  return(colors)
+  return(opts)
 }
 
 # Fix for 'osmplotr' package bug
