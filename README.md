@@ -17,7 +17,7 @@ This repository is an homage to the programming language `R`, open-source geogra
 
 ## Latest city view
 
-Every 4 hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle [@rcityviews](https://twitter.com/rcityviews). This is the latest city view:
+Every 3 hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle [@rcityviews](https://twitter.com/rcityviews). This is the latest city view:
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/daily.png' width='400' height='400'>
