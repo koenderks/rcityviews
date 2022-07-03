@@ -125,6 +125,8 @@ cityview <- function(name, zoom = 1,
   # Initialize an empty plot ###################################################
   int_p <- ggplot2::ggplot()
   .tick(progBar, verbose)
+  # Note that the following looks like a lot of unnecessary work but coding it
+  # this way minimizes the change of a `HTTP 504 - Gateway Timeout` error.
   # Ocean and land features get special treatment ##############################
   query <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = osmbox, key = "natural", value = "coastline"))
   if (!is.null(query$osm_lines)) {
