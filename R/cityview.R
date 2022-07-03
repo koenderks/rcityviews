@@ -121,7 +121,7 @@ cityview <- function(name, zoom = 1,
     box <- c(newbox$xmin, newbox$ymin, newbox$xmax, newbox$ymax)
   }
   # Crop the bounding box to the border ########################################
-  osmbox <- osmdata::opq(bbox = box)
+  osmbox <- osmdata::opq(bbox = box, timeout = 900)
   # Initialize an empty plot ###################################################
   int_p <- ggplot2::ggplot()
   .tick(progBar, verbose)
