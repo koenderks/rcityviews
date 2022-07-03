@@ -1,4 +1,4 @@
-cities <- subset(rcityviews::cities, rcityviews::cities$population > 10000)
+cities <- subset(rcityviews::cities, rcityviews::cities$population > 50000)
 
 city <- cities[sample(1:nrow(cities), size = 1), ]
 border <- sample(x = c("circle", "rhombus", "hexagon", "octagon", "decagon"), size = 1)
