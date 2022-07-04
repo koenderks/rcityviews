@@ -145,13 +145,13 @@
     "neon" = background.col
   )
   font <- switch(theme,
-                 "original" = "Caveat",
-                 "light" = "Imbue",
-                 "dark" = "Imbue",
-                 "colored" = "Damion",
-                 "rouge" = "Oswald",
-                 "verde" = "Righteous",
-                 "neon" = "Neonderthaw"
+    "original" = "Caveat",
+    "light" = "Imbue",
+    "dark" = "Imbue",
+    "colored" = "Damion",
+    "rouge" = "Oswald",
+    "verde" = "Righteous",
+    "neon" = "Neonderthaw"
   )
   face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
   opts <- list(

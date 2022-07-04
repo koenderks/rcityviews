@@ -9,7 +9,8 @@ cityview(name, zoom = 1,
                    "rouge", "verde", "neon"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
-         filename = NULL, verbose = TRUE, bot = FALSE)
+         filename = NULL, verbose = TRUE, 
+         license = TRUE, bot = FALSE)
 }
 \arguments{
 \item{name}{a character specifying the name of the city as provided by \code{list_cities()}.}
@@ -23,6 +24,8 @@ cityview(name, zoom = 1,
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.}
 
 \item{verbose}{logical. Whether to show a progress bar during execution.}
+
+\item{license}{logical. Whether to add the OpenStreetMap licence to the plot.}
 
 \item{bot}{logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.}
 }

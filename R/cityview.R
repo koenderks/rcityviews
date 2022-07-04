@@ -23,7 +23,8 @@
 #'                    "rouge", "verde", "neon"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
-#'          filename = NULL, verbose = TRUE, bot = FALSE)
+#'          filename = NULL, verbose = TRUE,
+#'          license = TRUE, bot = FALSE)
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
@@ -31,6 +32,7 @@
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
+#' @param license   logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param bot       logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
@@ -55,7 +57,8 @@ cityview <- function(name, zoom = 1,
                        "none", "circle", "rhombus", "square",
                        "hexagon", "octagon", "decagon"
                      ),
-                     filename = NULL, verbose = TRUE, bot = FALSE) {
+                     filename = NULL, verbose = TRUE,
+                     license = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
   border <- match.arg(border)
   # Set theme options ##########################################################
@@ -363,7 +366,7 @@ cityview <- function(name, zoom = 1,
   }
   p <- p + cowplot::draw_text(text = paste0(lat, " / ", long), x = 0.97, y = 0.03, size = 40, color = opts[["text"]], family = opts[["font"]], hjust = 1)
   # Add the OpenStreetMap licence to the plot ##################################
-  if (bot) {
+  if (license) {
     p <- p + cowplot::draw_text(text = "Data by \u00A9 OpenStreetMap contributors", x = 0.97, y = 0.01, size = 20, color = opts[["text"]], family = opts[["font"]], hjust = 1)
   }
   # Save or return the plot ####################################################
