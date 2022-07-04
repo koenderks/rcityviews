@@ -312,6 +312,7 @@ cityview <- function(name, zoom = 1,
   int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = opts[["lines"]], size = 0.7, inherit.aes = FALSE)
   .tick(progBar, verbose)
   obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"trunk\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = NA, color = opts[["lines"]], size = 0.7, inherit.aes = FALSE)
   int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = opts[["lines"]], size = 0.7, inherit.aes = FALSE)
   .tick(progBar, verbose)
   obj <- .get_features(osmbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
