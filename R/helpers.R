@@ -80,6 +80,7 @@
     "rouge" = "#f2deb8",
     "verde" = "#284566",
     "neon" = "#0be8ed",
+    "antique" = "#32130f",
     "lichtenstein" = "#2f3737"
   )
   background.col <- switch(theme,
@@ -90,6 +91,7 @@
     "rouge" = "#a25543",
     "verde" = "#6ca67a",
     "neon" = "#000000",
+    "antique" = "#fff7d8",
     "lichtenstein" = "#ffffff"
   )
   water.col <- switch(theme,
@@ -100,6 +102,7 @@
     "rouge" = lines.col,
     "verde" = lines.col,
     "neon" = "#ec3b8d",
+    "antique" = "#9ebfaa",
     "lichtenstein" = "#607ba4"
   )
   waterlines.col <- switch(theme,
@@ -110,6 +113,7 @@
     "rouge" = lines.col,
     "verde" = lines.col,
     "neon" = water.col,
+    "antique" = water.col,
     "lichtenstein" = water.col
   )
   landuse.col <- switch(theme,
@@ -120,6 +124,7 @@
     "rouge" = background.col,
     "verde" = lines.col,
     "neon" = background.col,
+    "antique" = background.col,
     "lichtenstein" = "#478f70"
   )
   text.col <- switch(theme,
@@ -130,6 +135,7 @@
     "rouge" = lines.col,
     "verde" = lines.col,
     "neon" = "#e7d073",
+    "antique" = lines.col,
     "lichtenstein" = lines.col
   )
   rails.col <- switch(theme,
@@ -140,6 +146,7 @@
     "rouge" = lines.col,
     "verde" = lines.col,
     "neon" = text.col,
+    "antique" = lines.col,
     "lichtenstein" = lines.col
   )
   buildings.col <- switch(theme,
@@ -150,6 +157,7 @@
     "rouge" = background.col,
     "verde" = lines.col,
     "neon" = background.col,
+    "antique" = c("#facc87", "#f39848", "#f8c98c", "#f58762"),
     "lichtenstein" = "#f4d849"
   )
   font <- switch(theme,
@@ -160,6 +168,7 @@
     "rouge" = "Oswald",
     "verde" = "Righteous",
     "neon" = "Neonderthaw",
+    "antique" = "Fredericka the Great",
     "lichtenstein" = "Rampart One"
   )
   face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
@@ -171,6 +180,7 @@
     "rouge" = "#32130f",
     "verde" = "#ffffff",
     "neon" = "#ffffff",
+    "antique" = "#000000",
     "lichtenstein" = "#000000"
   )
   halftone.col <- switch(theme,
@@ -181,6 +191,7 @@
     "rouge" = "#000000",
     "verde" = "#ffffff",
     "neon" = "#ffffff",
+    "antique" = "#000000",
     "lichtenstein" = "#000000"
   )
   opts <- list(

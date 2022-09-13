@@ -22,6 +22,7 @@
   sysfonts::font_add_google("Righteous")
   sysfonts::font_add_google("Rampart One")
   sysfonts::font_add_google("Zilla Slab Highlight")
+  sysfonts::font_add_google("Fredericka the Great")
   showtext::showtext_auto()
 }
 
