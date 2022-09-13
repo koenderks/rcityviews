@@ -219,7 +219,7 @@
   return(p)
 }
 
-.with_neighborhoods <- function(p, box, border, crop, opts) {
+.with_places <- function(p, box, border, crop, opts) {
   suppressWarnings({
     obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = c("borough", "suburb", "quarter", "neighborhood")))$osm_points
     obj <- sf::st_make_valid(obj)

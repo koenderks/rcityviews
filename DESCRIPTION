@@ -1,7 +1,7 @@
 Package: rcityviews
 Title: Minimalistic Aerial City Views using 'ggplot2'
-Version: 1.0.1
-Date: 2022-07-03
+Version: 1.0.2
+Date: 2022-09-13
 Authors@R:
     person(given = "Koen",
            family = "Derks",

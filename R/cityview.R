@@ -23,20 +23,20 @@
 #'                    "rouge", "verde", "neon", "lichtenstein"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
-#'          halftone = FALSE, neighborhoods = FALSE,
+#'          halftone = FALSE, places = FALSE,
 #'          filename = NULL, verbose = TRUE,
 #'          license = TRUE, bot = FALSE)
 #'
-#' @param name          a character specifying the name of the city as provided by \code{list_cities()}.
-#' @param zoom          a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme         a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.
-#' @param border        a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
-#' @param halftone      logical. Whether to dither the plot using a halftone pattern.
-#' @param neighborhoods logical. Whether to add neighborhood names to the plot.
-#' @param filename      character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
-#' @param verbose       logical. Whether to show a progress bar during execution.
-#' @param license       logical. Whether to add the OpenStreetMap licence to the plot.
-#' @param bot           logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
+#' @param name     a character specifying the name of the city as provided by \code{list_cities()}.
+#' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
+#' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.
+#' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
+#' @param halftone logical. Whether to dither the plot using a halftone pattern.
+#' @param places   logical. Whether to add neighborhood names to the plot.
+#' @param filename character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
+#' @param verbose  logical. Whether to show a progress bar during execution.
+#' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
+#' @param bot      logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -60,7 +60,7 @@ cityview <- function(name, zoom = 1,
                        "none", "circle", "rhombus", "square",
                        "hexagon", "octagon", "decagon"
                      ),
-                     halftone = FALSE, neighborhoods = FALSE,
+                     halftone = FALSE, places = FALSE,
                      filename = NULL, verbose = TRUE,
                      license = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
@@ -344,8 +344,8 @@ cityview <- function(name, zoom = 1,
     })
   }
   # Add neighborhood names
-  if (neighborhoods) {
-    int_p <- .with_neighborhoods(int_p, osmbox, border, cropped, opts)
+  if (places) {
+    int_p <- .with_places(int_p, osmbox, border, cropped, opts)
   }
   # Add the city name to the plot ##############################################
   plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name

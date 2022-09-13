@@ -9,7 +9,7 @@ cityview(name, zoom = 1,
                    "rouge", "verde", "neon", "lichtenstein"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
-         halftone = FALSE, neighborhoods = FALSE,
+         halftone = FALSE, places = FALSE,
          filename = NULL, verbose = TRUE,
          license = TRUE, bot = FALSE)
 }
@@ -24,7 +24,7 @@ cityview(name, zoom = 1,
 
 \item{halftone}{logical. Whether to dither the plot using a halftone pattern.}
 
-\item{neighborhoods}{logical. Whether to add neighborhood names to the plot.}
+\item{places}{logical. Whether to add neighborhood names to the plot.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.}
 
