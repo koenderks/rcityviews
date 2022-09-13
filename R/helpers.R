@@ -221,7 +221,7 @@
 
 .with_neighborhoods <- function(p, box, border, crop, opts) {
   suppressWarnings({
-    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = "neighbourhood"))$osm_points
+    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = c("borough", "suburb", "quarter", "neighborhood")))$osm_points
     obj <- sf::st_make_valid(obj)
     if (border != "none") {
       sf::st_crs(obj) <- sf::st_crs(crop)
