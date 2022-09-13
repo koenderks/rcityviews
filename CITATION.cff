@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.2.2
+# CITATION file created with {cffr} R package, v0.2.3
 # See also: https://docs.ropensci.org/cffr/
 # -----------------------------------------------------------
  
@@ -8,7 +8,7 @@ message: 'To cite package "rcityviews" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'rcityviews: Minimalistic Aerial City Views using ''ggplot2'''
-version: 1.0.1
+version: 1.0.2
 abstract: A toolkit to create minimalistic aerial city views using R and 'ggplot2'.
 authors:
 - family-names: Derks
@@ -25,7 +25,7 @@ preferred-citation:
   notes: R package version 1.0.0
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.shinyapps.io/rcityviews/
-date-released: '2022-07-03'
+date-released: '2022-09-13'
 contact:
 - family-names: Derks
   given-names: Koen
