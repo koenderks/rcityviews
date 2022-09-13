@@ -23,17 +23,20 @@
 #'                    "rouge", "verde", "neon", "lichtenstein"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
+#'          halftone = FALSE, neighborhoods = FALSE,
 #'          filename = NULL, verbose = TRUE,
 #'          license = TRUE, bot = FALSE)
 #'
-#' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
-#' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.
-#' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
-#' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
-#' @param verbose   logical. Whether to show a progress bar during execution.
-#' @param license   logical. Whether to add the OpenStreetMap licence to the plot.
-#' @param bot       logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
+#' @param name          a character specifying the name of the city as provided by \code{list_cities()}.
+#' @param zoom          a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
+#' @param theme         a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.
+#' @param border        a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
+#' @param halftone      logical. Whether to dither the plot using a halftone pattern.
+#' @param neighborhoods logical. Whether to add neighborhood names to the plot.
+#' @param filename      character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
+#' @param verbose       logical. Whether to show a progress bar during execution.
+#' @param license       logical. Whether to add the OpenStreetMap licence to the plot.
+#' @param bot           logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -57,6 +60,7 @@ cityview <- function(name, zoom = 1,
                        "none", "circle", "rhombus", "square",
                        "hexagon", "octagon", "decagon"
                      ),
+                     halftone = FALSE, neighborhoods = FALSE,
                      filename = NULL, verbose = TRUE,
                      license = TRUE, bot = FALSE) {
   theme <- match.arg(theme)
@@ -339,10 +343,17 @@ cityview <- function(name, zoom = 1,
         ggplot2::geom_path(data = borders, mapping = ggplot2::aes(x = x, y = y), color = opts[["text"]], size = 1, inherit.aes = FALSE)
     })
   }
+  # Add neighborhood names
+  if (neighborhoods) {
+    int_p <- .with_neighborhoods(int_p, osmbox, border, cropped, opts)
+  }
   # Add the city name to the plot ##############################################
   plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name
-  p <- cowplot::ggdraw(int_p) +
-    cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = opts[["text"]], family = opts[["font"]], fontface = opts[["face"]]) +
+  p <- cowplot::ggdraw(int_p)
+  if (halftone) { # Halftone
+    p <- .with_halftone(p, opts)
+  }
+  p <- p + cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = opts[["text"]], family = opts[["font"]], fontface = opts[["face"]]) +
     cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = opts[["text"]], family = opts[["font"]]) +
     ggspatial::annotation_north_arrow(
       location = "bl", height = ggplot2::unit(4, "cm"), width = ggplot2::unit(4, "cm"),
@@ -353,9 +364,6 @@ cityview <- function(name, zoom = 1,
       plot.background = ggplot2::element_rect(fill = opts[["background"]], color = opts[["lines"]]),
       panel.background = ggplot2::element_rect(fill = opts[["background"]], color = opts[["background"]])
     )
-  if (theme == "lichtenstein") { # Halftone
-    p <- .with_halftone(p)
-  }
   # Add the coordinates to the plot ############################################
   if (row[["lat"]] < 0) {
     lat <- paste0(format(abs(row[["lat"]]), digits = 6), "\u00B0 S")

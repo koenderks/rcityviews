@@ -163,6 +163,26 @@
     "lichtenstein" = "Rampart One"
   )
   face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
+  neighborhood.font.col <- switch(theme,
+    "original" = "#000000",
+    "light" = "#000000",
+    "dark" = "#ffffff",
+    "colored" = "#32130f",
+    "rouge" = "#32130f",
+    "verde" = "#ffffff",
+    "neon" = "#ffffff",
+    "lichtenstein" = "#000000"
+  )
+  halftone.col <- switch(theme,
+    "original" = "#000000",
+    "light" = "#000000",
+    "dark" = "#ffffff",
+    "colored" = "#000000",
+    "rouge" = "#000000",
+    "verde" = "#ffffff",
+    "neon" = "#ffffff",
+    "lichtenstein" = "#000000"
+  )
   opts <- list(
     lines = lines.col,
     background = background.col,
@@ -173,9 +193,48 @@
     rails = rails.col,
     buildings = buildings.col,
     font = font,
-    face = face
+    face = face,
+    neighborhood = neighborhood.font.col,
+    halftone = halftone.col
   )
   return(opts)
+}
+
+.with_halftone <- function(p, opts) {
+  xseq1 <- seq(0, 1, length = 101)
+  xseq2 <- xseq1 + xseq1[2] / 2
+  xseq2 <- xseq2[xseq2 > 0 & xseq2 < 1]
+  xseq <- c(xseq1, xseq2)
+  xseq <- rep(xseq, times = 100)
+  yseq <- rep(0, length(xseq1))
+  for (i in 1:199) {
+    if (i %% 2 == 0) {
+      yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq1)))
+    } else {
+      yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq2)))
+    }
+  }
+  hlist <- list("x" = xseq, "y" = yseq)
+  p <- p + ggplot2::geom_point(data = data.frame(x = hlist[["x"]], y = hlist[["y"]]), mapping = ggplot2::aes(x = x, y = y), col = opts[["halftone"]], alpha = 0.1, size = 2, shape = 19)
+  return(p)
+}
+
+.with_neighborhoods <- function(p, box, border, crop, opts) {
+  suppressWarnings({
+    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = "neighbourhood"))$osm_points
+    obj <- sf::st_make_valid(obj)
+    if (border != "none") {
+      sf::st_crs(obj) <- sf::st_crs(crop)
+      obj <- obj |> sf::st_intersection(crop)
+    }
+    obj <- obj[which(!is.na(obj$name)), ]
+    df <- data.frame(name = obj$name, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
+    df <- df[!duplicated(df$name), , drop = FALSE]
+    if (nrow(df) > 0) {
+      p <- p + ggplot2::geom_text(data = df, mapping = ggplot2::aes(x = x, y = y, label = name), family = "Zilla Slab Highlight", col = opts[["neighborhood"]], size = 10, check_overlap = TRUE, fontface = "bold")
+    }
+  })
+  return(p)
 }
 
 # Fix for 'osmplotr' package bug
@@ -366,23 +425,4 @@
 
 .wrp <- function(idxs) {
   (idxs - 1) %% 4 + 1
-}
-
-.with_halftone <- function(p) {
-  xseq1 <- seq(0, 1, length = 101)
-  xseq2 <- xseq1 + xseq1[2] / 2
-  xseq2 <- xseq2[xseq2 > 0 & xseq2 < 1]
-  xseq <- c(xseq1, xseq2)
-  xseq <- rep(xseq, times = 100)
-  yseq <- rep(0, length(xseq1))
-  for (i in 1:199) {
-    if (i %% 2 == 0) {
-      yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq1)))
-    } else {
-      yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq2)))
-    }
-  }
-  hlist <- list("x" = xseq, "y" = yseq)
-  p <- p + ggplot2::geom_point(data = data.frame(x = hlist[["x"]], y = hlist[["y"]]), mapping = ggplot2::aes(x = x, y = y), col = "black", alpha = 0.1, size = 2, shape = 19)
-  return(p)
 }

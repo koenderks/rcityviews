@@ -21,6 +21,7 @@
   sysfonts::font_add_google("Oswald")
   sysfonts::font_add_google("Righteous")
   sysfonts::font_add_google("Rampart One")
+  sysfonts::font_add_google("Zilla Slab Highlight")
   showtext::showtext_auto()
 }
 
