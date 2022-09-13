@@ -22,6 +22,7 @@
   sysfonts::font_add_google("Righteous")
   sysfonts::font_add_google("Rampart One")
   sysfonts::font_add_google("Fredericka the Great")
+  sysfonts::font_add_google("Ubuntu Mono")
   showtext::showtext_auto()
 }
 

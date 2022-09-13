@@ -176,7 +176,7 @@
     "rouge" = "Oswald",
     "verde" = "Righteous",
     "neon" = "Neonderthaw",
-    "atlantis" = "Neonderthaw",
+    "atlantis" = "Ubuntu Mono",
     "antique" = "Fredericka the Great",
     "lichtenstein" = "Rampart One"
   )
