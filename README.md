@@ -94,7 +94,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), and `lichtenstein` (bottom left).
+You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), and `lichtenstein` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
@@ -112,7 +112,7 @@ You can select different themes for the plot. The images above are created using
 
 ### Other display options
 
-There are two other options you can adjust to tailor the image to your liking. The option `places = TRUE` adds the names of burrows, suburbs, quarters and neighborhoods to the image (left). The option `halftone = TRUE` adds a halftone pattern to the image (right). One may also combine these options (middle).
+There are two other options you can adjust to tailor the image to your liking. The option `places = TRUE` adds the names of burrows, suburbs, quarters and neighborhoods to the image (left). The option `halftone = TRUE` adds a halftone pattern to the image (right). Naturally, one may also combine these options (middle).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places.png' width='250' height='250'>
