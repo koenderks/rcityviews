@@ -23,7 +23,7 @@
 #'                    "rouge", "verde", "neon", "lichtenstein"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
-#'          halftone = FALSE, places = FALSE,
+#'          places = FALSE, halftone = FALSE,
 #'          filename = NULL, verbose = TRUE,
 #'          license = TRUE, bot = FALSE)
 #'
@@ -31,8 +31,8 @@
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
 #' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
-#' @param halftone logical. Whether to dither the plot using a halftone pattern.
 #' @param places   logical. Whether to add neighborhood names to the plot.
+#' @param halftone logical. Whether to dither the plot using a halftone pattern.
 #' @param filename character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
@@ -60,7 +60,7 @@ cityview <- function(name, zoom = 1,
                        "none", "circle", "rhombus", "square",
                        "hexagon", "octagon", "decagon"
                      ),
-                     halftone = FALSE, places = FALSE,
+                     places = FALSE, halftone = FALSE,
                      filename = NULL, verbose = TRUE,
                      license = TRUE, bot = FALSE) {
   theme <- match.arg(theme)

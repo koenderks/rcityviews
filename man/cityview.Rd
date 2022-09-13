@@ -9,7 +9,7 @@ cityview(name, zoom = 1,
                    "rouge", "verde", "neon", "lichtenstein"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
-         halftone = FALSE, places = FALSE,
+         places = FALSE, halftone = FALSE,
          filename = NULL, verbose = TRUE,
          license = TRUE, bot = FALSE)
 }
@@ -22,9 +22,9 @@ cityview(name, zoom = 1,
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).}
 
-\item{halftone}{logical. Whether to dither the plot using a halftone pattern.}
-
 \item{places}{logical. Whether to add neighborhood names to the plot.}
+
+\item{halftone}{logical. Whether to dither the plot using a halftone pattern.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.}
 
