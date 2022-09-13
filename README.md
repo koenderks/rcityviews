@@ -60,7 +60,7 @@ p <- cityview(name = "Amsterdam", zoom = 1, border = "circle")
 
 ### Saving the image
 
-Finally, render times in `RStudio` can be very long for these type of plots. It is therefore recommended to directly save the images in a `500mmx500mm` format. The ideal way to do this is usually something like:
+Finally, render times in `RStudio` can be very long for these type of plots. It is therefore recommended to directly save the images in a `500mm x 500mm` format. The ideal way to do this is usually something like:
 
 ```r
 ggplot2::ggsave(filename = "Amsterdam.png", plot = p, height = 500, width = 500, units = "mm", dpi = 100)
@@ -76,7 +76,7 @@ cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png' width='400' height='400'>
 </p>
 
-For printing, it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, see below. Afterwards, you can best print it in a `50x50` cm format.
+For printing, it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, see below. Afterwards, you can best print it in a `500mm x 500mm` format.
 
 ```r
 cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.pdf", license = FALSE)
