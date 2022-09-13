@@ -81,6 +81,7 @@
     "verde" = "#284566",
     "neon" = "#0be8ed",
     "antique" = "#32130f",
+    "atlantis" = "#ffffff",
     "lichtenstein" = "#2f3737"
   )
   background.col <- switch(theme,
@@ -92,6 +93,7 @@
     "verde" = "#6ca67a",
     "neon" = "#000000",
     "antique" = "#fff7d8",
+    "atlantis" = lines.col,
     "lichtenstein" = "#ffffff"
   )
   water.col <- switch(theme,
@@ -103,6 +105,7 @@
     "verde" = lines.col,
     "neon" = "#ec3b8d",
     "antique" = "#9ebfaa",
+    "atlantis" = lines.col,
     "lichtenstein" = "#607ba4"
   )
   waterlines.col <- switch(theme,
@@ -114,6 +117,7 @@
     "verde" = lines.col,
     "neon" = water.col,
     "antique" = water.col,
+    "atlantis" = lines.col,
     "lichtenstein" = water.col
   )
   landuse.col <- switch(theme,
@@ -125,6 +129,7 @@
     "verde" = lines.col,
     "neon" = background.col,
     "antique" = background.col,
+    "atlantis" = c("#8fbbe2", "#0072fe", "#0b448b", "#5699b5", "#485270"),
     "lichtenstein" = "#478f70"
   )
   text.col <- switch(theme,
@@ -136,6 +141,7 @@
     "verde" = lines.col,
     "neon" = "#e7d073",
     "antique" = lines.col,
+    "atlantis" = "#000000",
     "lichtenstein" = lines.col
   )
   rails.col <- switch(theme,
@@ -147,6 +153,7 @@
     "verde" = lines.col,
     "neon" = text.col,
     "antique" = lines.col,
+    "atlantis" = lines.col,
     "lichtenstein" = lines.col
   )
   buildings.col <- switch(theme,
@@ -157,6 +164,7 @@
     "rouge" = background.col,
     "verde" = lines.col,
     "neon" = background.col,
+    "atlantis" = landuse.col,
     "antique" = c("#facc87", "#f39848", "#f8c98c", "#f58762"),
     "lichtenstein" = "#f4d849"
   )
@@ -168,6 +176,7 @@
     "rouge" = "Oswald",
     "verde" = "Righteous",
     "neon" = "Neonderthaw",
+    "atlantis" = "Neonderthaw",
     "antique" = "Fredericka the Great",
     "lichtenstein" = "Rampart One"
   )
@@ -180,6 +189,7 @@
     "rouge" = "#32130f",
     "verde" = "#ffffff",
     "neon" = "#ffffff",
+    "atlantis" = "#ffffff",
     "antique" = "#000000",
     "lichtenstein" = "#000000"
   )
@@ -191,6 +201,7 @@
     "rouge" = "#000000",
     "verde" = "#ffffff",
     "neon" = "#ffffff",
+    "atlantis" = "#000000",
     "antique" = "#000000",
     "lichtenstein" = "#000000"
   )
