@@ -112,7 +112,7 @@ You can select different themes for the plot. The images above are created using
 
 ### Other display options
 
-There are two other options you can adjust to tailor the image to your liking. The option `places = TRUE` adds the names of burrows, suburbs, quarters and neighborhoods to the image (left). The option `halftone = TRUE` adds a halftone pattern to the image (right). Naturally, one may also combine these options (middle).
+There are two other options you can adjust to tailor the image to your liking. The option `places = TRUE` adds the names of suburbs, quarters and neighbourhoods to the image (left). The option `halftone = TRUE` adds a dotted dither to the image (right). Naturally, one may also combine these options (middle).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places.png' width='250' height='250'>

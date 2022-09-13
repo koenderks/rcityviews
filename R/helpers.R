@@ -232,17 +232,19 @@
 
 .with_places <- function(p, box, border, crop, opts) {
   suppressWarnings({
-    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = c("borough", "suburb", "quarter", "neighborhood")))$osm_points
+    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = c("suburb", "quarter", "neighbourhood")))$osm_points
     obj <- sf::st_make_valid(obj)
     if (border != "none") {
       sf::st_crs(obj) <- sf::st_crs(crop)
       obj <- obj |> sf::st_intersection(crop)
     }
     obj <- obj[which(!is.na(obj$name)), ]
-    df <- data.frame(name = obj$name, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
+    df <- data.frame(name = obj$name, place = obj$place, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
+    df <- df[!is.na(df$place), ]
     df <- df[!duplicated(df$name), , drop = FALSE]
     if (nrow(df) > 0) {
-      p <- p + ggplot2::geom_text(data = df, mapping = ggplot2::aes(x = x, y = y, label = name), family = "Zilla Slab Highlight", col = opts[["neighborhood"]], size = 10, check_overlap = TRUE, fontface = "bold")
+      df <- df[rev(order(df$place)), ]
+      p <- p + ggplot2::geom_text(data = df, mapping = ggplot2::aes(x = x, y = y, label = name), col = opts[["neighborhood"]], size = 10, check_overlap = TRUE, fontface = "bold.italic")
     }
   })
   return(p)

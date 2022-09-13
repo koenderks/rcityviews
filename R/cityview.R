@@ -76,7 +76,7 @@ cityview <- function(name, zoom = 1,
     cat(paste0(row[["name"]], ", ", row[["country"]]))
   }
   if (verbose) {
-    ticks <- 61 + as.numeric(!is.null(filename))
+    ticks <- 61 + as.numeric(!is.null(filename)) + as.numeric(places) + as.numeric(halftone)
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
@@ -203,6 +203,9 @@ cityview <- function(name, zoom = 1,
   obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"canal\"")
   int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], fill = opts[["water"]], color = opts[["water.line"]], size = 0.5, inherit.aes = FALSE)
   .tick(progBar, verbose)
+  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"dock\"")
+  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = opts[["water"]], color = opts[["water.line"]], size = 0.5, inherit.aes = FALSE)
+  .tick(progBar, verbose)
   obj <- .get_features(osmbox, cropped, border, features = "\"natural\"=\"water\"")
   int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], fill = opts[["water"]], color = opts[["water.line"]], size = 0.3, inherit.aes = FALSE)
   .tick(progBar, verbose)
@@ -215,9 +218,6 @@ cityview <- function(name, zoom = 1,
   .tick(progBar, verbose)
   obj <- .get_features(osmbox, cropped, border, features = "\"man_made\"=\"pier\"")
   int_p <- int_p + ggplot2::geom_sf(data = obj[["lines"]], color = opts[["lines"]], size = 0.3, inherit.aes = FALSE)
-  .tick(progBar, verbose)
-  obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"dock\"")
-  int_p <- int_p + ggplot2::geom_sf(data = obj[["polygons"]], color = opts[["lines"]], size = 0.3, inherit.aes = FALSE)
   .tick(progBar, verbose)
   # Water lines ################################################################
   obj <- .get_features(osmbox, cropped, border, features = "\"waterway\"=\"riverbank\"")
@@ -346,12 +346,14 @@ cityview <- function(name, zoom = 1,
   # Add neighborhood names
   if (places) {
     int_p <- .with_places(int_p, osmbox, border, cropped, opts)
+    .tick(progBar, verbose)
   }
   # Add the city name to the plot ##############################################
   plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name
   p <- cowplot::ggdraw(int_p)
   if (halftone) { # Halftone
     p <- .with_halftone(p, opts)
+    .tick(progBar, verbose)
   }
   p <- p + cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = opts[["text"]], family = opts[["font"]], fontface = opts[["face"]]) +
     cowplot::draw_text(text = row$country, x = 0.5, y = 0.975, size = 50, color = opts[["text"]], family = opts[["font"]]) +
