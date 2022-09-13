@@ -79,7 +79,8 @@
     "colored" = "#eff0db",
     "rouge" = "#f2deb8",
     "verde" = "#284566",
-    "neon" = "#0be8ed"
+    "neon" = "#0be8ed",
+    "lichtenstein" = "#2f3737"
   )
   background.col <- switch(theme,
     "original" = "#fdf9f5",
@@ -88,7 +89,8 @@
     "colored" = lines.col,
     "rouge" = "#a25543",
     "verde" = "#6ca67a",
-    "neon" = "#000000"
+    "neon" = "#000000",
+    "lichtenstein" = "#ffffff"
   )
   water.col <- switch(theme,
     "original" = background.col,
@@ -97,7 +99,8 @@
     "colored" = "#b0e3cf",
     "rouge" = lines.col,
     "verde" = lines.col,
-    "neon" = "#ec3b8d"
+    "neon" = "#ec3b8d",
+    "lichtenstein" = "#607ba4"
   )
   waterlines.col <- switch(theme,
     "original" = lines.col,
@@ -106,7 +109,8 @@
     "colored" = water.col,
     "rouge" = lines.col,
     "verde" = lines.col,
-    "neon" = water.col
+    "neon" = water.col,
+    "lichtenstein" = water.col
   )
   landuse.col <- switch(theme,
     "original" = background.col,
@@ -115,7 +119,8 @@
     "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
     "rouge" = background.col,
     "verde" = lines.col,
-    "neon" = background.col
+    "neon" = background.col,
+    "lichtenstein" = "#478f70"
   )
   text.col <- switch(theme,
     "original" = lines.col,
@@ -124,7 +129,8 @@
     "colored" = "#000000",
     "rouge" = lines.col,
     "verde" = lines.col,
-    "neon" = "#e7d073"
+    "neon" = "#e7d073",
+    "lichtenstein" = lines.col
   )
   rails.col <- switch(theme,
     "original" = lines.col,
@@ -133,7 +139,8 @@
     "colored" = lines.col,
     "rouge" = lines.col,
     "verde" = lines.col,
-    "neon" = text.col
+    "neon" = text.col,
+    "lichtenstein" = lines.col
   )
   buildings.col <- switch(theme,
     "original" = background.col,
@@ -142,7 +149,8 @@
     "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
     "rouge" = background.col,
     "verde" = lines.col,
-    "neon" = background.col
+    "neon" = background.col,
+    "lichtenstein" = "#f4d849"
   )
   font <- switch(theme,
     "original" = "Caveat",
@@ -151,7 +159,8 @@
     "colored" = "Damion",
     "rouge" = "Oswald",
     "verde" = "Righteous",
-    "neon" = "Neonderthaw"
+    "neon" = "Neonderthaw",
+    "lichtenstein" = "Rampart One"
   )
   face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
   opts <- list(
@@ -357,4 +366,23 @@
 
 .wrp <- function(idxs) {
   (idxs - 1) %% 4 + 1
+}
+
+.with_halftone <- function(p) {
+  xseq1 <- seq(0, 1, length = 101)
+  xseq2 <- xseq1 + xseq1[2] / 2
+  xseq2 <- xseq2[xseq2 > 0 & xseq2 < 1]
+  xseq <- c(xseq1, xseq2)
+  xseq <- rep(xseq, times = 100)
+  yseq <- rep(0, length(xseq1))
+  for (i in 1:199) {
+    if (i %% 2 == 0) {
+      yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq1)))
+    } else {
+      yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq2)))
+    }
+  }
+  hlist <- list("x" = xseq, "y" = yseq)
+  p <- p + ggplot2::geom_point(data = data.frame(x = hlist[["x"]], y = hlist[["y"]]), mapping = ggplot2::aes(x = x, y = y), col = "black", alpha = 0.1, size = 2, shape = 19)
+  return(p)
 }

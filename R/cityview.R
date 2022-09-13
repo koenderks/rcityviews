@@ -20,7 +20,7 @@
 #'
 #' @usage cityview(name, zoom = 1,
 #'          theme = c("original", "light", "dark", "colored",
-#'                    "rouge", "verde", "neon"),
+#'                    "rouge", "verde", "neon", "lichtenstein"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
 #'          filename = NULL, verbose = TRUE,
@@ -28,7 +28,7 @@
 #'
 #' @param name      a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom      a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, and \code{neon}.
+#' @param theme     a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.
 #' @param border    a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param filename  character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose   logical. Whether to show a progress bar during execution.
@@ -51,7 +51,7 @@
 cityview <- function(name, zoom = 1,
                      theme = c(
                        "original", "light", "dark", "colored",
-                       "rouge", "verde", "neon"
+                       "rouge", "verde", "neon", "lichtenstein"
                      ),
                      border = c(
                        "none", "circle", "rhombus", "square",
@@ -353,6 +353,9 @@ cityview <- function(name, zoom = 1,
       plot.background = ggplot2::element_rect(fill = opts[["background"]], color = opts[["lines"]]),
       panel.background = ggplot2::element_rect(fill = opts[["background"]], color = opts[["background"]])
     )
+  if (theme == "lichtenstein") { # Halftone
+    p <- .with_halftone(p)
+  }
   # Add the coordinates to the plot ############################################
   if (row[["lat"]] < 0) {
     lat <- paste0(format(abs(row[["lat"]]), digits = 6), "\u00B0 S")

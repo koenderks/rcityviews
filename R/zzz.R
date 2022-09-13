@@ -20,6 +20,7 @@
   sysfonts::font_add_google("Neonderthaw")
   sysfonts::font_add_google("Oswald")
   sysfonts::font_add_google("Righteous")
+  sysfonts::font_add_google("Rampart One")
   showtext::showtext_auto()
 }
 

@@ -6,10 +6,10 @@
 \usage{
 cityview(name, zoom = 1,
          theme = c("original", "light", "dark", "colored",
-                   "rouge", "verde", "neon"),
+                   "rouge", "verde", "neon", "lichtenstein"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
-         filename = NULL, verbose = TRUE, 
+         filename = NULL, verbose = TRUE,
          license = TRUE, bot = FALSE)
 }
 \arguments{
@@ -17,7 +17,7 @@ cityview(name, zoom = 1,
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
-\item{theme}{a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, and \code{neon}.}
+\item{theme}{a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, and \code{lichtenstein}.}
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).}
 

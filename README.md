@@ -94,7 +94,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (bottom left), `rouge` (top middle), `verde` (bottom middle), `colored` (top right), and `neon` (bottom right).
+You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (bottom left), `rouge` (top middle), `verde` (bottom middle), `colored` (top right), `neon` (bottom right), and `lichtenstein`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
