@@ -104,7 +104,7 @@ You can select different themes for the plot. The images above are created using
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_dark.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_verde.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_neon.png' width='250' height='250'>
-    </br>
+  </br>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_atlantis.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_antique.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_lichtenstein.png' width='250' height='250'>
