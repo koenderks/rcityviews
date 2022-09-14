@@ -182,9 +182,9 @@
   )
   face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
   neighborhood.font.col <- switch(theme,
-    "original" = "#000000",
-    "light" = "#000000",
-    "dark" = "#ffffff",
+    "original" = lines.col,
+    "light" = lines.col,
+    "dark" = lines.col,
     "colored" = "#32130f",
     "rouge" = "#32130f",
     "verde" = "#ffffff",
