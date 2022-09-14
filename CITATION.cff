@@ -166,6 +166,16 @@ references:
   year: '2022'
   url: https://CRAN.R-project.org/package=sf
 - type: software
+  title: shadowtext
+  abstract: 'shadowtext: Shadow Text Grob and Layer'
+  notes: Imports
+  authors:
+  - family-names: Yu
+    given-names: Guangchuang
+    email: guangchuangyu@gmail.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=shadowtext
+- type: software
   title: showtext
   abstract: 'showtext: Using Fonts More Easily in R Graphs'
   notes: Imports
