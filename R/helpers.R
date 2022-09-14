@@ -244,7 +244,7 @@
     df <- df[!duplicated(df$name), , drop = FALSE]
     if (nrow(df) > 0) {
       df <- df[rev(order(df$place)), ]
-      p <- p + shadowtext::geom_shadowtext(data = df, mapping = ggplot2::aes(x = x, y = y, label = name), col = opts[["neighborhood"]], size = 10, check_overlap = TRUE, fontface = "bold.italic", bg.colour=opts[["background"]])
+      p <- p + shadowtext::geom_shadowtext(data = df, mapping = ggplot2::aes(x = x, y = y, label = name), col = opts[["neighborhood"]], size = 10, check_overlap = TRUE, fontface = "bold.italic", bg.colour = opts[["background"]])
     }
   })
   return(p)
