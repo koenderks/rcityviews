@@ -193,7 +193,6 @@
     "vintage" = lines.col,
     "lichtenstein" = lines.col
   )
-  halftone.col <- if (theme %in% c("dark", "verde", "neon")) "#ffffff" else "#000000"
   opts <- list(
     lines = lines.col,
     background = background.col,
@@ -227,8 +226,7 @@
   }
   halftone.col <- switch(halftone,
     "light" = "#ffffff",
-    "dark" = "#000000",
-    "auto" = opts[["halftone"]]
+    "dark" = "#000000"
   )
   p <- p + ggplot2::geom_point(data = data.frame(x = xseq, y = yseq), mapping = ggplot2::aes(x = x, y = y), col = halftone.col, alpha = 0.1, size = 2, shape = 19)
   return(p)

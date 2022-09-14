@@ -112,7 +112,7 @@ You can select different themes for the plot. The images above are created using
 
 ### Other display options
 
-There are two other arguments of the `cityview()` function you can adjust to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). The halftone option `auto` sets the dot color according to the theme, but this can be customized using the `light` and `dark` options. Second, the argument `places` takes an integer and adds that amount of names of suburbs, quarters and neighbourhoods to the image (right). Naturally, one may also combine the `halftone` and `places` arguments (middle).
+There are two other arguments of the `cityview()` function you can adjust to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). The halftone options `light` (white dots) and `dark` (black dots) can be used to adjust the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of suburbs, quarters and neighbourhoods to the image (right). Naturally, one may also combine the `halftone` and `places` arguments (middle).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_halftone.png' width='250' height='250'>
