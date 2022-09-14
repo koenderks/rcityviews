@@ -204,8 +204,7 @@
     buildings = buildings.col,
     font = font,
     face = face,
-    neighborhood = neighborhood.font.col,
-    halftone = halftone.col
+    neighborhood = neighborhood.font.col
   )
   return(opts)
 }

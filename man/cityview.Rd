@@ -10,7 +10,7 @@ cityview(name,
                    "verde", "neon", "atlantis", "vintage", "lichtenstein"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
-         halftone = c("none", "light", "dark", "auto"),
+         halftone = c("none", "light", "dark"),
          places = 0,
          filename = NULL,
          verbose = TRUE,
@@ -26,7 +26,7 @@ cityview(name,
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).}
 
-\item{halftone}{a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither), \code{dark} (black dither) and \code{auto} (color according to theme).}
+\item{halftone}{a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).}
 
 \item{places}{an integer specifying how many suburb, quarter and neighbourhood names to add to the image.}
 
