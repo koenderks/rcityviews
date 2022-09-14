@@ -15,7 +15,8 @@ cityview(name,
          filename = NULL,
          verbose = TRUE,
          license = TRUE,
-         bot = FALSE)
+         bot = FALSE,
+         timeout = 25)
 }
 \arguments{
 \item{name}{a character specifying the name of the city as provided by \code{list_cities()}.}
@@ -37,6 +38,8 @@ cityview(name,
 \item{license}{logical. Whether to add the OpenStreetMap licence to the plot.}
 
 \item{bot}{logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.}
+
+\item{timeout}{a value specifying the timeout (in seconds) for the 'overpass' server. It may be necessary to increase this value for large queries (i.e., \code{zoom} < 1), because the server may time out before all data are delivered.}
 }
 \description{
 Create an aerial city view.

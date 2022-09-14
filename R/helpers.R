@@ -239,7 +239,7 @@
       sf::st_crs(obj) <- sf::st_crs(crop)
       obj <- obj |> sf::st_intersection(crop)
     }
-    if (is.null(obj$name.en)) {
+    if (is.null(obj$name.en) | all(is.na(obj$name.en))) {
       obj <- obj[which(!is.na(obj$name)), ]
       df <- data.frame(name = obj$name, place = obj$place, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
     } else {

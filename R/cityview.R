@@ -29,7 +29,8 @@
 #'          filename = NULL,
 #'          verbose = TRUE,
 #'          license = TRUE,
-#'          bot = FALSE)
+#'          bot = FALSE,
+#'          timeout = 25)
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
@@ -41,6 +42,7 @@
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param bot      logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
+#' @param timeout  a value specifying the timeout (in seconds) for the 'overpass' server. It may be necessary to increase this value for large queries (i.e., \code{zoom} < 1), because the server may time out before all data are delivered.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -70,7 +72,8 @@ cityview <- function(name,
                      filename = NULL,
                      verbose = TRUE,
                      license = TRUE,
-                     bot = FALSE) {
+                     bot = FALSE,
+                     timeout = 25) {
   theme <- match.arg(theme)
   border <- match.arg(border)
   halftone <- match.arg(halftone)
@@ -127,7 +130,7 @@ cityview <- function(name,
     box <- c(newbox$xmin, newbox$ymin, newbox$xmax, newbox$ymax)
   }
   # Crop the bounding box to the border ########################################
-  osmbox <- osmdata::opq(bbox = box, timeout = 900)
+  osmbox <- osmdata::opq(bbox = box, timeout = timeout)
   # Initialize an empty plot ###################################################
   int_p <- ggplot2::ggplot()
   .tick(progBar, verbose)

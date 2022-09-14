@@ -26,4 +26,4 @@
   showtext::showtext_auto()
 }
 
-utils::globalVariables(c("x", "y"))
+utils::globalVariables(c("x", "y", "name"))

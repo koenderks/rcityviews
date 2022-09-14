@@ -1,5 +1,4 @@
 cities <- subset(rcityviews::cities, rcityviews::cities$population > 50000)
-
 city <- cities[sample(1:nrow(cities), size = 1), ]
 
 sink(file = "png/name.txt")
