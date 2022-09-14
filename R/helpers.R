@@ -186,25 +186,14 @@
     "light" = lines.col,
     "dark" = lines.col,
     "colored" = "#32130f",
-    "rouge" = "#32130f",
-    "verde" = "#ffffff",
-    "neon" = "#ffffff",
-    "atlantis" = "#ffffff",
-    "vintage" = "#000000",
-    "lichtenstein" = "#000000"
-  )
-  halftone.col <- switch(theme,
-    "original" = "#000000",
-    "light" = "#000000",
-    "dark" = "#ffffff",
-    "colored" = "#000000",
-    "rouge" = "#000000",
-    "verde" = "#ffffff",
-    "neon" = "#ffffff",
+    "rouge" = lines.col,
+    "verde" = "#fafafa",
+    "neon" = rails.col,
     "atlantis" = "#000000",
-    "vintage" = "#000000",
-    "lichtenstein" = "#000000"
+    "vintage" = lines.col,
+    "lichtenstein" = lines.col
   )
+  halftone.col <- if (theme %in% c("dark", "verde", "neon")) "#ffffff" else "#000000"
   opts <- list(
     lines = lines.col,
     background = background.col,
