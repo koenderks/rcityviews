@@ -16,7 +16,7 @@ cityview(name,
          verbose = TRUE,
          license = TRUE,
          bot = FALSE,
-         timeout = 25)
+         timeout = 900)
 }
 \arguments{
 \item{name}{a character specifying the name of the city as provided by \code{list_cities()}.}

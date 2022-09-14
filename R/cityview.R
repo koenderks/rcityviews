@@ -30,7 +30,7 @@
 #'          verbose = TRUE,
 #'          license = TRUE,
 #'          bot = FALSE,
-#'          timeout = 25)
+#'          timeout = 900)
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
@@ -73,7 +73,7 @@ cityview <- function(name,
                      verbose = TRUE,
                      license = TRUE,
                      bot = FALSE,
-                     timeout = 25) {
+                     timeout = 900) {
   theme <- match.arg(theme)
   border <- match.arg(border)
   halftone <- match.arg(halftone)
