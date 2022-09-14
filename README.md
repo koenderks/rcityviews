@@ -94,7 +94,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `atlantis` (bottom left), `antique` (bottom middle) and `lichtenstein` (bottom right).
+You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `atlantis` (bottom left), `vintage` (bottom middle) and `lichtenstein` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
@@ -106,7 +106,7 @@ You can select different themes for the plot. The images above are created using
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_neon.png' width='250' height='250'>
   </br>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_atlantis.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_antique.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_vintage.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_lichtenstein.png' width='250' height='250'>
 </p>
 

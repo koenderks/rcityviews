@@ -20,7 +20,7 @@
 #'
 #' @usage cityview(name, zoom = 1,
 #'          theme = c("original", "light", "dark", "colored", "rouge",
-#'                    "verde", "neon", "atlantis", "antique", "lichtenstein"),
+#'                    "verde", "neon", "atlantis", "vintage", "lichtenstein"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
 #'          places = FALSE, halftone = FALSE,
@@ -29,7 +29,7 @@
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{atlantis}, \code{antique} and \code{lichtenstein}.
+#' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{atlantis}, \code{vintage} and \code{lichtenstein}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param places   logical. Whether to add neighborhood names to the plot.
 #' @param halftone logical. Whether to dither the plot using a halftone pattern.
@@ -54,7 +54,7 @@
 cityview <- function(name, zoom = 1,
                      theme = c(
                        "original", "light", "dark", "colored", "rouge",
-                       "verde", "neon", "atlantis", "antique", "lichtenstein"
+                       "verde", "neon", "atlantis", "vintage", "lichtenstein"
                      ),
                      border = c(
                        "none", "circle", "rhombus", "square",
