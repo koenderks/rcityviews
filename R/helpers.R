@@ -241,7 +241,7 @@
     }
     obj <- obj[which(!is.na(obj$name)), ]
     df <- data.frame(name = obj$name, place = obj$place, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
-    df <- df[!is.na(df$place), ]
+    df <- df[!is.na(df$place), , drop = FALSE]
     df <- df[!duplicated(df$name), , drop = FALSE]
     if (nrow(df) > 0) {
       df <- df[rev(order(df$place)), ]
