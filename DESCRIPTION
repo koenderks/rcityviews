@@ -11,7 +11,7 @@ Description: A toolkit to create minimalistic aerial city views using R and 'ggp
 BugReports: https://github.com/koenderks/rcityviews/issues
 URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
 Depends: R (>= 2.10)
-Imports: cowplot, geosphere, ggplot2, ggspatial, methods, osmdata, progress, sf, showtext, sysfonts, utils
+Imports: cowplot, geosphere, ggplot2, ggspatial, methods, osmdata, progress, sf, shadowtext, showtext, sysfonts, utils
 Suggests: testthat
 Language: en-US
 License: GPL (>= 3)
