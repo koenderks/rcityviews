@@ -112,12 +112,12 @@ You can select different themes for the plot. The images above are created using
 
 ### Other display options
 
-There are two other options you can adjust to tailor the image to your liking. The option `places = TRUE` adds the names of suburbs, quarters and neighbourhoods to the image (left). The option `halftone = TRUE` adds a dotted dither to the image (right). Naturally, one may also combine these options (middle).
+There are two other arguments of the `cityview()` function you can adjust to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). The halftone option `auto` sets the dot color according to the theme, but this can be customized using the `light` and `dark` options. Second, the argument `places = TRUE` adds the names of suburbs, quarters and neighbourhoods to the image (right). Naturally, one may also combine the `halftone` and `places` arguments (middle).
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places_halftone.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_halftone.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places_halftone.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places.png' width='250' height='250'>
 </p>
 
 ## Create your own in Shiny

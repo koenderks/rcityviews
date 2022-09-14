@@ -18,21 +18,25 @@
 #' @description Create an aerial city view.
 #'
 #'
-#' @usage cityview(name, zoom = 1,
+#' @usage cityview(name,
+#'          zoom = 1,
 #'          theme = c("original", "light", "dark", "colored", "rouge",
 #'                    "verde", "neon", "atlantis", "vintage", "lichtenstein"),
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
-#'          places = FALSE, halftone = FALSE,
-#'          filename = NULL, verbose = TRUE,
-#'          license = TRUE, bot = FALSE)
+#'          halftone = c("none", "light", "dark", "auto"),
+#'          places = FALSE,
+#'          filename = NULL,
+#'          verbose = TRUE,
+#'          license = TRUE,
+#'          bot = FALSE)
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
 #' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{atlantis}, \code{vintage} and \code{lichtenstein}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
+#' @param halftone a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither), \code{dark} (black dither) and \code{auto} (color according to theme).
 #' @param places   logical. Whether to add neighborhood names to the plot.
-#' @param halftone logical. Whether to dither the plot using a halftone pattern.
 #' @param filename character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
@@ -51,7 +55,8 @@
 #' }
 #' @export
 
-cityview <- function(name, zoom = 1,
+cityview <- function(name,
+                     zoom = 1,
                      theme = c(
                        "original", "light", "dark", "colored", "rouge",
                        "verde", "neon", "atlantis", "vintage", "lichtenstein"
@@ -60,11 +65,15 @@ cityview <- function(name, zoom = 1,
                        "none", "circle", "rhombus", "square",
                        "hexagon", "octagon", "decagon"
                      ),
-                     places = FALSE, halftone = FALSE,
-                     filename = NULL, verbose = TRUE,
-                     license = TRUE, bot = FALSE) {
+                     halftone = c("none", "light", "dark", "auto"),
+                     places = FALSE,
+                     filename = NULL,
+                     verbose = TRUE,
+                     license = TRUE,
+                     bot = FALSE) {
   theme <- match.arg(theme)
   border <- match.arg(border)
+  halftone <- match.arg(halftone)
   # Set theme options ##########################################################
   opts <- .theme_options(theme)
   # Look up city ###############################################################
@@ -76,7 +85,7 @@ cityview <- function(name, zoom = 1,
     cat(paste0(row[["name"]], ", ", row[["country"]]))
   }
   if (verbose) {
-    ticks <- 61 + as.numeric(!is.null(filename)) + as.numeric(places) + as.numeric(halftone)
+    ticks <- 61 + as.numeric(!is.null(filename)) + as.numeric(places) + as.numeric(halftone != "none")
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
@@ -351,8 +360,8 @@ cityview <- function(name, zoom = 1,
   # Add the city name to the plot ##############################################
   plotName <- if (theme %in% c("light", "dark")) paste0("\u2014", row$name, "\u2014") else row$name
   p <- cowplot::ggdraw(int_p)
-  if (halftone) { # Halftone
-    p <- .with_halftone(p, opts)
+  if (halftone != "none") { # Halftone
+    p <- .with_halftone(p, opts, halftone)
     .tick(progBar, verbose)
   }
   p <- p + cowplot::draw_text(text = plotName, x = 0.5, y = 0.93, size = 110, color = opts[["text"]], family = opts[["font"]], fontface = opts[["face"]]) +

@@ -4,14 +4,18 @@
 \alias{cityview}
 \title{Create an Aerial City View}
 \usage{
-cityview(name, zoom = 1,
+cityview(name, 
+         zoom = 1,
          theme = c("original", "light", "dark", "colored", "rouge",
                    "verde", "neon", "atlantis", "vintage", "lichtenstein"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
-         places = FALSE, halftone = FALSE,
-         filename = NULL, verbose = TRUE,
-         license = TRUE, bot = FALSE)
+         halftone = c("none", "light", "dark", "auto"),
+         places = FALSE, 
+         filename = NULL, 
+         verbose = TRUE,
+         license = TRUE, 
+         bot = FALSE)
 }
 \arguments{
 \item{name}{a character specifying the name of the city as provided by \code{list_cities()}.}
@@ -22,9 +26,9 @@ cityview(name, zoom = 1,
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).}
 
-\item{places}{logical. Whether to add neighborhood names to the plot.}
+\item{halftone}{a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither), \code{dark} (black dither) and \code{auto} (color according to theme).}
 
-\item{halftone}{logical. Whether to dither the plot using a halftone pattern.}
+\item{places}{logical. Whether to add neighborhood names to the plot.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.}
 

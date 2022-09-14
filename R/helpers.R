@@ -211,7 +211,7 @@
   return(opts)
 }
 
-.with_halftone <- function(p, opts) {
+.with_halftone <- function(p, opts, halftone) {
   xseq1 <- seq(0, 1, length = 101)
   xseq2 <- xseq1 + xseq1[2] / 2
   xseq2 <- xseq2[xseq2 > 0 & xseq2 < 1]
@@ -225,8 +225,12 @@
       yseq <- c(yseq, rep(yseq[length(yseq)] + 0.005, length(xseq2)))
     }
   }
-  hlist <- list("x" = xseq, "y" = yseq)
-  p <- p + ggplot2::geom_point(data = data.frame(x = hlist[["x"]], y = hlist[["y"]]), mapping = ggplot2::aes(x = x, y = y), col = opts[["halftone"]], alpha = 0.1, size = 2, shape = 19)
+  halftone.col <- switch(halftone,
+    "light" = "#ffffff",
+    "dark" = "#000000",
+    "auto" = opts[["halftone"]]
+  )
+  p <- p + ggplot2::geom_point(data = data.frame(x = xseq, y = yseq), mapping = ggplot2::aes(x = x, y = y), col = halftone.col, alpha = 0.1, size = 2, shape = 19)
   return(p)
 }
 
