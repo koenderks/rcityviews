@@ -239,8 +239,13 @@
       sf::st_crs(obj) <- sf::st_crs(crop)
       obj <- obj |> sf::st_intersection(crop)
     }
-    obj <- obj[which(!is.na(obj$name)), ]
-    df <- data.frame(name = obj$name, place = obj$place, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
+    if (is.null(obj$name.en)) {
+      obj <- obj[which(!is.na(obj$name)), ]
+      df <- data.frame(name = obj$name, place = obj$place, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
+    } else {
+      obj <- obj[which(!is.na(obj$name.en)), ]
+      df <- data.frame(name = obj$name.en, place = obj$place, x = unlist(lapply(obj$geometry, `[[`, 1)), y = unlist(lapply(obj$geometry, `[[`, 2)))
+    }
     df <- df[!is.na(df$place), , drop = FALSE]
     df <- df[!duplicated(df$name), , drop = FALSE]
     if (nrow(df) > 0) {
