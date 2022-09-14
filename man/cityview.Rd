@@ -4,17 +4,17 @@
 \alias{cityview}
 \title{Create an Aerial City View}
 \usage{
-cityview(name, 
+cityview(name,
          zoom = 1,
          theme = c("original", "light", "dark", "colored", "rouge",
                    "verde", "neon", "atlantis", "vintage", "lichtenstein"),
          border = c("none", "circle", "rhombus", "square",
                     "hexagon", "octagon", "decagon"),
          halftone = c("none", "light", "dark", "auto"),
-         places = FALSE, 
-         filename = NULL, 
+         places = 0,
+         filename = NULL,
          verbose = TRUE,
-         license = TRUE, 
+         license = TRUE,
          bot = FALSE)
 }
 \arguments{
@@ -28,7 +28,7 @@ cityview(name,
 
 \item{halftone}{a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither), \code{dark} (black dither) and \code{auto} (color according to theme).}
 
-\item{places}{logical. Whether to add neighborhood names to the plot.}
+\item{places}{an integer specifying how many suburb, quarter and neighbourhood names to add to the image.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.}
 

@@ -234,7 +234,7 @@
   return(p)
 }
 
-.with_places <- function(p, box, border, crop, opts) {
+.with_places <- function(p, box, border, crop, opts, places) {
   suppressWarnings({
     obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = box, key = "place", value = c("suburb", "quarter", "neighbourhood")))$osm_points
     obj <- sf::st_make_valid(obj)
@@ -248,6 +248,7 @@
     df <- df[!duplicated(df$name), , drop = FALSE]
     if (nrow(df) > 0) {
       df <- df[rev(order(df$place)), ]
+      df <- df[1:min(nrow(df), places), ]
       p <- p + shadowtext::geom_shadowtext(data = df, mapping = ggplot2::aes(x = x, y = y, label = name), col = opts[["neighborhood"]], size = 10, check_overlap = TRUE, fontface = "bold.italic", bg.colour = opts[["background"]])
     }
   })

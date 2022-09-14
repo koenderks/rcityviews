@@ -25,7 +25,7 @@
 #'          border = c("none", "circle", "rhombus", "square",
 #'                     "hexagon", "octagon", "decagon"),
 #'          halftone = c("none", "light", "dark", "auto"),
-#'          places = FALSE,
+#'          places = 0,
 #'          filename = NULL,
 #'          verbose = TRUE,
 #'          license = TRUE,
@@ -36,7 +36,7 @@
 #' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{atlantis}, \code{vintage} and \code{lichtenstein}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param halftone a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither), \code{dark} (black dither) and \code{auto} (color according to theme).
-#' @param places   logical. Whether to add neighborhood names to the plot.
+#' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
 #' @param filename character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
@@ -66,7 +66,7 @@ cityview <- function(name,
                        "hexagon", "octagon", "decagon"
                      ),
                      halftone = c("none", "light", "dark", "auto"),
-                     places = FALSE,
+                     places = 0,
                      filename = NULL,
                      verbose = TRUE,
                      license = TRUE,
@@ -85,7 +85,7 @@ cityview <- function(name,
     cat(paste0(row[["name"]], ", ", row[["country"]]))
   }
   if (verbose) {
-    ticks <- 61 + as.numeric(!is.null(filename)) + as.numeric(places) + as.numeric(halftone != "none")
+    ticks <- 61 + as.numeric(!is.null(filename)) + as.numeric(places > 0) + as.numeric(halftone != "none")
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", name, ", ", row$country))
@@ -353,8 +353,8 @@ cityview <- function(name,
     })
   }
   # Add neighborhood names
-  if (places) {
-    int_p <- .with_places(int_p, osmbox, border, cropped, opts)
+  if (places > 0) {
+    int_p <- .with_places(int_p, osmbox, border, cropped, opts, places)
     .tick(progBar, verbose)
   }
   # Add the city name to the plot ##############################################
