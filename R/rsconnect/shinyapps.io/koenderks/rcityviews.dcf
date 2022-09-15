@@ -5,9 +5,9 @@ account: koenderks
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5389156
-bundleId: 6305429
+bundleId: 6306237
 url: https://koenderks.shinyapps.io/rcityviews/
-when: 1663253075.31146
-lastSyncTime: 1663253075.31148
+when: 1663265895.4983
+lastSyncTime: 1663265895.49832
 asMultiple: FALSE
 asStatic: FALSE
