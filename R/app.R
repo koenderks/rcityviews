@@ -43,7 +43,7 @@
       shiny::fluidRow(
         align = "center",
         shiny::column(width = 6, shiny::selectInput(inputId = "halftone", label = "Halftone", choices = c("None", "Light", "Dark"))),
-        shiny::column(width = 6, shiny::sliderInput(inputId = "places", label = "Max. Places", value = 0, min = 0, max = 20, step = 1, ticks = FALSE))
+        shiny::column(width = 6, shiny::sliderInput(inputId = "places", label = "Max. places", value = 0, min = 0, max = 20, step = 1, ticks = FALSE))
       ),
       shiny::fluidRow(
         align = "center",
