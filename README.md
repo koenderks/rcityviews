@@ -45,7 +45,7 @@ library(rcityviews)
 First, you can search for a city name in the database using the `list_cities()` function. This function searches the database and finds any match for the expression in `match`.
 
 ```r
-list_cities("Ams")
+list_cities(match = "Ams")
 # [1] "Amstelveen" "Amsterdam" "Amstetten" "New Amsterdam" "Nieuw Amsterdam"
 ```
 

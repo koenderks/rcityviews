@@ -815,7 +815,9 @@
     }
     df <- df[!is.na(df[["place"]]), , drop = FALSE]
     df <- df[!duplicated(df[["name"]]), , drop = FALSE]
-    df <- df[-which(df[["name"]] == city[["name"]]), ] # Remove original city name
+    if (city[["name"]] %in% df[["name"]]) {
+      df <- df[-which(df[["name"]] == city[["name"]]), ] # Remove original city name
+    }
     if (nrow(df) > 0) {
       df <- df[order(match(df[["place"]], desired)), ]
       df <- df[1:min(nrow(df), places), ]
