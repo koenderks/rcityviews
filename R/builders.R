@@ -613,7 +613,7 @@
   }
   # Add neighborhood names
   if (places > 0) {
-    int_p <- .addPlaces(int_p, places, themeOptions, bbox, border, cropped)
+    int_p <- .addPlaces(int_p, places, themeOptions, bbox, border, cropped, city)
     .tick(verbose, progBar, ticks, shiny)
   }
   # Add the city name to the plot ##############################################
@@ -797,9 +797,10 @@
   return(data.frame(x = xx, y = yy))
 }
 
-.addPlaces <- function(int_p, places, themeOptions, bbox, border, cropped) {
+.addPlaces <- function(int_p, places, themeOptions, bbox, border, cropped, city) {
   suppressWarnings({
-    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = bbox, key = "place", value = c("suburb", "quarter", "neighbourhood")))[["osm_points"]]
+    desired <- c("city", "town", "suburb", "village", "quarter", "neighbourhood", "hamlet")
+    obj <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = bbox, key = "place", value = desired))[["osm_points"]]
     obj <- sf::st_make_valid(obj)
     if (border != "none") {
       sf::st_crs(obj) <- sf::st_crs(cropped)
@@ -814,9 +815,11 @@
     }
     df <- df[!is.na(df[["place"]]), , drop = FALSE]
     df <- df[!duplicated(df[["name"]]), , drop = FALSE]
+    df <- df[-which(df[["name"]] == city[["name"]]), ] # Remove original city name
     if (nrow(df) > 0) {
-      df <- df[rev(order(df[["place"]])), ]
+      df <- df[order(match(df[["place"]], desired)), ]
       df <- df[1:min(nrow(df), places), ]
+      df[["size"]] <- ifelse(df[["place"]] == "city", yes = 13, no = ifelse(df[["place"]] == "town", yes = 12, no = ifelse(df[["place"]] == "village", yes = 11, no = 9)))
       int_p <- int_p + shadowtext::geom_shadowtext(
         data = df,
         mapping = ggplot2::aes(x = x, y = y, label = name),
@@ -824,7 +827,7 @@
         check_overlap = TRUE,
         fontface = "bold.italic",
         bg.colour = themeOptions[["background"]],
-        size = 10
+        size = df[["size"]]
       )
     }
   })
