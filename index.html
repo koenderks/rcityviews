@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minimalistic City Views • rcityviews</title>
+<title>Minimalistic City Views using OSM • rcityviews</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Minimalistic City Views">
+<script src="pkgdown.js"></script><meta property="og:title" content="Minimalistic City Views using OSM">
 <meta property="og:description" content="A user-friendly interface to create minimalistic city views in ggplot2 using data from OpenStreetMap &lt;https://www.openstreetmap.org/&gt;.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -125,14 +125,14 @@
 <div class="section level3">
 <h3 id="saving-the-image">Saving the image<a class="anchor" aria-label="anchor" href="#saving-the-image"></a>
 </h3>
-<p>Finally, render times in <code>RStudio</code> can be very long for these type of plots. It is therefore recommended to directly save the images in a <code>500mm x 500mm</code> format. The ideal way to do this is usually something like:</p>
+<p>Finally, render times in <code>RStudio</code> can be very long for crowded images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. The ideal way to do this is usually something like:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span>, plot <span class="op">=</span> <span class="va">p</span>, height <span class="op">=</span> <span class="fl">500</span>, width <span class="op">=</span> <span class="fl">500</span>, units <span class="op">=</span> <span class="st">"mm"</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function. This way, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object to save rendering time.</p>
+<p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, border <span class="op">=</span> <span class="st">"circle"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
 <p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png" width="400" height="400"></p>
-<p>For printing, it is recommended to use the option <code>license = FALSE</code> and save the image to a <code>.pdf</code> or <code>.svg</code> file, see below. Afterwards, you can best print it in a <code>500mm x 500mm</code> format.</p>
+<p>For printing, it is recommended to use the option <code>license = FALSE</code> and save the image to a <code>.pdf</code> or <code>.svg</code> file, see below. Afterwards, it is best printed in a <code>500mm x 500mm</code> format.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, border <span class="op">=</span> <span class="st">"circle"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.pdf"</span>, license <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -145,7 +145,7 @@
 <div class="section level3">
 <h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
 </h3>
-<p>You can select different themes for the plot. The images above are created using <code>theme = "original"</code>, but other options for the <code>theme</code> argument include <code>light</code> (top left), <code>dark</code> (middle left), <code>rouge</code> (top middle), <code>verde</code> (middle middle), <code>colored</code> (top right), <code>neon</code> (middle right), <code>atlantis</code> (bottom left), <code>vintage</code> (bottom middle) and <code>lichtenstein</code> (bottom right).</p>
+<p>You can select different themes for the image. The images above are created using <code>theme = "original"</code>, but other options for the <code>theme</code> argument include <code>light</code> (top left), <code>dark</code> (middle left), <code>rouge</code> (top middle), <code>verde</code> (middle middle), <code>colored</code> (top right), <code>neon</code> (middle right), <code>atlantis</code> (bottom left), <code>vintage</code> (bottom middle) and <code>lichtenstein</code> (bottom right).</p>
 <p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_rouge.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_colored.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_dark.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_verde.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_neon.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_atlantis.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_vintage.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_lichtenstein.png" width="250" height="250"></p>
 </div>
 <div class="section level3">
@@ -158,7 +158,7 @@
 <div class="section level2">
 <h2 id="create-your-own-in-shiny">Create your own in Shiny<a class="anchor" aria-label="anchor" href="#create-your-own-in-shiny"></a>
 </h2>
-<p>You can easily make your own custom images using an <code>R</code> Shiny implementation of the package. The live application can be found <a href="https://koenderks.shinyapps.io/rcityviews/" class="external-link">here</a> and the code to run the app locally can be found <a href="https://raw.githubusercontent.com/koenderks/rcityviews/master/app.R" class="external-link">here</a>.</p>
+<p>You can make your own images without having to code using an <code>R Shiny</code> implementation of the package. A live version of the application can be found <a href="https://koenderks.shinyapps.io/rcityviews/" class="external-link">here</a> but it is also easily accessible from within <code>R</code> by calling <code><a href="reference/cityview_shiny.html">rcityviews::cityview_shiny()</a></code>.</p>
 <p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/app.png" width="900" height="300"></p>
 </div>
 <div class="section level2">

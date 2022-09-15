@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cityview</span><span class="op">(</span><span class="va">name</span>,</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>         zoom <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>         theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"original"</span>, <span class="st">"light"</span>, <span class="st">"dark"</span>, <span class="st">"colored"</span>, <span class="st">"rouge"</span>,</span>
 <span>                   <span class="st">"verde"</span>, <span class="st">"neon"</span>, <span class="st">"atlantis"</span>, <span class="st">"vintage"</span>, <span class="st">"lichtenstein"</span><span class="op">)</span>,</span>
@@ -70,7 +70,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
-<dd><p>a character specifying the name of the city as provided by <code><a href="list_cities.html">list_cities()</a></code>.</p></dd>
+<dd><p>a character specifying the name of the city as provided by <code><a href="list_cities.html">list_cities()</a></code>. If <code>NULL</code> (default), chooses a random city.</p></dd>
 
 
 <dt>zoom</dt>
@@ -111,7 +111,7 @@
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="list_cities.html">list_cities</a></code></p></div>
+    <div class="dont-index"><p><code><a href="list_cities.html">list_cities</a></code> <code><a href="cityview_shiny.html">cityview_shiny</a></code></p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
