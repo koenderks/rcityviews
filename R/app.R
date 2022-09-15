@@ -67,7 +67,7 @@
 )
 
 .shiny_server <- function(input, output, session) {
-  city <- .randomCity(sample(1:100000, size = 1))
+  city <- rcityviews:::.randomCity(sample(1:100000, size = 1))
   shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
   shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
   output[["osm"]] <- leaflet::renderLeaflet({
@@ -77,7 +77,7 @@
       leaflet.extras::addSearchOSM()
   })
   shiny::observeEvent(input[["randomize"]], {
-    city <- .randomCity(sample(1:100000, size = 1))
+    city <- rcityviews:::.randomCity(sample(1:100000, size = 1))
     shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
     shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
     output[["osm"]] <- leaflet::renderLeaflet({
@@ -89,16 +89,16 @@
   })
   output[["plotObject"]] <- shiny::renderPlot(NULL)
   shiny::observeEvent(input[["run"]], {
-    themeOptions <- .themeOptions(tolower(input[["theme"]]))
+    themeOptions <- rcityviews:::.themeOptions(tolower(input[["theme"]]))
     ticks <- 61 + as.numeric(input[["halftone"]] != "None") + as.numeric(input[["places"]] > 0)
     long <- stats::median(c(input[["osm_bounds"]][["east"]], input[["osm_bounds"]][["west"]]))
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)
-    boundaries <- .getBoundaries(city, tolower(input[["border"]]), shiny = TRUE, input = input)
+    boundaries <- rcityviews:::.getBoundaries(city, tolower(input[["border"]]), shiny = TRUE, input = input)
     bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 10)
     try <- try({
       shiny::withProgress(message = "Creating preview", value = 0, min = 0, max = 1, expr = {
-        image <- .buildCity(
+        image <- rcityviews:::.buildCity(
           city = city,
           bbox = bbox,
           panel = boundaries[["panel"]],

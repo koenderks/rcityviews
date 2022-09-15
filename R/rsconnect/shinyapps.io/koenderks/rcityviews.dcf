@@ -1,0 +1,13 @@
+name: rcityviews
+title: rcityviews
+username:
+account: koenderks
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5389156
+bundleId: 6305429
+url: https://koenderks.shinyapps.io/rcityviews/
+when: 1663253075.31146
+lastSyncTime: 1663253075.31148
+asMultiple: FALSE
+asStatic: FALSE
