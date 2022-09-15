@@ -13,13 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.getCity <- function(name, bot) {
+.getCity <- function(name) {
   if (is.null(name)) {
     city <- .randomCity(NULL)
   } else {
     dataset <- rcityviews::cities
     indexes <- which(dataset[["name"]] == name)
-    index <- .resolveConflicts(name, indexes, dataset, bot)
+    index <- .resolveConflicts(name, indexes, dataset)
     if (is.null(index)) {
       return(NULL)
     }
@@ -35,21 +35,17 @@
   return(selected)
 }
 
-.resolveConflicts <- function(name, indexes, dataset, bot) {
+.resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
     stop(paste0("There is no city called '", name, "' in the available data.\nCreate an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
   } else if (length(indexes) > 1) {
-    if (bot) {
-      selection <- sample(1:length(indexes), size = 1)
-    } else {
-      selection <- utils::menu(
-        choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
-        title = "More than one city matched to this name, which one to pick?"
-      )
-      if (selection == 0) {
-        return(NULL)
-      }
+    selection <- utils::menu(
+      choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
+      title = "More than one city matched to this name, which one to pick?"
+    )
+    if (selection == 0) {
+      return(NULL)
     }
     index <- indexes[selection]
   }

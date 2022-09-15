@@ -51,7 +51,7 @@ list_cities("Ams")
 
 ### Creating the image
 
-Second, once you have obtained the name of the city you want to view, you can use the `cityview()` function to create a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g., to speed up computation time).
+Second, once you have obtained the name of the city you want to view, you can use the `cityview()` function to create a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g., `zoom > 1`, speeds up computation time) or zoom out of your city (e.g., `zoom < 0.5`, no buildings will show up on the image).
 
 ```r
 p <- cityview(name = "Amsterdam", zoom = 1, border = "circle")

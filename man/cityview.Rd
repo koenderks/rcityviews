@@ -36,7 +36,7 @@ cityview(name = NULL,
 
 \item{license}{logical. Whether to add the OpenStreetMap licence to the plot.}
 
-\item{bot}{logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.}
+\item{bot}{logical. Enable functionality used by the Twitter bot.}
 }
 \description{
 Create an aerial city view.

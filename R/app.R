@@ -94,13 +94,14 @@
     long <- stats::median(c(input[["osm_bounds"]][["east"]], input[["osm_bounds"]][["west"]]))
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)
-    boundaries <- rcityviews:::.getBoundaries(city, tolower(input[["border"]]), shiny = TRUE, input = input)
-    bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 10)
+    boundaries <- rcityviews:::.getBoundaries(city, tolower(input[["border"]]), input = input)
+    bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 25)
     try <- try({
       shiny::withProgress(message = "Creating preview", value = 0, min = 0, max = 1, expr = {
         image <- rcityviews:::.buildCity(
           city = city,
           bbox = bbox,
+          zoom = 0.0225 / (city[["lat"]] - boundaries[["panel"]][2]),
           panel = boundaries[["panel"]],
           themeOptions = themeOptions,
           border = tolower(input[["border"]]),
@@ -110,7 +111,6 @@
           borderPoints = boundaries[["borderPoints"]],
           verbose = FALSE,
           license = FALSE,
-          bot = FALSE,
           ticks = ticks,
           shiny = TRUE
         )

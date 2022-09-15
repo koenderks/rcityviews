@@ -40,7 +40,7 @@
 #' @param filename character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
-#' @param bot      logical. Choose automatically between cities with the same name and add a copyright licence to the image. Primarily used by the twitter bot.
+#' @param bot      logical. Enable functionality used by the Twitter bot.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -78,7 +78,7 @@ cityview <- function(name = NULL,
   # Set theme options ##########################################################
   themeOptions <- .themeOptions(theme)
   # Look up city ###############################################################
-  city <- .getCity(name, bot)
+  city <- .getCity(name)
   if (is.null(city)) {
     return(invisible())
   }
@@ -86,15 +86,16 @@ cityview <- function(name = NULL,
     cat(paste0(city[["name"]], ", ", city[["country"]]))
   }
   # Create the bounding box ####################################################
-  boundaries <- .getBoundaries(city = city, border = border, shiny = FALSE, zoom = zoom)
+  boundaries <- .getBoundaries(city = city, border = border, zoom = zoom)
   # Crop the bounding box to the border ########################################
-  bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 10)
+  bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 25)
   # Build the plot #############################################################
   try <- try(
     {
       image <- .buildCity(
         city = city,
         bbox = bbox,
+        zoom = zoom,
         panel = boundaries[["panel"]],
         themeOptions = themeOptions,
         border = border,
@@ -104,7 +105,6 @@ cityview <- function(name = NULL,
         borderPoints = boundaries[["borderPoints"]],
         verbose = verbose,
         license = license,
-        bot = bot,
         ticks = ticks,
         shiny = FALSE
       )

@@ -9,4 +9,4 @@ rcvRelease.R
 ^CITATION\.cff$
 ^\.github$
 ^png$
-rsconnect
+^R\rsconnect$

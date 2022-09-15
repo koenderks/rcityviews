@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.buildCity <- function(city, bbox, panel, themeOptions, border, halftone, places, cropped, borderPoints, verbose, license, bot, ticks, shiny) {
+.buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, places, cropped, borderPoints, verbose, license, ticks, shiny) {
   if (verbose) {
     # Initialize progress bar ##################################################
-    progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0, force = bot)
+    progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0)
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", city[["name"]], ", ", city[["country"]]))
   }
@@ -589,14 +589,16 @@
   )
   .tick(verbose, progBar, ticks, shiny)
   # Buildings ##################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"building\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = 0.3,
-    inherit.aes = FALSE
-  )
+  if (zoom >= 0.5) { # Skip buildings if zoom < 0.5 as it takes immense computing time
+    obj <- .getOsmFeatures(bbox, cropped, border, features = "\"building\"")
+    int_p <- int_p + ggplot2::geom_sf(
+      data = obj[["polygons"]],
+      fill = sample(themeOptions[["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
+      color = themeOptions[["lines"]],
+      size = 0.3,
+      inherit.aes = FALSE
+    )
+  }
   .tick(verbose, progBar, ticks, shiny)
   # Specify coordinate system for plot #########################################
   int_p <- int_p + ggplot2::coord_sf(xlim = c(panel[1], panel[3]), ylim = c(panel[2], panel[4]), expand = TRUE) +
@@ -693,9 +695,9 @@
   return(p)
 }
 
-.getBoundaries <- function(city, border, shiny, zoom = NULL, input = NULL) {
+.getBoundaries <- function(city, border, zoom = NULL, input = NULL) {
   defaultRadius <- 0.0225
-  if (!shiny) {
+  if (!is.null(zoom)) {
     radius <- geosphere::distm(x = c(city[["long"]], city[["lat"]]), y = c(city[["long"]], city[["lat"]] + defaultRadius * (1 / zoom)), fun = geosphere::distHaversine)
   } else {
     radius <- geosphere::distm(x = c(city[["long"]], city[["lat"]]), y = c(city[["long"]], input[["osm_bounds"]][["north"]]), fun = geosphere::distHaversine)
@@ -742,7 +744,8 @@
     panel = panel,
     cropped = cropped,
     croppedBox = croppedBox,
-    borderPoints = borderPoints
+    borderPoints = borderPoints,
+    zoom = zoom
   )
   return(results)
 }
