@@ -10,4 +10,3 @@ rcvRelease.R
 ^\.github$
 ^png$
 rsconnect
-app.R

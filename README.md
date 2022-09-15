@@ -60,13 +60,13 @@ p <- cityview(name = "Amsterdam", zoom = 1, border = "circle")
 
 ### Saving the image
 
-Finally, render times in `RStudio` can be very long for these type of plots. It is therefore recommended to directly save the images in a `500mm x 500mm` format. The ideal way to do this is usually something like:
+Finally, render times in `RStudio` can be very long for crowded images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. The ideal way to do this is usually something like:
 
 ```r
 ggplot2::ggsave(filename = "Amsterdam.png", plot = p, height = 500, width = 500, units = "mm", dpi = 100)
 ```
 
-However, you can also do this instantly by providing a filename directly to the `cityview()` function. This way, the image is exported in an appropriate size and the function does not return a `ggplot2` object to save rendering time.
+However, you can also do this instantly by providing a filename directly to the `cityview()` function. To save rendering time, the image is exported in an appropriate size and the function does not return a `ggplot2` object.
 
 ```r
 cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
@@ -76,7 +76,7 @@ cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png' width='400' height='400'>
 </p>
 
-For printing, it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, see below. Afterwards, you can best print it in a `500mm x 500mm` format.
+For printing, it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, see below. Afterwards, it is best printed in a `500mm x 500mm` format.
 
 ```r
 cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.pdf", license = FALSE)
@@ -94,7 +94,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the plot. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `atlantis` (bottom left), `vintage` (bottom middle) and `lichtenstein` (bottom right).
+You can select different themes for the image. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `atlantis` (bottom left), `vintage` (bottom middle) and `lichtenstein` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
@@ -122,7 +122,7 @@ There are two other arguments of the `cityview()` function you can adjust to tai
 
 ## Create your own in Shiny
 
-You can easily make your own custom images using an `R` Shiny implementation of the package. The live application can be found [here](https://koenderks.shinyapps.io/rcityviews/) and the code to run the app locally can be found [here](https://raw.githubusercontent.com/koenderks/rcityviews/master/app.R).
+You can make your own images without having to code using an `R Shiny` implementation of the package. A live version of the application can be found [here](https://koenderks.shinyapps.io/rcityviews/) but it is also easily accessible from within `R` by calling `rcityviews::cityview_shiny()`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/app.png' width='900' height='300'>

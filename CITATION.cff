@@ -7,7 +7,7 @@ cff-version: 1.2.0
 message: 'To cite package "rcityviews" in publications use:'
 type: software
 license: GPL-3.0-or-later
-title: 'rcityviews: Minimalistic City Views'
+title: 'rcityviews: Minimalistic City Views using OpenStreetMap (OSM) Data'
 version: 1.0.2
 abstract: A user-friendly interface to create minimalistic city views in 'ggplot2'
   using data from OpenStreetMap <https://www.openstreetmap.org/>.
@@ -17,16 +17,16 @@ authors:
   email: koen-derks@hotmail.com
 preferred-citation:
   type: manual
-  title: 'rcityviews: Minimalistic City Views using R and ''ggplot2'''
+  title: 'rcityviews: Minimalistic City Views using OpenStreetMap (OSM) Data'
   authors:
   - family-names: Derks
     given-names: Koen
     email: koen-derks@hotmail.com
   year: '2022'
-  notes: R package version 1.0.0
+  notes: R package version 1.0.2
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.shinyapps.io/rcityviews/
-date-released: '2022-09-14'
+date-released: '2022-09-15'
 contact:
 - family-names: Derks
   given-names: Koen
@@ -116,6 +116,34 @@ references:
   year: '2022'
   url: https://CRAN.R-project.org/package=ggspatial
 - type: software
+  title: leaflet
+  abstract: 'leaflet: Create Interactive Web Maps with the JavaScript ''Leaflet''
+    Library'
+  notes: Imports
+  authors:
+  - family-names: Cheng
+    given-names: Joe
+    email: joe@rstudio.com
+  - family-names: Karambelkar
+    given-names: Bhaskar
+  - family-names: Xie
+    given-names: Yihui
+  year: '2022'
+  url: https://CRAN.R-project.org/package=leaflet
+- type: software
+  title: leaflet.extras
+  abstract: 'leaflet.extras: Extra Functionality for ''leaflet'' Package'
+  notes: Imports
+  authors:
+  - family-names: Karambelkar
+    given-names: Bhaskar
+    email: bhaskarvk@gmail.com
+  - family-names: Schloerke
+    given-names: Barret
+    email: barret@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=leaflet.extras
+- type: software
   title: methods
   abstract: 'R: A Language and Environment for Statistical Computing'
   notes: Imports
@@ -177,6 +205,44 @@ references:
   year: '2022'
   url: https://CRAN.R-project.org/package=shadowtext
 - type: software
+  title: shiny
+  abstract: 'shiny: Web Application Framework for R'
+  notes: Imports
+  authors:
+  - family-names: Chang
+    given-names: Winston
+    email: winston@rstudio.com
+    orcid: https://orcid.org/0000-0002-1576-2126
+  - family-names: Cheng
+    given-names: Joe
+    email: joe@rstudio.com
+  - family-names: Allaire
+    given-names: JJ
+    email: jj@rstudio.com
+  - family-names: Sievert
+    given-names: Carson
+    email: carson@rstudio.com
+    orcid: https://orcid.org/0000-0002-4958-2844
+  - family-names: Schloerke
+    given-names: Barret
+    email: barret@rstudio.com
+    orcid: https://orcid.org/0000-0001-9986-114X
+  - family-names: Xie
+    given-names: Yihui
+    email: yihui@rstudio.com
+  - family-names: Allen
+    given-names: Jeff
+    email: jeff@rstudio.com
+  - family-names: McPherson
+    given-names: Jonathan
+    email: jonathan@rstudio.com
+  - family-names: Dipert
+    given-names: Alan
+  - family-names: Borges
+    given-names: Barbara
+  year: '2022'
+  url: https://CRAN.R-project.org/package=shiny
+- type: software
   title: showtext
   abstract: 'showtext: Using Fonts More Easily in R Graphs'
   notes: Imports
@@ -187,6 +253,44 @@ references:
     given-names: authors/contributors of the included software. See file AUTHORS for
   year: '2022'
   url: https://CRAN.R-project.org/package=showtext
+- type: software
+  title: stats
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2022'
+  url: https://www.R-project.org/
+  institution:
+    name: R Foundation for Statistical Computing
+- type: software
+  title: svglite
+  abstract: 'svglite: An ''SVG'' Graphics Device'
+  notes: Imports
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@rstudio.com
+  - family-names: Pedersen
+    given-names: Thomas Lin
+    email: thomas.pedersen@rstudio.com
+    orcid: https://orcid.org/0000-0002-5147-4711
+  - family-names: Luciani
+    given-names: T Jake
+    email: jake@apache.org
+  - family-names: Decorde
+    given-names: Matthieu
+    email: matthieu.decorde@ens-lyon.fr
+  - family-names: Lise
+    given-names: Vaudor
+    email: lise.vaudor@ens-lyon.fr
+  year: '2022'
+  url: https://CRAN.R-project.org/package=svglite
 - type: software
   title: sysfonts
   abstract: 'sysfonts: Loading Fonts into R'

@@ -17,7 +17,7 @@ List all city names.
 list_cities(match = "Ams")
 }
 \seealso{
-\code{\link{cityview}}
+\code{\link{cityview}} \code{\link{cityview_shiny}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}

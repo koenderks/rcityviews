@@ -13,31 +13,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' List or Search City Names
+#' [Shiny] Create an Aerial City View
 #'
-#' @description List all city names.
+#' @description Create an aerial city view in Shiny.
 #'
+#' @usage cityview_shiny(launch.browser = FALSE)
 #'
-#' @usage list_cities(match = NULL)
-#'
-#' @param match       string to match.
+#' @param launch.browser logical. If \code{FALSE} (the default), the app will run in the viewer panel. If \code{TRUE}, the app will run in the system's default web browser.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
-#' @seealso \code{\link{cityview}} \code{\link{cityview_shiny}}
+#' @seealso \code{\link{list_cities}} \code{\link{cityview}}
 #'
-#' @keywords cities search
+#' @keywords create cities shiny
 #'
 #' @examples
-#' # List all cities containing "Ams"
-#' list_cities(match = "Ams")
+#' \dontrun{
+#' # Start the shiny app
+#' cityview_shiny()
+#' }
 #' @export
-
-list_cities <- function(match = NULL) {
-  cities <- rcityviews::cities
-  names <- cities[["name"]]
-  if (!is.null(match)) {
-    names <- grep(match, names, value = TRUE)
-  }
-  return(names)
+cityview_shiny <- function(launch.browser = FALSE) {
+  shiny::shinyApp(
+    ui = .shiny_ui, server = .shiny_server,
+    options = if (launch.browser) list("launch.browser" = TRUE) else NULL
+  )
 }

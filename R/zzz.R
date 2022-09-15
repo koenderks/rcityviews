@@ -24,6 +24,8 @@
   sysfonts::font_add_google("Fredericka the Great")
   sysfonts::font_add_google("Ubuntu Mono")
   showtext::showtext_auto()
+  osmdata::set_overpass_url("https://overpass.kumi.systems/api/interpreter")
+  message("Data by \u00A9 OpenStreetMap contributors")
 }
 
 utils::globalVariables(c("x", "y", "name"))

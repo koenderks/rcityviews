@@ -4,7 +4,7 @@
 \alias{cityview}
 \title{Create an Aerial City View}
 \usage{
-cityview(name,
+cityview(name = NULL,
          zoom = 1,
          theme = c("original", "light", "dark", "colored", "rouge",
                    "verde", "neon", "atlantis", "vintage", "lichtenstein"),
@@ -18,7 +18,7 @@ cityview(name,
          bot = FALSE)
 }
 \arguments{
-\item{name}{a character specifying the name of the city as provided by \code{list_cities()}.}
+\item{name}{a character specifying the name of the city as provided by \code{list_cities()}. If \code{NULL} (default), chooses a random city.}
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
@@ -48,7 +48,7 @@ cityview(name = "Amsterdam", theme = "original", border = "circle")
 }
 }
 \seealso{
-\code{\link{list_cities}}
+\code{\link{list_cities}} \code{\link{cityview_shiny}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}
