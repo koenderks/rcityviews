@@ -72,7 +72,7 @@
     "verde" = "#284566",
     "neon" = "#0be8ed",
     "vintage" = "#32130f",
-    "atlantis" = "#ffffff",
+    "delftware" = "#ffffff",
     "lichtenstein" = "#2f3737"
   )
   background <- switch(theme,
@@ -84,7 +84,7 @@
     "verde" = "#6ca67a",
     "neon" = "#000000",
     "vintage" = "#fff7d8",
-    "atlantis" = lines,
+    "delftware" = lines,
     "lichtenstein" = "#ffffff"
   )
   water <- switch(theme,
@@ -96,7 +96,7 @@
     "verde" = lines,
     "neon" = "#ec3b8d",
     "vintage" = "#9ebfaa",
-    "atlantis" = lines,
+    "delftware" = lines,
     "lichtenstein" = "#607ba4"
   )
   waterlines <- switch(theme,
@@ -108,7 +108,7 @@
     "verde" = lines,
     "neon" = water,
     "vintage" = water,
-    "atlantis" = lines,
+    "delftware" = lines,
     "lichtenstein" = water
   )
   landuse <- switch(theme,
@@ -120,7 +120,7 @@
     "verde" = lines,
     "neon" = background,
     "vintage" = background,
-    "atlantis" = c("#8fbbe2", "#0072fe", "#0b448b", "#5699b5", "#485270"),
+    "delftware" = c("#7ebaee", "#8da8d7", "#3259a6", "#0c133f", "#080e1c"),
     "lichtenstein" = "#478f70"
   )
   text <- switch(theme,
@@ -132,7 +132,7 @@
     "verde" = lines,
     "neon" = "#e7d073",
     "vintage" = lines,
-    "atlantis" = "#000000",
+    "delftware" = "#000000",
     "lichtenstein" = lines
   )
   rails <- switch(theme,
@@ -144,7 +144,7 @@
     "verde" = lines,
     "neon" = text,
     "vintage" = lines,
-    "atlantis" = lines,
+    "delftware" = lines,
     "lichtenstein" = lines
   )
   buildings <- switch(theme,
@@ -155,7 +155,7 @@
     "rouge" = background,
     "verde" = lines,
     "neon" = background,
-    "atlantis" = landuse,
+    "delftware" = landuse,
     "vintage" = c("#facc87", "#f39848", "#f8c98c", "#f58762"),
     "lichtenstein" = "#f4d849"
   )
@@ -167,11 +167,11 @@
     "rouge" = "Oswald",
     "verde" = "Righteous",
     "neon" = "Neonderthaw",
-    "atlantis" = "Ubuntu Mono",
+    "delftware" = "Dancing Script",
     "vintage" = "Fredericka the Great",
     "lichtenstein" = "Rampart One"
   )
-  face <- if (theme %in% c("original", "verde", "rouge", "neon")) "bold" else "plain"
+  face <- if (theme %in% c("original", "verde", "rouge", "neon", "delftware")) "bold" else "plain"
   neighborhood <- switch(theme,
     "original" = lines,
     "light" = lines,
@@ -180,7 +180,7 @@
     "rouge" = lines,
     "verde" = "#fafafa",
     "neon" = rails,
-    "atlantis" = "#000000",
+    "delftware" = "#000000",
     "vintage" = lines,
     "lichtenstein" = lines
   )
