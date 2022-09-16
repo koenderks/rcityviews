@@ -806,6 +806,9 @@
       sf::st_crs(obj) <- sf::st_crs(cropped)
       obj <- obj |> sf::st_intersection(cropped)
     }
+    if (city[["name"]] %in% obj[["name"]]) {
+      obj <- obj[-which(obj[["name"]] == city[["name"]]), ] # Remove original city name
+    }
     if (is.null(obj[["name.en"]]) | all(is.na(obj[["name.en"]]))) {
       obj <- obj[which(!is.na(obj[["name"]])), ]
       df <- data.frame(name = obj[["name"]], place = obj[["place"]], x = unlist(lapply(obj[["geometry"]], `[[`, 1)), y = unlist(lapply(obj[["geometry"]], `[[`, 2)))
@@ -815,9 +818,6 @@
     }
     df <- df[!is.na(df[["place"]]), , drop = FALSE]
     df <- df[!duplicated(df[["name"]]), , drop = FALSE]
-    if (city[["name"]] %in% df[["name"]]) {
-      df <- df[-which(df[["name"]] == city[["name"]]), ] # Remove original city name
-    }
     if (nrow(df) > 0) {
       df <- df[order(match(df[["place"]], desired)), ]
       df <- df[1:min(nrow(df), places), ]
