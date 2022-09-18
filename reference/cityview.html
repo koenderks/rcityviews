@@ -61,6 +61,7 @@
 <span>                    <span class="st">"hexagon"</span>, <span class="st">"octagon"</span>, <span class="st">"decagon"</span><span class="op">)</span>,</span>
 <span>         halftone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"light"</span>, <span class="st">"dark"</span><span class="op">)</span>,</span>
 <span>         places <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>         ruler <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>         filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>         verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         license <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -93,8 +94,12 @@
 <dd><p>an integer specifying how many suburb, quarter and neighbourhood names to add to the image.</p></dd>
 
 
+<dt>ruler</dt>
+<dd><p>logical. Whether to add a distance measurer underneath the compass.</p></dd>
+
+
 <dt>filename</dt>
-<dd><p>character. If specified, the function exports the plot at an appropriate size and does NOT return a <code>ggplot2</code> object.</p></dd>
+<dd><p>character. If specified, the function exports the plot at an appropriate size and does not return a <code>ggplot2</code> object.</p></dd>
 
 
 <dt>verbose</dt>
