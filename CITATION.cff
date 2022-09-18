@@ -26,12 +26,15 @@ preferred-citation:
   notes: R package version 1.0.2
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.shinyapps.io/rcityviews/
-date-released: '2022-09-15'
+date-released: '2022-09-18'
 contact:
 - family-names: Derks
   given-names: Koen
   email: koen-derks@hotmail.com
 keywords:
+- cartography
+- ggplot2
+- maps
 - openstreetmap
 - osm
 - r
@@ -183,6 +186,24 @@ references:
     given-names: Rich
   year: '2022'
   url: https://CRAN.R-project.org/package=progress
+- type: software
+  title: s2
+  abstract: 's2: Spherical Geometry Operators Using the S2 Geometry Library'
+  notes: Imports
+  authors:
+  - family-names: Dunnington
+    given-names: Dewey
+    email: dewey@fishandwhistle.net
+    orcid: https://orcid.org/0000-0002-9415-4582
+  - family-names: Pebesma
+    given-names: Edzer
+    email: edzer.pebesma@uni-muenster.de
+    orcid: https://orcid.org/0000-0001-8049-7069
+  - family-names: Rubak
+    given-names: Ege
+    email: rubak@math.aau.dk
+  year: '2022'
+  url: https://CRAN.R-project.org/package=s2
 - type: software
   title: sf
   abstract: 'sf: Simple Features for R'

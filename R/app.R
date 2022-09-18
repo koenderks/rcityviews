@@ -38,7 +38,7 @@
       shiny::fluidRow(
         align = "center",
         shiny::column(width = 6, shiny::selectInput(inputId = "theme", label = "Theme", choices = c("Original", "Light", "Dark", "Colored", "Rouge", "Verde", "Neon", "Delftware", "Vintage", "Lichtenstein"))),
-        shiny::column(width = 6, shiny::selectInput(inputId = "border", label = "Border", choices = c("None", "Circle", "Rhombus", "Square", "Hexagon", "Octagon", "Decagon"), selected = "Circle"))
+        shiny::column(width = 6, shiny::selectInput(inputId = "border", label = "Border", choices = c("Circle", "Rhombus", "Square", "Hexagon", "Octagon", "Decagon", "None")))
       ),
       shiny::fluidRow(
         align = "center",

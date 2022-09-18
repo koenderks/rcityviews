@@ -7,7 +7,7 @@
 
 <img src='https://github.com/koenderks/rcityviews/raw/master/man/figures/logo.png' width='149' height='173' alt='logo' align='right' margin-left='20' margin-right='20'/>
 
-This repository is an homage to the programming language `R`, open-source geographic data and the art of map making. It provides code and examples to generate minimalistic city views using data from [OpenStreetMap](https://www.openstreetmap.org/).
+This provides code and examples to generate minimalistic city views using data from [OpenStreetMap](https://www.openstreetmap.org/).
 
 * [Latest city view](#latest-city-view)
 * [Installation](#installation)
@@ -25,14 +25,14 @@ Every 3 hours this repository creates and tweets a view of a random city. You ca
 
 ## Installation
 
-The functionality in this repository is implemented as an `R` package: `rcityviews`. However, the `rcityviews` package is not available on CRAN. It can therefore only be obtained via GitHub by running the following command in `R`:
+The functionality in this repository is implemented as an `R` package: `rcityviews`. However, this package is not available on CRAN and can therefore only be obtained via GitHub by running the following command in `R`:
 
 ```r
 # install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed
 remotes::install_github("koenderks/rcityviews", dependencies = TRUE)
 ```
 
-After installation, the package can be loaded with:
+After installation, the `rcityviews` package can be loaded with:
 
 ```r
 library(rcityviews)
@@ -54,7 +54,7 @@ list_cities(match = "Ams")
 Second, once you have obtained the name of the city you want to view, you can use the `cityview()` function to create a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g., `zoom > 1`, speeds up computation time) or zoom out of your city (e.g., `zoom < 0.5`, no buildings will show up on the image).
 
 ```r
-p <- cityview(name = "Amsterdam", zoom = 1, border = "circle")
+p <- cityview(name = "Amsterdam", zoom = 1)
 # see ?cityview for more input parameters of this function
 ```
 
@@ -69,22 +69,22 @@ ggplot2::ggsave(filename = "Amsterdam.png", plot = p, height = 500, width = 500,
 However, you can also do this instantly by providing a filename directly to the `cityview()` function. To save rendering time, the image is exported in an appropriate size and the function does not return a `ggplot2` object.
 
 ```r
-cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
+cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png' width='400' height='400'>
 </p>
 
-For printing, it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, see below. Afterwards, it is best printed in a `500mm x 500mm` format.
+For personal (non-commercial) printing it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
 
 ```r
-cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.pdf", license = FALSE)
+cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 ```
 
 ### Border styles
 
-You can select different types of borders to enclose the city. The image above is created using `border = "circle"`, but other options for the `border` argument include `none` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
+You can select different types of borders to enclose the city. The image above is created using `border = "circle"` (default), but other options for the `border` argument include `none` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_no_border.png' width='250' height='250'>
@@ -94,7 +94,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Themes
 
-You can select different themes for the image. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `delftware` (bottom left), `vintage` (bottom middle) and `lichtenstein` (bottom right).
+You can also select different themes for the image. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `delftware` (bottom left), `vintage` (bottom middle) and `lichtenstein` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
@@ -112,7 +112,7 @@ You can select different themes for the image. The images above are created usin
 
 ### Other display options
 
-There are three other arguments of the `cityview()` function you can adjust to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). The halftone options `light` (white dots) and `dark` (black dots) can be used to adjust the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of suburbs, quarters and neighbourhoods to the image (middle). Third, setting `ruler = TRUE` adds a distance measurer to the image (right). Naturally, one may also combine these three arguments.
+There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). Its possible options `light` (white dots) and `dark` (black dots) can be used to specify the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (middle). Third, setting `ruler = TRUE` adds a distance measurer to the image (right). Naturally, you can also combine these settings.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_halftone.png' width='250' height='250'>

@@ -708,13 +708,15 @@
   }
   cropped <- data.frame(lat = city[["lat"]], long = city[["long"]]) |>
     sf::st_as_sf(coords = c("long", "lat"), crs = 4326) |>
-    sf::st_buffer(dist = radius)
+    # sf::st_buffer(dist = radius) |> # see https://github.com/r-spatial/sf/issues/1692
+    s2::s2_buffer_cells(distance = radius, max_cells = 5000) |> 
+    sf::st_as_sf()
   croppedBox <- lapply(sf::st_geometry(cropped), sf::st_bbox)[[1]]
   borderPoints <- .makeCircle(
     long = city[["long"]],
     lat = city[["lat"]],
-    rlong = (abs(croppedBox[["xmax"]]) - abs(croppedBox[["xmin"]])) / 2 * 1.0075,
-    rlat = (abs(croppedBox[["ymax"]]) - abs(croppedBox[["ymin"]])) / 2 * 1.0075
+    rlong = (abs(croppedBox[["xmax"]]) - abs(croppedBox[["xmin"]])) / 2 * 0.9975,
+    rlat = (abs(croppedBox[["ymax"]]) - abs(croppedBox[["ymin"]])) / 2 * 0.9975
   )
   panel <- c(croppedBox[["xmin"]], croppedBox[["ymin"]], croppedBox[["xmax"]], croppedBox[["ymax"]])
   # Create the border ##########################################################

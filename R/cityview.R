@@ -22,8 +22,8 @@
 #'          zoom = 1,
 #'          theme = c("original", "light", "dark", "colored", "rouge",
 #'                    "verde", "neon", "delftware", "vintage", "lichtenstein"),
-#'          border = c("none", "circle", "rhombus", "square",
-#'                     "hexagon", "octagon", "decagon"),
+#'          border = c("circle", "rhombus", "square", "hexagon",
+#'                     "octagon", "decagon", "none"),
 #'          halftone = c("none", "light", "dark"),
 #'          places = 0,
 #'          ruler = FALSE,
@@ -35,7 +35,7 @@
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}. If \code{NULL} (default), chooses a random city.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
 #' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{delftware}, \code{vintage} and \code{lichtenstein}.
-#' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
+#' @param border   a character specifying the type of border to use. Possible options are \code{circle} (default), \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), \code{decagon} (10 vertices) and \code{none}.
 #' @param halftone a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).
 #' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
 #' @param ruler    logical. Whether to add a distance measurer underneath the compass.
@@ -64,8 +64,8 @@ cityview <- function(name = NULL,
                        "verde", "neon", "delftware", "vintage", "lichtenstein"
                      ),
                      border = c(
-                       "none", "circle", "rhombus", "square",
-                       "hexagon", "octagon", "decagon"
+                       "circle", "rhombus", "square", "hexagon",
+                       "octagon", "decagon", "none"
                      ),
                      halftone = c("none", "light", "dark"),
                      places = 0,

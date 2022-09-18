@@ -1,7 +1,7 @@
 Package: rcityviews
 Title: Minimalistic City Views using OpenStreetMap (OSM) Data
 Version: 1.0.2
-Date: 2022-09-15
+Date: 2022-09-18
 Authors@R:
     person(given = "Koen",
            family = "Derks",
@@ -11,7 +11,7 @@ Description: A user-friendly interface to create minimalistic city views in 'ggp
 BugReports: https://github.com/koenderks/rcityviews/issues
 URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
 Depends: R (>= 3.5.0)
-Imports: cowplot, geosphere, ggplot2, ggspatial, leaflet, leaflet.extras, methods, osmdata, progress, sf, shadowtext, shiny, showtext, stats, svglite, sysfonts, utils
+Imports: cowplot, geosphere, ggplot2, ggspatial, leaflet, leaflet.extras, methods, osmdata, progress, s2, sf, shadowtext, shiny, showtext, stats, svglite, sysfonts, utils
 Suggests: testthat
 Language: en-US
 License: GPL (>= 3)
