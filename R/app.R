@@ -47,6 +47,11 @@
       ),
       shiny::fluidRow(
         align = "center",
+        shiny::column(width = 6, shiny::checkboxInput(inputId = "ruler", label = "Ruler", value = FALSE)),
+        shiny::column(width = 6, shiny::checkboxInput(inputId = "license", label = "License", value = TRUE))
+      ),
+      shiny::fluidRow(
+        align = "center",
         shiny::actionButton(inputId = "randomize", label = "Randomize", icon = shiny::icon("dice"), style = "color: #000000; background-color: #edb92e; border-color: #000000"),
         shiny::actionButton(inputId = "run", label = "Preview", icon = shiny::icon("camera"), style = "color: #000000; background-color: #f85931; border-color: #000000"),
         shiny::downloadButton(outputId = "downloadPlot", label = "Download", style = "color: #000000; background-color: #009989; border-color: #000000")
@@ -107,11 +112,11 @@
           border = tolower(input[["border"]]),
           halftone = tolower(input[["halftone"]]),
           places = input[["places"]],
-          ruler = FALSE,
+          ruler = input[["ruler"]],
           cropped = boundaries[["cropped"]],
           borderPoints = boundaries[["borderPoints"]],
           verbose = FALSE,
-          license = FALSE,
+          license = input[["license"]],
           ticks = ticks,
           shiny = TRUE
         )
