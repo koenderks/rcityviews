@@ -122,7 +122,7 @@ There are three other arguments to the `cityview()` function that you can use to
 
 ## Create your own in Shiny
 
-You can make your own images without having to code using an `R Shiny` implementation of the package. A live version of the application can be found [here](https://koenderks.shinyapps.io/rcityviews/) but it is also easily accessible from within `R` by calling `rcityviews::cityview_shiny()`.
+You can make your own images without having to code using an `R Shiny` implementation of the package. A live version of the application can be found [here](https://koenderks.shinyapps.io/rcityviews/) but it is also easily accessible from within `R` by calling the function `cityview_shiny()`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/app.png' width='900' height='300'>
