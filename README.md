@@ -7,7 +7,7 @@
 
 <img src='https://github.com/koenderks/rcityviews/raw/master/man/figures/logo.png' width='149' height='173' alt='logo' align='right' margin-left='20' margin-right='20'/>
 
-This provides code and examples to generate minimalistic city views using data from [OpenStreetMap](https://www.openstreetmap.org/).
+This repository is an homage to the programming language `R`, open-source geographic data and the art of map making. It provides code and examples to generate minimalistic city views using data from [OpenStreetMap](https://www.openstreetmap.org/).
 
 * [Latest city view](#latest-city-view)
 * [Installation](#installation)
