@@ -26,6 +26,7 @@
 #'                     "hexagon", "octagon", "decagon"),
 #'          halftone = c("none", "light", "dark"),
 #'          places = 0,
+#'          ruler = FALSE,
 #'          filename = NULL,
 #'          verbose = TRUE,
 #'          license = TRUE,
@@ -37,7 +38,8 @@
 #' @param border   a character specifying the type of border to use. Possible options are \code{none}, \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), and \code{decagon} (10 vertices).
 #' @param halftone a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).
 #' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
-#' @param filename character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.
+#' @param ruler    logical. Whether to add a distance measurer underneath the compass.
+#' @param filename character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
@@ -67,6 +69,7 @@ cityview <- function(name = NULL,
                      ),
                      halftone = c("none", "light", "dark"),
                      places = 0,
+                     ruler = FALSE,
                      filename = NULL,
                      verbose = TRUE,
                      license = TRUE,
@@ -101,6 +104,7 @@ cityview <- function(name = NULL,
         border = border,
         halftone = halftone,
         places = places,
+        ruler = ruler,
         cropped = boundaries[["cropped"]],
         borderPoints = boundaries[["borderPoints"]],
         verbose = verbose,

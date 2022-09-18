@@ -184,6 +184,18 @@
     "vintage" = lines,
     "lichtenstein" = lines
   )
+  ruler <- switch(theme,
+    "original" = lines,
+    "light" = lines,
+    "dark" = lines,
+    "colored" = text,
+    "rouge" = lines,
+    "verde" = text,
+    "neon" = text,
+    "delftware" = text,
+    "vintage" = lines,
+    "lichtenstein" = lines
+  )
   themeOptions <- list(
     lines = lines,
     background = background,
@@ -196,6 +208,7 @@
     font = font,
     face = face,
     neighborhood = neighborhood,
+    ruler = ruler,
     theme = theme
   )
   return(themeOptions)

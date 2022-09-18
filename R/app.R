@@ -107,6 +107,7 @@
           border = tolower(input[["border"]]),
           halftone = tolower(input[["halftone"]]),
           places = input[["places"]],
+          ruler = FALSE,
           cropped = boundaries[["cropped"]],
           borderPoints = boundaries[["borderPoints"]],
           verbose = FALSE,

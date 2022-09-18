@@ -112,12 +112,12 @@ You can select different themes for the image. The images above are created usin
 
 ### Other display options
 
-There are two other arguments of the `cityview()` function you can adjust to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). The halftone options `light` (white dots) and `dark` (black dots) can be used to adjust the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of suburbs, quarters and neighbourhoods to the image (right). Naturally, one may also combine the `halftone` and `places` arguments (middle).
+There are three other arguments of the `cityview()` function you can adjust to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). The halftone options `light` (white dots) and `dark` (black dots) can be used to adjust the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of suburbs, quarters and neighbourhoods to the image (middle). Third, setting `ruler = TRUE` adds a distance measurer to the image (right). Naturally, one may also combine these three arguments.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_halftone.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places_halftone.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_ruler.png' width='250' height='250'>
 </p>
 
 ## Create your own in Shiny

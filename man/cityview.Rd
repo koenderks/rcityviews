@@ -12,6 +12,7 @@ cityview(name = NULL,
                     "hexagon", "octagon", "decagon"),
          halftone = c("none", "light", "dark"),
          places = 0,
+         ruler = FALSE,
          filename = NULL,
          verbose = TRUE,
          license = TRUE,
@@ -30,7 +31,9 @@ cityview(name = NULL,
 
 \item{places}{an integer specifying how many suburb, quarter and neighbourhood names to add to the image.}
 
-\item{filename}{character. If specified, the function exports the plot at an appropriate size and does NOT return a \code{ggplot2} object.}
+\item{ruler}{logical. Whether to add a distance measurer underneath the compass.}
+
+\item{filename}{character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.}
 
 \item{verbose}{logical. Whether to show a progress bar during execution.}
 

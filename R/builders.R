@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, places, cropped, borderPoints, verbose, license, ticks, shiny) {
+.buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, places, ruler, cropped, borderPoints, verbose, license, ticks, shiny) {
   if (verbose) {
     # Initialize progress bar ##################################################
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0)
@@ -679,6 +679,10 @@
     family = themeOptions[["font"]],
     hjust = 1
   )
+  # Add the scale bar to the plot #############################################
+  if (ruler) {
+    p <- .addRuler(p, bbox, themeOptions)
+  }
   # Add the OpenStreetMap licence to the plot ##################################
   if (license) {
     p <- p + cowplot::draw_text(
@@ -834,6 +838,34 @@
     }
   })
   return(int_p)
+}
+
+.addRuler <- function(p, bbox, themeOptions) {
+  barLength <- round(abs((diff(as.numeric(strsplit(bbox[["bbox"]], split = ",")[[1]][c(1, 3)])) * 111139) / ((1800 - 160) / (480 - 375))), 0)
+  barMeasure <- "m"
+  if (barLength > 1000) {
+    barLength <- barLength / 1000
+    barMeasure <- "km"
+  }
+  p <- p + ggplot2::annotate(
+    geom = "rect",
+    xmin = c(0.01, 0.07, 0.13, 0.19),
+    xmax = c(0.07, 0.13, 0.19, 0.25),
+    ymin = 0.007,
+    ymax = 0.013,
+    fill = rep(c(themeOptions[["background"]], themeOptions[["ruler"]]), 2),
+    col = themeOptions[["ruler"]]
+  ) +
+    cowplot::draw_text(
+      text = paste0(barLength, barMeasure),
+      x = 0.26,
+      y = 0.011,
+      size = 30,
+      color = themeOptions[["text"]],
+      family = themeOptions[["font"]],
+      hjust = 0
+    )
+  return(p)
 }
 
 .addHalftone <- function(p, halftone) {
