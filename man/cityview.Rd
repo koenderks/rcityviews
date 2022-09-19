@@ -6,13 +6,17 @@
 \usage{
 cityview(name = NULL,
          zoom = 1,
-         theme = c("original", "light", "dark", "colored", "rouge",
-                   "verde", "neon", "delftware", "vintage", "lichtenstein"),
-         border = c("circle", "rhombus", "square", "hexagon",
-                    "octagon", "decagon", "none"),
+         theme = c(
+           "original", "light", "dark", "colored", "rouge",
+           "verde", "neon", "delftware", "vintage", "lichtenstein"
+         ),
+         border = c(
+           "none", "circle", "rhombus", "square",
+           "hexagon", "octagon", "decagon"
+         ),
          halftone = c("none", "light", "dark"),
          places = 0,
-         ruler = FALSE,
+         legend = FALSE,
          filename = NULL,
          verbose = TRUE,
          license = TRUE,
@@ -25,13 +29,13 @@ cityview(name = NULL,
 
 \item{theme}{a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{delftware}, \code{vintage} and \code{lichtenstein}.}
 
-\item{border}{a character specifying the type of border to use. Possible options are \code{circle} (default), \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices), \code{decagon} (10 vertices) and \code{none}.}
+\item{border}{a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).}
 
 \item{halftone}{a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).}
 
 \item{places}{an integer specifying how many suburb, quarter and neighbourhood names to add to the image.}
 
-\item{ruler}{logical. Whether to add a distance measurer underneath the compass.}
+\item{legend}{logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.}
 

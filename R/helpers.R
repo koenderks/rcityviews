@@ -67,7 +67,7 @@
     "original" = "#32130f",
     "light" = "#000000",
     "dark" = "#ffffff",
-    "colored" = "#eff0db",
+    "colored" = "#eeefc9",
     "rouge" = "#f2deb8",
     "verde" = "#284566",
     "neon" = "#0be8ed",
@@ -91,7 +91,7 @@
     "original" = background,
     "light" = background,
     "dark" = "#fafafa",
-    "colored" = "#b0e3cf",
+    "colored" = "#9ddffb",
     "rouge" = lines,
     "verde" = lines,
     "neon" = "#ec3b8d",
@@ -115,7 +115,7 @@
     "original" = background,
     "light" = background,
     "dark" = background,
-    "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
+    "colored" = c("#f2f4cb", "#d0f1bf", "#64b96a"),
     "rouge" = background,
     "verde" = lines,
     "neon" = background,
@@ -127,7 +127,7 @@
     "original" = lines,
     "light" = lines,
     "dark" = lines,
-    "colored" = "#000000",
+    "colored" = "#2f3737",
     "rouge" = lines,
     "verde" = lines,
     "neon" = "#e7d073",
@@ -139,7 +139,7 @@
     "original" = lines,
     "light" = lines,
     "dark" = lines,
-    "colored" = lines,
+    "colored" = "#32130f",
     "rouge" = lines,
     "verde" = lines,
     "neon" = text,
@@ -196,7 +196,18 @@
     "vintage" = lines,
     "lichtenstein" = lines
   )
-  streetCol <- lines
+  streetFill <- switch(theme,
+    "original" = lines,
+    "light" = lines,
+    "dark" = lines,
+    "colored" = text,
+    "rouge" = lines,
+    "verde" = lines,
+    "neon" = lines,
+    "delftware" = "#1F305E",
+    "vintage" = lines,
+    "lichtenstein" = lines
+  )
   themeOptions <- list(
     "lines" = lines,
     "background" = background,
@@ -210,7 +221,7 @@
     "face" = face,
     "neighborhood" = neighborhood,
     "ruler" = ruler,
-    "streetCol" = streetCol,
+    "streetFill" = streetFill,
     "theme" = theme
   )
   return(themeOptions)
@@ -219,13 +230,13 @@
 .getStreetSize <- function(x) {
   size <- switch(x,
     "tiny" = 0.1,
-    "small" = 0.4,
-    "smaller" = 0.5,
-    "regular" = 0.55,
-    "larger" = 0.6,
-    "huge" = 0.7,
-    "huger" = 0.8,
-    "rails" = 0.35,
+    "smaller" = 0.4,
+    "small" = 0.5,
+    "regular" = 0.75,
+    "larger" = 0.8,
+    "huge" = 0.9,
+    "huger" = 1,
+    "rails" = 0.75,
     "runway" = 3
   )
   return(size)

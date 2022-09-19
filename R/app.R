@@ -38,7 +38,7 @@
       shiny::fluidRow(
         align = "center",
         shiny::column(width = 6, shiny::selectInput(inputId = "theme", label = "Theme", choices = c("Original", "Light", "Dark", "Colored", "Rouge", "Verde", "Neon", "Delftware", "Vintage", "Lichtenstein"))),
-        shiny::column(width = 6, shiny::selectInput(inputId = "border", label = "Border", choices = c("Circle", "Rhombus", "Square", "Hexagon", "Octagon", "Decagon", "None")))
+        shiny::column(width = 6, shiny::selectInput(inputId = "border", label = "Border", choices = c("None", "Circle", "Rhombus", "Square", "Hexagon", "Octagon", "Decagon")))
       ),
       shiny::fluidRow(
         align = "center",
@@ -47,7 +47,7 @@
       ),
       shiny::fluidRow(
         align = "center",
-        shiny::column(width = 6, shiny::checkboxInput(inputId = "ruler", label = "Ruler", value = FALSE)),
+        shiny::column(width = 6, shiny::checkboxInput(inputId = "legend", label = "Legend", value = FALSE)),
         shiny::column(width = 6, shiny::checkboxInput(inputId = "license", label = "License", value = TRUE))
       ),
       shiny::fluidRow(
@@ -112,7 +112,7 @@
           border = tolower(input[["border"]]),
           halftone = tolower(input[["halftone"]]),
           places = input[["places"]],
-          ruler = input[["ruler"]],
+          legend = input[["legend"]],
           cropped = boundaries[["cropped"]],
           borderPoints = boundaries[["borderPoints"]],
           verbose = FALSE,
