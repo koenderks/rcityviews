@@ -639,7 +639,7 @@
   # Specify coordinate system for plot #########################################
   int_p <- int_p + ggplot2::coord_sf(xlim = c(panel[1], panel[3]), ylim = c(panel[2], panel[4]), expand = TRUE) +
     ggplot2::theme_void() +
-    ggplot2::theme(plot.margin = ggplot2::margin(if (border != "none") 4 else 0, 0, 0, 0, "cm"))
+    ggplot2::theme(plot.margin = ggplot2::margin(if (border == "none") 0 else 4, 0, 0, 0, "cm"))
   # Draw the border of the plot ################################################
   if (border != "none") {
     suppressMessages(expr = {
@@ -652,52 +652,19 @@
     int_p <- .addPlaces(int_p, places, themeOptions, bbox, border, cropped, city)
     .tick(verbose, progBar, ticks, shiny)
   }
-  # Add the city name to the plot ##############################################
-  plotName <- if (themeOptions[["theme"]] %in% c("light", "dark")) paste0("\u2014", city[["name"]], "\u2014") else city[["name"]]
+  # Draw the plot
   p <- cowplot::ggdraw(int_p)
+  p <- p + ggplot2::theme(
+    plot.background = ggplot2::element_rect(fill = themeOptions[["background"]], color = themeOptions[["lines"]]),
+    panel.background = ggplot2::element_rect(fill = themeOptions[["background"]], color = themeOptions[["background"]])
+  )
+  # Add halftone
   if (halftone != "none") { # Halftone
     p <- .addHalftone(p, halftone)
     .tick(verbose, progBar, ticks, shiny)
   }
-  p <- p + cowplot::draw_text(
-    text = plotName,
-    x = 0.5,
-    y = 0.93,
-    size = 110,
-    color = themeOptions[["text"]],
-    family = themeOptions[["font"]],
-    fontface = themeOptions[["face"]]
-  ) +
-    cowplot::draw_text(
-      text = city[["country"]],
-      x = 0.5,
-      y = 0.975,
-      size = 50,
-      color = themeOptions[["text"]],
-      family = themeOptions[["font"]]
-    )
-    if (legend) {
-    p <- p + ggspatial::annotation_north_arrow(
-      location = "bl",
-      height = ggplot2::unit(4, "cm"),
-      width = ggplot2::unit(4, "cm"),
-      pad_x = ggplot2::unit(1, "cm"),
-      pad_y = ggplot2::unit(1, "cm"),
-      style = ggspatial::north_arrow_nautical(
-        line_col = themeOptions[["text"]],
-        text_size = 25,
-        text_face = themeOptions[["face"]],
-        text_family = themeOptions[["font"]],
-        text_col = themeOptions[["text"]],
-        fill = c(themeOptions[["text"]], themeOptions[["background"]])
-      )
-    )
-    }
-    p <- p + ggplot2::theme(
-      plot.background = ggplot2::element_rect(fill = themeOptions[["background"]], color = themeOptions[["lines"]]),
-      panel.background = ggplot2::element_rect(fill = themeOptions[["background"]], color = themeOptions[["background"]])
-    )
-  # Add the coordinates to the plot ############################################
+  # Add the city name to the plot ##############################################
+  plotName <- if (themeOptions[["theme"]] %in% c("light", "dark")) paste0("\u2014", city[["name"]], "\u2014") else city[["name"]]
   if (city[["lat"]] < 0) {
     lat <- paste0(format(abs(city[["lat"]]), digits = 6), "\u00B0 S")
   } else {
@@ -708,28 +675,35 @@
   } else {
     long <- paste0(format(city[["long"]], digits = 6), "\u00B0 E")
   }
-  p <- p + cowplot::draw_text(
-    text = paste0(lat, " / ", long),
-    x = 0.97,
-    y = 0.03,
-    size = 40,
+  p <- p + shadowtext::geom_shadowtext(
+    data = data.frame(x = 0.5, y = c(0.93, 0.975), label = c(plotName, city[["country"]])),
+    mapping = ggplot2::aes(x = x, y = y, label = label),
+    size = c(30, 20),
+    color = themeOptions[["text"]],
+    fontface = themeOptions[["face"]],
+    family = themeOptions[["font"]],
+    bg.colour = themeOptions[["background"]]
+  ) + shadowtext::geom_shadowtext(
+    data = data.frame(x = 0.97, y = 0.03, label = paste0(lat, " / ", long)),
+    mapping = ggplot2::aes(x = x, y = y, label = label),
+    size = 15,
     color = themeOptions[["text"]],
     family = themeOptions[["font"]],
+    bg.colour = themeOptions[["background"]],
     hjust = 1
   )
-  # Add the scale bar to the plot #############################################
   if (legend) {
-    p <- .addRuler(p, bbox, themeOptions)
+    p <- .addLegend(p, bbox, themeOptions)
   }
   # Add the OpenStreetMap licence to the plot ##################################
   if (license) {
-    p <- p + cowplot::draw_text(
-      text = "Data by \u00A9 OpenStreetMap contributors",
-      x = 0.97,
-      y = 0.01,
-      size = 20,
+    p <- p + shadowtext::geom_shadowtext(
+      data = data.frame(x = 0.97, y = 0.01, label = "Data by \u00A9 OpenStreetMap contributors"),
+      mapping = ggplot2::aes(x = x, y = y, label = label),
+      size = 9,
       color = themeOptions[["text"]],
       family = themeOptions[["font"]],
+      bg.colour = themeOptions[["background"]],
       hjust = 1
     )
   }
@@ -880,22 +854,37 @@
   return(int_p)
 }
 
-.addRuler <- function(p, bbox, themeOptions) {
+.addLegend <- function(p, bbox, themeOptions) {
   barLength <- round(abs((diff(as.numeric(strsplit(bbox[["bbox"]], split = ",")[[1]][c(1, 3)])) * 111139) / ((1800 - 160) / (480 - 375))), 0)
   barMeasure <- "m"
   if (barLength > 1000) {
     barLength <- barLength / 1000
     barMeasure <- "km"
   }
-  p <- p + ggplot2::annotate(
-    geom = "rect",
-    xmin = c(0.01, 0.07, 0.13, 0.19),
-    xmax = c(0.07, 0.13, 0.19, 0.25),
-    ymin = 0.007,
-    ymax = 0.013,
-    fill = rep(c(themeOptions[["background"]], themeOptions[["ruler"]]), 2),
-    col = themeOptions[["ruler"]]
+  p <- p + ggspatial::annotation_north_arrow(
+    location = "bl",
+    height = ggplot2::unit(4, "cm"),
+    width = ggplot2::unit(4, "cm"),
+    pad_x = ggplot2::unit(1, "cm"),
+    pad_y = ggplot2::unit(1, "cm"),
+    style = ggspatial::north_arrow_nautical(
+      line_col = themeOptions[["text"]],
+      text_size = 25,
+      text_face = themeOptions[["face"]],
+      text_family = themeOptions[["font"]],
+      text_col = themeOptions[["text"]],
+      fill = c(themeOptions[["text"]], themeOptions[["background"]])
+    )
   ) +
+    ggplot2::annotate(
+      geom = "rect",
+      xmin = c(0.01, 0.07, 0.13, 0.19),
+      xmax = c(0.07, 0.13, 0.19, 0.25),
+      ymin = 0.007,
+      ymax = 0.013,
+      fill = rep(c(themeOptions[["background"]], themeOptions[["ruler"]]), 2),
+      col = themeOptions[["ruler"]]
+    ) +
     cowplot::draw_text(
       text = paste0(barLength, barMeasure),
       x = 0.26,

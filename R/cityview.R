@@ -38,7 +38,7 @@
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}. If \code{NULL} (default), chooses a random city.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme    a character specifying the theme of the plot. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{delftware}, \code{vintage} and \code{lichtenstein}.
+#' @param theme    a character specifying the theme of the plot, or a list of colors. See the details section for more information. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{delftware}, \code{vintage} and \code{lichtenstein}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).
 #' @param halftone a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).
 #' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
@@ -47,6 +47,8 @@
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
+#' 
+#' @details The \code{theme} argument can take a custom list as input. This list must contain the following elements:
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -78,12 +80,16 @@ cityview <- function(name = NULL,
                      verbose = TRUE,
                      license = TRUE,
                      bot = FALSE) {
-  theme <- match.arg(theme)
+  if (is.list(theme)) {
+    themeOptions <- theme
+  } else {
+    theme <- match.arg(theme)
+    themeOptions <- .themeOptions(theme)
+  }
   border <- match.arg(border)
   halftone <- match.arg(halftone)
   ticks <- 61 + as.numeric(halftone != "none") + as.numeric(places > 0)
   # Set theme options ##########################################################
-  themeOptions <- .themeOptions(theme)
   # Look up city ###############################################################
   city <- .getCity(name)
   if (is.null(city)) {
