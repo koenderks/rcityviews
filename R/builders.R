@@ -38,7 +38,7 @@
         data = obj,
         fill = themeOptions[["water"]],
         color = themeOptions[["water.line"]],
-        size = 0.3,
+        size = .getBorderSize("regular"),
         inherit.aes = FALSE
       )
     }
@@ -48,7 +48,7 @@
         data = obj,
         fill = themeOptions[["background"]],
         color = themeOptions[["lines"]],
-        size = 0.3,
+        size = .getBorderSize("regular"),
         inherit.aes = FALSE
       )
     }
@@ -58,7 +58,7 @@
         data = obj,
         fill = themeOptions[["background"]],
         color = themeOptions[["lines"]],
-        size = 0.3,
+        size = .getBorderSize("regular"),
         inherit.aes = FALSE
       )
     }
@@ -68,7 +68,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["background"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -78,7 +78,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -87,7 +87,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -96,7 +96,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -105,7 +105,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -114,7 +114,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -123,7 +123,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -132,7 +132,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -141,7 +141,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -150,7 +150,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -159,7 +159,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -168,7 +168,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -177,7 +177,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -186,7 +186,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -195,7 +195,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -204,7 +204,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -213,7 +213,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -222,7 +222,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -232,7 +232,7 @@
     data = obj[["lines"]],
     fill = themeOptions[["water"]],
     color = themeOptions[["water.line"]],
-    size = 0.6,
+    size = .getBorderSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -241,7 +241,7 @@
     data = obj[["lines"]],
     fill = themeOptions[["water"]],
     color = themeOptions[["water.line"]],
-    size = 0.5,
+    size = .getBorderSize("larger"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -250,7 +250,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["water"]],
     color = themeOptions[["water.line"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -259,7 +259,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["water"]],
     color = themeOptions[["water.line"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -269,7 +269,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["background"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -278,7 +278,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["background"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -286,7 +286,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -295,7 +295,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["water"]],
-    size = 0.4,
+    size = .getBorderSize("large"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -303,7 +303,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["water"]],
-    size = 0.4,
+    size = .getBorderSize("large"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -311,7 +311,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["water"]],
-    size = 0.4,
+    size = .getBorderSize("large"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -320,7 +320,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -328,7 +328,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -336,7 +336,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["lines"]],
-    size = 0.3,
+    size = .getBorderSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -345,7 +345,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["lines"]],
-    size = 0.7,
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -353,7 +353,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["lines"]],
-    size = 3,
+    size = .getStreetSize("runway"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -361,7 +361,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["rails"]],
-    size = 0.35,
+    size = .getStreetSize("rails"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -369,104 +369,104 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dam\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.5,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("smaller"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"lock_gate\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.5,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("smaller"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"sluice_gate\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.5,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("smaller"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"bridge\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.5,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("smaller"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"footway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.1,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("tiny"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"cycleway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.1,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("tiny"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"pedestrian\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.1,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("tiny"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"path\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.1,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("tiny"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"residential\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.4,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("small"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"living_street\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.4,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("small"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"unclassified\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.4,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("small"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"service\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.4,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("small"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"construction\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.4,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("small"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -474,8 +474,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.55,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -483,22 +483,22 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["lines"]],
-    size = 0.6,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("larger"),
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.55,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("regular"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.6,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("larger"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -506,14 +506,14 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["lines"]],
-    size = 0.6,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("larger"),
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.6,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("larger"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -521,8 +521,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -530,30 +530,30 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_loop\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -561,30 +561,30 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.7,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huge"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.8,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huger"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = 0.8,
+    color = themeOptions[["streetCol"]],
+    size = .getStreetSize("huger"),
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -595,7 +595,7 @@
       data = obj[["polygons"]],
       fill = sample(themeOptions[["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
       color = themeOptions[["lines"]],
-      size = 0.3,
+      size = .getBorderSize("regular"),
       inherit.aes = FALSE
     )
   }
@@ -709,7 +709,7 @@
   cropped <- data.frame(lat = city[["lat"]], long = city[["long"]]) |>
     sf::st_as_sf(coords = c("long", "lat"), crs = 4326) |>
     # sf::st_buffer(dist = radius) |> # see https://github.com/r-spatial/sf/issues/1692
-    s2::s2_buffer_cells(distance = radius, max_cells = 5000) |> 
+    s2::s2_buffer_cells(distance = radius, max_cells = 5000) |>
     sf::st_as_sf()
   croppedBox <- lapply(sf::st_geometry(cropped), sf::st_bbox)[[1]]
   borderPoints <- .makeCircle(

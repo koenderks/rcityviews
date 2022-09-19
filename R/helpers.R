@@ -196,20 +196,47 @@
     "vintage" = lines,
     "lichtenstein" = lines
   )
+  streetCol <- lines
   themeOptions <- list(
-    lines = lines,
-    background = background,
-    water = water,
-    water.line = waterlines,
-    landuse = landuse,
-    text = text,
-    rails = rails,
-    buildings = buildings,
-    font = font,
-    face = face,
-    neighborhood = neighborhood,
-    ruler = ruler,
-    theme = theme
+    "lines" = lines,
+    "background" = background,
+    "water" = water,
+    "water.line" = waterlines,
+    "landuse" = landuse,
+    "text" = text,
+    "rails" = rails,
+    "buildings" = buildings,
+    "font" = font,
+    "face" = face,
+    "neighborhood" = neighborhood,
+    "ruler" = ruler,
+    "streetCol" = streetCol,
+    "theme" = theme
   )
   return(themeOptions)
+}
+
+.getStreetSize <- function(x) {
+  size <- switch(x,
+    "tiny" = 0.1,
+    "small" = 0.4,
+    "smaller" = 0.5,
+    "regular" = 0.55,
+    "larger" = 0.6,
+    "huge" = 0.7,
+    "huger" = 0.8,
+    "rails" = 0.35,
+    "runway" = 3
+  )
+  return(size)
+}
+
+.getBorderSize <- function(x) {
+  size <- switch(x,
+    "regular" = 0.3,
+    "large" = 0.4,
+    "larger" = 0.5,
+    "huge" = 0.6
+  )
+  return(size)
 }
