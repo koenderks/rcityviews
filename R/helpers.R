@@ -30,7 +30,7 @@
 .randomCity <- function(seed) {
   set.seed(seed)
   dataset <- rcityviews::cities
-  dataset <- subset(cities, cities$population > 500000)
+  dataset <- subset(dataset, dataset$population > 500000)
   index <- sample(1:nrow(dataset), size = 1)
   selected <- dataset[index, ]
   return(selected)
