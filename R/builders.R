@@ -637,9 +637,13 @@
   }
   .tick(verbose, progBar, ticks, shiny)
   # Specify coordinate system for plot #########################################
-  int_p <- int_p + ggplot2::coord_sf(xlim = c(panel[1], panel[3]), ylim = c(panel[2], panel[4]), expand = TRUE) +
-    ggplot2::theme_void() +
-    ggplot2::theme(plot.margin = ggplot2::margin(if (border == "none") 0 else 4, 0, 0, 0, "cm"))
+  int_p <- int_p + ggplot2::coord_sf(xlim = c(panel[1], panel[3]), ylim = c(panel[2], panel[4]), expand = (border != "none")) +
+    ggplot2::theme_void()
+  if (border == "none") {
+    int_p <- int_p + ggplot2::theme(plot.margin = ggplot2::margin(-1, -1, -1, -1, "cm"))
+  } else {
+    ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
+  }
   # Draw the border of the plot ################################################
   if (border != "none") {
     suppressMessages(expr = {
@@ -731,6 +735,14 @@
     rlat = (abs(croppedBox[["ymax"]]) - abs(croppedBox[["ymin"]])) / 2 * 0.9975
   )
   panel <- c(croppedBox[["xmin"]], croppedBox[["ymin"]], croppedBox[["xmax"]], croppedBox[["ymax"]])
+  if (border == "none") {
+    borderPoints <- data.frame(
+      x = c(panel[1], panel[1], panel[3], panel[3], panel[1]),
+      y = c(panel[2], panel[4], panel[4], panel[2], panel[2])
+    )
+    cropped <- sf::st_sf(sf::st_sfc(sf::st_polygon(list(as.matrix(borderPoints)))), crs = 4326)
+    croppedBox <- lapply(sf::st_geometry(cropped), sf::st_bbox)[[1]]
+  }
   # Create the border ##########################################################
   if (border == "rhombus") {
     borderPoints <- data.frame(
@@ -800,10 +812,10 @@
 .checkAndCrop <- function(object, cropped, border) {
   if (!is.null(object)) {
     object <- sf::st_make_valid(object)
-    if (border != "none") {
-      sf::st_crs(object) <- sf::st_crs(cropped)
-      object <- object |> sf::st_intersection(cropped)
-    }
+    # if (border != "none") {
+    sf::st_crs(object) <- sf::st_crs(cropped)
+    object <- object |> sf::st_intersection(cropped)
+    # }
   }
   return(object)
 }

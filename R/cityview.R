@@ -47,7 +47,7 @@
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
-#' 
+#'
 #' @details The \code{theme} argument can take a custom list as input. This list must contain the following elements:
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
