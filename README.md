@@ -73,7 +73,7 @@ cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_circle_border.png' width='400' height='400'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='400' height='400'>
 </p>
 
 For personal (non-commercial) printing it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
@@ -82,43 +82,29 @@ For personal (non-commercial) printing it is recommended to use the option `lice
 cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 ```
 
-### Border styles
-
-You can select different types of borders to enclose the city. The image above is created using `border = "circle"` (default), but other options for the `border` argument include `none` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
-
-<p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_no_border.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_rhombus_border.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_decagon_border.png' width='250' height='250'>
-</p>
-
 ### Themes
 
-You can also select different themes for the image. The images above are created using `theme = "original"`, but other options for the `theme` argument include `light` (top left), `dark` (middle left), `rouge` (top middle), `verde` (middle middle), `colored` (top right), `neon` (middle right), `delftware` (bottom left), `vintage` (bottom middle) and `lichtenstein` (bottom right).
+You can also select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `colored` (left), `delftware` (middle), `original` (right), `light`, `dark`, `rouge`, `verde`, `neon`, and `lichtenstein`.
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_light.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_rouge.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_colored.png' width='250' height='250'>
-  </br>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_dark.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_verde.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_neon.png' width='250' height='250'>
-  </br>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_delftware.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_vintage.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_lichtenstein.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
+</p>
+
+### Borders
+
+You can select different types of borders to enclose the city. The image above is created using `border = "none"` (the default), but other options for the `border` argument include `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
+
+<p align="center">
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Venice.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Dublin.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/London.png' width='250' height='250'>
 </p>
 
 ### Other display options
 
-There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image (left). Its possible options `light` (white dots) and `dark` (black dots) can be used to specify the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (middle). Third, setting `ruler = TRUE` adds a distance measurer to the image (right). Naturally, you can also combine these settings.
-
-<p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_halftone.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_places.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam_ruler.png' width='250' height='250'>
-</p>
+There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image. Its possible options `light` (white dots) and `dark` (black dots) can be used to specify the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image. Third, setting `legend = TRUE` adds a distance measurer and a compass to the image.
 
 ## Create your own in Shiny
 

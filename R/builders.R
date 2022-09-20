@@ -642,7 +642,7 @@
   if (border == "none") {
     int_p <- int_p + ggplot2::theme(plot.margin = ggplot2::margin(-1, -1, -1, -1, "cm"))
   } else {
-    ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
+    int_p <- int_p + ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
   }
   # Draw the border of the plot ################################################
   if (border != "none") {
@@ -812,10 +812,8 @@
 .checkAndCrop <- function(object, cropped, border) {
   if (!is.null(object)) {
     object <- sf::st_make_valid(object)
-    # if (border != "none") {
     sf::st_crs(object) <- sf::st_crs(cropped)
     object <- object |> sf::st_intersection(cropped)
-    # }
   }
   return(object)
 }

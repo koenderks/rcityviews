@@ -109,7 +109,7 @@
     "verde" = lines,
     "neon" = water,
     "vintage" = water,
-    "delftware" = lines,
+    "delftware" = water,
     "lichtenstein" = water
   )
   landuse <- switch(theme,
