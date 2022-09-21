@@ -56,14 +56,14 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>         zoom <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>         theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>           <span class="st">"original"</span>, <span class="st">"light"</span>, <span class="st">"dark"</span>, <span class="st">"colored"</span>, <span class="st">"rouge"</span>,</span>
-<span>           <span class="st">"verde"</span>, <span class="st">"neon"</span>, <span class="st">"delftware"</span>, <span class="st">"vintage"</span>, <span class="st">"lichtenstein"</span></span>
+<span>           <span class="st">"vintage"</span>, <span class="st">"colored"</span>, <span class="st">"delftware"</span>, <span class="st">"lichtenstein"</span>,</span>
+<span>           <span class="st">"original"</span>, <span class="st">"rouge"</span>, <span class="st">"modern"</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>           <span class="st">"none"</span>, <span class="st">"circle"</span>, <span class="st">"rhombus"</span>, <span class="st">"square"</span>,</span>
 <span>           <span class="st">"hexagon"</span>, <span class="st">"octagon"</span>, <span class="st">"decagon"</span></span>
 <span>         <span class="op">)</span>,</span>
-<span>         halftone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"light"</span>, <span class="st">"dark"</span><span class="op">)</span>,</span>
+<span>         halftone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"light"</span>, <span class="st">"modern"</span><span class="op">)</span>,</span>
 <span>         places <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>         legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>         filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -83,7 +83,7 @@
 
 
 <dt>theme</dt>
-<dd><p>a character specifying the theme of the plot, or a list of colors. See the details section for more information. Possible options are <code>original</code>, <code>light</code>, <code>dark</code>, <code>colored</code>, <code>rouge</code>, <code>verde</code>, <code>neon</code>, <code>delftware</code>, <code>vintage</code> and <code>lichtenstein</code>.</p></dd>
+<dd><p>a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are <code>vintage</code> (default), <code>colored</code>, <code>delftware</code>, <code>lichtenstein</code>, <code>original</code>, <code>rouge</code> and <code>modern</code>.</p></dd>
 
 
 <dt>border</dt>
@@ -121,7 +121,19 @@
     <div id="details">
     <h2>Details</h2>
     <p>The <code>theme</code> argument can take a custom list as input. This list must contain the following elements:</p>
-    </div>
+<p><code>colors</code></p><ul><li><p><code>background</code>:  A color for the background.</p></li>
+<li><p><code>water</code>:       A color for the water.</p></li>
+<li><p><code>landuse</code>:     A color or vector of colors for the landuse.</p></li>
+<li><p><code>contours</code>:    A color for the contours of landuse and buildings.</p></li>
+<li><p><code>streets</code>:     A color for the streets.</p></li>
+<li><p><code>buildings</code>:   A color or vector of colors for the buildings.</p></li>
+<li><p><code>text</code>:        A color for the text.</p></li>
+</ul><p><code>font</code></p><ul><li><p><code>family</code>:  the family of the font</p></li>
+<li><p><code>face</code>:    the face of the font.</p></li>
+<li><p><code>append</code>:      Optional. A string to append the city name at both sides.</p></li>
+</ul><p><code>size</code></p><ul><li><p><code>borders</code>:  the family of the font</p></li>
+<li><p><code>streets</code>:    the face of the font.</p></li>
+</ul></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="list_cities.html">list_cities</a></code> <code><a href="cityview_shiny.html">cityview_shiny</a></code></p></div>
@@ -134,8 +146,46 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># Create a city view of Amsterdam in a circle</span></span></span>
-<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="st">"original"</span>, border <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create a vintage city view of Amsterdam in a circle</span></span></span>
+<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="st">"vintage"</span>, border <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use a custom theme</span></span></span>
+<span class="r-in"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"background"</span> <span class="op">=</span> <span class="st">"#a25543"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"water"</span> <span class="op">=</span> <span class="st">"#f2deb8"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"landuse"</span> <span class="op">=</span> <span class="st">"#a25543"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"contours"</span> <span class="op">=</span> <span class="st">"#f2deb8"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"streets"</span> <span class="op">=</span> <span class="st">"#f2deb8"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"buildings"</span> <span class="op">=</span> <span class="st">"#a25543"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"text"</span> <span class="op">=</span> <span class="st">"#f2deb8"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"waterlines"</span> <span class="op">=</span> <span class="st">"#f2deb8"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"family"</span> <span class="op">=</span> <span class="st">"Oswald"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"face"</span> <span class="op">=</span> <span class="st">"bold"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"borders"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"contours"</span> <span class="op">=</span> <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"water"</span> <span class="op">=</span> <span class="fl">0.4</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"canal"</span> <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"river"</span> <span class="op">=</span> <span class="fl">0.6</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"streets"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="st">"path"</span> <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"residential"</span> <span class="op">=</span> <span class="fl">0.4</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"structure"</span> <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"tertiary"</span> <span class="op">=</span> <span class="fl">0.75</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"secondary"</span> <span class="op">=</span> <span class="fl">0.8</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"highway"</span> <span class="op">=</span> <span class="fl">0.9</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"motorway"</span> <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"rails"</span> <span class="op">=</span> <span class="fl">0.75</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"runway"</span> <span class="op">=</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="va">theme</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
