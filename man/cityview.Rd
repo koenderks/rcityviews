@@ -78,43 +78,43 @@ The \code{theme} argument can take a custom list as input. This list must contai
 # Create a vintage city view of Amsterdam in a circle
 cityview(name = "Amsterdam", theme = "vintage", border = "circle")
 
-# Use a custom theme
-theme <- list(
+# Use a custom theme, for example black and white
+myTheme <- list(
   colors = list(
-    "background" = "#a25543",
-    "water" = "#f2deb8",
-    "landuse" = "#a25543",
-    "contours" = "#f2deb8",
-    "streets" = "#f2deb8",
-    "buildings" = "#a25543",
-    "text" = "#f2deb8",
-    "waterlines" = "#f2deb8"
+    background = "white",
+    water = "black",
+    landuse = "white",
+    contours = "black",
+    streets = "black",
+    buildings = "white",
+    text = "black",
+    waterlines = "black"
   ),
   font = list(
-    "family" = "Oswald",
-    "face" = "bold"
+    family = "serif",
+    face = "bold"
   ),
   size = list(
-    "borders" = list(
-      "contours" = 0.3,
-      "water" = 0.4,
-      "canal" = 0.5,
-      "river" = 0.6
+    borders = list(
+      contours = 0.3,
+      water = 0.4,
+      canal = 0.5,
+      river = 0.6
     ),
-    "streets" = list(
-      "path" = 0.1,
-      "residential" = 0.4,
-      "structure" = 0.5,
-      "tertiary" = 0.75,
-      "secondary" = 0.8,
-      "highway" = 0.9,
-      "motorway" = 1,
-      "rails" = 0.75,
-      "runway" = 3
+    streets = list(
+      path = 0.1,
+      residential = 0.4,
+      structure = 0.5,
+      tertiary = 0.75,
+      secondary = 0.8,
+      highway = 0.9,
+      motorway = 1,
+      rails = 0.75,
+      runway = 3
     )
   )
 )
-cityview(name = "Amsterdam", theme = theme)
+cityview(name = "Amsterdam", theme = myTheme)
 }
 }
 \seealso{

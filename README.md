@@ -84,7 +84,7 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can also select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `bright` (left), `delftware` (middle), `original` (right), `modern`, `rouge`, and `lichtenstein`.
+You can select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `bright` (left), `delftware` (middle), `modern` (right), `original`, `rouge`, and `lichtenstein`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
@@ -92,46 +92,50 @@ You can also select different themes for the image. The image above is created u
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
 </p>
 
-You can also specify as custom theme as follows:
+You can also specify a custom theme using a named list, as shown below.
 
 ```r
-theme <- list(
+myTheme <- list(
   colors = list(
-    "background" = "#a25543",
-    "water" = "#f2deb8",
-    "landuse" = "#a25543",
-    "contours" = "#f2deb8",
-    "streets" = "#f2deb8",
-    "buildings" = "#a25543",
-    "text" = "#f2deb8",
-    "waterlines" = "#f2deb8"
+    background = "beige",
+    water = "cornflowerblue",
+    landuse = "forestgreen",
+    contours = "black",
+    streets = "black",
+    buildings = c("goldenrod", "orange", "dodgerblue", "navyblue"),
+    text = "black",
+    waterlines = "cornflowerblue"
   ),
   font = list(
-    "family" = "Oswald",
-    "face" = "bold"
+    family = "serif",
+    face = "bold"
   ),
   size = list(
-    "borders" = list(
-      "contours" = 0.3,
-      "water" = 0.4,
-      "canal" = 0.5,
-      "river" = 0.6
+    borders = list(
+      contours = 0.3,
+      water = 0.4,
+      canal = 0.5,
+      river = 0.6
     ),
-    "streets" = list(
-      "path" = 0.1,
-      "residential" = 0.4,
-      "structure" = 0.5,
-      "tertiary" = 0.75,
-      "secondary" = 0.8,
-      "highway" = 0.9,
-      "motorway" = 1,
-      "rails" = 0.75,
-      "runway" = 3
+    streets = list(
+      path = 0.1,
+      residential = 0.4,
+      structure = 0.5,
+      tertiary = 0.75,
+      secondary = 0.8,
+      highway = 0.9,
+      motorway = 1,
+      rails = 0.75,
+      runway = 3
     )
   )
 )
-cityview(name = "Amsterdam", theme = theme)
+cityview(name = "Rio de Janeiro", theme = myTheme, filename = "Rio.png")
 ```
+
+<p align="center">
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Rio.png' width='400' height='400'>
+</p>
 
 ### Borders
 
