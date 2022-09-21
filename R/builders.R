@@ -36,9 +36,9 @@
       obj <- .checkAndCrop(motherObj[["sea"]][["geometry"]], cropped, border)
       int_p <- int_p + ggplot2::geom_sf(
         data = obj,
-        fill = themeOptions[["water"]],
-        color = themeOptions[["water.line"]],
-        size = .getBorderSize("regular"),
+        fill = themeOptions[["colors"]][["water"]],
+        color = themeOptions[["colors"]][["waterlines"]],
+        size = themeOptions[["size"]][["borders"]][["contours"]],
         inherit.aes = FALSE
       )
     }
@@ -46,9 +46,9 @@
       obj <- .checkAndCrop(motherObj[["land"]][["geometry"]], cropped, border)
       int_p <- int_p + ggplot2::geom_sf(
         data = obj,
-        fill = themeOptions[["background"]],
-        color = themeOptions[["lines"]],
-        size = .getBorderSize("regular"),
+        fill = themeOptions[["colors"]][["background"]],
+        color = themeOptions[["colors"]][["contours"]],
+        size = themeOptions[["size"]][["borders"]][["contours"]],
         inherit.aes = FALSE
       )
     }
@@ -56,9 +56,9 @@
       obj <- .checkAndCrop(motherObj[["islands"]][["geometry"]], cropped, border)
       int_p <- int_p + ggplot2::geom_sf(
         data = obj,
-        fill = themeOptions[["background"]],
-        color = themeOptions[["lines"]],
-        size = .getBorderSize("regular"),
+        fill = themeOptions[["colors"]][["background"]],
+        color = themeOptions[["colors"]][["contours"]],
+        size = themeOptions[["size"]][["borders"]][["contours"]],
         inherit.aes = FALSE
       )
     }
@@ -66,9 +66,9 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"coastline\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = themeOptions[["background"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = themeOptions[["colors"]][["background"]],
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -76,153 +76,153 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"park\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"forest\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wood\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"grass\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"scrub\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"mud\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"beach\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"meadow\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"farmland\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wood\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"cemetery\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"construction\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"amenity\"=\"parking\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"playground\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"pitch\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"dog_park\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"garden\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = sample(themeOptions[["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -230,9 +230,9 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"river\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    fill = themeOptions[["water"]],
-    color = themeOptions[["water.line"]],
-    size = .getBorderSize("huge"),
+    fill = themeOptions[["colors"]][["water"]],
+    color = themeOptions[["colors"]][["waterlines"]],
+    size = themeOptions[["size"]][["borders"]][["river"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -240,9 +240,9 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"canal\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    fill = themeOptions[["water"]],
-    color = themeOptions[["water.line"]],
-    size = .getBorderSize("larger"),
+    fill = themeOptions[["colors"]][["water"]],
+    color = themeOptions[["colors"]][["waterlines"]],
+    size = themeOptions[["size"]][["borders"]][["canal"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -250,18 +250,18 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dock\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = themeOptions[["water"]],
-    color = themeOptions[["water.line"]],
-    size = .getBorderSize("regular"),
+    fill = themeOptions[["colors"]][["water"]],
+    color = themeOptions[["colors"]][["waterlines"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"water\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = themeOptions[["water"]],
-    color = themeOptions[["water.line"]],
-    size = .getBorderSize("regular"),
+    fill = themeOptions[["colors"]][["water"]],
+    color = themeOptions[["colors"]][["waterlines"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -269,26 +269,26 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wetland\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = themeOptions[["background"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = themeOptions[["colors"]][["background"]],
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"islet\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
-    fill = themeOptions[["background"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    fill = themeOptions[["colors"]][["background"]],
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"man_made\"=\"pier\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -297,8 +297,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"riverbank\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["water"]],
-    size = .getBorderSize("large"),
+    color = themeOptions[["colors"]][["water"]],
+    size = themeOptions[["size"]][["borders"]][["water"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -306,8 +306,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"stream\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["water"]],
-    size = .getBorderSize("large"),
+    color = themeOptions[["colors"]][["water"]],
+    size = themeOptions[["size"]][["borders"]][["water"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -315,8 +315,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"ditch\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["water"]],
-    size = .getBorderSize("large"),
+    color = themeOptions[["colors"]][["water"]],
+    size = themeOptions[["size"]][["borders"]][["water"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -325,8 +325,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"coastline\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -334,8 +334,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"peninsula\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -343,8 +343,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"archipelago\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = .getBorderSize("regular"),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -353,30 +353,30 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"aeroway\"=\"taxiway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"aeroway\"=\"runway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["lines"]],
-    size = .getStreetSize("runway"),
+    color = themeOptions[["colors"]][["contours"]],
+    size = themeOptions[["size"]][["streets"]][["runway"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"railway\"=\"rail\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["rails"]],
-    size = .getStreetSize("rails"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["rails"]],
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["background"]],
-    size = .getStreetSize("rails"),
+    color = themeOptions[["colors"]][["background"]],
+    size = themeOptions[["size"]][["streets"]][["rails"]],
     linetype = "dashed",
     inherit.aes = FALSE
   )
@@ -385,40 +385,40 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dam\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("small"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"lock_gate\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("small"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"sluice_gate\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("small"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"bridge\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("small"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"footway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("tiny"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -426,8 +426,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"cycleway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("tiny"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -435,8 +435,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"pedestrian\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("tiny"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -444,8 +444,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"path\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("tiny"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -453,8 +453,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"residential\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("smaller"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -462,8 +462,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"living_street\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("smaller"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -471,8 +471,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"unclassified\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("smaller"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -480,8 +480,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"service\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("smaller"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -489,8 +489,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"construction\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("smaller"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -499,8 +499,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("regular"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["tertiary"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -509,14 +509,14 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("larger"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["secondary"]],
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("regular"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["tertiary"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -524,8 +524,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("larger"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["secondary"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -534,14 +534,14 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("larger"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["secondary"]],
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("larger"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["secondary"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -550,8 +550,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -560,14 +560,14 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -575,8 +575,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -584,8 +584,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_loop\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -594,14 +594,14 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huge"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["highway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -609,8 +609,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huger"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["motorway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -618,8 +618,8 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["streetFill"]],
-    size = .getStreetSize("huger"),
+    color = themeOptions[["colors"]][["streets"]],
+    size = themeOptions[["size"]][["streets"]][["motorway"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -629,9 +629,9 @@
     obj <- .getOsmFeatures(bbox, cropped, border, features = "\"building\"")
     int_p <- int_p + ggplot2::geom_sf(
       data = obj[["polygons"]],
-      fill = sample(themeOptions[["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
-      color = themeOptions[["lines"]],
-      size = .getBorderSize("regular"),
+      fill = sample(themeOptions[["colors"]][["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      size = themeOptions[["size"]][["borders"]][["contours"]],
       inherit.aes = FALSE
     )
   }
@@ -647,8 +647,8 @@
   # Draw the border of the plot ################################################
   if (border != "none") {
     suppressMessages(expr = {
-      int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = themeOptions[["background"]], size = 1) +
-        ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["text"]], size = 1, inherit.aes = FALSE)
+      int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = themeOptions[["colors"]][["background"]], size = 1) +
+        ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["colors"]][["text"]], size = 1, inherit.aes = FALSE)
     })
   }
   # Add neighborhood names
@@ -659,8 +659,8 @@
   # Draw the plot
   p <- cowplot::ggdraw(int_p)
   p <- p + ggplot2::theme(
-    plot.background = ggplot2::element_rect(fill = themeOptions[["background"]], color = themeOptions[["lines"]]),
-    panel.background = ggplot2::element_rect(fill = themeOptions[["background"]], color = themeOptions[["background"]])
+    plot.background = ggplot2::element_rect(fill = themeOptions[["colors"]][["background"]], color = themeOptions[["colors"]][["contours"]]),
+    panel.background = ggplot2::element_rect(fill = themeOptions[["colors"]][["background"]], color = themeOptions[["colors"]][["background"]])
   )
   # Add halftone
   if (halftone != "none") { # Halftone
@@ -668,7 +668,7 @@
     .tick(verbose, progBar, ticks, shiny)
   }
   # Add the city name to the plot ##############################################
-  plotName <- if (themeOptions[["theme"]] %in% c("light", "dark")) paste0("\u2014", city[["name"]], "\u2014") else city[["name"]]
+  plotName <- if (is.null(themeOptions[["font"]][["append"]])) city[["name"]] else paste0(themeOptions[["font"]][["append"]], city[["name"]], themeOptions[["font"]][["append"]])
   if (city[["lat"]] < 0) {
     lat <- paste0(format(abs(city[["lat"]]), digits = 6), "\u00B0 S")
   } else {
@@ -683,17 +683,17 @@
     data = data.frame(x = 0.5, y = c(0.93, 0.975), label = c(plotName, city[["country"]])),
     mapping = ggplot2::aes(x = x, y = y, label = label),
     size = c(30, 20),
-    color = themeOptions[["text"]],
-    fontface = themeOptions[["face"]],
-    family = themeOptions[["font"]],
-    bg.colour = themeOptions[["background"]]
+    color = themeOptions[["colors"]][["text"]],
+    fontface = themeOptions[["font"]][["face"]],
+    family = themeOptions[["font"]][["family"]],
+    bg.colour = themeOptions[["colors"]][["background"]]
   ) + shadowtext::geom_shadowtext(
     data = data.frame(x = 0.97, y = 0.03, label = paste0(lat, " / ", long)),
     mapping = ggplot2::aes(x = x, y = y, label = label),
     size = 15,
-    color = themeOptions[["text"]],
-    family = themeOptions[["font"]],
-    bg.colour = themeOptions[["background"]],
+    color = themeOptions[["colors"]][["text"]],
+    family = themeOptions[["font"]][["family"]],
+    bg.colour = themeOptions[["colors"]][["background"]],
     hjust = 1
   )
   if (legend) {
@@ -705,9 +705,9 @@
       data = data.frame(x = 0.97, y = 0.01, label = "Data by \u00A9 OpenStreetMap contributors"),
       mapping = ggplot2::aes(x = x, y = y, label = label),
       size = 9,
-      color = themeOptions[["text"]],
-      family = themeOptions[["font"]],
-      bg.colour = themeOptions[["background"]],
+      color = themeOptions[["colors"]][["text"]],
+      family = themeOptions[["font"]][["family"]],
+      bg.colour = themeOptions[["colors"]][["background"]],
       hjust = 1
     )
   }
@@ -853,10 +853,10 @@
       int_p <- int_p + shadowtext::geom_shadowtext(
         data = df,
         mapping = ggplot2::aes(x = x, y = y, label = name),
-        col = themeOptions[["neighborhood"]],
+        col = themeOptions[["colors"]][["text"]],
         check_overlap = TRUE,
         fontface = "bold.italic",
-        bg.colour = themeOptions[["background"]],
+        bg.colour = themeOptions[["colors"]][["background"]],
         size = df[["size"]]
       )
     }
@@ -878,12 +878,12 @@
     pad_x = ggplot2::unit(1, "cm"),
     pad_y = ggplot2::unit(1, "cm"),
     style = ggspatial::north_arrow_nautical(
-      line_col = themeOptions[["text"]],
+      line_col = themeOptions[["colors"]][["text"]],
       text_size = 25,
-      text_face = themeOptions[["face"]],
-      text_family = themeOptions[["font"]],
-      text_col = themeOptions[["text"]],
-      fill = c(themeOptions[["text"]], themeOptions[["background"]])
+      text_face = themeOptions[["font"]][["face"]],
+      text_family = themeOptions[["font"]][["family"]],
+      text_col = themeOptions[["colors"]][["text"]],
+      fill = c(themeOptions[["colors"]][["text"]], themeOptions[["colors"]][["background"]])
     )
   ) +
     ggplot2::annotate(
@@ -892,16 +892,16 @@
       xmax = c(0.07, 0.13, 0.19, 0.25),
       ymin = 0.007,
       ymax = 0.013,
-      fill = rep(c(themeOptions[["background"]], themeOptions[["ruler"]]), 2),
-      col = themeOptions[["ruler"]]
+      fill = rep(c(themeOptions[["colors"]][["background"]], themeOptions[["colors"]][["text"]]), 2),
+      col = themeOptions[["colors"]][["text"]]
     ) +
     cowplot::draw_text(
       text = paste0(barLength, barMeasure),
       x = 0.26,
       y = 0.011,
       size = 30,
-      color = themeOptions[["text"]],
-      family = themeOptions[["font"]],
+      color = themeOptions[["colors"]][["text"]],
+      family = themeOptions[["font"]][["family"]],
       hjust = 0
     )
   return(p)

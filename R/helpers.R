@@ -64,191 +64,131 @@
 }
 
 .themeOptions <- function(theme) {
-  lines <- switch(theme,
-    "original" = "#32130f",
-    "light" = "#000000",
-    "dark" = "#ffffff",
-    "colored" = "#eeefc9",
-    "rouge" = "#f2deb8",
-    "verde" = "#284566",
-    "neon" = "#0be8ed",
-    "vintage" = "#32130f",
-    "delftware" = "#ffffff",
-    "lichtenstein" = "#2f3737"
-  )
-  background <- switch(theme,
-    "original" = "#fdf9f5",
-    "light" = "#fafafa",
-    "dark" = "#000000",
-    "colored" = lines,
-    "rouge" = "#a25543",
-    "verde" = "#6ca67a",
-    "neon" = "#000000",
-    "vintage" = "#fff7d8",
-    "delftware" = lines,
-    "lichtenstein" = "#ffffff"
-  )
-  water <- switch(theme,
-    "original" = background,
-    "light" = background,
-    "dark" = "#fafafa",
-    "colored" = "#9ddffb",
-    "rouge" = lines,
-    "verde" = lines,
-    "neon" = "#ec3b8d",
-    "vintage" = "#9ebfaa",
-    "delftware" = lines,
-    "lichtenstein" = "#607ba4"
-  )
-  waterlines <- switch(theme,
-    "original" = lines,
-    "light" = lines,
-    "dark" = water,
-    "colored" = water,
-    "rouge" = lines,
-    "verde" = lines,
-    "neon" = water,
-    "vintage" = water,
-    "delftware" = water,
-    "lichtenstein" = water
-  )
-  landuse <- switch(theme,
-    "original" = background,
-    "light" = background,
-    "dark" = background,
-    "colored" = c("#f2f4cb", "#d0f1bf", "#64b96a"),
-    "rouge" = background,
-    "verde" = lines,
-    "neon" = background,
-    "vintage" = background,
-    "delftware" = c("#7ebaee", "#8da8d7", "#3259a6", "#0c133f", "#080e1c"),
-    "lichtenstein" = "#478f70"
-  )
-  text <- switch(theme,
-    "original" = lines,
-    "light" = lines,
-    "dark" = lines,
-    "colored" = "#2f3737",
-    "rouge" = lines,
-    "verde" = lines,
-    "neon" = "#e7d073",
-    "vintage" = lines,
-    "delftware" = "#000000",
-    "lichtenstein" = lines
-  )
-  rails <- switch(theme,
-    "original" = lines,
-    "light" = lines,
-    "dark" = lines,
-    "colored" = "#32130f",
-    "rouge" = lines,
-    "verde" = lines,
-    "neon" = text,
-    "vintage" = lines,
-    "delftware" = lines,
-    "lichtenstein" = lines
-  )
-  buildings <- switch(theme,
-    "original" = background,
-    "light" = background,
-    "dark" = background,
-    "colored" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
-    "rouge" = background,
-    "verde" = lines,
-    "neon" = background,
-    "delftware" = landuse,
-    "vintage" = c("#facc87", "#f39848", "#f8c98c", "#f58762"),
-    "lichtenstein" = "#f4d849"
+  colors <- switch(theme,
+    "vintage" = list(
+      "background" = "#fff7d8",
+      "water" = "#9ebfaa",
+      "landuse" = "#fff7d8",
+      "contours" = "#32130f",
+      "streets" = "#32130f",
+      "buildings" = c("#facc87", "#f39848", "#f8c98c", "#f58762"),
+      "text" = "#32130f",
+      "waterlines" = "#9ebfaa"
+    ),
+    "bright" = list(
+      "background" = "#eeefc9",
+      "water" = "#9ddffb",
+      "landuse" = c("#f2f4cb", "#d0f1bf", "#64b96a"),
+      "contours" = "#2f3737",
+      "streets" = "#2f3737",
+      "buildings" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
+      "text" = "#2f3737",
+      "waterlines" = "#9ddffb"
+    ),
+    "delftware" = list(
+      "background" = "#fafafa",
+      "water" = "#fafafa",
+      "landuse" = c("#7ebaee", "#8da8d7", "#3259a6", "#0c133f", "#080e1c"),
+      "contours" = "#fafafa",
+      "streets" = "#1F305E",
+      "buildings" = c("#7ebaee", "#8da8d7", "#3259a6", "#0c133f", "#080e1c"),
+      "text" = "#000000",
+      "waterlines" = "#fafafa"
+    ),
+    "lichtenstein" = list(
+      "background" = "#ffffff",
+      "water" = "#607ba4",
+      "landuse" = "#478f70",
+      "contours" = "#2f3737",
+      "streets" = "#2f3737",
+      "buildings" = "#f4d849",
+      "text" = "#2f3737",
+      "waterlines" = "#607ba4"
+    ),
+    "original" = list(
+      "background" = "#fdf9f5",
+      "water" = "#fdf9f5",
+      "landuse" = "#fdf9f5",
+      "contours" = "#32130f",
+      "streets" = "#32130f",
+      "buildings" = "#fdf9f5",
+      "text" = "#32130f",
+      "waterlines" = "#32130f"
+    ),
+    "rouge" = list(
+      "background" = "#a25543",
+      "water" = "#f2deb8",
+      "landuse" = "#a25543",
+      "contours" = "#f2deb8",
+      "streets" = "#f2deb8",
+      "buildings" = "#a25543",
+      "text" = "#f2deb8",
+      "waterlines" = "#f2deb8"
+    ),
+    "modern" = list(
+      "background" = "#e6ddd6",
+      "water" = "#656c7c",
+      "landuse" = "#7c9c6b",
+      "contours" = "#e6ddd6",
+      "streets" = "#fafafa",
+      "buildings" = "#eb3e20",
+      "text" = "#000000",
+      "waterlines" = "#656c7c"
+    )
   )
   font <- switch(theme,
-    "original" = "Caveat",
-    "light" = "Imbue",
-    "dark" = "Imbue",
-    "colored" = "Damion",
-    "rouge" = "Oswald",
-    "verde" = "Righteous",
-    "neon" = "Neonderthaw",
-    "delftware" = "Dancing Script",
-    "vintage" = "Fredericka the Great",
-    "lichtenstein" = "Rampart One"
+    "vintage" = list(
+      "family" = "Fredericka the Great",
+      "face" = "plain"
+    ),
+    "colored" = list(
+      "family" = "Damion",
+      "face" = "plain"
+    ),
+    "delftware" = list(
+      "family" = "Dancing Script",
+      "face" = "bold"
+    ),
+    "lichtenstein" = list(
+      "family" = "Rampart One",
+      "face" = "plain"
+    ),
+    "original" = list(
+      "family" = "Caveat",
+      "face" = "bold"
+    ),
+    "rouge" = list(
+      "family" = "Oswald",
+      "face" = "bold"
+    ),
+    "modern" = list(
+      "family" = "Imbue",
+      "face" = "plain",
+      "append" = "\u2014"
+    )
   )
-  face <- if (theme %in% c("original", "verde", "rouge", "neon", "delftware")) "bold" else "plain"
-  neighborhood <- switch(theme,
-    "original" = lines,
-    "light" = lines,
-    "dark" = lines,
-    "colored" = "#32130f",
-    "rouge" = lines,
-    "verde" = "#fafafa",
-    "neon" = rails,
-    "delftware" = "#000000",
-    "vintage" = lines,
-    "lichtenstein" = lines
+  size <- list()
+  size[["borders"]] <- list(
+    "contours" = 0.3,
+    "water" = 0.4,
+    "canal" = 0.5,
+    "river" = 0.6
   )
-  ruler <- switch(theme,
-    "original" = lines,
-    "light" = lines,
-    "dark" = lines,
-    "colored" = text,
-    "rouge" = lines,
-    "verde" = text,
-    "neon" = text,
-    "delftware" = text,
-    "vintage" = lines,
-    "lichtenstein" = lines
-  )
-  streetFill <- switch(theme,
-    "original" = lines,
-    "light" = lines,
-    "dark" = lines,
-    "colored" = text,
-    "rouge" = lines,
-    "verde" = lines,
-    "neon" = lines,
-    "delftware" = "#1F305E",
-    "vintage" = lines,
-    "lichtenstein" = lines
-  )
-  themeOptions <- list(
-    "lines" = lines,
-    "background" = background,
-    "water" = water,
-    "water.line" = waterlines,
-    "landuse" = landuse,
-    "text" = text,
-    "rails" = rails,
-    "buildings" = buildings,
-    "font" = font,
-    "face" = face,
-    "neighborhood" = neighborhood,
-    "ruler" = ruler,
-    "streetFill" = streetFill,
-    "theme" = theme
-  )
-  return(themeOptions)
-}
-
-.getStreetSize <- function(x) {
-  size <- switch(x,
-    "tiny" = 0.1,
-    "smaller" = 0.4,
-    "small" = 0.5,
-    "regular" = 0.75,
-    "larger" = 0.8,
-    "huge" = 0.9,
-    "huger" = 1,
+  size[["streets"]] <- list(
+    "path" = 0.1,
+    "residential" = 0.4,
+    "structure" = 0.5,
+    "tertiary" = 0.75,
+    "secondary" = 0.8,
+    "highway" = 0.9,
+    "motorway" = 1,
     "rails" = 0.75,
     "runway" = 3
   )
-  return(size)
-}
-
-.getBorderSize <- function(x) {
-  size <- switch(x,
-    "regular" = 0.3,
-    "large" = 0.4,
-    "larger" = 0.5,
-    "huge" = 0.6
+  themeOptions <- list(
+    "colors" = colors,
+    "font" = font,
+    "size" = size
   )
-  return(size)
+  return(themeOptions)
 }

@@ -84,13 +84,54 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can also select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `colored` (left), `delftware` (middle), `original` (right), `light`, `dark`, `rouge`, `verde`, `neon`, and `lichtenstein`.
+You can also select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `bright` (left), `delftware` (middle), `original` (right), `modern`, `rouge`, and `lichtenstein`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
 </p>
+
+You can also specify as custom theme as follows:
+
+```r
+theme <- list(
+  colors = list(
+    "background" = "#a25543",
+    "water" = "#f2deb8",
+    "landuse" = "#a25543",
+    "contours" = "#f2deb8",
+    "streets" = "#f2deb8",
+    "buildings" = "#a25543",
+    "text" = "#f2deb8",
+    "waterlines" = "#f2deb8"
+  ),
+  font = list(
+    "family" = "Oswald",
+    "face" = "bold"
+  ),
+  size = list(
+    "borders" = list(
+      "contours" = 0.3,
+      "water" = 0.4,
+      "canal" = 0.5,
+      "river" = 0.6
+    ),
+    "streets" = list(
+      "path" = 0.1,
+      "residential" = 0.4,
+      "structure" = 0.5,
+      "tertiary" = 0.75,
+      "secondary" = 0.8,
+      "highway" = 0.9,
+      "motorway" = 1,
+      "rails" = 0.75,
+      "runway" = 3
+    )
+  )
+)
+cityview(name = "Amsterdam", theme = theme)
+```
 
 ### Borders
 

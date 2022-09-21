@@ -7,14 +7,14 @@
 cityview(name = NULL,
          zoom = 1,
          theme = c(
-           "original", "light", "dark", "colored", "rouge",
-           "verde", "neon", "delftware", "vintage", "lichtenstein"
+           "vintage", "colored", "delftware", "lichtenstein",
+           "original", "rouge", "modern"
          ),
          border = c(
            "none", "circle", "rhombus", "square",
            "hexagon", "octagon", "decagon"
          ),
-         halftone = c("none", "light", "dark"),
+         halftone = c("none", "light", "modern"),
          places = 0,
          legend = FALSE,
          filename = NULL,
@@ -27,7 +27,7 @@ cityview(name = NULL,
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
-\item{theme}{a character specifying the theme of the plot, or a list of colors. See the details section for more information. Possible options are \code{original}, \code{light}, \code{dark}, \code{colored}, \code{rouge}, \code{verde}, \code{neon}, \code{delftware}, \code{vintage} and \code{lichtenstein}.}
+\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{colored}, \code{delftware}, \code{lichtenstein}, \code{original}, \code{rouge} and \code{modern}.}
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).}
 
@@ -50,11 +50,71 @@ Create an aerial city view.
 }
 \details{
 The \code{theme} argument can take a custom list as input. This list must contain the following elements:
+
+\code{colors}
+\itemize{
+ \item{\code{background}:  A color for the background.}
+ \item{\code{water}:       A color for the water.}
+ \item{\code{landuse}:     A color or vector of colors for the landuse.}
+ \item{\code{contours}:    A color for the contours of landuse and buildings.}
+ \item{\code{streets}:     A color for the streets.}
+ \item{\code{buildings}:   A color or vector of colors for the buildings.}
+ \item{\code{text}:        A color for the text.}
+}
+\code{font}
+\itemize{
+ \item{\code{family}:  the family of the font}
+ \item{\code{face}:    the face of the font.}
+ \item{\code{append}:      Optional. A string to append the city name at both sides.}
+}
+\code{size}
+\itemize{
+ \item{\code{borders}:  the family of the font}
+ \item{\code{streets}:    the face of the font.}
+}
 }
 \examples{
 \dontrun{
-# Create a city view of Amsterdam in a circle
-cityview(name = "Amsterdam", theme = "original", border = "circle")
+# Create a vintage city view of Amsterdam in a circle
+cityview(name = "Amsterdam", theme = "vintage", border = "circle")
+
+# Use a custom theme
+theme <- list(
+  colors = list(
+    "background" = "#a25543",
+    "water" = "#f2deb8",
+    "landuse" = "#a25543",
+    "contours" = "#f2deb8",
+    "streets" = "#f2deb8",
+    "buildings" = "#a25543",
+    "text" = "#f2deb8",
+    "waterlines" = "#f2deb8"
+  ),
+  font = list(
+    "family" = "Oswald",
+    "face" = "bold"
+  ),
+  size = list(
+    "borders" = list(
+      "contours" = 0.3,
+      "water" = 0.4,
+      "canal" = 0.5,
+      "river" = 0.6
+    ),
+    "streets" = list(
+      "path" = 0.1,
+      "residential" = 0.4,
+      "structure" = 0.5,
+      "tertiary" = 0.75,
+      "secondary" = 0.8,
+      "highway" = 0.9,
+      "motorway" = 1,
+      "rails" = 0.75,
+      "runway" = 3
+    )
+  )
+)
+cityview(name = "Amsterdam", theme = theme)
 }
 }
 \seealso{
