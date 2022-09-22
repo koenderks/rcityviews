@@ -127,7 +127,7 @@
       "contours" = "#f2deb8",
       "streets" = "#f2deb8",
       "rails" = c("#f2deb8", "#a25543"),
-      "buildings" = "#a25543",
+      "buildings" = "#f2deb8",
       "text" = "#f2deb8",
       "waterlines" = "#f2deb8"
     ),

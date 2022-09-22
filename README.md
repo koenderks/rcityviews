@@ -84,16 +84,16 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom left).
+You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom left).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/NewYork.png' width='250' height='250'>
   <br>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Florence.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Madrid.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png' width='250' height='250'>
 </p>
 
 However, the package offers full flexibility to specify a custom theme using a named list. This is demonstrated in the code below.
