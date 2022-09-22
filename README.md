@@ -84,12 +84,12 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `bright` (left), `delftware` (middle), `modern` (right), `original`, `rouge`, and `lichtenstein`.
+You can select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `bright` (left), `modern` (middle), `delftware` (right), `lichtenstein`, `rouge` and `original`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
 </p>
 
 You can also specify a custom theme using a named list, as shown below.
@@ -102,6 +102,7 @@ myTheme <- list(
     landuse = "forestgreen",
     contours = "black",
     streets = "black",
+    rails = c("black", "beige"),
     buildings = c("goldenrod", "orange", "dodgerblue", "navyblue"),
     text = "black",
     waterlines = "cornflowerblue"

@@ -369,13 +369,13 @@
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"railway\"=\"rail\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
+    color = themeOptions[["colors"]][["rails"]][1],
     size = themeOptions[["size"]][["streets"]][["rails"]],
     inherit.aes = FALSE
   )
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
-    color = themeOptions[["colors"]][["background"]],
+    color = themeOptions[["colors"]][["rails"]][length(themeOptions[["colors"]][["rails"]])],
     size = themeOptions[["size"]][["streets"]][["rails"]],
     linetype = "dashed",
     inherit.aes = FALSE

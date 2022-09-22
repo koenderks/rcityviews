@@ -7,14 +7,14 @@
 cityview(name = NULL,
          zoom = 1,
          theme = c(
-           "vintage", "colored", "delftware", "lichtenstein",
-           "original", "rouge", "modern"
+           "vintage", "modern", "bright", "delftware",
+           "lichtenstein", "rouge", "original"
          ),
          border = c(
            "none", "circle", "rhombus", "square",
            "hexagon", "octagon", "decagon"
          ),
-         halftone = c("none", "light", "modern"),
+         halftone = c("none", "light", "dark"),
          places = 0,
          legend = FALSE,
          filename = NULL,
@@ -27,7 +27,7 @@ cityview(name = NULL,
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
-\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{colored}, \code{delftware}, \code{lichtenstein}, \code{original}, \code{rouge} and \code{modern}.}
+\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{lichtenstein}, \code{rouge} and \code{original}.}
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).}
 
@@ -53,30 +53,31 @@ The \code{theme} argument can take a custom list as input. This list must contai
 
 \code{colors}
 \itemize{
- \item{\code{background}:  A color for the background.}
- \item{\code{water}:       A color for the water.}
- \item{\code{landuse}:     A color or vector of colors for the landuse.}
- \item{\code{contours}:    A color for the contours of landuse and buildings.}
- \item{\code{streets}:     A color for the streets.}
- \item{\code{buildings}:   A color or vector of colors for the buildings.}
- \item{\code{text}:        A color for the text.}
+ \item{\code{background}:  One color for the background.}
+ \item{\code{water}:       One color for the water.}
+ \item{\code{landuse}:     One color or a vector of colors for the landuse.}
+ \item{\code{contours}:    One color for the contours of landuse and buildings.}
+ \item{\code{streets}:     One color for the streets.}
+ \item{\code{rails}:       One color or a vector of two colors for the rails.}
+ \item{\code{buildings}:   One color or a vector of colors for the buildings.}
+ \item{\code{text}:        One color for the text.}
 }
 \code{font}
 \itemize{
- \item{\code{family}:  the family of the font}
- \item{\code{face}:    the face of the font.}
- \item{\code{append}:      Optional. A string to append the city name at both sides.}
+ \item{\code{family}:      The family of the font.}
+ \item{\code{face}:        The face of the font.}
+ \item{\code{append}:      Optional. A string to append the city name with at both sides.}
 }
 \code{size}
 \itemize{
- \item{\code{borders}:  the family of the font}
- \item{\code{streets}:    the face of the font.}
+ \item{\code{borders}:    A named list containing sizes for the borders \code{contours}, \code{water}, \code{canal} and \code{river}.}
+ \item{\code{streets}:    A named list contianing sizes for the streets \code{path}, \code{residential}, \code{structure}, \code{tertiary}, \code{secondary}, \code{highway}, \code{motorway}, \code{rails} and \code{runway}.}
 }
 }
 \examples{
 \dontrun{
-# Create a vintage city view of Amsterdam in a circle
-cityview(name = "Amsterdam", theme = "vintage", border = "circle")
+# Create a city view of Amsterdam in a circle
+cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
 
 # Use a custom theme, for example black and white
 myTheme <- list(
@@ -86,7 +87,8 @@ myTheme <- list(
     landuse = "white",
     contours = "black",
     streets = "black",
-    buildings = "white",
+    rails = c("black", "white"),
+    buildings = "black",
     text = "black",
     waterlines = "black"
   ),
@@ -114,7 +116,7 @@ myTheme <- list(
     )
   )
 )
-cityview(name = "Amsterdam", theme = myTheme)
+cityview(name = "Amsterdam", theme = myTheme, filename = "Amsterdam.png")
 }
 }
 \seealso{

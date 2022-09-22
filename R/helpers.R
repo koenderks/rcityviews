@@ -30,7 +30,7 @@
 .randomCity <- function(seed) {
   set.seed(seed)
   dataset <- rcityviews::cities
-  dataset <- subset(dataset, dataset$population > 500000)
+  dataset <- subset(dataset, dataset[["population"]] > 500000)
   index <- sample(1:nrow(dataset), size = 1)
   selected <- dataset[index, ]
   return(selected)
@@ -71,9 +71,21 @@
       "landuse" = "#fff7d8",
       "contours" = "#32130f",
       "streets" = "#32130f",
+      "rails" = c("#32130f", "#fff7d8"),
       "buildings" = c("#facc87", "#f39848", "#f8c98c", "#f58762"),
       "text" = "#32130f",
       "waterlines" = "#9ebfaa"
+    ),
+    "modern" = list(
+      "background" = "#e6ddd6",
+      "water" = "#656c7c",
+      "landuse" = "#7c9c6b",
+      "contours" = "#e6ddd6",
+      "streets" = "#fafafa",
+      "rails" = c("#fafafa", "#e6ddd6"),
+      "buildings" = "#eb3e20",
+      "text" = "#000000",
+      "waterlines" = "#656c7c"
     ),
     "bright" = list(
       "background" = "#eeefc9",
@@ -81,6 +93,7 @@
       "landuse" = c("#f2f4cb", "#d0f1bf", "#64b96a"),
       "contours" = "#2f3737",
       "streets" = "#2f3737",
+      "rails" = c("#2f3737", "#eeefc9"),
       "buildings" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),
       "text" = "#2f3737",
       "waterlines" = "#9ddffb"
@@ -91,6 +104,7 @@
       "landuse" = c("#7ebaee", "#8da8d7", "#3259a6", "#0c133f", "#080e1c"),
       "contours" = "#fafafa",
       "streets" = "#1F305E",
+      "rails" = c("#1F305E", "#fafafa"),
       "buildings" = c("#7ebaee", "#8da8d7", "#3259a6", "#0c133f", "#080e1c"),
       "text" = "#000000",
       "waterlines" = "#fafafa"
@@ -101,19 +115,10 @@
       "landuse" = "#478f70",
       "contours" = "#2f3737",
       "streets" = "#2f3737",
+      "streets" = c("#2f3737", "#ffffff"),
       "buildings" = "#f4d849",
       "text" = "#2f3737",
       "waterlines" = "#607ba4"
-    ),
-    "original" = list(
-      "background" = "#fdf9f5",
-      "water" = "#fdf9f5",
-      "landuse" = "#fdf9f5",
-      "contours" = "#32130f",
-      "streets" = "#32130f",
-      "buildings" = "#fdf9f5",
-      "text" = "#32130f",
-      "waterlines" = "#32130f"
     ),
     "rouge" = list(
       "background" = "#a25543",
@@ -121,19 +126,21 @@
       "landuse" = "#a25543",
       "contours" = "#f2deb8",
       "streets" = "#f2deb8",
+      "rails" = c("#f2deb8", "#a25543"),
       "buildings" = "#a25543",
       "text" = "#f2deb8",
       "waterlines" = "#f2deb8"
     ),
-    "modern" = list(
-      "background" = "#e6ddd6",
-      "water" = "#656c7c",
-      "landuse" = "#7c9c6b",
-      "contours" = "#e6ddd6",
-      "streets" = "#fafafa",
-      "buildings" = "#eb3e20",
-      "text" = "#000000",
-      "waterlines" = "#656c7c"
+    "original" = list(
+      "background" = "#fdf9f5",
+      "water" = "#fdf9f5",
+      "landuse" = "#fdf9f5",
+      "contours" = "#32130f",
+      "streets" = "#32130f",
+      "rails" = "#32130f",
+      "buildings" = "#fdf9f5",
+      "text" = "#32130f",
+      "waterlines" = "#32130f"
     )
   )
   font <- switch(theme,
@@ -141,7 +148,12 @@
       "family" = "Fredericka the Great",
       "face" = "plain"
     ),
-    "colored" = list(
+    "modern" = list(
+      "family" = "Imbue",
+      "face" = "plain",
+      "append" = "\u2014"
+    ),
+    "bright" = list(
       "family" = "Damion",
       "face" = "plain"
     ),
@@ -153,18 +165,13 @@
       "family" = "Rampart One",
       "face" = "plain"
     ),
-    "original" = list(
-      "family" = "Caveat",
-      "face" = "bold"
-    ),
     "rouge" = list(
       "family" = "Oswald",
       "face" = "bold"
     ),
-    "modern" = list(
-      "family" = "Imbue",
-      "face" = "plain",
-      "append" = "\u2014"
+    "original" = list(
+      "family" = "Caveat",
+      "face" = "bold"
     )
   )
   size <- list()
