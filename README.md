@@ -84,7 +84,7 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom left).
+You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
@@ -155,7 +155,13 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Other display options
 
-There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image. Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`).
+There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`, left). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image (middle). Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`, right).
+
+<p align="center">
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/HaNoi.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Glasgow.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Budapest.png' width='250' height='250'>
+</p>
 
 ## Create your own in Shiny
 
