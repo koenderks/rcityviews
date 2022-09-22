@@ -146,7 +146,7 @@ cityview <- function(name = NULL,
   if (is.list(theme)) {
     themeOptions <- theme
   } else {
-    theme <- match.arg(tolower(theme))
+    theme <- match.arg(theme)
     themeOptions <- .themeOptions(theme)
   }
   border <- match.arg(border)
