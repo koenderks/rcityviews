@@ -57,7 +57,7 @@
 <span>         zoom <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>         theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>           <span class="st">"vintage"</span>, <span class="st">"modern"</span>, <span class="st">"bright"</span>, <span class="st">"delftware"</span>,</span>
-<span>           <span class="st">"lichtenstein"</span>, <span class="st">"rouge"</span>, <span class="st">"original"</span></span>
+<span>           <span class="st">"comic"</span>, <span class="st">"rouge"</span>, <span class="st">"original"</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>           <span class="st">"none"</span>, <span class="st">"circle"</span>, <span class="st">"rhombus"</span>, <span class="st">"square"</span>,</span>
@@ -83,7 +83,7 @@
 
 
 <dt>theme</dt>
-<dd><p>a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are <code>vintage</code> (default), <code>modern</code>, <code>bright</code>, <code>delftware</code>, <code>lichtenstein</code>, <code>rouge</code> and <code>original</code>.</p></dd>
+<dd><p>a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are <code>vintage</code> (default), <code>modern</code>, <code>bright</code>, <code>delftware</code>, <code>comic</code>, <code>rouge</code> and <code>original</code>.</p></dd>
 
 
 <dt>border</dt>
@@ -133,7 +133,7 @@
 <li><p><code>face</code>:        The face of the font.</p></li>
 <li><p><code>append</code>:      Optional. A string to append the city name with at both sides.</p></li>
 </ul><p><code>size</code></p><ul><li><p><code>borders</code>:    A named list containing sizes for the borders <code>contours</code>, <code>water</code>, <code>canal</code> and <code>river</code>.</p></li>
-<li><p><code>streets</code>:    A named list contianing sizes for the streets <code>path</code>, <code>residential</code>, <code>structure</code>, <code>tertiary</code>, <code>secondary</code>, <code>highway</code>, <code>motorway</code>, <code>rails</code> and <code>runway</code>.</p></li>
+<li><p><code>streets</code>:    A named list contianing sizes for the streets <code>path</code>, <code>residential</code>, <code>structure</code>, <code>tertiary</code>, <code>secondary</code>, <code>primary</code>, <code>motorway</code>, <code>rails</code> and <code>runway</code>.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -150,18 +150,18 @@
 <span class="r-in"><span><span class="co"># Create a city view of Amsterdam in a circle</span></span></span>
 <span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, border <span class="op">=</span> <span class="st">"circle"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Use a custom theme, for example black and white</span></span></span>
+<span class="r-in"><span><span class="co"># Use a custom theme, for example green and white, streets only</span></span></span>
 <span class="r-in"><span><span class="va">myTheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    background <span class="op">=</span> <span class="st">"white"</span>,</span></span>
-<span class="r-in"><span>    water <span class="op">=</span> <span class="st">"black"</span>,</span></span>
-<span class="r-in"><span>    landuse <span class="op">=</span> <span class="st">"white"</span>,</span></span>
-<span class="r-in"><span>    contours <span class="op">=</span> <span class="st">"black"</span>,</span></span>
-<span class="r-in"><span>    streets <span class="op">=</span> <span class="st">"black"</span>,</span></span>
-<span class="r-in"><span>    rails <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"white"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    buildings <span class="op">=</span> <span class="st">"black"</span>,</span></span>
-<span class="r-in"><span>    text <span class="op">=</span> <span class="st">"black"</span>,</span></span>
-<span class="r-in"><span>    waterlines <span class="op">=</span> <span class="st">"black"</span></span></span>
+<span class="r-in"><span>    background <span class="op">=</span> <span class="st">"forestgreen"</span>,</span></span>
+<span class="r-in"><span>    water <span class="op">=</span> <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>    landuse <span class="op">=</span> <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>    contours <span class="op">=</span> <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>    streets <span class="op">=</span> <span class="st">"white"</span>,</span></span>
+<span class="r-in"><span>    rails <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"forestgreen"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    buildings <span class="op">=</span> <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>    text <span class="op">=</span> <span class="st">"white"</span>,</span></span>
+<span class="r-in"><span>    waterlines <span class="op">=</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    family <span class="op">=</span> <span class="st">"serif"</span>,</span></span>
@@ -180,7 +180,7 @@
 <span class="r-in"><span>      structure <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
 <span class="r-in"><span>      tertiary <span class="op">=</span> <span class="fl">0.75</span>,</span></span>
 <span class="r-in"><span>      secondary <span class="op">=</span> <span class="fl">0.8</span>,</span></span>
-<span class="r-in"><span>      highway <span class="op">=</span> <span class="fl">0.9</span>,</span></span>
+<span class="r-in"><span>      primary <span class="op">=</span> <span class="fl">0.9</span>,</span></span>
 <span class="r-in"><span>      motorway <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>      rails <span class="op">=</span> <span class="fl">0.75</span>,</span></span>
 <span class="r-in"><span>      runway <span class="op">=</span> <span class="fl">3</span></span></span>
