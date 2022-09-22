@@ -92,20 +92,21 @@ You can select different pre-specified themes for the image. The image above is 
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
 </p>
 
-The package offers full flexibility to specify a custom theme using a named list, as demonstrated below.
+However, the package offers full flexibility to specify a custom theme using a named list. This is demonstrated in the code below.
 
 ```r
+# For example: Green and white theme, streets only
 myTheme <- list(
   colors = list(
-    background = "beige",
-    water = "cornflowerblue",
-    landuse = "forestgreen",
-    contours = "black",
-    streets = "black",
-    rails = c("black", "beige"),
-    buildings = c("goldenrod", "orange", "dodgerblue", "navyblue"),
-    text = "black",
-    waterlines = "cornflowerblue"
+    background = "forestgreen",
+    water = NA,
+    landuse = NA,
+    contours = NA,
+    streets = "white",
+    rails = c("white", "forestgreen"),
+    buildings = NA,
+    text = "white",
+    waterlines = NA
   ),
   font = list(
     family = "serif",
