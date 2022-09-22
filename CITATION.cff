@@ -7,10 +7,10 @@ cff-version: 1.2.0
 message: 'To cite package "rcityviews" in publications use:'
 type: software
 license: GPL-3.0-or-later
-title: 'rcityviews: Minimalistic City Views using OpenStreetMap (OSM) Data'
-version: 1.0.2
-abstract: A user-friendly interface to create minimalistic city views in 'ggplot2'
-  using data from OpenStreetMap <https://www.openstreetmap.org/>.
+title: 'rcityviews: Minimalistic Maps using OpenStreetMap (OSM) Data'
+version: 1.0.3
+abstract: A user-friendly interface to create minimalistic maps in 'ggplot2' using
+  data from OpenStreetMap <https://www.openstreetmap.org/>.
 authors:
 - family-names: Derks
   given-names: Koen
@@ -26,7 +26,7 @@ preferred-citation:
   notes: R package version 1.0.2
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.shinyapps.io/rcityviews/
-date-released: '2022-09-18'
+date-released: '2022-09-22'
 contact:
 - family-names: Derks
   given-names: Koen
@@ -37,6 +37,7 @@ keywords:
 - maps
 - openstreetmap
 - osm
+- poster
 - r
 - shiny
 references:
