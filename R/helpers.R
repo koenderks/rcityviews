@@ -109,15 +109,15 @@
       "text" = "#000000",
       "waterlines" = "#fafafa"
     ),
-    "lichtenstein" = list(
+    "comic" = list(
       "background" = "#ffffff",
       "water" = "#607ba4",
-      "landuse" = "#478f70",
-      "contours" = "#2f3737",
-      "streets" = "#2f3737",
-      "streets" = c("#2f3737", "#ffffff"),
-      "buildings" = "#f4d849",
-      "text" = "#2f3737",
+      "landuse" = "#4b9475",
+      "contours" = "#222222",
+      "streets" = "#222222",
+      "rails" = c("#222222", "#ffffff"),
+      "buildings" = c("#f4d749", "#daa520", "#a63c44"),
+      "text" = "#222222",
       "waterlines" = "#607ba4"
     ),
     "rouge" = list(
@@ -161,7 +161,7 @@
       "family" = "Dancing Script",
       "face" = "bold"
     ),
-    "lichtenstein" = list(
+    "comic" = list(
       "family" = "Rampart One",
       "face" = "plain"
     ),
@@ -187,7 +187,7 @@
     "structure" = 0.5,
     "tertiary" = 0.75,
     "secondary" = 0.8,
-    "highway" = 0.9,
+    "primary" = 0.9,
     "motorway" = 1,
     "rails" = 0.75,
     "runway" = 3

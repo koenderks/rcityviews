@@ -84,10 +84,14 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `modern` (left), `bright` (middle), `delftware` (right), `lichtenstein`, `rouge` and `original`.
+You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom left).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
+  <br>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Florence.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
 </p>
@@ -125,7 +129,7 @@ myTheme <- list(
       structure = 0.5,
       tertiary = 0.75,
       secondary = 0.8,
-      highway = 0.9,
+      primary = 0.9,
       motorway = 1,
       rails = 0.75,
       runway = 3

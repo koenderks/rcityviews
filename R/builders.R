@@ -354,7 +354,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
+    size = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -372,14 +372,14 @@
     color = themeOptions[["colors"]][["rails"]][1],
     size = themeOptions[["size"]][["streets"]][["rails"]],
     inherit.aes = FALSE
-  )
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["rails"]][length(themeOptions[["colors"]][["rails"]])],
-    size = themeOptions[["size"]][["streets"]][["rails"]],
-    linetype = "dashed",
-    inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["rails"]][length(themeOptions[["colors"]][["rails"]])],
+      size = themeOptions[["size"]][["streets"]][["rails"]],
+      linetype = "dashed",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   # Small streets ##############################################################
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dam\"")
@@ -498,37 +498,51 @@
   # Medium streets #############################################################
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
     size = themeOptions[["size"]][["streets"]][["tertiary"]],
-    lineend = "round",
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["tertiary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["secondary"]],
-    inherit.aes = FALSE
-  )
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
     size = themeOptions[["size"]][["streets"]][["tertiary"]],
-    lineend = "round",
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["tertiary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
     size = themeOptions[["size"]][["streets"]][["secondary"]],
-    lineend = "round",
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["secondary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary\"")
   int_p <- int_p + ggplot2::geom_sf(
@@ -537,92 +551,127 @@
     color = themeOptions[["colors"]][["streets"]],
     size = themeOptions[["size"]][["streets"]][["secondary"]],
     inherit.aes = FALSE
-  )
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["secondary"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["secondary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   # Large streets ##############################################################
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary_link\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
-    lineend = "round",
+    size = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["primary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
+    size = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
-  )
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["primary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_link\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
-    lineend = "round",
+    size = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["primary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_loop\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
-    lineend = "round",
+    size = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["primary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk\"")
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
+    size = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
-  )
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["highway"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["primary"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
     size = themeOptions[["size"]][["streets"]][["motorway"]],
-    lineend = "round",
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["motorway"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway\"")
   int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
+    data = obj[["polygons"]],
+    fill = NA,
     color = themeOptions[["colors"]][["streets"]],
     size = themeOptions[["size"]][["streets"]][["motorway"]],
-    lineend = "round",
     inherit.aes = FALSE
-  )
+  ) +
+    ggplot2::geom_sf(
+      data = obj[["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      size = themeOptions[["size"]][["streets"]][["motorway"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
   .tick(verbose, progBar, ticks, shiny)
   # Buildings ##################################################################
   if (zoom >= 0.5) { # Skip buildings if zoom < 0.5 as it takes immense computing time
@@ -651,7 +700,7 @@
         ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["colors"]][["text"]], size = 1, inherit.aes = FALSE)
     })
   }
-  # Add neighborhood names
+  # Add names of places
   if (places > 0) {
     int_p <- .addPlaces(int_p, places, themeOptions, bbox, border, cropped, city)
     .tick(verbose, progBar, ticks, shiny)

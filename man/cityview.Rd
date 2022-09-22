@@ -8,7 +8,7 @@ cityview(name = NULL,
          zoom = 1,
          theme = c(
            "vintage", "modern", "bright", "delftware",
-           "lichtenstein", "rouge", "original"
+           "comic", "rouge", "original"
          ),
          border = c(
            "none", "circle", "rhombus", "square",
@@ -27,7 +27,7 @@ cityview(name = NULL,
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
-\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{lichtenstein}, \code{rouge} and \code{original}.}
+\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{comic}, \code{rouge} and \code{original}.}
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).}
 
@@ -71,7 +71,7 @@ The \code{theme} argument can take a custom list as input (see the example). Thi
 \code{size}
 \itemize{
  \item{\code{borders}:    A named list containing sizes for the borders \code{contours}, \code{water}, \code{canal} and \code{river}.}
- \item{\code{streets}:    A named list contianing sizes for the streets \code{path}, \code{residential}, \code{structure}, \code{tertiary}, \code{secondary}, \code{highway}, \code{motorway}, \code{rails} and \code{runway}.}
+ \item{\code{streets}:    A named list contianing sizes for the streets \code{path}, \code{residential}, \code{structure}, \code{tertiary}, \code{secondary}, \code{primary}, \code{motorway}, \code{rails} and \code{runway}.}
 }
 }
 \examples{
@@ -79,18 +79,18 @@ The \code{theme} argument can take a custom list as input (see the example). Thi
 # Create a city view of Amsterdam in a circle
 cityview(name = "Amsterdam", border = "circle", filename = "Amsterdam.png")
 
-# Use a custom theme, for example black and white
+# Use a custom theme, for example green and white, streets only
 myTheme <- list(
   colors = list(
-    background = "white",
-    water = "black",
-    landuse = "white",
-    contours = "black",
-    streets = "black",
-    rails = c("black", "white"),
-    buildings = "black",
-    text = "black",
-    waterlines = "black"
+    background = "forestgreen",
+    water = NA,
+    landuse = NA,
+    contours = NA,
+    streets = "white",
+    rails = c("white", "forestgreen"),
+    buildings = NA,
+    text = "white",
+    waterlines = NA
   ),
   font = list(
     family = "serif",
@@ -109,7 +109,7 @@ myTheme <- list(
       structure = 0.5,
       tertiary = 0.75,
       secondary = 0.8,
-      highway = 0.9,
+      primary = 0.9,
       motorway = 1,
       rails = 0.75,
       runway = 3
