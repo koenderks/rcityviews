@@ -28,37 +28,37 @@
 #'            "none", "circle", "rhombus", "square",
 #'            "hexagon", "octagon", "decagon"
 #'          ),
-#'          halftone = c("none", "light", "dark"),
-#'          places = 0,
+#'          halftone = NULL,
 #'          legend = FALSE,
+#'          places = 0,
+#'          license = TRUE,
 #'          filename = NULL,
 #'          verbose = TRUE,
-#'          license = TRUE,
 #'          bot = FALSE)
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}. If \code{NULL} (default), chooses a random city.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
 #' @param theme    a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{lichtenstein}, \code{rouge} and \code{original}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).
-#' @param halftone a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).
-#' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
+#' @param halftone a character specifying the color of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).
 #' @param legend   logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.
+#' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
+#' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param filename character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
-#' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
 #'
-#' @details The \code{theme} argument can take a custom list as input. This list must contain the following elements:
+#' @details The \code{theme} argument can take a custom list as input (see the example). This list must contain the following elements:
 #'
 #' \code{colors}
 #' \itemize{
 #'  \item{\code{background}:  One color for the background.}
 #'  \item{\code{water}:       One color for the water.}
-#'  \item{\code{landuse}:     One color or a vector of colors for the landuse.}
+#'  \item{\code{landuse}:     One color or a vector of multiple colors for the landuse.}
 #'  \item{\code{contours}:    One color for the contours of landuse and buildings.}
 #'  \item{\code{streets}:     One color for the streets.}
 #'  \item{\code{rails}:       One color or a vector of two colors for the rails.}
-#'  \item{\code{buildings}:   One color or a vector of colors for the buildings.}
+#'  \item{\code{buildings}:   One color or a vector of multiple colors for the buildings.}
 #'  \item{\code{text}:        One color for the text.}
 #' }
 #' \code{font}
@@ -135,12 +135,12 @@ cityview <- function(name = NULL,
                        "none", "circle", "rhombus", "square",
                        "hexagon", "octagon", "decagon"
                      ),
-                     halftone = c("none", "light", "dark"),
-                     places = 0,
+                     halftone = NULL,
                      legend = FALSE,
+                     places = 0,
+                     license = TRUE,
                      filename = NULL,
                      verbose = TRUE,
-                     license = TRUE,
                      bot = FALSE) {
   # Set image options ##########################################################
   if (is.list(theme)) {
@@ -150,8 +150,7 @@ cityview <- function(name = NULL,
     themeOptions <- .themeOptions(theme)
   }
   border <- match.arg(border)
-  halftone <- match.arg(halftone)
-  ticks <- 61 + as.numeric(halftone != "none") + as.numeric(places > 0)
+  ticks <- 61 + as.numeric(!is.null(halftone)) + as.numeric(places > 0)
   # Look up city ###############################################################
   city <- .getCity(name)
   if (is.null(city)) {
@@ -175,12 +174,12 @@ cityview <- function(name = NULL,
         themeOptions = themeOptions,
         border = border,
         halftone = halftone,
-        places = places,
         legend = legend,
+        places = places,
         cropped = boundaries[["cropped"]],
         borderPoints = boundaries[["borderPoints"]],
-        verbose = verbose,
         license = license,
+        verbose = verbose,
         ticks = ticks,
         shiny = FALSE
       )

@@ -14,12 +14,12 @@ cityview(name = NULL,
            "none", "circle", "rhombus", "square",
            "hexagon", "octagon", "decagon"
          ),
-         halftone = c("none", "light", "dark"),
-         places = 0,
+         halftone = NULL,
          legend = FALSE,
+         places = 0,
+         license = TRUE,
          filename = NULL,
          verbose = TRUE,
-         license = TRUE,
          bot = FALSE)
 }
 \arguments{
@@ -31,17 +31,17 @@ cityview(name = NULL,
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).}
 
-\item{halftone}{a character specifying the type of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).}
+\item{halftone}{a character specifying the color of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).}
+
+\item{legend}{logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.}
 
 \item{places}{an integer specifying how many suburb, quarter and neighbourhood names to add to the image.}
 
-\item{legend}{logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.}
+\item{license}{logical. Whether to add the OpenStreetMap licence to the plot.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.}
 
 \item{verbose}{logical. Whether to show a progress bar during execution.}
-
-\item{license}{logical. Whether to add the OpenStreetMap licence to the plot.}
 
 \item{bot}{logical. Enable functionality used by the Twitter bot.}
 }
@@ -49,17 +49,17 @@ cityview(name = NULL,
 Create an aerial city view.
 }
 \details{
-The \code{theme} argument can take a custom list as input. This list must contain the following elements:
+The \code{theme} argument can take a custom list as input (see the example). This list must contain the following elements:
 
 \code{colors}
 \itemize{
  \item{\code{background}:  One color for the background.}
  \item{\code{water}:       One color for the water.}
- \item{\code{landuse}:     One color or a vector of colors for the landuse.}
+ \item{\code{landuse}:     One color or a vector of multiple colors for the landuse.}
  \item{\code{contours}:    One color for the contours of landuse and buildings.}
  \item{\code{streets}:     One color for the streets.}
  \item{\code{rails}:       One color or a vector of two colors for the rails.}
- \item{\code{buildings}:   One color or a vector of colors for the buildings.}
+ \item{\code{buildings}:   One color or a vector of multiple colors for the buildings.}
  \item{\code{text}:        One color for the text.}
 }
 \code{font}

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, places, legend, cropped, borderPoints, verbose, license, ticks, shiny) {
+.buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, legend, places, cropped, borderPoints, license, verbose, ticks, shiny) {
   if (verbose) {
     # Initialize progress bar ##################################################
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0)
@@ -663,7 +663,7 @@
     panel.background = ggplot2::element_rect(fill = themeOptions[["colors"]][["background"]], color = themeOptions[["colors"]][["background"]])
   )
   # Add halftone
-  if (halftone != "none") { # Halftone
+  if (!is.null(halftone)) {
     p <- .addHalftone(p, halftone)
     .tick(verbose, progBar, ticks, shiny)
   }
@@ -924,10 +924,7 @@
   p <- p + ggplot2::geom_point(
     data = data.frame(x = x, y = y),
     mapping = ggplot2::aes(x = x, y = y),
-    col = switch(halftone,
-      "light" = "#ffffff",
-      "dark" = "#000000"
-    ),
+    col = halftone,
     alpha = 0.1,
     size = 2,
     shape = 19
@@ -939,7 +936,7 @@
 # Fix for a bug in the 'osmplotr' package
 # See https://github.com/ropensci/osmplotr/issues/29
 # The following functions are taken over from 'osmplotr'
-# Note: This is not my own work
+# Note: I did not make these functions (except the fixes)
 ################################################################################
 
 .line2poly <- function(obj, bbox) {

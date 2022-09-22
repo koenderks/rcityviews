@@ -84,15 +84,15 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
-You can select different themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `bright` (left), `modern` (middle), `delftware` (right), `lichtenstein`, `rouge` and `original`.
+You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"`, but other options for the `theme` argument include `modern` (left), `bright` (middle), `delftware` (right), `lichtenstein`, `rouge` and `original`.
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/New_York.png' width='250' height='250'>
 </p>
 
-You can also specify a custom theme using a named list, as shown below.
+The package offers full flexibility to specify a custom theme using a named list, as demonstrated below.
 
 ```r
 myTheme <- list(
@@ -150,7 +150,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Other display options
 
-There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a dotted dither to the image. Its possible options `light` (white dots) and `dark` (black dots) can be used to specify the color of the dots. Second, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image. Third, setting `legend = TRUE` adds a distance measurer and a compass to the image.
+There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image. Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`).
 
 ## Create your own in Shiny
 

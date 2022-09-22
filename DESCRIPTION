@@ -1,13 +1,13 @@
 Package: rcityviews
-Title: Minimalistic City Views using OpenStreetMap (OSM) Data
-Version: 1.0.2
-Date: 2022-09-18
+Title: Minimalistic Maps using OpenStreetMap (OSM) Data
+Version: 1.0.3
+Date: 2022-09-22
 Authors@R:
     person(given = "Koen",
            family = "Derks",
            role = c("aut", "cre"),
            email = "koen-derks@hotmail.com")
-Description: A user-friendly interface to create minimalistic city views in 'ggplot2' using data from OpenStreetMap <https://www.openstreetmap.org/>.
+Description: A user-friendly interface to create minimalistic maps in 'ggplot2' using data from OpenStreetMap <https://www.openstreetmap.org/>.
 BugReports: https://github.com/koenderks/rcityviews/issues
 URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
 Depends: R (>= 3.5.0)
