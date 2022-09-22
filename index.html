@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minimalistic City Views using OpenStreetMap (OSM) Data • rcityviews</title>
+<title>Minimalistic Maps using OpenStreetMap (OSM) Data • rcityviews</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,8 +17,8 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Minimalistic City Views using OpenStreetMap (OSM) Data">
-<meta property="og:description" content="A user-friendly interface to create minimalistic city views in ggplot2 using data from OpenStreetMap &lt;https://www.openstreetmap.org/&gt;.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Minimalistic Maps using OpenStreetMap (OSM) Data">
+<meta property="og:description" content="A user-friendly interface to create minimalistic maps in ggplot2 using data from OpenStreetMap &lt;https://www.openstreetmap.org/&gt;.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rcityviews</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -139,9 +139,9 @@
 <div class="section level3">
 <h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
 </h3>
-<p>You can select different themes for the image. The image above is created using <code>theme = "vintage"</code>, but other options for the <code>theme</code> argument include <code>bright</code> (left), <code>modern</code> (middle), <code>delftware</code> (right), <code>lichtenstein</code>, <code>rouge</code> and <code>original</code>.</p>
-<p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/New_York.png" width="250" height="250"></p>
-<p>You can also specify a custom theme using a named list, as shown below.</p>
+<p>You can select different pre-specified themes for the image. The image above is created using <code>theme = "vintage"</code>, but other options for the <code>theme</code> argument include <code>modern</code> (left), <code>bright</code> (middle), <code>delftware</code> (right), <code>lichtenstein</code>, <code>rouge</code> and <code>original</code>.</p>
+<p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/New_York.png" width="250" height="250"></p>
+<p>The package offers full flexibility to specify a custom theme using a named list, as demonstrated below.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myTheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -191,7 +191,7 @@
 <div class="section level3">
 <h3 id="other-display-options">Other display options<a class="anchor" aria-label="anchor" href="#other-display-options"></a>
 </h3>
-<p>There are three other arguments to the <code><a href="reference/cityview.html">cityview()</a></code> function that you can use to tailor the image to your liking. First, the argument <code>halftone</code> allows you to add a dotted dither to the image. Its possible options <code>light</code> (white dots) and <code>dark</code> (black dots) can be used to specify the color of the dots. Second, the argument <code>places</code> takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image. Third, setting <code>legend = TRUE</code> adds a distance measurer and a compass to the image.</p>
+<p>There are three other arguments to the <code><a href="reference/cityview.html">cityview()</a></code> function that you can use to tailor the image to your liking. First, the argument <code>halftone</code> allows you to add a colored dotted dither to the image (e.g., <code>halftone = "#ffffff"</code>). Second, setting <code>legend = TRUE</code> adds a distance measurer and a compass to the image. Third, the argument <code>places</code> takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., <code>places = 10</code>).</p>
 </div>
 </div>
 <div class="section level2">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rcityviews</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -63,12 +63,12 @@
 <span>           <span class="st">"none"</span>, <span class="st">"circle"</span>, <span class="st">"rhombus"</span>, <span class="st">"square"</span>,</span>
 <span>           <span class="st">"hexagon"</span>, <span class="st">"octagon"</span>, <span class="st">"decagon"</span></span>
 <span>         <span class="op">)</span>,</span>
-<span>         halftone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"light"</span>, <span class="st">"dark"</span><span class="op">)</span>,</span>
-<span>         places <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>         halftone <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>         legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         places <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>         license <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>         verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>         license <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         bot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,15 +91,19 @@
 
 
 <dt>halftone</dt>
-<dd><p>a character specifying the type of halftone to use. Possible options are <code>none</code>, <code>light</code> (white dither) and <code>dark</code> (black dither).</p></dd>
+<dd><p>a character specifying the color of halftone to use. Possible options are <code>none</code>, <code>light</code> (white dither) and <code>dark</code> (black dither).</p></dd>
+
+
+<dt>legend</dt>
+<dd><p>logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.</p></dd>
 
 
 <dt>places</dt>
 <dd><p>an integer specifying how many suburb, quarter and neighbourhood names to add to the image.</p></dd>
 
 
-<dt>legend</dt>
-<dd><p>logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.</p></dd>
+<dt>license</dt>
+<dd><p>logical. Whether to add the OpenStreetMap licence to the plot.</p></dd>
 
 
 <dt>filename</dt>
@@ -110,24 +114,20 @@
 <dd><p>logical. Whether to show a progress bar during execution.</p></dd>
 
 
-<dt>license</dt>
-<dd><p>logical. Whether to add the OpenStreetMap licence to the plot.</p></dd>
-
-
 <dt>bot</dt>
 <dd><p>logical. Enable functionality used by the Twitter bot.</p></dd>
 
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>The <code>theme</code> argument can take a custom list as input. This list must contain the following elements:</p>
+    <p>The <code>theme</code> argument can take a custom list as input (see the example). This list must contain the following elements:</p>
 <p><code>colors</code></p><ul><li><p><code>background</code>:  One color for the background.</p></li>
 <li><p><code>water</code>:       One color for the water.</p></li>
-<li><p><code>landuse</code>:     One color or a vector of colors for the landuse.</p></li>
+<li><p><code>landuse</code>:     One color or a vector of multiple colors for the landuse.</p></li>
 <li><p><code>contours</code>:    One color for the contours of landuse and buildings.</p></li>
 <li><p><code>streets</code>:     One color for the streets.</p></li>
 <li><p><code>rails</code>:       One color or a vector of two colors for the rails.</p></li>
-<li><p><code>buildings</code>:   One color or a vector of colors for the buildings.</p></li>
+<li><p><code>buildings</code>:   One color or a vector of multiple colors for the buildings.</p></li>
 <li><p><code>text</code>:        One color for the text.</p></li>
 </ul><p><code>font</code></p><ul><li><p><code>family</code>:      The family of the font.</p></li>
 <li><p><code>face</code>:        The face of the font.</p></li>
