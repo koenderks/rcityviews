@@ -120,7 +120,7 @@
       if (try[[1]] == "Error in resp_abort(resp, error_body(req, resp)) : \n  HTTP 504 Gateway Timeout.\n") {
         shiny::showNotification("The overpass server is not able to respond to your request, traffic might be too high.", type = "error", duration = NULL)
       } else {
-        shiny::showNotification("Something went wrong.", type = "error", duration = NULL)
+        shiny::showNotification(try[[1]], type = "error", duration = NULL)
       }
       return()
     }
