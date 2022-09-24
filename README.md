@@ -56,7 +56,7 @@ p <- cityview(name = "Amsterdam", zoom = 1)
 ```
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='50%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='100%'>
 </p>
 
 ### Saving the image
@@ -134,7 +134,7 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 ```
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Rio.png' width='50%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Rio.png' width='100%'>
 </p>
 
 ### Borders
