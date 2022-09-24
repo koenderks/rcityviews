@@ -4,7 +4,7 @@
 [![Bugs](https://img.shields.io/github/issues/koenderks/rcityviews/bug?label=Bugs&logo=github&logoColor=%23FFF&color=brightgreen)](https://github.com/koenderks/rcityviews/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Banner.png' width='100%' height='200'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Banner.png' width='100%' height='300'>
 </p>
 
 # R City Views
