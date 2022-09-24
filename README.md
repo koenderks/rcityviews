@@ -4,7 +4,7 @@
 [![Bugs](https://img.shields.io/github/issues/koenderks/rcityviews/bug?label=Bugs&logo=github&logoColor=%23FFF&color=brightgreen)](https://github.com/koenderks/rcityviews/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Banner.png' width='100%' height='300'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Banner.png' width='100%'>
 </p>
 
 # R City Views
@@ -70,7 +70,7 @@ cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='400' height='400'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='50%'>
 </p>
 
 For personal (non-commercial) printing it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
@@ -84,13 +84,13 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom right).
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/NewYork.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/NewYork.png' width='30%'>
   <br>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Florence.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Madrid.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Florence.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Madrid.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png' width='30%'>
 </p>
 
 In addition to the pre-specified themes, the package offers the user full flexibility to specify a custom theme using a named list. This is demonstrated in the code block below.
@@ -138,7 +138,7 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 ```
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Rio.png' width='400' height='400'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Rio.png' width='50%'>
 </p>
 
 ### Borders
@@ -146,9 +146,9 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 You can select different types of borders to enclose the city. The image above is created using `border = "none"` (the default), but other options for the `border` argument include `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Venice.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Dublin.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/London.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Venice.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Dublin.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/London.png' width='30%'>
 </p>
 
 ### Other display options
@@ -156,9 +156,9 @@ You can select different types of borders to enclose the city. The image above i
 There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`, left). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image (middle). Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`, right).
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/HaNoi.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Glasgow.png' width='250' height='250'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Budapest.png' width='250' height='250'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/HaNoi.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Glasgow.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Budapest.png' width='30%'>
 </p>
 
 ## Create your own in Shiny
@@ -166,7 +166,7 @@ There are three other arguments to the `cityview()` function that you can use to
 You can make your own images without having to code using an `R Shiny` implementation of the package. A live version of the application can be found [here](https://koenderks.shinyapps.io/rcityviews/) but it is also easily accessible from within `R` by calling the function `cityview_shiny()`.
 
 <p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/app.png' width='900' height='300'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/app.png' width='100%'>
 </p>
 
 ## Acknowledgements
