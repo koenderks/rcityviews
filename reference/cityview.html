@@ -67,6 +67,7 @@
 <span>         legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>         places <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>         license <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>         timeout <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>         filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>         verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         bot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -104,6 +105,10 @@
 
 <dt>license</dt>
 <dd><p>logical. Whether to add the OpenStreetMap licence to the plot.</p></dd>
+
+
+<dt>timeout</dt>
+<dd><p>a value specifying the timeout (seconds) for the overpass server. It may be necessary to increase this value for large or populated areas because the server may time out before all data are delivered (If this happends you will see a message: <code>runtime error: Query timed out in "recurse" at line ... after ... seconds</code>.</p></dd>
 
 
 <dt>filename</dt>

@@ -78,20 +78,14 @@
 <div class="page-header"><h1 id="r-city-views">R City Views<a class="anchor" aria-label="anchor" href="#r-city-views"></a>
 </h1></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/master/man/figures/logo.png" width="149" height="173" alt="logo" align="right" margin-left="20" margin-right="20"></p>
-<p>This repository is an homage to the programming language <code>R</code>, open-source geographic data and the art of map making. It provides code and examples to generate minimalistic city views using data from <a href="https://www.openstreetmap.org/" class="external-link">OpenStreetMap</a>.</p>
+<p>This repository is an homage to the programming language <code>R</code>, open-source geographic data and the art of map making. It provides code and examples to render minimalistic maps using data from <a href="https://www.openstreetmap.org/" class="external-link">OpenStreetMap</a>.</p>
 <ul>
-<li><a href="#latest-city-view">Latest city view</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#create-your-own-in-r">Create your own in R</a></li>
 <li><a href="#create-your-own-in-shiny">Create your own in Shiny</a></li>
 <li><a href="#acknowledgements">Acknowledgements</a></li>
 </ul>
-<div class="section level2">
-<h2 id="latest-city-view">Latest city view<a class="anchor" aria-label="anchor" href="#latest-city-view"></a>
-</h2>
-<p>Every 3 hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle <a href="https://twitter.com/rcityviews" class="external-link">@rcityviews</a>. This is the latest city view:</p>
-<p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/daily.png" width="400" height="400"></p>
-</div>
+<p>Every three hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle <a href="https://twitter.com/rcityviews" class="external-link"><code>@rcityviews</code></a>. Please do not hesitate to share your own creations using <code>#rcityviews</code>!</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -99,7 +93,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"koenderks/rcityviews"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>After installation, the <code>rcityviews</code> package can be loaded with:</p>
+<p>After installation, you can load the package into the session using:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/koenderks/rcityviews" class="external-link">rcityviews</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -109,7 +103,7 @@
 <div class="section level3">
 <h3 id="finding-a-city-name-in-the-database">Finding a city name in the database<a class="anchor" aria-label="anchor" href="#finding-a-city-name-in-the-database"></a>
 </h3>
-<p>First, you can search for a city name in the database using the <code><a href="reference/list_cities.html">list_cities()</a></code> function. This function searches the database and finds any match for the expression in <code>match</code>.</p>
+<p>First, you can search for a city name in the database using the <code><a href="reference/list_cities.html">list_cities()</a></code> function. This function looks in the database and finds any city name that contains the expression in <code>match</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/list_cities.html">list_cities</a></span><span class="op">(</span>match <span class="op">=</span> <span class="st">"Ams"</span><span class="op">)</span></span>
 <span><span class="co"># [1] "Amstelveen" "Amsterdam" "Amstetten" "New Amsterdam" "Nieuw Amsterdam"</span></span></code></pre></div>
@@ -125,7 +119,7 @@
 <div class="section level3">
 <h3 id="saving-the-image">Saving the image<a class="anchor" aria-label="anchor" href="#saving-the-image"></a>
 </h3>
-<p>Finally, render times in <code>RStudio</code> can be very long for crowded images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. The ideal way to do this is usually something like:</p>
+<p>Finally, render times in <code>R</code> can be very long for crowded spatial images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. The ideal way to do this given a <code>ggplot2</code> object is usually something like:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span>, plot <span class="op">=</span> <span class="va">p</span>, height <span class="op">=</span> <span class="fl">500</span>, width <span class="op">=</span> <span class="fl">500</span>, units <span class="op">=</span> <span class="st">"mm"</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
@@ -136,12 +130,17 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.pdf"</span>, license <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level3"><h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
+</h3></div>
 <div class="section level3">
-<h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
+<h3 id="pre-specified">Pre-specified<a class="anchor" aria-label="anchor" href="#pre-specified"></a>
 </h3>
 <p>You can select different pre-specified themes for the image. The image above is created using <code>theme = "vintage"</code> (the default), but other options for the <code>theme</code> argument include <code>modern</code> (top left), <code>bright</code> (top middle), <code>delftware</code> (top right), <code>comic</code> (bottom left), <code>rouge</code> (bottom middle) and <code>original</code> (bottom right).</p>
 <p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/NewYork.png" width="250" height="250"><br><img src="https://github.com/koenderks/rcityviews/raw/master/png/Florence.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Madrid.png" width="250" height="250"><img src="https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png" width="250" height="250"></p>
-<p>However, the package offers full flexibility to specify a custom theme using a named list. This is demonstrated in the code below.</p>
+<div class="section level4">
+<h4 id="custom">Custom<a class="anchor" aria-label="anchor" href="#custom"></a>
+</h4>
+<p>In addition to the pre-specified themes, the package offers the user full flexibility to specify a custom theme using a named list. This is demonstrated in the code block below.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For example: Green and white theme, streets only</span></span>
 <span><span class="va">myTheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -182,6 +181,7 @@
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Rio de Janeiro"</span>, theme <span class="op">=</span> <span class="va">myTheme</span>, border <span class="op">=</span> <span class="st">"square"</span>, filename <span class="op">=</span> <span class="st">"Rio.png"</span><span class="op">)</span></span></code></pre></div>
 <p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Rio.png" width="400" height="400"></p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="borders">Borders<a class="anchor" aria-label="anchor" href="#borders"></a>
