@@ -139,7 +139,7 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 
 ### Borders
 
-There are several types of borders that can be used to enclose the city. The image above is created using `border = "none"` (the default), but other options for the `border` argument include `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
+There are several types of borders that can be used to enclose the city. The image above is created using `border = "square"`, but other options for the `border` argument include `none` (the default), `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Venice.png' width='30%'>
