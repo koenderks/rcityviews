@@ -32,6 +32,7 @@
 #'          legend = FALSE,
 #'          places = 0,
 #'          license = TRUE,
+#'          timeout = 25,
 #'          filename = NULL,
 #'          verbose = TRUE,
 #'          bot = FALSE)
@@ -44,6 +45,7 @@
 #' @param legend   logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.
 #' @param places   an integer specifying how many suburb, quarter and neighbourhood names to add to the image.
 #' @param license  logical. Whether to add the OpenStreetMap licence to the plot.
+#' @param timeout  a value specifying the timeout (seconds) for the overpass server. It may be necessary to increase this value for large or populated areas because the server may time out before all data are delivered (If this happends you will see a message: \code{runtime error: Query timed out in "recurse" at line ... after ... seconds}.
 #' @param filename character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
@@ -139,6 +141,7 @@ cityview <- function(name = NULL,
                      legend = FALSE,
                      places = 0,
                      license = TRUE,
+                     timeout = 25,
                      filename = NULL,
                      verbose = TRUE,
                      bot = FALSE) {
@@ -162,7 +165,7 @@ cityview <- function(name = NULL,
   # Create the bounding box ####################################################
   boundaries <- .getBoundaries(city = city, border = border, zoom = zoom)
   # Initialize the OSM query ###################################################
-  bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 25)
+  bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = timeout)
   # Build the plot #############################################################
   try <- try(
     {

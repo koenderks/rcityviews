@@ -18,6 +18,7 @@ cityview(name = NULL,
          legend = FALSE,
          places = 0,
          license = TRUE,
+         timeout = 25,
          filename = NULL,
          verbose = TRUE,
          bot = FALSE)
@@ -38,6 +39,8 @@ cityview(name = NULL,
 \item{places}{an integer specifying how many suburb, quarter and neighbourhood names to add to the image.}
 
 \item{license}{logical. Whether to add the OpenStreetMap licence to the plot.}
+
+\item{timeout}{a value specifying the timeout (seconds) for the overpass server. It may be necessary to increase this value for large or populated areas because the server may time out before all data are delivered (If this happends you will see a message: \code{runtime error: Query timed out in "recurse" at line ... after ... seconds}.}
 
 \item{filename}{character. If specified, the function exports the plot at an appropriate size and does not return a \code{ggplot2} object.}
 

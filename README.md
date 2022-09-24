@@ -7,21 +7,14 @@
 
 <img src='https://github.com/koenderks/rcityviews/raw/master/man/figures/logo.png' width='149' height='173' alt='logo' align='right' margin-left='20' margin-right='20'/>
 
-This repository is an homage to the programming language `R`, open-source geographic data and the art of map making. It provides code and examples to generate minimalistic city views using data from [OpenStreetMap](https://www.openstreetmap.org/).
+This repository is an homage to the programming language `R`, open-source geographic data and the art of map making. It provides code and examples to render minimalistic maps using data from [OpenStreetMap](https://www.openstreetmap.org/).
 
-* [Latest city view](#latest-city-view)
 * [Installation](#installation)
 * [Create your own in R](#create-your-own-in-r)
 * [Create your own in Shiny](#create-your-own-in-shiny)
 * [Acknowledgements](#acknowledgements)
 
-## Latest city view
-
-Every 3 hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle [@rcityviews](https://twitter.com/rcityviews). This is the latest city view:
-
-<p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/daily.png' width='400' height='400'>
-</p>
+Every three hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle [`@rcityviews`](https://twitter.com/rcityviews). Please do not hesitate to share your own creations using `#rcityviews`!
 
 ## Installation
 
@@ -32,7 +25,7 @@ The functionality in this repository is implemented as an `R` package: `rcityvie
 remotes::install_github("koenderks/rcityviews", dependencies = TRUE)
 ```
 
-After installation, the `rcityviews` package can be loaded with:
+After installation, you can load the package into the session using:
 
 ```r
 library(rcityviews)
@@ -42,7 +35,7 @@ library(rcityviews)
 
 ### Finding a city name in the database
 
-First, you can search for a city name in the database using the `list_cities()` function. This function searches the database and finds any match for the expression in `match`.
+First, you can search for a city name in the database using the `list_cities()` function. This function looks in the database and finds any city name that contains the expression in `match`.
 
 ```r
 list_cities(match = "Ams")
@@ -60,7 +53,7 @@ p <- cityview(name = "Amsterdam", zoom = 1)
 
 ### Saving the image
 
-Finally, render times in `RStudio` can be very long for crowded images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. The ideal way to do this is usually something like:
+Finally, render times in `R` can be very long for crowded spatial images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. The ideal way to do this given a `ggplot2` object is usually something like:
 
 ```r
 ggplot2::ggsave(filename = "Amsterdam.png", plot = p, height = 500, width = 500, units = "mm", dpi = 100)
@@ -84,6 +77,8 @@ cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
 
 ### Themes
 
+### Pre-specified
+
 You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom right).
 
 <p align="center">
@@ -96,7 +91,9 @@ You can select different pre-specified themes for the image. The image above is 
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png' width='250' height='250'>
 </p>
 
-However, the package offers full flexibility to specify a custom theme using a named list. This is demonstrated in the code below.
+#### Custom
+
+In addition to the pre-specified themes, the package offers the user full flexibility to specify a custom theme using a named list. This is demonstrated in the code block below.
 
 ```r
 # For example: Green and white theme, streets only
