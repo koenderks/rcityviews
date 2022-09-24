@@ -75,13 +75,9 @@ cityview(name = "Amsterdam", filename = "Amsterdam.png")
 
 For personal (non-commercial) printing it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
 
-```r
-cityview(name = "Amsterdam", filename = "Amsterdam.pdf", license = FALSE)
-```
-
 ### Themes
 
-You can select different pre-specified themes for the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom right).
+There are several pre-specified themes that can be used to style the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='30%'>
@@ -93,7 +89,7 @@ You can select different pre-specified themes for the image. The image above is 
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png' width='30%'>
 </p>
 
-In addition to the pre-specified themes, the package offers the user full flexibility to specify a custom theme using a named list. This is demonstrated in the code block below.
+Furthermore, in addition to the pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.
 
 ```r
 # For example: black, beige and white theme, streets only
@@ -143,7 +139,7 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 
 ### Borders
 
-You can select different types of borders to enclose the city. The image above is created using `border = "none"` (the default), but other options for the `border` argument include `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
+There are several types of borders that can be used to enclose the city. The image above is created using `border = "none"` (the default), but other options for the `border` argument include `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, and `decagon` (right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Venice.png' width='30%'>
@@ -153,7 +149,7 @@ You can select different types of borders to enclose the city. The image above i
 
 ### Other display options
 
-There are three other arguments to the `cityview()` function that you can use to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`, left). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image (middle). Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`, right).
+There are three other arguments to the `cityview()` function that can be used to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`, left). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image (middle). Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`, right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/HaNoi.png' width='30%'>
