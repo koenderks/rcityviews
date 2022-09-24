@@ -86,7 +86,7 @@
 <li><a href="#create-your-own-in-shiny">Create your own in Shiny</a></li>
 <li><a href="#acknowledgements">Acknowledgements</a></li>
 </ul>
-<p>Every three hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle <a href="https://twitter.com/rcityviews" class="external-link"><code>@rcityviews</code></a>. Please do not hesitate to share your own creations using <code>#rcityviews</code>!</p>
+<p>Every three hours this repository creates and tweets a map of a random city. You can find all city views created so far at the twitter handle <a href="https://twitter.com/rcityviews" class="external-link"><code>@rcityviews</code></a>. Please do not hesitate to share your own creations using the hashtag <code>#rcityviews</code>!</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -94,7 +94,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"koenderks/rcityviews"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>After installation, you can load the package into the session using:</p>
+<p>After installation, you can load the package into the <code>R</code> session using:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/koenderks/rcityviews" class="external-link">rcityviews</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -116,6 +116,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
+<p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png" width="50%"></p>
 </div>
 <div class="section level3">
 <h3 id="saving-the-image">Saving the image<a class="anchor" aria-label="anchor" href="#saving-the-image"></a>
@@ -126,7 +127,6 @@
 <p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
-<p align="center"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png" width="50%"></p>
 <p>For personal (non-commercial) printing it is recommended to use the option <code>license = FALSE</code> and save the image to a <code>.pdf</code> or <code>.svg</code> file, as shown below. Afterwards, the image is best printed in a <code>500mm x 500mm</code> format.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.pdf"</span>, license <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
