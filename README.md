@@ -136,7 +136,7 @@ myTheme <- list(
     )
   )
 )
-cityview(name = "Rio de Janeiro", theme = myTheme, filename = "Rio.png")
+cityview(name = "Rio de Janeiro", theme = myTheme, border = "square", filename = "Rio.png")
 ```
 
 <p align="center">

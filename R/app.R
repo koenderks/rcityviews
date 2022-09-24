@@ -37,13 +37,8 @@
       shiny::fluidRow(align = "center", shiny::textInput(inputId = "countryTitle", label = "Country", value = "")),
       shiny::fluidRow(
         align = "center",
-        shiny::column(width = 6, shiny::selectInput(inputId = "theme", label = "Theme", choices = c("Original", "Light", "Dark", "Colored", "Rouge", "Verde", "Neon", "Delftware", "Vintage", "Lichtenstein"))),
+        shiny::column(width = 6, shiny::selectInput(inputId = "theme", label = "Theme", choices = c("Vintage", "Modern", "Bright", "Delftware", "Comic", "Verde", "Original"))),
         shiny::column(width = 6, shiny::selectInput(inputId = "border", label = "Border", choices = c("None", "Circle", "Rhombus", "Square", "Hexagon", "Octagon", "Decagon")))
-      ),
-      shiny::fluidRow(
-        align = "center",
-        shiny::column(width = 6, shiny::selectInput(inputId = "halftone", label = "Halftone", choices = c("None", "Light", "Dark"))),
-        shiny::column(width = 6, shiny::sliderInput(inputId = "places", label = "Max. places", value = 0, min = 0, max = 20, step = 1, ticks = FALSE))
       ),
       shiny::fluidRow(
         align = "center",
@@ -95,7 +90,6 @@
   output[["plotObject"]] <- shiny::renderPlot(NULL)
   shiny::observeEvent(input[["run"]], {
     themeOptions <- rcityviews:::.themeOptions(tolower(input[["theme"]]))
-    ticks <- 61 + as.numeric(input[["halftone"]] != "None") + as.numeric(input[["places"]] > 0)
     long <- stats::median(c(input[["osm_bounds"]][["east"]], input[["osm_bounds"]][["west"]]))
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)
@@ -110,14 +104,14 @@
           panel = boundaries[["panel"]],
           themeOptions = themeOptions,
           border = tolower(input[["border"]]),
-          halftone = tolower(input[["halftone"]]),
-          places = input[["places"]],
+          halftone = NULL,
+          places = 0,
           legend = input[["legend"]],
           cropped = boundaries[["cropped"]],
           borderPoints = boundaries[["borderPoints"]],
           verbose = FALSE,
           license = input[["license"]],
-          ticks = ticks,
+          ticks = 61,
           shiny = TRUE
         )
       })

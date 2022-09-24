@@ -91,7 +91,7 @@
       "background" = "#eeefc9",
       "water" = "#9ddffb",
       "landuse" = c("#f2f4cb", "#d0f1bf", "#64b96a"),
-      "contours" = "#2f3737",
+      "contours" = "#eeefc9",
       "streets" = "#2f3737",
       "rails" = c("#2f3737", "#eeefc9"),
       "buildings" = c("#8e76a4", "#a193b1", "#db9b33", "#e8c51e", "#ed6c2e"),

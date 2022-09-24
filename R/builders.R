@@ -23,11 +23,6 @@
   # Initialize empty plot ######################################################
   int_p <- ggplot2::ggplot()
   .tick(verbose, progBar, ticks, shiny)
-  #
-  # Note that the following looks like a lot of unnecessary work (and it is).
-  # However, this way we hopefully minimize the chance of a
-  # `HTTP 504 - Gateway Timeout` error from the overpass server.
-  #
   # Ocean and land features get special treatment ##############################
   query <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = bbox, key = "natural", value = "coastline"))
   if (!is.null(query[["osm_lines"]])) {
@@ -690,6 +685,8 @@
     ggplot2::theme_void()
   if (border == "none") {
     int_p <- int_p + ggplot2::theme(plot.margin = ggplot2::margin(-1, -1, -1, -1, "cm"))
+  } else if (border == "square") {
+    int_p <- int_p + ggplot2::theme(plot.margin = ggplot2::margin(3.5, 0, 0.5, 0, "cm"))
   } else {
     int_p <- int_p + ggplot2::theme(plot.margin = ggplot2::margin(4, 0, 0, 0, "cm"))
   }
@@ -697,7 +694,7 @@
   if (border != "none") {
     suppressMessages(expr = {
       int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = themeOptions[["colors"]][["background"]], size = 1) +
-        ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["colors"]][["text"]], size = 1, inherit.aes = FALSE)
+        ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["colors"]][["text"]], size = if (border == "square") 5 else 1, inherit.aes = FALSE, lineend = "round")
     })
   }
   # Add names of places
