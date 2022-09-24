@@ -18,7 +18,7 @@ This repository is an homage to the programming language `R`, open-source geogra
 * [Create your own in Shiny](#create-your-own-in-shiny)
 * [Acknowledgements](#acknowledgements)
 
-Every three hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle [`@rcityviews`](https://twitter.com/rcityviews). Please do not hesitate to share your own creations using `#rcityviews`!
+Every three hours this repository creates and tweets a map of a random city. You can find all city views created so far at the twitter handle [`@rcityviews`](https://twitter.com/rcityviews). Please do not hesitate to share your own creations using the hashtag `#rcityviews`!
 
 ## Installation
 
@@ -29,7 +29,7 @@ The functionality in this repository is implemented as an `R` package: `rcityvie
 remotes::install_github("koenderks/rcityviews", dependencies = TRUE)
 ```
 
-After installation, you can load the package into the session using:
+After installation, you can load the package into the `R` session using:
 
 ```r
 library(rcityviews)
@@ -55,6 +55,10 @@ p <- cityview(name = "Amsterdam", zoom = 1)
 # see ?cityview for more input parameters of this function
 ```
 
+<p align="center">
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='50%'>
+</p>
+
 ### Saving the image
 
 Finally, render times in `R` can be very long for crowded spatial images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. The ideal way to do this given a `ggplot2` object is usually something like:
@@ -68,10 +72,6 @@ However, you can also do this instantly by providing a filename directly to the 
 ```r
 cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
-
-<p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png' width='50%'>
-</p>
 
 For personal (non-commercial) printing it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
 
