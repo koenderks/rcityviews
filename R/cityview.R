@@ -84,20 +84,22 @@
 #' @examples
 #' \dontrun{
 #' # Create a city view of Amsterdam in a circle
-#' cityview(name = "Amsterdam", theme = "vintage",
-#'          border = "circle", filename = "Amsterdam.png")
+#' cityview(
+#'   name = "Amsterdam", theme = "vintage",
+#'   border = "circle", filename = "Amsterdam.png"
+#' )
 #'
-#' # Use a custom theme, for example green and white, streets only
+#' # Use a custom theme, for example black, beige and white, streets only
 #' myTheme <- list(
 #'   colors = list(
-#'     background = "forestgreen",
+#'     background = "#232323",
 #'     water = NA,
 #'     landuse = NA,
 #'     contours = NA,
-#'     streets = "white",
-#'     rails = c("white", "forestgreen"),
+#'     streets = "#d7b174",
+#'     rails = c("#d7b174", "#232323"),
 #'     buildings = NA,
-#'     text = "white",
+#'     text = "#ffffff",
 #'     waterlines = NA
 #'   ),
 #'   font = list(
@@ -125,8 +127,10 @@
 #'     )
 #'   )
 #' )
-#' cityview(name = "Amsterdam", theme = myTheme,
-#'          border = "square", filename = "Amsterdam.png")
+#' cityview(
+#'   name = "Amsterdam", theme = myTheme,
+#'   border = "square", filename = "Amsterdam.png"
+#' )
 #' }
 #' @export
 
