@@ -150,8 +150,7 @@
     ),
     "modern" = list(
       "family" = "Imbue",
-      "face" = "plain",
-      "append" = "\u2014"
+      "face" = "plain"
     ),
     "bright" = list(
       "family" = "Damion",
@@ -182,10 +181,10 @@
     "river" = 0.6
   )
   size[["streets"]] <- list(
-    "path" = 0.1,
+    "path" = 0.2,
     "residential" = 0.4,
     "structure" = 0.5,
-    "tertiary" = 0.75,
+    "tertiary" = 0.7,
     "secondary" = 0.8,
     "primary" = 0.9,
     "motorway" = 1,

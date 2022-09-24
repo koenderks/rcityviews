@@ -20,6 +20,8 @@
     progBar$tick(0)
     progBar$message(paste0("Requesting \u00A9 OpenStreetMap features for ", city[["name"]], ", ", city[["country"]]))
   }
+  # Scale the streets with the zoom
+  themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
   # Initialize empty plot ######################################################
   int_p <- ggplot2::ggplot()
   .tick(verbose, progBar, ticks, shiny)
