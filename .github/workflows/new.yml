@@ -1,6 +1,7 @@
 on:
   schedule:
     - cron:  '30 1,4,7,10,13,16,19,22 * * *'
+  workflow_dispatch:
 
 name: Latest city view
 
