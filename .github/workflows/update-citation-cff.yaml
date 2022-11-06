@@ -18,7 +18,7 @@ name: Update CITATION.cff
 
 jobs:
   update-citation-cff:
-    runs-on: macos-latest
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
