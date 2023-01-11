@@ -80,8 +80,10 @@ The \code{theme} argument can take a custom list as input (see the example). Thi
 \examples{
 \dontrun{
 # Create a city view of Amsterdam in a circle
-cityview(name = "Amsterdam", theme = "vintage",
-         border = "circle", filename = "Amsterdam.png")
+cityview(
+  name = "Amsterdam", theme = "vintage",
+  border = "circle", filename = "Amsterdam.png"
+)
 
 # Use a custom theme, for example black, beige and white, streets only
 myTheme <- list(
@@ -121,8 +123,10 @@ myTheme <- list(
     )
   )
 )
-cityview(name = "Amsterdam", theme = myTheme,
-         border = "square", filename = "Amsterdam.png")
+cityview(
+  name = "Amsterdam", theme = myTheme,
+  border = "square", filename = "Amsterdam.png"
+)
 }
 }
 \seealso{

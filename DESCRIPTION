@@ -1,7 +1,7 @@
 Package: rcityviews
 Title: Customizable City Maps using OpenStreetMap (OSM) Data
 Version: 1.0.3
-Date: 2022-09-24
+Date: 2023-01-11
 Authors@R:
     person(given = "Koen",
            family = "Derks",
@@ -17,4 +17,4 @@ Language: en-US
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
