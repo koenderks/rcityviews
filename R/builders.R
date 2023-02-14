@@ -913,7 +913,12 @@
 }
 
 .addLegend <- function(p, bbox, themeOptions) {
-  barLength <- round(abs((diff(as.numeric(strsplit(bbox[["bbox"]], split = ",")[[1]][c(1, 3)])) * 111139) / ((1800 - 160) / (480 - 375))), 0)
+  bb <- as.numeric(strsplit(bbox[["bbox"]], split = ",")[[1]])
+	width <- geosphere::distHaversine(bb[c(2,1)], bb[c(4,1)])
+	x <- pretty(seq(0, round(width / 5), length=10), n=4, min.n = 3, high.u.bias = 3)
+	barLength <- max(x)
+	x <- x / width + .01
+	l <- length(x)
   barMeasure <- "m"
   if (barLength > 1000) {
     barLength <- barLength / 1000
@@ -936,16 +941,16 @@
   ) +
     ggplot2::annotate(
       geom = "rect",
-      xmin = c(0.01, 0.07, 0.13, 0.19),
-      xmax = c(0.07, 0.13, 0.19, 0.25),
+      xmin =  x[-l],
+      xmax =  x[-1],
       ymin = 0.007,
       ymax = 0.013,
-      fill = rep(c(themeOptions[["colors"]][["background"]], themeOptions[["colors"]][["text"]]), 2),
+      fill = rep(c(themeOptions[["colors"]][["background"]], themeOptions[["colors"]][["text"]]), length.out=l-1),
       col = themeOptions[["colors"]][["text"]]
     ) +
     cowplot::draw_text(
       text = paste0(barLength, barMeasure),
-      x = 0.26,
+      x = x[l]+.01,
       y = 0.011,
       size = 30,
       color = themeOptions[["colors"]][["text"]],
