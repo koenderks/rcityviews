@@ -1,0 +1,20 @@
+Package: rcityviews
+Title: Customizable City Maps using OpenStreetMap (OSM) Data
+Version: 1.0.3
+Date: 2023-02-15
+Authors@R:
+    person(given = "Koen",
+           family = "Derks",
+           role = c("aut", "cre"),
+           email = "koen-derks@hotmail.com")
+Description: A user-friendly interface to create customizable city maps in 'ggplot2' using data from OpenStreetMap <https://www.openstreetmap.org/>.
+BugReports: https://github.com/koenderks/rcityviews/issues
+URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
+Depends: R (>= 3.5.0)
+Imports: cowplot, geosphere, ggplot2, ggspatial, leaflet, leaflet.extras, methods, osmdata, progress, s2, sf, shadowtext, shiny, showtext, stats, svglite, sysfonts, utils
+Suggests: testthat
+Language: en-US
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
