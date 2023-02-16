@@ -31,15 +31,15 @@ jobs:
         run: |
           source(".github/workflows/action.R")
         shell: Rscript {0}
-
+        
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git commit -m "City update initialized by bot" -a
           git reset --soft HEAD~2
-          git commit --amend -m "City update initialized by bot"
-      - name: Push changes
+          git commit -m "City update initialized by bot" -a
+      - name: Push force changes
         uses: ad-m/github-push-action@master
         with:
           force: true
