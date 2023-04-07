@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, legend, places, cropped, borderPoints, license, verbose, ticks, shiny) {
+  label <- NULL
   if (verbose) {
     # Initialize progress bar ##################################################
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0)

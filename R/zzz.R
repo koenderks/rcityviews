@@ -23,7 +23,7 @@
   sysfonts::font_add_google("Dancing Script")
   showtext::showtext_auto()
   osmdata::set_overpass_url("https://overpass.kumi.systems/api/interpreter")
-  message("Data by \u00A9 OpenStreetMap contributors")
+  packageStartupMessage("Data by \u00A9 OpenStreetMap contributors")
 }
 
 utils::globalVariables(c("x", "y", "name"))
