@@ -862,7 +862,21 @@
   if (!is.null(object)) {
     object <- sf::st_make_valid(object)
     sf::st_crs(object) <- sf::st_crs(cropped)
-    object <- object |> sf::st_intersection(cropped)
+    p <- try(
+      {
+        object <- object |> sf::st_intersection(cropped)
+      },
+      silent = TRUE
+    )
+    if (inherits(p, "try-error")) {
+      suppressMessages({
+        sf::sf_use_s2(FALSE)
+        object <- sf::st_make_valid(object)
+        sf::st_crs(object) <- sf::st_crs(cropped)
+        object <- object |> sf::st_intersection(cropped)
+        sf::sf_use_s2(TRUE)
+      })
+    }
   }
   return(object)
 }
