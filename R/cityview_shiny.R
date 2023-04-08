@@ -23,7 +23,7 @@
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
-#' @seealso \code{\link{list_cities}} \code{\link{cityview}}
+#' @seealso \code{\link{list_cities}} \code{\link{cityview}} \code{\link{new_city}}
 #'
 #' @keywords create cities shiny
 #'

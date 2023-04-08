@@ -19,7 +19,7 @@ cityview_shiny()
 }
 }
 \seealso{
-\code{\link{list_cities}} \code{\link{cityview}}
+\code{\link{list_cities}} \code{\link{cityview}} \code{\link{new_city}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}

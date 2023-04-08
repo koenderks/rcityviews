@@ -42,15 +42,26 @@ First, you can search for a city name in the database using the `list_cities()` 
 
 ```r
 list_cities(match = "Ams")
-# [1] "Amstelveen" "Amsterdam" "Amstetten" "New Amsterdam" "Nieuw Amsterdam"
+#>                  name         country   lat   long
+#> 1356       Amstelveen The Netherlands 52.32   4.86
+#> 1357        Amsterdam The Netherlands 52.37   4.89
+#> 1358        Amstetten         Austria 48.13  14.86
+#> 25857   New Amsterdam          Guyana  6.25 -57.53
+#> 26031 Nieuw Amsterdam        Suriname  5.91 -55.07
+```
+
+If you cannot find your city in the current database, you can use `new_city()` to manually specify a new city.
+
+```r
+city <- new_city(name = "Lagos", country = "Portugal", lat = 37.10, long = -8.68)
 ```
 
 ### Creating the image
 
-Second, once you have obtained the name of the city you want to view, you can use the `cityview()` function to create a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g., `zoom > 1`, speeds up computation time) or zoom out of your city (e.g., `zoom < 0.5`, no buildings will show up on the image).
+Second, once you have obtained the name of the city you want to view or have created a new city, you can use the `cityview()` function to create a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g., `zoom > 1`, speeds up computation time) or zoom out of your city (e.g., `zoom < 0.5`, no buildings will show up on the image). 
 
 ```r
-p <- cityview(name = "Amsterdam", zoom = 1)
+p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)
 # see ?cityview for more input parameters of this function
 ```
 

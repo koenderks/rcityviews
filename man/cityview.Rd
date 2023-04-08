@@ -24,7 +24,7 @@ cityview(name = NULL,
          bot = FALSE)
 }
 \arguments{
-\item{name}{a character specifying the name of the city as provided by \code{list_cities()}. If \code{NULL} (default), chooses a random city.}
+\item{name}{a character specifying the name of the city as provided by \code{list_cities()}, or an object created using \code{new_city()}, or a row of the ouput of \code{list_cities()}. If \code{NULL} (default), chooses a random city.}
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
@@ -130,7 +130,7 @@ cityview(
 }
 }
 \seealso{
-\code{\link{list_cities}} \code{\link{cityview_shiny}}
+\code{\link{list_cities}} \code{\link{cityview_shiny}} \code{\link{new_city}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}

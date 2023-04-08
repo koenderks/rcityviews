@@ -9,15 +9,20 @@ list_cities(match = NULL)
 \arguments{
 \item{match}{string to match.}
 }
+\value{
+A data frame containing all matched cities alongside their respective
+  country and coordinates. A row of the output can be used as input for the
+  \code{name} argument in the \code{cityview()} function.
+}
 \description{
-List all city names.
+List all city names containing a specific string.
 }
 \examples{
 # List all cities containing "Ams"
 list_cities(match = "Ams")
 }
 \seealso{
-\code{\link{cityview}} \code{\link{cityview_shiny}}
+\code{\link{cityview}} \code{\link{cityview_shiny}} \code{\link{new_city}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}

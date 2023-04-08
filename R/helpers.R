@@ -17,21 +17,30 @@
   if (is.null(name)) {
     city <- .randomCity(NULL)
   } else {
-    dataset <- rcityviews::cities
-    indexes <- which(dataset[["name"]] == name)
-    index <- .resolveConflicts(name, indexes, dataset)
-    if (is.null(index)) {
-      return(NULL)
+    if (inherits(name, "data.frame")) {
+      stopifnot("input data frame is missing 'name' column" = "name" %in% colnames(name))
+      stopifnot("input data frame is missing 'country' column" = "country" %in% colnames(name))
+      stopifnot("input data frame is missing 'lat' column" = "lat" %in% colnames(name))
+      stopifnot("input data frame is missing 'long' column" = "long" %in% colnames(name))
+      city <- name
+    } else {
+      dataset <- rcityviews::cities
+      indexes <- which(dataset[["name"]] == name)
+      index <- .resolveConflicts(name, indexes, dataset)
+      if (is.null(index)) {
+        return(NULL)
+      }
+      city <- dataset[index, ]
     }
-    city <- dataset[index, ]
   }
+  return(city)
 }
 
 .randomCity <- function(seed) {
   set.seed(seed)
   dataset <- rcityviews::cities
   dataset <- subset(dataset, dataset[["population"]] > 250000)
-  index <- sample(1:nrow(dataset), size = 1)
+  index <- sample.int(nrow(dataset), size = 1)
   selected <- dataset[index, ]
   return(selected)
 }
@@ -39,7 +48,7 @@
 .resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
-    stop(paste0("There is no city called '", name, "' in the available data.\nCreate an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
+    stop(paste0("There is no city called '", name, "' in the available data.\nUse 'new_city()' or create an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
   } else if (length(indexes) > 1) {
     selection <- utils::menu(
       choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
