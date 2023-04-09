@@ -22,8 +22,8 @@
   sysfonts::font_add_google("Fredericka the Great")
   sysfonts::font_add_google("Dancing Script")
   sysfonts::font_add_google("Walter Turncoat")
-  sysfonts::font_add("American Uncial Regular", file.path("fonts", "uncial.otf"))
-  sysfonts::font_add("Rage", file.path("fonts", "rage.otf"))
+  sysfonts::font_add("American Uncial Regular", system.file("fonts", "uncial.otf", package = "rcityviews"))
+  sysfonts::font_add("Rage", system.file("fonts", "rage.otf", package = "rcityviews"))
   showtext::showtext_auto()
   osmdata::set_overpass_url("https://overpass.kumi.systems/api/interpreter")
 }
