@@ -28,7 +28,7 @@ cityview(name = NULL,
 
 \item{zoom}{a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.}
 
-\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{comic}, \code{rouge} and \code{original}.}
+\item{theme}{a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{comic}, \code{rouge}, \code{original}, \code{midearth}, \code{batik} and \code{vice}.}
 
 \item{border}{a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).}
 

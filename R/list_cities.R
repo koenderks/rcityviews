@@ -42,10 +42,10 @@ list_cities <- function(match = NULL) {
   names <- cities[["name"]]
   if (!is.null(match)) {
     names <- grep(match, names, value = TRUE)
-    names <- cities[cities[["name"]] %in% names, 1:4]
-    if (nrow(names) == 0) {
-      stop(paste0("There is no city containing '", match, "' in the available data.\nUse 'new_city()' or create an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
-    }
+  }
+  names <- cities[cities[["name"]] %in% names, 1:4]
+  if (nrow(names) == 0) {
+    stop(paste0("There is no city containing '", match, "' in the available data.\nUse 'new_city()' or create an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
   }
   return(names)
 }

@@ -735,14 +735,14 @@
     color = themeOptions[["colors"]][["text"]],
     fontface = themeOptions[["font"]][["face"]],
     family = themeOptions[["font"]][["family"]],
-    bg.colour = themeOptions[["colors"]][["background"]]
+    bg.colour = if (!is.null(themeOptions[["colors"]][["textshadow"]])) themeOptions[["colors"]][["textshadow"]] else themeOptions[["colors"]][["background"]]
   ) + shadowtext::geom_shadowtext(
     data = data.frame(x = 0.97, y = 0.03, label = paste0(lat, " / ", long)),
     mapping = ggplot2::aes(x = x, y = y, label = label),
     size = 15,
     color = themeOptions[["colors"]][["text"]],
     family = themeOptions[["font"]][["family"]],
-    bg.colour = themeOptions[["colors"]][["background"]],
+    bg.colour = if (!is.null(themeOptions[["colors"]][["textshadow"]])) themeOptions[["colors"]][["textshadow"]] else themeOptions[["colors"]][["background"]],
     hjust = 1
   )
   if (legend) {
@@ -756,7 +756,7 @@
       size = 9,
       color = themeOptions[["colors"]][["text"]],
       family = themeOptions[["font"]][["family"]],
-      bg.colour = themeOptions[["colors"]][["background"]],
+      bg.colour = if (!is.null(themeOptions[["colors"]][["textshadow"]])) themeOptions[["colors"]][["textshadow"]] else themeOptions[["colors"]][["background"]],
       hjust = 1
     )
   }
@@ -916,10 +916,11 @@
       int_p <- int_p + shadowtext::geom_shadowtext(
         data = df,
         mapping = ggplot2::aes(x = x, y = y, label = name),
-        col = themeOptions[["colors"]][["text"]],
         check_overlap = TRUE,
+        color = themeOptions[["colors"]][["text"]],
         fontface = "bold.italic",
-        bg.colour = themeOptions[["colors"]][["background"]],
+        family = themeOptions[["font"]][["family"]],
+        bg.colour = if (!is.null(themeOptions[["colors"]][["textshadow"]])) themeOptions[["colors"]][["textshadow"]] else themeOptions[["colors"]][["background"]],
         size = df[["size"]]
       )
     }

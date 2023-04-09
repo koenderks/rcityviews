@@ -39,7 +39,7 @@
 #'
 #' @param name     a character specifying the name of the city as provided by \code{list_cities()}, or an object created using \code{new_city()}, or a row of the ouput of \code{list_cities()}. If \code{NULL} (default), chooses a random city.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1 increase zoom and values < 1 decrease zoom. The zoom can be used to speed up rendering of large cities.
-#' @param theme    a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{comic}, \code{rouge} and \code{original}.
+#' @param theme    a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are \code{vintage} (default), \code{modern}, \code{bright}, \code{delftware}, \code{comic}, \code{rouge}, \code{original}, \code{midearth}, \code{batik} and \code{vice}.
 #' @param border   a character specifying the type of border to use. Possible options are \code{none} (default), \code{circle}, \code{rhombus}, \code{square}, \code{hexagon} (6 vertices), \code{octagon} (8 vertices) and \code{decagon} (10 vertices).
 #' @param halftone a character specifying the color of halftone to use. Possible options are \code{none}, \code{light} (white dither) and \code{dark} (black dither).
 #' @param legend   logical. Whether to add a distance measurer and a compass in the bottom left corner of the image.
@@ -138,7 +138,8 @@ cityview <- function(name = NULL,
                      zoom = 1,
                      theme = c(
                        "vintage", "modern", "bright", "delftware",
-                       "comic", "rouge", "original"
+                       "comic", "rouge", "original",
+                       "midearth", "batik", "vice"
                      ),
                      border = c(
                        "none", "circle", "rhombus", "square",

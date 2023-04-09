@@ -37,7 +37,7 @@
       shiny::fluidRow(align = "center", shiny::textInput(inputId = "countryTitle", label = "Country", value = "")),
       shiny::fluidRow(
         align = "center",
-        shiny::column(width = 6, shiny::selectInput(inputId = "theme", label = "Theme", choices = c("Vintage", "Modern", "Bright", "Delftware", "Comic", "Verde", "Original"))),
+        shiny::column(width = 6, shiny::selectInput(inputId = "theme", label = "Theme", choices = c("Vintage", "Modern", "Bright", "Delftware", "Comic", "Verde", "Original", "Midearth", "Batik", "Vice"))),
         shiny::column(width = 6, shiny::selectInput(inputId = "border", label = "Border", choices = c("None", "Circle", "Rhombus", "Square", "Hexagon", "Octagon", "Decagon")))
       ),
       shiny::fluidRow(
@@ -67,7 +67,7 @@
 )
 
 .shiny_server <- function(input, output, session) {
-  city <- rcityviews:::.randomCity(sample(1:100000, size = 1))
+  city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
   shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
   shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
   output[["osm"]] <- leaflet::renderLeaflet({
@@ -77,7 +77,7 @@
       leaflet.extras::addSearchOSM()
   })
   shiny::observeEvent(input[["randomize"]], {
-    city <- rcityviews:::.randomCity(sample(1:100000, size = 1))
+    city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
     shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
     shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
     output[["osm"]] <- leaflet::renderLeaflet({

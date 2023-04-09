@@ -15,5 +15,5 @@
 
 test_that("list_cities()", {
   p <- list_cities()
-  expect_equal(length(p), 43645)
+  expect_equal(nrow(p), 43645)
 })

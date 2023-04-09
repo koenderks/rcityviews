@@ -54,6 +54,7 @@ If you cannot find your city in the current database, you can use `new_city()` t
 
 ```r
 city <- new_city(name = "Lagos", country = "Portugal", lat = 37.10, long = -8.68)
+#> Discovered the city of Lagos, Portugal at 37.1° / -8.68°!
 ```
 
 ### Creating the image
@@ -71,7 +72,7 @@ p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)
 
 ### Saving the image
 
-Finally, render times in `R` can be very long for crowded spatial images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. The ideal way to do this given a `ggplot2` object is usually something like:
+Finally, render times in `R` can be very long for crowded spatial images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. Typically, the ideal way to do this given a `ggplot2` object named `p` is to execute the command below.
 
 ```r
 ggplot2::ggsave(filename = "Amsterdam.png", plot = p, height = 500, width = 500, units = "mm", dpi = 100)
@@ -87,7 +88,7 @@ For personal (non-commercial) printing it is recommended to use the option `lice
 
 ### Themes
 
-There are several pre-specified themes that can be used to style the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (bottom left), `rouge` (bottom middle) and `original` (bottom right).
+There are ten pre-specified themes that can be used to style the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (middle left), `rouge` (middle middle), `original` (middle right), `midearth` (bottom left), `batik` (bottom middle) and `vice` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png' width='30%'>
@@ -97,9 +98,13 @@ There are several pre-specified themes that can be used to style the image. The 
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Florence.png' width='30%'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Madrid.png' width='30%'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png' width='30%'>
+  <br>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Tokyo.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Lisbon.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Paris.png' width='30%'>
 </p>
 
-Furthermore, in addition to the pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.
+In addition to the ten pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.
 
 ```r
 # For example: black, beige and white theme, streets only
