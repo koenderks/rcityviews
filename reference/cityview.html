@@ -76,7 +76,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
-<dd><p>a character specifying the name of the city as provided by <code><a href="list_cities.html">list_cities()</a></code>. If <code>NULL</code> (default), chooses a random city.</p></dd>
+<dd><p>a character specifying the name of the city as provided by <code><a href="list_cities.html">list_cities()</a></code>, or an object created using <code><a href="new_city.html">new_city()</a></code>, or a row of the ouput of <code><a href="list_cities.html">list_cities()</a></code>. If <code>NULL</code> (default), chooses a random city.</p></dd>
 
 
 <dt>zoom</dt>
@@ -84,7 +84,7 @@
 
 
 <dt>theme</dt>
-<dd><p>a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are <code>vintage</code> (default), <code>modern</code>, <code>bright</code>, <code>delftware</code>, <code>comic</code>, <code>rouge</code> and <code>original</code>.</p></dd>
+<dd><p>a character specifying the theme of the plot, or a named list specifying a custom theme (see the details section for more information about the composition of this list). Possible pre-specified themes are <code>vintage</code> (default), <code>modern</code>, <code>bright</code>, <code>delftware</code>, <code>comic</code>, <code>rouge</code>, <code>original</code>, <code>midearth</code>, <code>batik</code> and <code>vice</code>.</p></dd>
 
 
 <dt>border</dt>
@@ -142,7 +142,7 @@
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="list_cities.html">list_cities</a></code> <code><a href="cityview_shiny.html">cityview_shiny</a></code></p></div>
+    <div class="dont-index"><p><code><a href="list_cities.html">list_cities</a></code> <code><a href="cityview_shiny.html">cityview_shiny</a></code> <code><a href="new_city.html">new_city</a></code></p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -153,8 +153,10 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Create a city view of Amsterdam in a circle</span></span></span>
-<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="st">"vintage"</span>,</span></span>
-<span class="r-in"><span>         border <span class="op">=</span> <span class="st">"circle"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="st">"vintage"</span>,</span></span>
+<span class="r-in"><span>  border <span class="op">=</span> <span class="st">"circle"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use a custom theme, for example black, beige and white, streets only</span></span></span>
 <span class="r-in"><span><span class="va">myTheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
@@ -194,8 +196,10 @@
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="va">myTheme</span>,</span></span>
-<span class="r-in"><span>         border <span class="op">=</span> <span class="st">"square"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cityview</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  name <span class="op">=</span> <span class="st">"Amsterdam"</span>, theme <span class="op">=</span> <span class="va">myTheme</span>,</span></span>
+<span class="r-in"><span>  border <span class="op">=</span> <span class="st">"square"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
@@ -211,7 +215,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
