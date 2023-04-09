@@ -29,7 +29,9 @@ city <- new_city(
   name = "Lagos", country = "Portugal",
   lat = 37.10, long = -8.68
 )
-cityview(name = city)
+\dontrun{
+  cityview(name = city)
+}
 }
 \seealso{
 \code{\link{cityview}} \code{\link{cityview_shiny}}

@@ -22,10 +22,13 @@
   sysfonts::font_add_google("Fredericka the Great")
   sysfonts::font_add_google("Dancing Script")
   sysfonts::font_add_google("Walter Turncoat")
-  sysfonts::font_add("American Uncial Regular", file.path("inst/fonts/American Uncial Regular.otf"))
-  sysfonts::font_add("Rage", file.path("inst/fonts/Rage.otf"))
+  sysfonts::font_add("American Uncial Regular", file.path("inst", "fonts", "American Uncial Regular.otf"))
+  sysfonts::font_add("Rage", file.path("inst", "fonts", "Rage.otf"))
   showtext::showtext_auto()
   osmdata::set_overpass_url("https://overpass.kumi.systems/api/interpreter")
+}
+
+.onAttach <- function(libname, pkgname) {
   packageStartupMessage("Data by \u00A9 OpenStreetMap contributors")
 }
 

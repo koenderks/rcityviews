@@ -42,7 +42,9 @@
 #'   name = "Lagos", country = "Portugal",
 #'   lat = 37.10, long = -8.68
 #' )
+#' \dontrun{
 #' cityview(name = city)
+#' }
 #' @export
 
 new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL) {

@@ -8,7 +8,8 @@ cityview(name = NULL,
          zoom = 1,
          theme = c(
            "vintage", "modern", "bright", "delftware",
-           "comic", "rouge", "original"
+           "comic", "rouge", "original",
+           "midearth", "batik", "vice"
          ),
          border = c(
            "none", "circle", "rhombus", "square",
