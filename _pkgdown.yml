@@ -1,0 +1,30 @@
+url: https://koenderks.github.io/rcityviews/
+
+destination: "."
+
+authors:
+  Koen Derks:
+    href: https://koenderks.com
+
+template:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+  right:
+   - icon: fa-github
+     href: https://github.com/koenderks/rcityviews
+   - icon: fa-users
+     href: https://github.com/koenderks/rcityviews/discussions
+
+home:
+  links:
+  - text: Ask a question
+    href: https://github.com/koenderks/rcityviews/discussions
