@@ -94,18 +94,18 @@
 <div class="page-header"><h1 id="r-city-views">R City Views<a class="anchor" aria-label="anchor" href="#r-city-views"></a>
 </h1></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/master/man/figures/logo.png" width="149" height="173" alt="logo" align="right" margin-left="20" margin-right="20"></p>
-<p>This repository is an homage to the programming language <code>R</code>, open-source geographic data and the art of map making. It provides code and examples to render minimalistic maps using data from <a href="https://www.openstreetmap.org/" class="external-link">OpenStreetMap</a>.</p>
+<p>This repository is an homage to the programming language <code>R</code>, open-source geographic data and the art of map making. It provides code and examples to render customizable stylized city maps using data from <a href="https://www.openstreetmap.org/" class="external-link">OpenStreetMap</a>.</p>
 <ul>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#create-your-own-in-r">Create your own in R</a></li>
 <li><a href="#create-your-own-in-shiny">Create your own in Shiny</a></li>
 <li><a href="#acknowledgements">Acknowledgements</a></li>
 </ul>
-<p>Every three hours this repository creates and tweets a map of a random city. You can find all city views created so far at the twitter handle <a href="https://twitter.com/rcityviews" class="external-link"><code>@rcityviews</code></a>. Please do not hesitate to share your own creations using the hashtag <code>#rcityviews</code>!</p>
+<p>Every three hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle <a href="https://twitter.com/rcityviews" class="external-link"><code>@rcityviews</code></a>. Please do not hesitate to share your own creations using the hashtag <code>#rcityviews</code>!</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The functionality in this repository is implemented as an <code>R</code> package: <code>rcityviews</code>. However, this package is not available on CRAN and can therefore only be obtained via GitHub by running the following command in <code>R</code>:</p>
+<p>The functionality in this repository is implemented in the <code>R</code> package <code>rcityviews</code>. This package is not available on CRAN and can be obtained via GitHub by running the command below in <code>R</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"koenderks/rcityviews"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -117,7 +117,7 @@
 <h2 id="create-your-own-in-r">Create your own in R<a class="anchor" aria-label="anchor" href="#create-your-own-in-r"></a>
 </h2>
 <div class="section level3">
-<h3 id="finding-a-city-name-in-the-database">Finding a city name in the database<a class="anchor" aria-label="anchor" href="#finding-a-city-name-in-the-database"></a>
+<h3 id="finding-a-city-to-map">Finding a city to map<a class="anchor" aria-label="anchor" href="#finding-a-city-to-map"></a>
 </h3>
 <p>First, you can search for a city name in the database using the <code><a href="reference/list_cities.html">list_cities()</a></code> function. This function looks in the database and finds any city name that contains the expression in <code>match</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -128,15 +128,15 @@
 <span><span class="co">#&gt; 1358        Amstetten         Austria 48.13  14.86</span></span>
 <span><span class="co">#&gt; 25857   New Amsterdam          Guyana  6.25 -57.53</span></span>
 <span><span class="co">#&gt; 26031 Nieuw Amsterdam        Suriname  5.91 -55.07</span></span></code></pre></div>
-<p>If you cannot find your city in the current database, you can use <code><a href="reference/new_city.html">new_city()</a></code> to manually specify a new city.</p>
+<p>If you cannot find your preferred city in the current database, you can use the function <code><a href="reference/new_city.html">new_city()</a></code> to manually specify a new location using the latitude and longitude coordinates.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_city.html">new_city</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lagos"</span>, country <span class="op">=</span> <span class="st">"Portugal"</span>, lat <span class="op">=</span> <span class="fl">37.10</span>, long <span class="op">=</span> <span class="op">-</span><span class="fl">8.68</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Discovered the city of Lagos, Portugal at 37.1° / -8.68°!</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="creating-the-image">Creating the image<a class="anchor" aria-label="anchor" href="#creating-the-image"></a>
+<h3 id="creating-the-map">Creating the map<a class="anchor" aria-label="anchor" href="#creating-the-map"></a>
 </h3>
-<p>Second, once you have obtained the name of the city you want to view or have created a new city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, speeds up computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, no buildings will show up on the image).</p>
+<p>Second, once you have obtained the name of the city you want to view or have specified a new city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, speeds up computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, no buildings will show up on the image).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># or cityview(name = city)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
@@ -144,7 +144,7 @@
 <img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png" width="100%"></p>
 </div>
 <div class="section level3">
-<h3 id="saving-the-image">Saving the image<a class="anchor" aria-label="anchor" href="#saving-the-image"></a>
+<h3 id="saving-the-map">Saving the map<a class="anchor" aria-label="anchor" href="#saving-the-map"></a>
 </h3>
 <p>Finally, render times in <code>R</code> can be very long for crowded spatial images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. Typically, the ideal way to do this given a <code>ggplot2</code> object named <code>p</code> is to execute the command below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -152,10 +152,10 @@
 <p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
-<p>For personal (non-commercial) printing it is advised to use the option <code>license = FALSE</code> and save the image to a <code>.pdf</code> or <code>.svg</code> file, as shown below. Afterwards, the image is best printed in a <code>500mm x 500mm</code> format.</p>
+<p>For personal (non-commercial) printing it is advised to use the option <code>license = FALSE</code> and save the image to a <code>.pdf</code> or <code>.svg</code> file. Afterwards, the image is best printed in a <code>500mm x 500mm</code> format.</p>
 </div>
 <div class="section level3">
-<h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
+<h3 id="styling-the-map">Styling the map<a class="anchor" aria-label="anchor" href="#styling-the-map"></a>
 </h3>
 <p>There are ten pre-specified themes that can be used to style the image. The image above is created using <code>theme = "vintage"</code> (the default), but other options for the <code>theme</code> argument include <code>modern</code> (top left), <code>bright</code> (top middle), <code>delftware</code> (top right), <code>comic</code> (middle left), <code>rouge</code> (middle middle), <code>original</code> (middle right), <code>midearth</code> (bottom left), <code>batik</code> (bottom middle) and <code>vice</code> (bottom right).</p>
 <p align="center">
@@ -205,7 +205,7 @@
 <img src="https://github.com/koenderks/rcityviews/raw/master/png/Rio.png" width="100%"></p>
 </div>
 <div class="section level3">
-<h3 id="borders">Borders<a class="anchor" aria-label="anchor" href="#borders"></a>
+<h3 id="enclosing-the-map">Enclosing the map<a class="anchor" aria-label="anchor" href="#enclosing-the-map"></a>
 </h3>
 <p>There are several types of borders that can be used to enclose the city. The image above is created using <code>border = "square"</code>, but other options for the <code>border</code> argument include <code>none</code> (the default), <code>circle</code> (left), <code>rhombus</code> (middle), <code>square</code>, <code>hexagon</code>, <code>octagon</code>, and <code>decagon</code> (right).</p>
 <p align="center">
