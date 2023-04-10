@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Specify a new city
+#' Specify a New City
 #'
 #' @description Define a city using country, latitude and longitude coordinates.
 #'   The returned object can be used a input for \code{name} argument the
