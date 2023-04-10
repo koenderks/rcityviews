@@ -17,13 +17,13 @@ authors:
   email: koen-derks@hotmail.com
 preferred-citation:
   type: manual
-  title: 'rcityviews: Customizable City Maps using OpenStreetMap (OSM) Data'
+  title: 'rcityviews: City Maps using OpenStreetMap (OSM) Data'
   authors:
   - family-names: Derks
     given-names: Koen
     email: koen-derks@hotmail.com
-  year: '2022'
-  notes: R package version 1.0.3
+  year: '2023'
+  notes: R package version 1.1.0
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.shinyapps.io/rcityviews/
 date-released: '2023-04-09'
