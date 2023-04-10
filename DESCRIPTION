@@ -10,7 +10,8 @@ Authors@R:
 Description: A user-friendly interface to create customizable city maps in 'ggplot2' using data from OpenStreetMap <https://www.openstreetmap.org/>.
 BugReports: https://github.com/koenderks/rcityviews/issues
 URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
-Depends: R (>= 3.5.0)
+Depends:
+  R (>= 3.5.0)
 Imports:
   cowplot,
   geosphere,
@@ -30,7 +31,8 @@ Imports:
   svglite,
   sysfonts,
   utils
-Suggests: testthat
+Suggests:
+  testthat
 Language: en-US
 License: GPL (>= 3)
 Encoding: UTF-8
