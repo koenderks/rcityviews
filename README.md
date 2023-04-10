@@ -101,7 +101,7 @@ There are ten pre-specified themes that can be used to style the image. The imag
   <br>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Tokyo.png' width='30%'>
   <img src='https://github.com/koenderks/rcityviews/raw/master/png/Lisbon.png' width='30%'>
-  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Miami.png' width='30%'>
+  <img src='https://github.com/koenderks/rcityviews/raw/master/png/Adelaide.png' width='30%'>
 </p>
 
 In addition to the ten pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.

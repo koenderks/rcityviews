@@ -176,14 +176,14 @@
     ),
     "vice" = list(
       "background" = "#ffffff",
-      "water" = "#759dcb",
-      "landuse" = "#F1c8c2",
+      "water" = "#a3bff4",
+      "landuse" = "#6ece92",
       "contours" = "#000000",
-      "streets" = "#000000",
-      "rails" = "#000000",
-      "buildings" = "#a98bbb",
+      "streets" = "#e282af",
+      "rails" = "#e282af",
+      "buildings" = "#fff01f",
       "text" = "#ffffff",
-      "waterlines" = "#000000",
+      "waterlines" = "#a3bff4",
       "textshadow" = "#e282af"
     )
   )
