@@ -152,38 +152,38 @@
       "waterlines" = "#32130f"
     ),
     "midearth" = list(
-      "background" = "#F7F3EA",
-      "water" = "#F7F3EA",
-      "landuse" = "#F7F3EA",
-      "contours" = "#4C4742",
-      "streets" = "#221C18",
-      "rails" = "#221C18",
-      "buildings" = "#4C4742",
-      "text" = "#221C18",
-      "waterlines" = "#4C4742"
+      "background" = "#f7f3ea",
+      "water" = "#f7f3ea",
+      "landuse" = "#f7f3ea",
+      "contours" = "#4c4742",
+      "streets" = "#221c18",
+      "rails" = "#221c18",
+      "buildings" = "#4c4742",
+      "text" = "#221c18",
+      "waterlines" = "#4c4742"
     ),
     "batik" = list(
       "background" = "#161417",
       "water" = "#214040",
-      "landuse" = c("#ECE3D9", "#9E5426", "#5D473C", "#C0B28A"),
-      "contours" = "#1D1D23",
-      "streets" = "#D7C5B8",
-      "rails" = "#D7C5B8",
-      "buildings" = c("#ECE3D9", "#9E5426", "#5D473C", "#C0B28A"),
-      "text" = "#D7C5B8",
-      "waterlines" = "#1D1D23"
+      "landuse" = c("#ece3d9", "#9e5426", "#5d473c", "#C0b28a"),
+      "contours" = "#1d1d23",
+      "streets" = "#d7c5b8",
+      "rails" = "#d7c5b8",
+      "buildings" = c("#ece3d9", "#9e5426", "#5d473c", "#c0b28a"),
+      "text" = "#d7c5b8",
+      "waterlines" = "#1d1d23"
     ),
     "vice" = list(
       "background" = "#ffffff",
-      "water" = "#759DCB",
-      "landuse" = "#F1C8C2",
+      "water" = "#759dcb",
+      "landuse" = "#F1c8c2",
       "contours" = "#000000",
       "streets" = "#000000",
       "rails" = "#000000",
-      "buildings" = "#A98BBB",
+      "buildings" = "#a98bbb",
       "text" = "#ffffff",
       "waterlines" = "#000000",
-      "textshadow" = "#E282AF"
+      "textshadow" = "#e282af"
     )
   )
   font <- switch(theme,
