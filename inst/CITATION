@@ -1,8 +1,8 @@
 citHeader("To cite rcityviews in publications, please use:")
 
 bibentry(bibtype = "Manual",
-         title = "rcityviews: City Maps using OpenStreetMap (OSM) Data",
+         title = "rcityviews: Stylized City Maps using OpenStreetMap (OSM) Data",
          author = person("Koen", "Derks"),
          year = "2023",
          note = "R package version 1.1.0",
-         textVersion = "Derks, K. (2023). rcityviews: City maps using OpenStreetMap (OSM) data. R package version 1.1.0.")
+         textVersion = "Derks, K. (2023). rcityviews: Stylized city maps using OpenStreetMap (OSM) data. R package version 1.1.0.")

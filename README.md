@@ -84,7 +84,7 @@ However, you can also do this instantly by providing a filename directly to the 
 cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
 
-For personal (non-commercial) printing it is recommended to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
+For personal (non-commercial) printing it is advised to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file, as shown below. Afterwards, the image is best printed in a `500mm x 500mm` format.
 
 ### Themes
 
