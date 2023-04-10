@@ -7,17 +7,18 @@ cff-version: 1.2.0
 message: 'To cite package "rcityviews" in publications use:'
 type: software
 license: GPL-3.0-or-later
-title: 'rcityviews: City Maps using OpenStreetMap (OSM) Data'
+title: 'rcityviews: Stylized City Maps using OpenStreetMap (OSM) Data'
 version: 1.1.0
-abstract: A user-friendly interface to create customizable city maps in 'ggplot2'
-  using data from OpenStreetMap <https://www.openstreetmap.org/>.
+abstract: A user-friendly interface to create customizable stylized city maps in 'ggplot2'
+  using data from OpenStreetMap <https://www.openstreetmap.org/>. This package is
+  not affiliated with the OpenStreetMap.org mapping project.
 authors:
 - family-names: Derks
   given-names: Koen
   email: koen-derks@hotmail.com
 preferred-citation:
   type: manual
-  title: 'rcityviews: City Maps using OpenStreetMap (OSM) Data'
+  title: 'rcityviews: Stylized City Maps using OpenStreetMap (OSM) Data'
   authors:
   - family-names: Derks
     given-names: Koen
@@ -33,7 +34,6 @@ contact:
   email: koen-derks@hotmail.com
 keywords:
 - cartography
-- generative-art
 - ggplot2
 - maps
 - openstreetmap
