@@ -152,15 +152,16 @@
       "waterlines" = "#32130f"
     ),
     "midearth" = list(
-      "background" = "#f7f3ea",
-      "water" = "#f7f3ea",
-      "landuse" = "#f7f3ea",
-      "contours" = "#4c4742",
+      "background" = "#b8a580",
+      "water" = "#c3c9b6",
+      "landuse" = "#b8a580",
+      "contours" = "#53402a",
       "streets" = "#221c18",
       "rails" = "#221c18",
-      "buildings" = "#4c4742",
+      "buildings" = "#53402a",
       "text" = "#221c18",
-      "waterlines" = "#4c4742"
+      "waterlines" = "#c3c9b6",
+      "textshadow" = "#f7f3ea"
     ),
     "batik" = list(
       "background" = "#161417",
@@ -171,7 +172,7 @@
       "rails" = "#d7c5b8",
       "buildings" = c("#ece3d9", "#9e5426", "#5d473c", "#c0b28a"),
       "text" = "#d7c5b8",
-      "waterlines" = "#1d1d23"
+      "waterlines" = "#214040"
     ),
     "vice" = list(
       "background" = "#ffffff",
