@@ -142,8 +142,8 @@ attempts to retreive a bounding box using the
 [Nominatim API](https://nominatim.openstreetmap.org/ui/search.html). This means
 that it is crucial that the name with which the city is made matches an entry in
 the Nominatim API. For instance, the API contains the center of Amsterdam as
-`Centrum, Amsterdam`, which is why `name` is specified as `"Centrum, Amsterdam"`
-in the code above.
+[`Centrum, Amsterdam`](https://nominatim.openstreetmap.org/ui/search.html?q=centrum%2C+amsterdam),
+which is why `name` is specified as `"Centrum, Amsterdam"` in the code above.
 
 Next, you can then use the `center` object as input for the `cityview()`
 function in combination with the argument `border = "bbox"`, which will render
