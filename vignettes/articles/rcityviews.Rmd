@@ -43,7 +43,7 @@ the sky.
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.jpg")
 ```
 
-## Mapping the city
+## Mapping the City
 
 To start mapping the city, you first need to install the `rcityviews` package
 (see the [home page](https://koenderks.github.io/rcityviews/) for installation
