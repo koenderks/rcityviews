@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get started with the rcityviews package • rcityviews</title>
+<title>Get Started: Exploring Amsterdam • rcityviews</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Get started with the rcityviews package">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started: Exploring Amsterdam">
 <meta property="og:description" content="rcityviews">
 <meta property="og:image" content="https://koenderks.github.io/rcityviews/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -88,7 +88,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Get started with the rcityviews package</h1>
+      <h1 data-toc-skip>Get Started: Exploring Amsterdam</h1>
                         <h4 data-toc-skip class="author">Koen Derks</h4>
             
             <h4 data-toc-skip class="date">2023-05-28</h4>
@@ -108,17 +108,17 @@ package! In this tutorial, I will show you how to use this package to
 create some pretty images of one of my favorite cities: Amsterdam. Of
 course, you can feel free to adjust the code provided here to create an
 image of any city of your choice.</p>
-<p>But first, let’s introduce the star of the show. Amsterdam is the
-capital and most populous city of the Netherlands and is well-known for
-its canals, museums, bicycles, and coffee shops (not the ones that sell
-coffee). The city is also incredibly diverse, with residents from over
-180 different nationalities. With that much variety, Amsterdam is a
-pretty picture to look at from the sky.</p>
+<p>Before we start, let’s introduce the star of the show. Amsterdam is
+the capital and most populous city of the Netherlands and is well-known
+for its canals, museums, bicycles, and coffee shops (not the ones that
+sell coffee). The city is also incredibly diverse, with residents from
+over 180 different nationalities. With that much variety in its
+infrastructure and population, Amsterdam makes for a pretty picture to
+look at from the sky.</p>
 <p><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.jpg" width="75%" style="display: block; margin: auto;"></p>
-<p>Thanks to the remarkable contributions made by the OpenStreetMap
+<p>Thanks to the incredible contributions made by the OpenStreetMap
 contributors, a treasure trove of open data is available to all,
-enabling us to effectively map and explore the various districts of
-Amsterdam.</p>
+enabling us to effectively map and explore Amsterdam in R as well.</p>
 </div>
 <div class="section level2">
 <h2 id="mapping-your-first-city">Mapping your first city<a class="anchor" aria-label="anchor" href="#mapping-your-first-city"></a>
@@ -130,7 +130,7 @@ session.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/koenderks/rcityviews" class="external-link">"rcityviews"</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Data by © OpenStreetMap contributors</span></span></code></pre>
-<p>The next step is to find a city to create an image of. The package
+<p>The next step is to think of a city that you want to map. The package
 contains a large internal database of cities that you can access using
 the <code><a href="../reference/list_cities.html">list_cities()</a></code> function. Let’s check if Amsterdam is
 included in the database.</p>
@@ -144,29 +144,29 @@ included in the database.</p>
 string “Amsterdam”. Since we want to make an image of Amsterdam in the
 Netherlands, we simply need to remember that this city is denoted as
 <code>Amsterdam</code> in the database. Once you have matched the name
-of your city to its entry in the database, you can use the
-<code><a href="../reference/cityview.html">cityview()</a></code> function to create an image by providing the
-city name directly as a string to the function.</p>
-<p>By specifying a file name in the <code>filename</code> argument, the
-image will be directly saved in your working directory. This is the
-recommended approach as it ensures that the image is displayed properly
-at all times.</p>
-<p>This simple setup is all you need to map any city in the
-database!</p>
+of your city to its database entry, you can create an image by providing
+the city name directly to the <code><a href="../reference/cityview.html">cityview()</a></code> function.</p>
+<p>It is important to note that rendering times in RStudio can be quite
+long for crowded spatial images. You can avoid the render time in the
+<code><a href="../reference/cityview.html">cityview()</a></code> function by specifying a file name as input for
+the <code>filename</code> argument. By doing so, the image will be
+directly exported to your working directory in an appropriate format.
+This is the recommended approach as it ensures that the image is
+displayed properly at all times.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png" width="75%" style="display: block; margin: auto;"></p>
-<p>You can apply various additional effects and styles to your city
-images using the other arguments of the <code><a href="../reference/cityview.html">cityview()</a></code>
+<p>This basic setup is all you need to map any city in the database.
+However, you can apply various additional effects and styles to your
+city images using the other arguments of the <code><a href="../reference/cityview.html">cityview()</a></code>
 function. For example, the <code>theme</code> argument allows you to
 change the color scheme and font used in the image, while the
 <code>border</code> argument changes the type of border that encloses
 the city. You can find detailed documentation and examples of these
 options on the website <a href="https://koenderks.github.io/rcityviews/">home page</a>.</p>
-<p>I’ll shortly demonstrate some of these features below. For instance,
-if you want a minimalist style for your image with the city enclosed in
-a circle, you can use the <code><a href="../reference/cityview.html">cityview()</a></code> function with
-additional arguments <code>theme = "original"</code> and
+<p>For instance, if you want a minimalist style for your image with the
+city shown enclosed by a circle, you can use the <code><a href="../reference/cityview.html">cityview()</a></code>
+function with additional arguments <code>theme = "original"</code> and
 <code>border = "circle"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, border <span class="op">=</span> <span class="st">"circle"</span>, theme <span class="op">=</span> <span class="st">"original"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam2.png"</span><span class="op">)</span></span></code></pre></div>
