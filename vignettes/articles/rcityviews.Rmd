@@ -25,10 +25,11 @@ posters online often dissuaded me from making a purchase. Nonetheless, I wanted
 to have one depicting my hometown hanging on the wall in my living room.
 Luckily, we are fortunate enough to live in a fascinating time where open-source
 software can be used to accomplish almost anything. Thanks to the efforts made
-by the OpenStreetMap contributors, a treasure trove of open geographical data is
-currently available, enabling everybody (you as well) to effectively make
-high-quality city posters in R. Maybe more important than that they cost no
-money, these city posters are [free](https://www.gnu.org/philosophy/free-sw.html).
+by the [OpenStreetMap](http://openstreetmap.org) contributors, a treasure trove
+of open geographical data is currently available, enabling everybody to
+effectively make high-quality city posters in R. Maybe more important than that
+these posters cost you no money, they are also
+[free](https://www.gnu.org/philosophy/free-sw.html).
 
 Before we start mapping, let's introduce the star of this tutorial. Amsterdam is
 the capital and most populous city of the Netherlands and is well-known for its
@@ -57,7 +58,7 @@ using the `list_cities()` function. Let's verify that Amsterdam is included in
 the database.
 
 ```{r}
-list_cities("Amsterdam")
+list_cities(match = "Amsterdam")
 ```
 
 As you can see, there are three entries in the database matched to the string
@@ -75,7 +76,10 @@ format. This is the recommended approach because it ensures that the image is
 displayed properly at all times.
 
 ```{r, eval = FALSE}
-cityview(name = "Amsterdam", filename = "Amsterdam.png")
+cityview(
+  name = "Amsterdam",
+  filename = "Amsterdam.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png")
@@ -95,7 +99,12 @@ and you want the the city to be surrounded by a border, you can use the
 `border = "circle"`.
 
 ```{r, eval = FALSE}
-cityview(name = "Amsterdam", border = "circle", theme = "original", filename = "Amsterdam2.png")
+cityview(
+  name = "Amsterdam",
+  border = "circle",
+  theme = "original",
+  filename = "Amsterdam2.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam2.png")
@@ -116,12 +125,13 @@ the internal database, which means that you will have to create a new instance
 of a city. You can create a new city instance using the `new_city()` function.
 
 ```{r}
-Amsterdam <- list_cities("Amsterdam")[1, ]
+amsterdam <- list_cities("Amsterdam")[1, ]
+# Create instance
 center <- new_city(
   name = "Centrum, Amsterdam",
   country = "The Netherlands",
-  lat = Amsterdam[1, 3],
-  long = Amsterdam[1, 4]
+  lat = amsterdam[1, 3],
+  long = amsterdam[1, 4]
 )
 ```
 
@@ -145,7 +155,12 @@ historic charm and modern energy. To reflect its historic place in the city, I
 found the `vintage` theme to apply best to it.
 
 ```{r, eval = FALSE}
-cityview(name = center, border = "bbox", filename = "AmsterdamCenter.png")
+# Create image
+cityview(
+  name = center,
+  border = "bbox",
+  filename = "AmsterdamCenter.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamCenter.png")
@@ -165,13 +180,20 @@ district. Because of its diverse mix of cultures, I found the `bright` theme
 most fitting for this district.
 
 ```{r, eval = FALSE}
+# Create instance
 east <- new_city(
   name = "Oost, Amsterdam",
   country = "The Netherlands",
   lat = Amsterdam[1, 3],
   long = Amsterdam[1, 4]
 )
-cityview(name = east, border = "bbox", theme = "bright", filename = "AmsterdamEast.png")
+# Create image
+cityview(
+  name = east,
+  border = "bbox",
+  theme = "bright",
+  filename = "AmsterdamEast.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamEast.png")
@@ -191,13 +213,20 @@ the district of Amsterdam-Zuid. I decided to render this image using the
 aesthetics to the image.
 
 ```{r, eval = FALSE}
+# Create instance
 south <- new_city(
   name = "Zuid, Amsterdam",
   country = "The Netherlands",
   lat = Amsterdam[1, 3],
   long = Amsterdam[1, 4]
 )
-cityview(name = south, border = "bbox", theme = "delftware", filename = "../png/AmsterdamSouth.png")
+# Create image
+cityview(
+  name = south,
+  border = "bbox",
+  theme = "delftware",
+  filename = "AmsterdamSouth.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamSouth.png")
@@ -211,13 +240,20 @@ bars. By requesting `West, Amsterdam` from the package, we obtain the necessary
 city data. For Amsterdam-West, the `modern` theme suits the district well.
 
 ```{r, eval = FALSE}
+# Create instance
 west <- new_city(
   name = "West, Amsterdam",
   country = "The Netherlands",
   lat = Amsterdam[1, 3],
   long = Amsterdam[1, 4]
 )
-cityview(name = west, border = "bbox", theme = "modern", filename = "AmsterdamWest.png")
+# Create image
+cityview(
+  name = west,
+  border = "bbox",
+  theme = "modern",
+  filename = "AmsterdamWest.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamWest.png")
@@ -235,19 +271,26 @@ district of Amsterdam-Noord. I found the `comic` theme to be fitting of the
 creative scene in Amsterdam-Noord, as it gives the image a playful touch.
 
 ```{r, eval = FALSE}
+# Create instance
 north <- new_city(
   name = "Noord, Amsterdam",
   country = "The Netherlands",
   lat = Amsterdam[1, 3],
   long = Amsterdam[1, 4]
 )
-cityview(name = north, border = "bbox", theme = "comic", filename = "../png/AmsterdamNorth.png")
+# Create image
+cityview(
+  name = north,
+  border = "bbox",
+  theme = "comic",
+  filename = "AmsterdamNorth.png"
+)
 ```
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamNorth.png")
 ```
 
-## Final Words
+## Last Words
 
 I hope you found this walkthrough helpful and inspiring to create your own city
 maps using the `rcityviews` package. If you create something you're proud of, I
