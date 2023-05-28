@@ -1,0 +1,260 @@
+---
+title: "Tutorial: Exploring Amsterdam"
+---
+
+```{r, include = FALSE, eval = TRUE}
+knitr::opts_chunk$set(
+  fig.align = "center",
+  out.width = "75%"
+)
+```
+
+## Introduction
+
+Welcome to the tutorial page of the `rcityviews` package! The aim of this page
+is to show you how you can use this this package to create pretty images of the
+world's cities. For this tutorial, I will focus on rendering one of my favorite
+cities in the world: Amsterdam. Of course, feel free to adjust the code provided
+in this tutorial to create an image of any city of your choice.
+
+First, allow me to share the motivation behind the development of this package.
+I like the look of printed city posters. For instance, I think they are a nice
+present for a friend's birthday or to use as a decoration for your own living
+space. However, the price tag and restricted options associated with buying such
+posters online often dissuaded me from making a purchase. Nonetheless, I wanted
+to have one depicting my hometown hanging on the wall in my living room.
+Luckily, we are fortunate enough to live in a fascinating time where open-source
+software can be used to accomplish almost anything. Thanks to the efforts made
+by the OpenStreetMap contributors, a treasure trove of open geographical data is
+currently available, enabling everybody (you as well) to effectively make
+high-quality city posters in R. Maybe more important than that they cost no
+money, these city posters are [free](https://www.gnu.org/philosophy/free-sw.html).
+
+Before we start mapping, let's introduce the star of this tutorial. Amsterdam is
+the capital and most populous city of the Netherlands and is well-known for its
+canals, museums, bicycles, and coffee shops (not the ones that sell coffee). The
+city is also incredibly diverse, with residents from over 180 different
+nationalities living within the city limits. With so much variety in its urban
+and natural features, Amsterdam makes for a pretty picture to look at from
+the sky.
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.jpg")
+```
+
+## Mapping the city
+
+To start mapping the city, you first need to install the `rcityviews` package
+(see the [home page](https://koenderks.github.io/rcityviews/) for installation
+instructions) and load the package into your current R session.
+
+```{r}
+library("rcityviews")
+```
+
+The package contains a large internal database of cities that you can access
+using the `list_cities()` function. Let's verify that Amsterdam is included in
+the database.
+
+```{r}
+list_cities("Amsterdam")
+```
+
+As you can see, there are three entries in the database matched to the string
+"Amsterdam". Since we want to make an image of Amsterdam in the Netherlands (the
+first row of the output), we simply need to remember that the `name` of this
+city is denoted as `Amsterdam` in the database. Once you have matched the name
+of the city to its database entry, you can create the image by providing the
+city name directly to the `cityview()` function. 
+
+Please be aware that rendering times in RStudio can be quite long for crowded
+spatial images. You can avoid the render time entirely by specifying a file name
+as input for the `filename` argument in the `cityview()` function. By doing so,
+the image will be directly exported to your working directory in an appropriate
+format. This is the recommended approach because it ensures that the image is
+displayed properly at all times.
+
+```{r, eval = FALSE}
+cityview(name = "Amsterdam", filename = "Amsterdam.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png")
+```
+
+This basic setup is all you need to map any city in the database. However, there
+are more options to style the image to your liking. These options are accessible
+using the additional arguments of the `cityview()` function. For example, the
+`theme` argument enables you to set the color scheme and font used in the image,
+while the `border` argument enables you to set the type of border that surrounds
+the city. You can find detailed documentation and examples of these options on
+the [home page](https://koenderks.github.io/rcityviews/).
+
+For instance, if you want to change the default style to a more minimalist one,
+and you want the the city to be surrounded by a border, you can use the
+`cityview()` function with the additional arguments `theme = "original"` and
+`border = "circle"`.
+
+```{r, eval = FALSE}
+cityview(name = "Amsterdam", border = "circle", theme = "original", filename = "Amsterdam2.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam2.png")
+```
+
+## Exploring Amsterdam
+
+Now that you have learned how to create a city view of Amsterdam, let's explore
+some specific districts within the city. Amsterdam is divided into nine
+districts, each with its own unique hotspots and features. You can use the
+various themes in the package to create images of some of these districts and
+stylize them according to what makes them unique.
+
+### City Center: Urban History
+
+Fist, let's look at the center of Amsterdam. This location is not featured in
+the internal database, which means that you will have to create a new instance
+of a city. You can create a new city instance using the `new_city()` function.
+
+```{r}
+Amsterdam <- list_cities("Amsterdam")[1, ]
+center <- new_city(
+  name = "Centrum, Amsterdam",
+  country = "The Netherlands",
+  lat = Amsterdam[1, 3],
+  long = Amsterdam[1, 4]
+)
+```
+
+You can isolate the center of Amsterdam by using the bounding box for the
+district as a border (`border = "bbox"`) for the image. Using the `bbox`
+border is slightly different from using the other border styles, since it
+attempts to retreive a bounding box using the
+[Nominatim API](https://nominatim.openstreetmap.org/ui/search.html). This means
+that it is crucial that the name with which the city is made matches an entry in
+the Nominatim API. For instance, the API contains the center of Amsterdam as
+`Centrum, Amsterdam`, which is why `name` is specified as `"Centrum, Amsterdam"`
+in the code above.
+
+Next, you can then use the `center` object as input for the `cityview()`
+function in combination with the argument `border = "bbox"`, which will render
+the image with the bounding box for the given input. 
+
+The center of Amsterdam is a historical and cultural hub, known for its canals,
+architecture, and tourist attractions. This district offers a unique blend of
+historic charm and modern energy. To reflect its historic place in the city, I
+found the `vintage` theme to apply best to it.
+
+```{r, eval = FALSE}
+cityview(name = center, border = "bbox", filename = "AmsterdamCenter.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamCenter.png")
+```
+
+### The East: Cultural Melting Pot
+
+Let's expand our tour to some of the other districts in Amsterdam, like
+Amsterdam-Oost (East). Oost is a district located in the eastern part of
+Amsterdam. Known for its diverse neighborhoods, trendy cafes, and cultural
+hotspots, it offers a lively atmosphere and is a real cultural melting pot.
+
+We can obtain the data for this district by querying `Oost, Amsterdam` from the
+Nominatum API. Once we have the data, we can use the `cityview()` function with
+the `border = "bbox"` argument to render an image with the bounding box for the
+district. Because of its diverse mix of cultures, I found the `bright` theme
+most fitting for this district.
+
+```{r, eval = FALSE}
+east <- new_city(
+  name = "Oost, Amsterdam",
+  country = "The Netherlands",
+  lat = Amsterdam[1, 3],
+  long = Amsterdam[1, 4]
+)
+cityview(name = east, border = "bbox", theme = "bright", filename = "AmsterdamEast.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamEast.png")
+```
+
+### The South: Upscale Residential Area
+
+Amsterdam-Zuid (South) is a highly sought-after district nestled in the
+southern part of the city. This area is renowned for its luxurious residential
+neighborhoods, featuring elegant homes and grand architecture. The southern part
+of Amsterdam also boasts an abundance of beautiful parks and iconic squares,
+providing residents with ample green spaces to enjoy.
+
+By querying `Zuid, Amsterdam` from the package, we obtain the necessary data for
+the district of Amsterdam-Zuid. I decided to render this image using the
+`delftware` theme to adds a touch of elegance and traditional Dutch
+aesthetics to the image.
+
+```{r, eval = FALSE}
+south <- new_city(
+  name = "Zuid, Amsterdam",
+  country = "The Netherlands",
+  lat = Amsterdam[1, 3],
+  long = Amsterdam[1, 4]
+)
+cityview(name = south, border = "bbox", theme = "delftware", filename = "../png/AmsterdamSouth.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamSouth.png")
+```
+
+### The West: Lively Neighbourhood
+
+Similarly, we can create an image of Amsterdam-West. The former worker district
+is now known for its lively atmosphere, bustling shopping streets and local
+bars. By requesting `West, Amsterdam` from the package, we obtain the necessary
+city data. For Amsterdam-West, the `modern` theme suits the district well.
+
+```{r, eval = FALSE}
+west <- new_city(
+  name = "West, Amsterdam",
+  country = "The Netherlands",
+  lat = Amsterdam[1, 3],
+  long = Amsterdam[1, 4]
+)
+cityview(name = west, border = "bbox", theme = "modern", filename = "AmsterdamWest.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamWest.png")
+```
+
+### The North: Artistic Hub
+
+Finally, let's create an image of Amsterdam-Noord (North). Noord is an upcoming
+district located across the IJ River from the city center. Known for its
+creative energy and cultural scene, it offers a mix of modern architecture,
+trendy waterfront cafes, and artistic hubs.
+
+By requesting `Noord, Amsterdam` from the package, we obtain the data for the
+district of Amsterdam-Noord. I found the `comic` theme to be fitting of the
+creative scene in Amsterdam-Noord, as it gives the image a playful touch.
+
+```{r, eval = FALSE}
+north <- new_city(
+  name = "Noord, Amsterdam",
+  country = "The Netherlands",
+  lat = Amsterdam[1, 3],
+  long = Amsterdam[1, 4]
+)
+cityview(name = north, border = "bbox", theme = "comic", filename = "../png/AmsterdamNorth.png")
+```
+```{r, echo = FALSE}
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamNorth.png")
+```
+
+## Final Words
+
+I hope you found this walkthrough helpful and inspiring to create your own city
+maps using the `rcityviews` package. If you create something you're proud of, I
+would love to hear about it! Don't hesitate to share your creations with me.
+Happy mapping!
+
+This package is largely made possible by the invaluable contributions and
+unwavering dedication of the OpenStreetMap contributors and the developers who
+have made these data available to R users. Their tireless efforts continue to
+improve the accessibility of open data for mapping worldwide. Thanks everybody!

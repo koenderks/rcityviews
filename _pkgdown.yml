@@ -1,0 +1,56 @@
+url: https://koenderks.github.io/rcityviews/
+
+destination: "."
+
+authors:
+  Koen Derks:
+    href: https://koenderks.com
+
+template:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Tutorial"
+      href: articles/rcityviews.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+  right:
+   - icon: fa-github
+     href: https://github.com/koenderks/rcityviews
+   - icon: fa-users
+     href: https://github.com/koenderks/rcityviews/discussions
+
+home:
+  links:
+  - text: Ask a question
+    href: https://github.com/koenderks/rcityviews/discussions
+
+reference:
+  - title: "Overview"
+    desc: >
+      Package overview
+    contents:
+      - rcityviews-package
+  - title: "Internal database"
+    desc: >
+      Interal database of world cities.
+    contents:
+      - cities
+  - title: "Finding a city"
+    desc: >
+      These functions help you to find a city in the R console.
+    contents:
+      - list_cities
+      - new_city
+  - title: "Rendering a city"
+    desc: >
+      These functions help you to render in the R console.
+    contents:
+      - cityview
+      - cityview_shiny

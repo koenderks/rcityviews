@@ -1,0 +1,15 @@
+^.yml$
+^.github$
+^Meta$
+^CRAN-RELEASE$
+^docs$
+^_pkgdown.yml$
+rcvRelease.R
+^LICENSE\.md$
+^CITATION\.cff$
+^\.github$
+^man/figures$
+^R/rsconnect$
+^png$
+^R\rsconnect$
+^vignettes/articles$
