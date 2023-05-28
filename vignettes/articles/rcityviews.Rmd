@@ -120,9 +120,9 @@ stylize them according to what makes them unique.
 
 ### City Center: Urban History
 
-Fist, let's look at the center of Amsterdam. This location is not featured in
-the internal database, which means that you will have to create a new instance
-of a city. You can create a new city instance using the `new_city()` function.
+First, let's look at the center of Amsterdam. This location is not featured in
+the internal database, which means that you will need to create a new city
+instance using the `new_city()` function.
 
 ```{r}
 amsterdam <- list_cities("Amsterdam")[1, ]
