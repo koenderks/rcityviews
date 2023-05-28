@@ -1,4 +1,4 @@
-# rcityviews 1.0.0
+# rcityviews 1.1.1
 
 **New features**
 
