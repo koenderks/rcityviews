@@ -136,7 +136,7 @@
 <div class="section level3">
 <h3 id="creating-the-map">Creating the map<a class="anchor" aria-label="anchor" href="#creating-the-map"></a>
 </h3>
-<p>Second, once you have obtained the name of the city you want to view or have specified a new city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, speeds up computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, no buildings will show up on the image).</p>
+<p>Second, once you have obtained the name of the city you want to view or have specified a new city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, decreases computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, increases computation time).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># or cityview(name = city)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
