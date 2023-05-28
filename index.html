@@ -92,11 +92,11 @@
 
 
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/Banner.png" width="100%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/Banner.png" width="100%"></p>
 <div class="section level1">
 <div class="page-header"><h1 id="r-city-views">R City Views<a class="anchor" aria-label="anchor" href="#r-city-views"></a>
 </h1></div>
-<p><img src="https://github.com/koenderks/rcityviews/raw/master/man/figures/logo.png" width="149" height="173" alt="logo" align="right" margin-left="20" margin-right="20"></p>
+<p><img src="https://github.com/koenderks/rcityviews/raw/development/man/figures/logo.png" width="149" height="173" alt="logo" align="right" margin-left="20" margin-right="20"></p>
 <p>This repository is an homage to the programming language <code>R</code>, open-source geographic data and the art of map making. It provides code and examples to render customizable stylized city maps using data from <a href="https://www.openstreetmap.org/" class="external-link">OpenStreetMap</a>.</p>
 <ul>
 <li><a href="#installation">Installation</a></li>
@@ -144,7 +144,7 @@
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># or cityview(name = city)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png" width="100%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="saving-the-map">Saving the map<a class="anchor" aria-label="anchor" href="#saving-the-map"></a>
@@ -162,7 +162,7 @@
 </h3>
 <p>There are ten pre-specified themes that can be used to style the image. The image above is created using <code>theme = "vintage"</code> (the default), but other options for the <code>theme</code> argument include <code>modern</code> (top left), <code>bright</code> (top middle), <code>delftware</code> (top right), <code>comic</code> (middle left), <code>rouge</code> (middle middle), <code>original</code> (middle right), <code>midearth</code> (bottom left), <code>batik</code> (bottom middle) and <code>vice</code> (bottom right).</p>
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/Osaka.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Marseille.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/NewYork.png" width="30%"><br><img src="https://github.com/koenderks/rcityviews/raw/master/png/Florence.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Madrid.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/SanFrancisco.png" width="30%"><br><img src="https://github.com/koenderks/rcityviews/raw/master/png/Tokyo.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/London.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Adelaide.png" width="30%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/Osaka.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Marseille.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/NewYork.png" width="30%"><br><img src="https://github.com/koenderks/rcityviews/raw/development/png/Florence.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Madrid.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/SanFrancisco.png" width="30%"><br><img src="https://github.com/koenderks/rcityviews/raw/development/png/Tokyo.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/London.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Adelaide.png" width="30%"></p>
 <p>In addition to the ten pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For example: black, beige and white theme, streets only</span></span>
@@ -206,21 +206,21 @@
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Rio de Janeiro"</span>, zoom <span class="op">=</span> <span class="fl">0.5</span>, theme <span class="op">=</span> <span class="va">myTheme</span>, border <span class="op">=</span> <span class="st">"square"</span>, filename <span class="op">=</span> <span class="st">"Rio.png"</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/Rio.png" width="100%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/Rio.png" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="enclosing-the-map">Enclosing the map<a class="anchor" aria-label="anchor" href="#enclosing-the-map"></a>
 </h3>
 <p>There are several types of borders that can be used to enclose the city. The image above is created using <code>border = "square"</code>, but other options for the <code>border</code> argument include <code>none</code> (the default), <code>circle</code> (left), <code>rhombus</code> (middle), <code>square</code>, <code>hexagon</code>, <code>octagon</code>, <code>decagon</code> and <code>bbox</code> (right).</p>
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/Venice.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Dublin.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Lisbon.png" width="30%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/Venice.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Dublin.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Lisbon.png" width="30%"></p>
 </div>
 <div class="section level3">
 <h3 id="other-display-options">Other display options<a class="anchor" aria-label="anchor" href="#other-display-options"></a>
 </h3>
 <p>There are three other arguments to the <code><a href="reference/cityview.html">cityview()</a></code> function that can be used to tailor the image to your liking. First, the argument <code>halftone</code> allows you to add a colored dotted dither to the image (e.g., <code>halftone = "#ffffff"</code>, left). Second, setting <code>legend = TRUE</code> adds a distance measurer and a compass to the image (middle). Third, the argument <code>places</code> takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., <code>places = 10</code>, right).</p>
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/HaNoi.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Glasgow.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/master/png/Budapest.png" width="30%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/HaNoi.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Glasgow.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Budapest.png" width="30%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -228,7 +228,7 @@
 </h2>
 <p>You can make your own images without having to code using an <code>R Shiny</code> implementation of the package. A live version of the application can be found <a href="https://koenderks.shinyapps.io/rcityviews/" class="external-link">here</a> but it is also easily accessible from within <code>R</code> by calling the function <code><a href="reference/cityview_shiny.html">cityview_shiny()</a></code>.</p>
 <p align="center">
-<img src="https://github.com/koenderks/rcityviews/raw/master/png/app.png" width="100%"></p>
+<img src="https://github.com/koenderks/rcityviews/raw/development/png/app.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
