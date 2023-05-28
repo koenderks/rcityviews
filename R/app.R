@@ -25,7 +25,7 @@
                      <p><b>Step 2:</b> Adjust the name of the city under <b>City name</b> and the country under <b>Country</b>.</p>
                      <p><b>Step 3:</b> Click the <span style='color: #f85931'><b>Preview</b></span> button to preview the map in the panel below (this may take a while).</p>
                      <p><b>Step 4:</b> Once the image is displayed you can click the <span style='color: #009989'><b>Download</b></span> button to export it as an <b>.svg</b> file.</p>
-                     <p><b>Note:</b> Previewing a (too) large or populated area may disconnect you from the server due to a data limit of 1 GB for free Shiny subscriptions. In this case, use <tt>rcityviews::cityview_shiny()</tt> or download <a href='https://raw.githubusercontent.com/koenderks/rcityviews/master/R/app.R' target='_blank'>app.R</a> from GitHub to run on your own computer.</p>"),
+                     <p><b>Note:</b> Previewing a (too) large or populated area may disconnect you from the server due to a data limit of 1 GB for free Shiny subscriptions. In this case, use <tt>rcityviews::cityview_shiny()</tt> or download <a href='https://raw.githubusercontent.com/koenderks/rcityviews/development/R/app.R' target='_blank'>app.R</a> from GitHub to run on your own computer.</p>"),
     ),
     shiny::column(4,
       offset = 1,

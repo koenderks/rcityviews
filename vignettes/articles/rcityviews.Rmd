@@ -39,7 +39,7 @@ and natural features, Amsterdam makes for a pretty picture to look at from
 the sky.
 
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.jpg")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.jpg")
 ```
 
 ## Mapping the city
@@ -78,7 +78,7 @@ displayed properly at all times.
 cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png")
 ```
 
 This basic setup is all you need to map any city in the database. However, there
@@ -98,7 +98,7 @@ and you want the the city to be surrounded by a border, you can use the
 cityview(name = "Amsterdam", border = "circle", theme = "original", filename = "Amsterdam2.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/Amsterdam2.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam2.png")
 ```
 
 ## Exploring Amsterdam
@@ -148,7 +148,7 @@ found the `vintage` theme to apply best to it.
 cityview(name = center, border = "bbox", filename = "AmsterdamCenter.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamCenter.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamCenter.png")
 ```
 
 ### The East: Cultural Melting Pot
@@ -174,7 +174,7 @@ east <- new_city(
 cityview(name = east, border = "bbox", theme = "bright", filename = "AmsterdamEast.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamEast.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamEast.png")
 ```
 
 ### The South: Upscale Residential Area
@@ -200,7 +200,7 @@ south <- new_city(
 cityview(name = south, border = "bbox", theme = "delftware", filename = "../png/AmsterdamSouth.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamSouth.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamSouth.png")
 ```
 
 ### The West: Lively Neighbourhood
@@ -220,7 +220,7 @@ west <- new_city(
 cityview(name = west, border = "bbox", theme = "modern", filename = "AmsterdamWest.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamWest.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamWest.png")
 ```
 
 ### The North: Artistic Hub
@@ -244,7 +244,7 @@ north <- new_city(
 cityview(name = north, border = "bbox", theme = "comic", filename = "../png/AmsterdamNorth.png")
 ```
 ```{r, echo = FALSE}
-knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/master/png/AmsterdamNorth.png")
+knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamNorth.png")
 ```
 
 ## Final Words
