@@ -116,10 +116,11 @@ dissuaded me from making a purchase. Nonetheless, I wanted to have one
 depicting my hometown hanging on the wall in my living room. Luckily, we
 are fortunate enough to live in a fascinating time where open-source
 software can be used to accomplish almost anything. Thanks to the
-efforts made by the OpenStreetMap contributors, a treasure trove of open
-geographical data is currently available, enabling everybody (you as
-well) to effectively make high-quality city posters in R. Maybe more
-important than that they cost no money, these city posters are <a href="https://www.gnu.org/philosophy/free-sw.html" class="external-link">free</a>.</p>
+efforts made by the <a href="http://openstreetmap.org" class="external-link">OpenStreetMap</a>
+contributors, a treasure trove of open geographical data is currently
+available, enabling everybody to effectively make high-quality city
+posters in R. Maybe more important than that these posters cost you no
+money, they are also <a href="https://www.gnu.org/philosophy/free-sw.html" class="external-link">free</a>.</p>
 <p>Before we start mapping, let’s introduce the star of this tutorial.
 Amsterdam is the capital and most populous city of the Netherlands and
 is well-known for its canals, museums, bicycles, and coffee shops (not
@@ -143,7 +144,7 @@ session.</p>
 access using the <code><a href="../reference/list_cities.html">list_cities()</a></code> function. Let’s verify that
 Amsterdam is included in the database.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span><span class="st">"Amsterdam"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span>match <span class="op">=</span> <span class="st">"Amsterdam"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                  name         country   lat   long</span></span>
 <span><span class="co">## 1357        Amsterdam The Netherlands 52.37   4.89</span></span>
 <span><span class="co">## 25857   New Amsterdam          Guyana  6.25 -57.53</span></span>
@@ -163,7 +164,10 @@ directly exported to your working directory in an appropriate format.
 This is the recommended approach because it ensures that the image is
 displayed properly at all times.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"Amsterdam"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png" width="75%" style="display: block; margin: auto;"></p>
 <p>This basic setup is all you need to map any city in the database.
 However, there are more options to style the image to your liking. These
@@ -179,7 +183,12 @@ you can use the <code><a href="../reference/cityview.html">cityview()</a></code>
 arguments <code>theme = "original"</code> and
 <code>border = "circle"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, border <span class="op">=</span> <span class="st">"circle"</span>, theme <span class="op">=</span> <span class="st">"original"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam2.png"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"Amsterdam"</span>,</span>
+<span>  border <span class="op">=</span> <span class="st">"circle"</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"original"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"Amsterdam2.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam2.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -199,12 +208,13 @@ featured in the internal database, which means that you will have to
 create a new instance of a city. You can create a new city instance
 using the <code><a href="../reference/new_city.html">new_city()</a></code> function.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Amsterdam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span><span class="st">"Amsterdam"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">amsterdam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span><span class="st">"Amsterdam"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
+<span><span class="co"># Create instance</span></span>
 <span><span class="va">center</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"Centrum, Amsterdam"</span>,</span>
 <span>  country <span class="op">=</span> <span class="st">"The Netherlands"</span>,</span>
-<span>  lat <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>,</span>
-<span>  long <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
+<span>  lat <span class="op">=</span> <span class="va">amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>,</span>
+<span>  long <span class="op">=</span> <span class="va">amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Discovered the city of Centrum, Amsterdam, The Netherlands at 52.37° / 4.89°!</span></span></code></pre>
 <p>You can isolate the center of Amsterdam by using the bounding box for
@@ -227,7 +237,12 @@ a unique blend of historic charm and modern energy. To reflect its
 historic place in the city, I found the <code>vintage</code> theme to
 apply best to it.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">center</span>, border <span class="op">=</span> <span class="st">"bbox"</span>, filename <span class="op">=</span> <span class="st">"AmsterdamCenter.png"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Create image</span></span>
+<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="va">center</span>,</span>
+<span>  border <span class="op">=</span> <span class="st">"bbox"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"AmsterdamCenter.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamCenter.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -245,13 +260,20 @@ data, we can use the <code><a href="../reference/cityview.html">cityview()</a></
 bounding box for the district. Because of its diverse mix of cultures, I
 found the <code>bright</code> theme most fitting for this district.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">east</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co"># Create instance</span></span>
+<span><span class="va">east</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"Oost, Amsterdam"</span>,</span>
 <span>  country <span class="op">=</span> <span class="st">"The Netherlands"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>,</span>
 <span>  long <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">east</span>, border <span class="op">=</span> <span class="st">"bbox"</span>, theme <span class="op">=</span> <span class="st">"bright"</span>, filename <span class="op">=</span> <span class="st">"AmsterdamEast.png"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Create image</span></span>
+<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="va">east</span>,</span>
+<span>  border <span class="op">=</span> <span class="st">"bbox"</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"bright"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"AmsterdamEast.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamEast.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -268,13 +290,20 @@ the necessary data for the district of Amsterdam-Zuid. I decided to
 render this image using the <code>delftware</code> theme to adds a touch
 of elegance and traditional Dutch aesthetics to the image.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">south</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co"># Create instance</span></span>
+<span><span class="va">south</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"Zuid, Amsterdam"</span>,</span>
 <span>  country <span class="op">=</span> <span class="st">"The Netherlands"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>,</span>
 <span>  long <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">south</span>, border <span class="op">=</span> <span class="st">"bbox"</span>, theme <span class="op">=</span> <span class="st">"delftware"</span>, filename <span class="op">=</span> <span class="st">"../png/AmsterdamSouth.png"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Create image</span></span>
+<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="va">south</span>,</span>
+<span>  border <span class="op">=</span> <span class="st">"bbox"</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"delftware"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"AmsterdamSouth.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamSouth.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -287,13 +316,20 @@ shopping streets and local bars. By requesting
 city data. For Amsterdam-West, the <code>modern</code> theme suits the
 district well.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">west</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co"># Create instance</span></span>
+<span><span class="va">west</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"West, Amsterdam"</span>,</span>
 <span>  country <span class="op">=</span> <span class="st">"The Netherlands"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>,</span>
 <span>  long <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">west</span>, border <span class="op">=</span> <span class="st">"bbox"</span>, theme <span class="op">=</span> <span class="st">"modern"</span>, filename <span class="op">=</span> <span class="st">"AmsterdamWest.png"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Create image</span></span>
+<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="va">west</span>,</span>
+<span>  border <span class="op">=</span> <span class="st">"bbox"</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"modern"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"AmsterdamWest.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamWest.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -308,18 +344,25 @@ obtain the data for the district of Amsterdam-Noord. I found the
 <code>comic</code> theme to be fitting of the creative scene in
 Amsterdam-Noord, as it gives the image a playful touch.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">north</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co"># Create instance</span></span>
+<span><span class="va">north</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"Noord, Amsterdam"</span>,</span>
 <span>  country <span class="op">=</span> <span class="st">"The Netherlands"</span>,</span>
 <span>  lat <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span>,</span>
 <span>  long <span class="op">=</span> <span class="va">Amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">north</span>, border <span class="op">=</span> <span class="st">"bbox"</span>, theme <span class="op">=</span> <span class="st">"comic"</span>, filename <span class="op">=</span> <span class="st">"../png/AmsterdamNorth.png"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Create image</span></span>
+<span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="va">north</span>,</span>
+<span>  border <span class="op">=</span> <span class="st">"bbox"</span>,</span>
+<span>  theme <span class="op">=</span> <span class="st">"comic"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"AmsterdamNorth.png"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamNorth.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="final-words">Final Words<a class="anchor" aria-label="anchor" href="#final-words"></a>
+<h2 id="last-words">Last Words<a class="anchor" aria-label="anchor" href="#last-words"></a>
 </h2>
 <p>I hope you found this walkthrough helpful and inspiring to create
 your own city maps using the <code>rcityviews</code> package. If you
