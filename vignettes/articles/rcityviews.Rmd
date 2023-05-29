@@ -44,9 +44,9 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ## Mapping the City
 
-To start mapping the city, you first need to install the `rcityviews` package
-(see the [home page](https://koenderks.github.io/rcityviews/) for installation
-instructions) and load the package into your current R session.
+To start mapping the city in R, you will first need to install the `rcityviews`
+package (see the [home page](https://koenderks.github.io/rcityviews/) for
+installation instructions) and load the package into your current R session.
 
 ```{r}
 library("rcityviews")
@@ -112,10 +112,11 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 ## Exploring the City
 
 Now that you have learned how to create a city view of Amsterdam, let's explore
-some specific districts within the city. Amsterdam is divided into seven
-main districts, each with its own unique hotspots and features. You can use the
-various themes in the package to create images of some of these districts and
-stylize them according to what makes them unique.
+some specific districts within the city. Amsterdam is divided into seven main
+residential districts (i.e., not including the harbor area "Havengebied"), each
+with its own unique hotspots and features. You can use the various themes in the
+package to create images of some of these districts and stylize them according
+to what makes them unique.
 
 ```{r, echo = FALSE, fig.cap ="Source: https://amsterdam2050.nl/schalen/stadsdelen/"}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamDistricts.png")
@@ -172,19 +173,19 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The East: Cultural Melting Pot
 
-Let's expand our tour of Amsterdam to some of its other districts, like
+Let's expand the tour of Amsterdam to some of its other districts, like
 Amsterdam-Oost. Oost is a district located in the eastern part of Amsterdam,
 adjacent to the city center. It is well-known for its diverse neighborhoods,
-trendy cafes and cultural hot-spots, creating a cultural melting pot with a
+trendy cafes and cultural hotspots, creating a cultural melting pot with a
 lively atmosphere.
 
 We can obtain the data for this district by creating a new city instance using
 `Oost, Amsterdam`, which is available in the Nominatim API. Similar to before,
-after your have created a new city instance using the `new_city()` function, you
+after you have created a new city instance using the `new_city()` function, you
 can use the `cityview()` function with the `border = "bbox"` argument to render
 the image using the bounding box for this district. Because Oost offers such a
-diverse mix of cultural experiences, I found the `bright` theme most fitting for
-the district.
+diverse mix of cultural experiences, I found the `bright` theme to be most
+fitting for the district.
 
 ```{r, eval = FALSE}
 # Create instance
@@ -208,7 +209,7 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The South: Refined Elegance
 
-We will continue our tour of Amsterdam by visiting one of its other districts.
+Let's continue the tour of Amsterdam by visiting one of its other districts.
 Amsterdam-Zuid is a highly sought-after district nestled in the southern part of
 the city. This area is renowned for its beautiful architecture, featuring
 elegant homes and inspiring museums. The southern part of Amsterdam also boasts
@@ -244,16 +245,16 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The West: Contemporary Cool
 
-Let's move on to Amsterdam-West, our fourth district. Situated between two
-sprawling parks and in close proximity to the city center, this
+Let's move on to Amsterdam-West, the fourth district to visit. Situated between
+two sprawling parks and in close proximity to the city center, this
 once-working-class area has transformed into a hub of historic architecture,
-trendy concept stores, and lively local bars where the residents like to spend
-their free time.
+trendy concept stores, and lively local bars where residents of all ages like to
+spend their free time.
 
 Since you arere already familiar with the process of creating a new city
-instance, I won't go into the details again on how to do this for
-`West, Amsterdam`. Due to its trendy vibes, I believe the `modern` theme is a
-perfect fit for this district.
+instance using the Nominatim API, I won't go into the details again on how to do
+this for `West, Amsterdam`. Due to its trendy vibes, I believe the `modern`
+theme is a good fit for the district.
 
 ```{r, eval = FALSE}
 # Create instance
@@ -277,12 +278,13 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The North: Artistic Hub
 
-Finally, let's visit Amsterdam-Noord, a district situated across the IJ river,
-north of the city center. Noord is gaining prominence as an upcoming district,
-known for its creative energy and artistic scene. This dynamic district presents
-a captivating blend of modern architecture, fashionable waterfront cafes and
-vibrant cultural hubs. I found the `comic` theme to be most fitting of the
-creative scene in this district, as it gives the image a bit of a playful touch.
+Finally, let's visit Amsterdam-Noord, a district situated across the IJ river to
+the north of the city center. As a former shipyard area, Noord is gaining
+prominence as an upcoming district, known for its creative energy and artistic
+scene. This dynamic district presents a captivating blend of modern
+architecture, fashionable waterfront cafes and vibrant cultural hubs. I found
+the `comic` theme to be most fitting of the creative scene in this district, as
+it gives the image a bit of a playful touch.
 
 ```{r, eval = FALSE}
 # Create instance
@@ -303,6 +305,10 @@ cityview(
 ```{r, echo = FALSE}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamNorth.png")
 ```
+
+That wraps up the tour of Amsterdam in this tutorial. Two districts, namely
+Nieuw-West and Zuidoost, have not been covered here. I encourage the interested
+reader to explore and map these districts on their own.
 
 ## Concluding Comments
 
