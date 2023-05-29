@@ -13,7 +13,9 @@
 This repository is an homage to the programming language `R`, open-source
 geographic data and the art of map making. It provides code and examples to
 render customizable stylized city maps using data from
-[OpenStreetMap](https://www.openstreetmap.org/).
+[OpenStreetMap](https://www.openstreetmap.org/). Take a look at the
+[tutorial](https://koenderks.github.io/rcityviews/articles/rcityviews.html) for
+a quick guide on how to get started.
 
 * [Installation](#installation)
 * [Create your own in R](#create-your-own-in-r)
