@@ -137,7 +137,7 @@ Source: <a href="https://commons.wikimedia.org/wiki/File:Amsterdam_Satellite.jpg
 <div class="section level2">
 <h2 id="mapping-the-city">Mapping the City<a class="anchor" aria-label="anchor" href="#mapping-the-city"></a>
 </h2>
-<p>To start mapping the city, you first need to install the
+<p>To start mapping the city in R, you will first need to install the
 <code>rcityviews</code> package (see the <a href="https://koenderks.github.io/rcityviews/">home page</a> for
 installation instructions) and load the package into your current R
 session.</p>
@@ -202,7 +202,8 @@ the additional arguments <code>theme = "original"</code> and
 </h2>
 <p>Now that you have learned how to create a city view of Amsterdam,
 let’s explore some specific districts within the city. Amsterdam is
-divided into seven main districts, each with its own unique hotspots and
+divided into seven main residential districts (i.e., not including the
+harbor area “Havengebied”), each with its own unique hotspots and
 features. You can use the various themes in the package to create images
 of some of these districts and stylize them according to what makes them
 unique.</p>
@@ -261,19 +262,19 @@ suits the district best.</p>
 <div class="section level3">
 <h3 id="the-east-cultural-melting-pot">The East: Cultural Melting Pot<a class="anchor" aria-label="anchor" href="#the-east-cultural-melting-pot"></a>
 </h3>
-<p>Let’s expand our tour of Amsterdam to some of its other districts,
+<p>Let’s expand the tour of Amsterdam to some of its other districts,
 like Amsterdam-Oost. Oost is a district located in the eastern part of
 Amsterdam, adjacent to the city center. It is well-known for its diverse
-neighborhoods, trendy cafes and cultural hot-spots, creating a cultural
+neighborhoods, trendy cafes and cultural hotspots, creating a cultural
 melting pot with a lively atmosphere.</p>
 <p>We can obtain the data for this district by creating a new city
 instance using <code>Oost, Amsterdam</code>, which is available in the
-Nominatim API. Similar to before, after your have created a new city
+Nominatim API. Similar to before, after you have created a new city
 instance using the <code><a href="../reference/new_city.html">new_city()</a></code> function, you can use the
 <code><a href="../reference/cityview.html">cityview()</a></code> function with the <code>border = "bbox"</code>
 argument to render the image using the bounding box for this district.
 Because Oost offers such a diverse mix of cultural experiences, I found
-the <code>bright</code> theme most fitting for the district.</p>
+the <code>bright</code> theme to be most fitting for the district.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create instance</span></span>
 <span><span class="va">east</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
@@ -294,7 +295,7 @@ the <code>bright</code> theme most fitting for the district.</p>
 <div class="section level3">
 <h3 id="the-south-refined-elegance">The South: Refined Elegance<a class="anchor" aria-label="anchor" href="#the-south-refined-elegance"></a>
 </h3>
-<p>We will continue our tour of Amsterdam by visiting one of its other
+<p>Let’s continue the tour of Amsterdam by visiting one of its other
 districts. Amsterdam-Zuid is a highly sought-after district nestled in
 the southern part of the city. This area is renowned for its beautiful
 architecture, featuring elegant homes and inspiring museums. The
@@ -328,15 +329,16 @@ add a touch of elegance and traditional Dutch flair.</p>
 <div class="section level3">
 <h3 id="the-west-contemporary-cool">The West: Contemporary Cool<a class="anchor" aria-label="anchor" href="#the-west-contemporary-cool"></a>
 </h3>
-<p>Let’s move on to Amsterdam-West, our fourth district. Situated
-between two sprawling parks and in close proximity to the city center,
-this once-working-class area has transformed into a hub of historic
-architecture, trendy concept stores, and lively local bars where the
-residents like to spend their free time.</p>
+<p>Let’s move on to Amsterdam-West, the fourth district to visit.
+Situated between two sprawling parks and in close proximity to the city
+center, this once-working-class area has transformed into a hub of
+historic architecture, trendy concept stores, and lively local bars
+where residents of all ages like to spend their free time.</p>
 <p>Since you arere already familiar with the process of creating a new
-city instance, I won’t go into the details again on how to do this for
-<code>West, Amsterdam</code>. Due to its trendy vibes, I believe the
-<code>modern</code> theme is a perfect fit for this district.</p>
+city instance using the Nominatim API, I won’t go into the details again
+on how to do this for <code>West, Amsterdam</code>. Due to its trendy
+vibes, I believe the <code>modern</code> theme is a good fit for the
+district.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create instance</span></span>
 <span><span class="va">west</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
@@ -358,13 +360,13 @@ city instance, I won’t go into the details again on how to do this for
 <h3 id="the-north-artistic-hub">The North: Artistic Hub<a class="anchor" aria-label="anchor" href="#the-north-artistic-hub"></a>
 </h3>
 <p>Finally, let’s visit Amsterdam-Noord, a district situated across the
-IJ river, north of the city center. Noord is gaining prominence as an
-upcoming district, known for its creative energy and artistic scene.
-This dynamic district presents a captivating blend of modern
-architecture, fashionable waterfront cafes and vibrant cultural hubs. I
-found the <code>comic</code> theme to be most fitting of the creative
-scene in this district, as it gives the image a bit of a playful
-touch.</p>
+IJ river to the north of the city center. As a former shipyard area,
+Noord is gaining prominence as an upcoming district, known for its
+creative energy and artistic scene. This dynamic district presents a
+captivating blend of modern architecture, fashionable waterfront cafes
+and vibrant cultural hubs. I found the <code>comic</code> theme to be
+most fitting of the creative scene in this district, as it gives the
+image a bit of a playful touch.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create instance</span></span>
 <span><span class="va">north</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
@@ -381,6 +383,10 @@ touch.</p>
 <span>  filename <span class="op">=</span> <span class="st">"AmsterdamNorth.png"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/AmsterdamNorth.png" width="60%" style="display: block; margin: auto;"></p>
+<p>That wraps up the tour of Amsterdam in this tutorial. Two districts,
+namely Nieuw-West and Zuidoost, have not been covered here. I encourage
+the interested reader to explore and map these districts on their
+own.</p>
 </div>
 </div>
 <div class="section level2">
