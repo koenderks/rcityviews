@@ -108,11 +108,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The functionality in this repository is implemented in the <code>R</code> package <code>rcityviews</code>. This package is not available on CRAN and can be obtained via GitHub by running the command below in <code>R</code>.</p>
+<p>The functionality in this repository is implemented in the <code>R</code> package <code>rcityviews</code>. This package is not available on CRAN but can be obtained via GitHub by running the command below in <code>R</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"koenderks/rcityviews"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>After installation, you can load the package into the <code>R</code> session using:</p>
+<p>After installation, you can load the package into the <code>R</code> session using the following command.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/koenderks/rcityviews" class="external-link">rcityviews</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -122,7 +122,7 @@
 <div class="section level3">
 <h3 id="finding-a-city-to-map">Finding a city to map<a class="anchor" aria-label="anchor" href="#finding-a-city-to-map"></a>
 </h3>
-<p>First, you can search for a city name in the database using the <code><a href="reference/list_cities.html">list_cities()</a></code> function. This function looks in the database and finds any city name that contains the expression in <code>match</code>.</p>
+<p>First, you can search for a city name in the package database using the <code><a href="reference/list_cities.html">list_cities()</a></code> function. This function looks in the internal database and finds any city name that contains the expression in <code>match</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/list_cities.html">list_cities</a></span><span class="op">(</span>match <span class="op">=</span> <span class="st">"Ams"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                  name         country   lat   long</span></span>
@@ -131,7 +131,7 @@
 <span><span class="co">#&gt; 1358        Amstetten         Austria 48.13  14.86</span></span>
 <span><span class="co">#&gt; 25857   New Amsterdam          Guyana  6.25 -57.53</span></span>
 <span><span class="co">#&gt; 26031 Nieuw Amsterdam        Suriname  5.91 -55.07</span></span></code></pre></div>
-<p>If you cannot find your preferred city in the current database, you can use the function <code><a href="reference/new_city.html">new_city()</a></code> to manually specify a new location using the latitude and longitude coordinates.</p>
+<p>If you cannot find your preferred city in the internal package database, you can use the <code><a href="reference/new_city.html">new_city()</a></code> function to manually specify a location using its latitude and longitude coordinates.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_city.html">new_city</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lagos"</span>, country <span class="op">=</span> <span class="st">"Portugal"</span>, lat <span class="op">=</span> <span class="fl">37.10</span>, long <span class="op">=</span> <span class="op">-</span><span class="fl">8.68</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Discovered the city of Lagos, Portugal at 37.1° / -8.68°!</span></span></code></pre></div>
@@ -139,7 +139,7 @@
 <div class="section level3">
 <h3 id="creating-the-map">Creating the map<a class="anchor" aria-label="anchor" href="#creating-the-map"></a>
 </h3>
-<p>Second, once you have obtained the name of the city you want to view or have specified a new city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, decreases computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, increases computation time).</p>
+<p>Second, once you have obtained the name of the city you want to view or have specified a location of a city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, decreases computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, increases computation time).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># or cityview(name = city)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
@@ -149,10 +149,10 @@
 <div class="section level3">
 <h3 id="saving-the-map">Saving the map<a class="anchor" aria-label="anchor" href="#saving-the-map"></a>
 </h3>
-<p>Finally, render times in <code>R</code> can be very long for crowded spatial images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. Typically, the ideal way to do this given a <code>ggplot2</code> object named <code>p</code> is to execute the command below.</p>
+<p>Finally, render times in <code>R</code> or RStudio can be very long for crowded spatial images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. Typically, the ideal way to do this given a <code>ggplot2</code> object named <code>p</code> is to execute the command below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span>, plot <span class="op">=</span> <span class="va">p</span>, height <span class="op">=</span> <span class="fl">500</span>, width <span class="op">=</span> <span class="fl">500</span>, units <span class="op">=</span> <span class="st">"mm"</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
+<p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function via its <code>filename</code> argument. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
 <p>For personal (non-commercial) printing it is advised to use the option <code>license = FALSE</code> and save the image to a <code>.pdf</code> or <code>.svg</code> file. Afterwards, the image is best printed in a <code>500mm x 500mm</code> format.</p>
