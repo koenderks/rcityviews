@@ -103,31 +103,31 @@
 </h2>
 <p>Welcome to the tutorial page of the <code>rcityviews</code> package!
 The aim of this page is to show you how you can use this package to
-create pretty images of the world’s cities. For this tutorial, I will
+create stylized images of the world’s cities. For this tutorial, I will
 focus on rendering one of my favorite cities in the world: Amsterdam. Of
-course, feel free to adjust the code provided in this tutorial to create
-an image of any city of your choice.</p>
-<p>First, allow me to share the motivation behind the development of
-this package. I like the look of printed city posters. For instance, I
-think they are a nice present for a friend’s birthday or to use as a
-decoration for your own living space. However, the price tag and
-restricted options associated with buying such posters online often
-dissuaded me from making a purchase. Nonetheless, I wanted to have one
+course, feel free to adjust the code provided here to create an image of
+any city of your choice.</p>
+<p>First, allow me to shortly share the motivation behind the
+development of this package. I like the look of printed city posters.
+For instance, I think they are a nice present for a friend’s birthday or
+to use as a decoration for my own living space. However, the price tag
+and restricted options associated with buying such posters online often
+dissuaded me from making a purchase. Nevertheless, I wanted to have one
 depicting my hometown hanging on the wall in my living room. Luckily, we
-are fortunate enough to live in a fascinating time where open-source
+are fortunate enough to live in a fascinating era where open-source
 software can be used to accomplish almost anything. Thanks to the
-efforts made by the <a href="http://openstreetmap.org" class="external-link">OpenStreetMap</a>
-contributors, a treasure trove of open geographical data is currently
-available, enabling everybody to effectively make high-quality city
-posters in R. Maybe more important than that these posters cost you no
-money, they are also <a href="https://www.gnu.org/philosophy/free-sw.html" class="external-link">free</a>.</p>
+incredible efforts made by the <a href="http://openstreetmap.org" class="external-link">OpenStreetMap</a> contributors, a
+treasure trove of open geographical data is currently available,
+enabling everybody to effectively make high-quality city posters in R.
+Maybe even more important than that these posters cost no money, they
+are also <a href="https://www.gnu.org/philosophy/free-sw.html" class="external-link">free</a>.</p>
 <p>Before we start mapping, let’s introduce the star of this tutorial.
 Amsterdam is the capital and most populous city of the Netherlands and
 is well-known for its canals, museums, bicycles, and coffee shops (not
 the ones that sell coffee). The city is also incredibly diverse, with
-residents from over 180 different nationalities living within the city
-limits. With so much variety in its urban and natural features,
-Amsterdam makes for a pretty picture to look at from the sky.</p>
+residents from over 180 different nationalities living within its
+limits. With much variety in its urban and natural features, Amsterdam
+makes for a pretty picture to look at from the sky.</p>
 <div class="figure" style="text-align: center">
 <img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.jpg" alt="Source: https://commons.wikimedia.org/wiki/File:Amsterdam_Satellite.jpg" width="60%"><p class="caption">
 Source: <a href="https://commons.wikimedia.org/wiki/File:Amsterdam_Satellite.jpg" class="external-link uri">https://commons.wikimedia.org/wiki/File:Amsterdam_Satellite.jpg</a>
@@ -144,22 +144,24 @@ session.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/koenderks/rcityviews" class="external-link">"rcityviews"</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Data by © OpenStreetMap contributors</span></span></code></pre>
-<p>The package contains a large internal database of cities that you can
-access using the <code><a href="../reference/list_cities.html">list_cities()</a></code> function. Let’s verify that
-Amsterdam is included in the database.</p>
+<p>The package contains a large internal database of cities names and
+coordinates that you can access using the <code><a href="../reference/list_cities.html">list_cities()</a></code>
+function. Let’s verify that the city of Amsterdam is included in the
+internal database.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span>match <span class="op">=</span> <span class="st">"Amsterdam"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                  name         country   lat   long</span></span>
 <span><span class="co">## 1357        Amsterdam The Netherlands 52.37   4.89</span></span>
 <span><span class="co">## 25857   New Amsterdam          Guyana  6.25 -57.53</span></span>
 <span><span class="co">## 26031 Nieuw Amsterdam        Suriname  5.91 -55.07</span></span></code></pre>
-<p>As you can see, there are three entries in the database matched to
-the string “Amsterdam”. Since we want to make an image of Amsterdam in
-the Netherlands (the first row of the output), we simply need to
-remember that the <code>name</code> of this city is denoted as
-<code>Amsterdam</code> in the database. Once you have matched the name
-of the city to its database entry, you can create the image by providing
-the city name directly to the <code><a href="../reference/cityview.html">cityview()</a></code> function.</p>
+<p>As you can see, there are three entries in the internal database
+matched to the name “Amsterdam”. Since we want to make an image of
+Amsterdam in the Netherlands (the first row of the output), we simply
+need to remember that the <code>name</code> of this city is denoted as
+<code>Amsterdam</code> in the internal database. Once you have matched
+the name of the city to its database entry, you can create an image of
+the city by providing the city name as a string to the
+<code><a href="../reference/cityview.html">cityview()</a></code> function.</p>
 <p>Please be aware that rendering times in RStudio can be quite long for
 crowded spatial images. You can avoid the render time entirely by
 specifying a file name as input for the <code>filename</code> argument
@@ -173,18 +175,18 @@ displayed properly at all times.</p>
 <span>  filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png" width="60%" style="display: block; margin: auto;"></p>
-<p>This basic setup is all you need to map any city in the database.
-However, there are more options to style the image to your liking. These
-options are accessible using the additional arguments of the
-<code><a href="../reference/cityview.html">cityview()</a></code> function. For example, the <code>theme</code>
-argument enables you to set the color scheme and font used in the image,
-while the <code>border</code> argument enables you to set the type of
-border that surrounds the city. You can find detailed documentation and
-examples of these options on the <a href="https://koenderks.github.io/rcityviews/">home page</a>.</p>
-<p>For instance, if you want to change the default style to a more
-minimalist one, and you want the the city to be surrounded by a circular
-border, you can use the <code><a href="../reference/cityview.html">cityview()</a></code> function with the
-additional arguments <code>theme = "original"</code> and
+<p>The basic setup in the code block above is all you need to map any
+city in the internal database. However, you can call the
+<code><a href="../reference/cityview.html">cityview()</a></code> function with additional arguments to style the
+image to your liking. For example, the <code>theme</code> argument
+enables you to set the color scheme and font used in the image, while
+the <code>border</code> argument enables you to set the type of border
+that surrounds the city. You can find detailed documentation and
+examples of these arguments on the <a href="https://koenderks.github.io/rcityviews/">home page</a>.</p>
+<p>For instance, if you want the image to be rendered in a more
+minimalist style and you want the the city to be surrounded by a
+circular border, you can use the <code><a href="../reference/cityview.html">cityview()</a></code> function with
+the additional arguments <code>theme = "original"</code> and
 <code>border = "circle"</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cityview.html">cityview</a></span><span class="op">(</span></span>
@@ -196,11 +198,11 @@ additional arguments <code>theme = "original"</code> and
 <p><img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam2.png" width="60%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
-<h2 id="exploring-amsterdam">Exploring Amsterdam<a class="anchor" aria-label="anchor" href="#exploring-amsterdam"></a>
+<h2 id="exploring-the-city">Exploring the City<a class="anchor" aria-label="anchor" href="#exploring-the-city"></a>
 </h2>
 <p>Now that you have learned how to create a city view of Amsterdam,
 let’s explore some specific districts within the city. Amsterdam is
-divided into seven districts, each with its own unique hotspots and
+divided into seven main districts, each with its own unique hotspots and
 features. You can use the various themes in the package to create images
 of some of these districts and stylize them according to what makes them
 unique.</p>
@@ -212,9 +214,9 @@ Source: <a href="https://amsterdam2050.nl/schalen/stadsdelen/" class="external-l
 <div class="section level3">
 <h3 id="the-center-historic-and-outgoing">The Center: Historic and Outgoing<a class="anchor" aria-label="anchor" href="#the-center-historic-and-outgoing"></a>
 </h3>
-<p>First, let’s explore the center of Amsterdam. This location is not
-featured in the internal database, which means that you will need to
-create a new city instance for it using the <code><a href="../reference/new_city.html">new_city()</a></code>
+<p>First, let’s explore the center of Amsterdam. This specific location
+is not featured in the internal database, which means that you will need
+to create a new city instance for it using the <code><a href="../reference/new_city.html">new_city()</a></code>
 function.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">amsterdam</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span><span class="st">"Amsterdam"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
@@ -226,17 +228,20 @@ function.</p>
 <span>  long <span class="op">=</span> <span class="va">amsterdam</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Discovered the city of Centrum, Amsterdam, The Netherlands at 52.37° / 4.89°!</span></span></code></pre>
-<p>You can isolate the center of Amsterdam by using the bounding box for
-the district as a border (<code>border = "bbox"</code>) for the image.
-Using the <code>bbox</code> border is slightly different from using the
-other border styles, since it attempts to retrieve a border using the <a href="https://nominatim.openstreetmap.org/ui/search.html" class="external-link">Nominatim
+<p>Instead of drawing a geometric border around this location, you can
+isolate the center of Amsterdam by using the bounding box for the
+district as a border (<code>border = "bbox"</code>) for the image. Using
+the <code>bbox</code> border is slightly different from using any other
+border style, since it attempts to retrieve a border polygon using the
+<a href="https://nominatim.openstreetmap.org/ui/search.html" class="external-link">Nominatim
 API</a>. This means that it is crucial that the name given to
-<code><a href="../reference/new_city.html">new_city()</a></code> matches an entry in Nominatim. For instance,
-Nominatim contains the center of Amsterdam as <a href="https://nominatim.openstreetmap.org/ui/search.html?q=centrum%2C+amsterdam" class="external-link">Centrum,
+<code><a href="../reference/new_city.html">new_city()</a></code> matches an entry in Nominatim. You can verify
+this by searching for your city in the API. For instance, Nominatim
+contains the center of Amsterdam as <a href="https://nominatim.openstreetmap.org/ui/search.html?q=centrum%2C+amsterdam" class="external-link">Centrum,
 Amsterdam</a>, which is why the <code>name</code> argument in the code
 above is specified as <code>"Centrum, Amsterdam"</code>.</p>
-<p>Next, you can use the <code>center</code> city instance as input for
-the <code><a href="../reference/cityview.html">cityview()</a></code> function, while also providing the argument
+<p>Next, you can use the created city instance as input for the
+<code><a href="../reference/cityview.html">cityview()</a></code> function, while also providing the argument
 <code>border = "bbox"</code>. This will render the image of the center
 of Amsterdam using the bounding box for the district. The center of
 Amsterdam is a historical and cultural hub, known for its canals,
@@ -256,13 +261,13 @@ suits the district best.</p>
 <div class="section level3">
 <h3 id="the-east-cultural-melting-pot">The East: Cultural Melting Pot<a class="anchor" aria-label="anchor" href="#the-east-cultural-melting-pot"></a>
 </h3>
-<p>Let’s expand our tour to some of the other districts in Amsterdam,
+<p>Let’s expand our tour of Amsterdam to some of its other districts,
 like Amsterdam-Oost. Oost is a district located in the eastern part of
 Amsterdam, adjacent to the city center. It is well-known for its diverse
-neighborhoods, trendy cafes and cultural hot-spots, providing the charm
-of a cultural melting pot with a lively atmosphere.</p>
+neighborhoods, trendy cafes and cultural hot-spots, creating a cultural
+melting pot with a lively atmosphere.</p>
 <p>We can obtain the data for this district by creating a new city
-instance using <code>Oost, Amsterdam</code>, which is matched to the
+instance using <code>Oost, Amsterdam</code>, which is available in the
 Nominatim API. Similar to before, after your have created a new city
 instance using the <code><a href="../reference/new_city.html">new_city()</a></code> function, you can use the
 <code><a href="../reference/cityview.html">cityview()</a></code> function with the <code>border = "bbox"</code>
@@ -289,20 +294,20 @@ the <code>bright</code> theme most fitting for the district.</p>
 <div class="section level3">
 <h3 id="the-south-refined-elegance">The South: Refined Elegance<a class="anchor" aria-label="anchor" href="#the-south-refined-elegance"></a>
 </h3>
-<p>We will continue our tour of Amsterdam by visiting another district.
-Amsterdam-Zuid is a highly sought-after district nestled in the southern
-part of the city. This area is renowned for its beautiful architecture,
-featuring elegant homes and inspiring museums. The southern part of
-Amsterdam also boasts an abundance of beautiful parks and iconic
-squares, providing residents with ample green spaces to enjoy.</p>
+<p>We will continue our tour of Amsterdam by visiting one of its other
+districts. Amsterdam-Zuid is a highly sought-after district nestled in
+the southern part of the city. This area is renowned for its beautiful
+architecture, featuring elegant homes and inspiring museums. The
+southern part of Amsterdam also boasts an abundance of beautiful parks,
+providing residents with ample green spaces to enjoy.</p>
 <p>By creating a new city instance for <code>Zuid, Amsterdam</code>,
-matched to the Nominatim API, you can obtain the necessary data for this
-district. You probably know the drill by now, but you can use the
-<code><a href="../reference/cityview.html">cityview()</a></code> function with the <code>border = "bbox"</code>
-argument to render the image using the bounding box for this district.
-Because Zuid is a quite upscale, I decided to render this image with the
-<code>delftware</code> theme to add a touch of elegance to the
-image.</p>
+which is available in the Nominatim API, you can obtain the necessary
+data for this district. You probably know the drill by now, but you can
+use the <code><a href="../reference/cityview.html">cityview()</a></code> function with the
+<code>border = "bbox"</code> argument to render the image using the
+bounding box for this district. Because Zuid is a quite upscale, I
+decided to render this image with the <code>delftware</code> theme to
+add a touch of elegance and traditional Dutch flair.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create instance</span></span>
 <span><span class="va">south</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_city.html">new_city</a></span><span class="op">(</span></span>
@@ -323,9 +328,9 @@ image.</p>
 <div class="section level3">
 <h3 id="the-west-contemporary-cool">The West: Contemporary Cool<a class="anchor" aria-label="anchor" href="#the-west-contemporary-cool"></a>
 </h3>
-<p>Let’s explore Amsterdam-West, our fourth district. Situated between
-two sprawling parks and in close proximity to the city center, this
-once-working-class area has transformed into a hub of historic
+<p>Let’s move on to Amsterdam-West, our fourth district. Situated
+between two sprawling parks and in close proximity to the city center,
+this once-working-class area has transformed into a hub of historic
 architecture, trendy concept stores, and lively local bars where the
 residents like to spend their free time.</p>
 <p>Since you arere already familiar with the process of creating a new
