@@ -36,7 +36,7 @@
         data = obj,
         fill = themeOptions[["colors"]][["water"]],
         color = themeOptions[["colors"]][["waterlines"]],
-        size = themeOptions[["size"]][["borders"]][["contours"]],
+        linewidth = themeOptions[["size"]][["borders"]][["contours"]],
         inherit.aes = FALSE
       )
     }
@@ -46,7 +46,7 @@
         data = obj,
         fill = themeOptions[["colors"]][["background"]],
         color = themeOptions[["colors"]][["contours"]],
-        size = themeOptions[["size"]][["borders"]][["contours"]],
+        linewidth = themeOptions[["size"]][["borders"]][["contours"]],
         inherit.aes = FALSE
       )
     }
@@ -56,7 +56,7 @@
         data = obj,
         fill = themeOptions[["colors"]][["background"]],
         color = themeOptions[["colors"]][["contours"]],
-        size = themeOptions[["size"]][["borders"]][["contours"]],
+        linewidth = themeOptions[["size"]][["borders"]][["contours"]],
         inherit.aes = FALSE
       )
     }
@@ -66,7 +66,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["colors"]][["background"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -76,7 +76,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -85,7 +85,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -94,7 +94,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -103,7 +103,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -112,7 +112,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -121,7 +121,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -130,7 +130,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -139,7 +139,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -148,7 +148,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -157,7 +157,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -166,7 +166,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -175,7 +175,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -184,7 +184,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -193,7 +193,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -202,7 +202,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -211,7 +211,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -220,7 +220,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -230,7 +230,7 @@
     data = obj[["lines"]],
     fill = themeOptions[["colors"]][["water"]],
     color = themeOptions[["colors"]][["waterlines"]],
-    size = themeOptions[["size"]][["borders"]][["river"]],
+    linewidth = themeOptions[["size"]][["borders"]][["river"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -240,7 +240,7 @@
     data = obj[["lines"]],
     fill = themeOptions[["colors"]][["water"]],
     color = themeOptions[["colors"]][["waterlines"]],
-    size = themeOptions[["size"]][["borders"]][["canal"]],
+    linewidth = themeOptions[["size"]][["borders"]][["canal"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -250,7 +250,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["colors"]][["water"]],
     color = themeOptions[["colors"]][["waterlines"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -259,7 +259,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["colors"]][["water"]],
     color = themeOptions[["colors"]][["waterlines"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -269,7 +269,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["colors"]][["background"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -278,7 +278,7 @@
     data = obj[["polygons"]],
     fill = themeOptions[["colors"]][["background"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -286,7 +286,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -296,7 +296,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["water"]],
-    size = themeOptions[["size"]][["borders"]][["water"]],
+    linewidth = themeOptions[["size"]][["borders"]][["water"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -305,7 +305,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["water"]],
-    size = themeOptions[["size"]][["borders"]][["water"]],
+    linewidth = themeOptions[["size"]][["borders"]][["water"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -314,7 +314,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["water"]],
-    size = themeOptions[["size"]][["borders"]][["water"]],
+    linewidth = themeOptions[["size"]][["borders"]][["water"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -324,7 +324,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -333,7 +333,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -342,7 +342,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -352,7 +352,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["streets"]][["primary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -360,7 +360,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    size = themeOptions[["size"]][["streets"]][["runway"]],
+    linewidth = themeOptions[["size"]][["streets"]][["runway"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -368,13 +368,13 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["rails"]][1],
-    size = themeOptions[["size"]][["streets"]][["rails"]],
+    linewidth = themeOptions[["size"]][["streets"]][["rails"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["rails"]][length(themeOptions[["colors"]][["rails"]])],
-      size = themeOptions[["size"]][["streets"]][["rails"]],
+      linewidth = themeOptions[["size"]][["streets"]][["rails"]],
       linetype = "dashed",
       inherit.aes = FALSE
     )
@@ -384,7 +384,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["structure"]],
+    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -392,7 +392,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["structure"]],
+    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -400,7 +400,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["structure"]],
+    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -408,7 +408,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["structure"]],
+    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
@@ -416,7 +416,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["path"]],
+    linewidth = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -425,7 +425,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["path"]],
+    linewidth = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -434,7 +434,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["path"]],
+    linewidth = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -443,7 +443,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["path"]],
+    linewidth = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -452,7 +452,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["residential"]],
+    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -461,7 +461,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["residential"]],
+    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -470,7 +470,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["residential"]],
+    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -479,7 +479,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["residential"]],
+    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -488,7 +488,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["residential"]],
+    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
     lineend = "round",
     inherit.aes = FALSE
   )
@@ -499,13 +499,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["tertiary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["tertiary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -515,13 +515,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["tertiary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["tertiary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -531,13 +531,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["secondary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["secondary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -547,13 +547,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["secondary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["secondary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -564,13 +564,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["primary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["primary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -580,13 +580,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["primary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["primary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -596,13 +596,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["primary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["primary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -612,13 +612,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["primary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["primary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -628,13 +628,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["primary"]],
+    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["primary"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -644,13 +644,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["motorway"]],
+    linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["motorway"]],
+      linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -660,13 +660,13 @@
     data = obj[["polygons"]],
     fill = NA,
     color = themeOptions[["colors"]][["streets"]],
-    size = themeOptions[["size"]][["streets"]][["motorway"]],
+    linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
     inherit.aes = FALSE
   ) +
     ggplot2::geom_sf(
       data = obj[["lines"]],
       color = themeOptions[["colors"]][["streets"]],
-      size = themeOptions[["size"]][["streets"]][["motorway"]],
+      linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
       lineend = "round",
       inherit.aes = FALSE
     )
@@ -677,7 +677,7 @@
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
     color = if (zoom >= 0.5) themeOptions[["colors"]][["contours"]] else NA,
-    size = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
   .tick(verbose, progBar, ticks, shiny)
