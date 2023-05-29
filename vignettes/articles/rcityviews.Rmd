@@ -190,8 +190,8 @@ the district.
 east <- new_city(
   name = "Oost, Amsterdam",
   country = "The Netherlands",
-  lat = Amsterdam[1, 3],
-  long = Amsterdam[1, 4]
+  lat = amsterdam[1, 3],
+  long = amsterdam[1, 4]
 )
 # Create image
 cityview(
@@ -226,8 +226,8 @@ the `delftware` theme to add a touch of elegance to the image.
 south <- new_city(
   name = "Zuid, Amsterdam",
   country = "The Netherlands",
-  lat = Amsterdam[1, 3],
-  long = Amsterdam[1, 4]
+  lat = amsterdam[1, 3],
+  long = amsterdam[1, 4]
 )
 # Create image
 cityview(
@@ -259,8 +259,8 @@ perfect fit for this district.
 west <- new_city(
   name = "West, Amsterdam",
   country = "The Netherlands",
-  lat = Amsterdam[1, 3],
-  long = Amsterdam[1, 4]
+  lat = amsterdam[1, 3],
+  long = amsterdam[1, 4]
 )
 # Create image
 cityview(
@@ -288,8 +288,8 @@ creative scene in this district, as it gives the image a bit of a playful touch.
 north <- new_city(
   name = "Noord, Amsterdam",
   country = "The Netherlands",
-  lat = Amsterdam[1, 3],
-  long = Amsterdam[1, 4]
+  lat = amsterdam[1, 3],
+  long = amsterdam[1, 4]
 )
 # Create image
 cityview(

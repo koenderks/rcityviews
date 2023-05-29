@@ -10,25 +10,34 @@
 
 <img src='https://github.com/koenderks/rcityviews/raw/development/man/figures/logo.png' width='149' height='173' alt='logo' align='right' margin-left='20' margin-right='20'/>
 
-This repository is an homage to the programming language `R`, open-source geographic data and the art of map making. It provides code and examples to render customizable stylized city maps using data from [OpenStreetMap](https://www.openstreetmap.org/).
+This repository is an homage to the programming language `R`, open-source
+geographic data and the art of map making. It provides code and examples to
+render customizable stylized city maps using data from
+[OpenStreetMap](https://www.openstreetmap.org/).
 
 * [Installation](#installation)
 * [Create your own in R](#create-your-own-in-r)
 * [Create your own in Shiny](#create-your-own-in-shiny)
 * [Acknowledgements](#acknowledgements)
 
-Every three hours this repository creates and tweets a view of a random city. You can find all city views created so far at the twitter handle [`@rcityviews`](https://twitter.com/rcityviews). Please do not hesitate to share your own creations using the hashtag `#rcityviews`!
+Every three hours this repository creates and tweets a view of a random city.
+You can find all city views created so far at the twitter handle
+[`@rcityviews`](https://twitter.com/rcityviews). Please do not hesitate to share
+your own creations using the hashtag `#rcityviews`!
 
 ## Installation
 
-The functionality in this repository is implemented in the `R` package `rcityviews`. This package is not available on CRAN and can be obtained via GitHub by running the command below in `R`.
+The functionality in this repository is implemented in the `R` package
+`rcityviews`. This package is not available on CRAN but can be obtained via
+GitHub by running the command below in `R`.
 
 ```r
 # install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed
 remotes::install_github("koenderks/rcityviews", dependencies = TRUE)
 ```
 
-After installation, you can load the package into the `R` session using:
+After installation, you can load the package into the `R` session using the
+following command.
 
 ```r
 library(rcityviews)
@@ -38,7 +47,9 @@ library(rcityviews)
 
 ### Finding a city to map
 
-First, you can search for a city name in the database using the `list_cities()` function. This function looks in the database and finds any city name that contains the expression in `match`.
+First, you can search for a city name in the package database using the
+`list_cities()` function. This function looks in the internal database and finds
+any city name that contains the expression in `match`.
 
 ```r
 list_cities(match = "Ams")
@@ -50,7 +61,9 @@ list_cities(match = "Ams")
 #> 26031 Nieuw Amsterdam        Suriname  5.91 -55.07
 ```
 
-If you cannot find your preferred city in the current database, you can use the function `new_city()` to manually specify a new location using the latitude and longitude coordinates.
+If you cannot find your preferred city in the internal package database, you can
+use the `new_city()` function to manually specify a location using its latitude
+and longitude coordinates.
 
 ```r
 city <- new_city(name = "Lagos", country = "Portugal", lat = 37.10, long = -8.68)
@@ -59,7 +72,11 @@ city <- new_city(name = "Lagos", country = "Portugal", lat = 37.10, long = -8.68
 
 ### Creating the map
 
-Second, once you have obtained the name of the city you want to view or have specified a new city, you can use the `cityview()` function to create a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g., `zoom > 1`, decreases computation time) or zoom out of your city (e.g., `zoom < 0.5`, increases computation time).
+Second, once you have obtained the name of the city you want to view or have
+specified a location of a city, you can use the `cityview()` function to create
+a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g.,
+`zoom > 1`, decreases computation time) or zoom out of your city (e.g.,
+`zoom < 0.5`, increases computation time).
 
 ```r
 p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)
@@ -72,23 +89,36 @@ p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)
 
 ### Saving the map
 
-Finally, render times in `R` can be very long for crowded spatial images. It is therefore recommended to directly save the image in a `500mm x 500mm` format. Typically, the ideal way to do this given a `ggplot2` object named `p` is to execute the command below.
+Finally, render times in `R` or RStudio can be very long for crowded spatial
+images. It is therefore recommended to directly save the image in a
+`500mm x 500mm` format. Typically, the ideal way to do this given a `ggplot2`
+object named `p` is to execute the command below.
 
 ```r
 ggplot2::ggsave(filename = "Amsterdam.png", plot = p, height = 500, width = 500, units = "mm", dpi = 100)
 ```
 
-However, you can also do this instantly by providing a filename directly to the `cityview()` function. To save rendering time, the image is exported in an appropriate size and the function does not return a `ggplot2` object.
+However, you can also do this instantly by providing a filename directly to the
+`cityview()` function via its `filename` argument. To save rendering time, the
+image is exported in an appropriate size and the function does not return a
+`ggplot2` object.
 
 ```r
 cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
 
-For personal (non-commercial) printing it is advised to use the option `license = FALSE` and save the image to a `.pdf` or `.svg` file. Afterwards, the image is best printed in a `500mm x 500mm` format.
+For personal (non-commercial) printing it is advised to use the option
+`license = FALSE` and save the image to a `.pdf` or `.svg` file. Afterwards, the
+image is best printed in a `500mm x 500mm` format.
 
 ### Styling the map
 
-There are ten pre-specified themes that can be used to style the image. The image above is created using `theme = "vintage"` (the default), but other options for the `theme` argument include `modern` (top left), `bright` (top middle), `delftware` (top right), `comic` (middle left), `rouge` (middle middle), `original` (middle right), `midearth` (bottom left), `batik` (bottom middle) and `vice` (bottom right).
+There are ten pre-specified themes that can be used to style the image. The
+image above is created using `theme = "vintage"` (the default), but other
+options for the `theme` argument include `modern` (top left), `bright` (top
+middle), `delftware` (top right), `comic` (middle left), `rouge` (middle
+middle), `original` (middle right), `midearth` (bottom left), `batik` (bottom
+middle) and `vice` (bottom right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/Osaka.png' width='30%'>
@@ -104,7 +134,9 @@ There are ten pre-specified themes that can be used to style the image. The imag
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/Adelaide.png' width='30%'>
 </p>
 
-In addition to the ten pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.
+In addition to the ten pre-specified themes, the package provides full
+flexibility to customize the theme by providing a named list. This is
+demonstrated in the code block below.
 
 ```r
 # For example: black, beige and white theme, streets only
@@ -155,7 +187,10 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 
 ### Enclosing the map
 
-There are several types of borders that can be used to enclose the city. The image above is created using `border = "square"`, but other options for the `border` argument include `none` (the default), `circle` (left), `rhombus` (middle), `square`, `hexagon`, `octagon`, `decagon` and `bbox` (right).
+There are several types of borders that can be used to enclose the city. The
+image above is created using `border = "square"`, but other options for the
+`border` argument include `none` (the default), `circle` (left), `rhombus`
+(middle), `square`, `hexagon`, `octagon`, `decagon` and `bbox` (right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/Venice.png' width='30%'>
@@ -165,7 +200,13 @@ There are several types of borders that can be used to enclose the city. The ima
 
 ### Other display options
 
-There are three other arguments to the `cityview()` function that can be used to tailor the image to your liking. First, the argument `halftone` allows you to add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`, left). Second, setting `legend = TRUE` adds a distance measurer and a compass to the image (middle). Third, the argument `places` takes an integer and adds that amount of names of towns, villages, suburbs, quarters and neighbourhoods to the image (e.g., `places = 10`, right).
+There are three other arguments to the `cityview()` function that can be used to
+tailor the image to your liking. First, the argument `halftone` allows you to
+add a colored dotted dither to the image (e.g., `halftone = "#ffffff"`, left).
+Second, setting `legend = TRUE` adds a distance measurer and a compass to the
+image (middle). Third, the argument `places` takes an integer and adds that
+amount of names of towns, villages, suburbs, quarters and neighbourhoods to the
+image (e.g., `places = 10`, right).
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/HaNoi.png' width='30%'>
@@ -175,7 +216,10 @@ There are three other arguments to the `cityview()` function that can be used to
 
 ## Create your own in Shiny
 
-You can make your own images without having to code using an `R Shiny` implementation of the package. A live version of the application can be found [here](https://koenderks.shinyapps.io/rcityviews/) but it is also easily accessible from within `R` by calling the function `cityview_shiny()`.
+You can make your own images without having to code using an `R Shiny`
+implementation of the package. A live version of the application can be found
+[here](https://koenderks.shinyapps.io/rcityviews/) but it is also easily
+accessible from within `R` by calling the function `cityview_shiny()`.
 
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/app.png' width='100%'>
