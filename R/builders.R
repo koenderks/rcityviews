@@ -23,6 +23,9 @@
   }
   # Scale the streets with the zoom
   themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
+  if (zoom < 0.5) {
+    themeOptions[["size"]][["borders"]][["contours"]] <- themeOptions[["size"]][["borders"]][["contours"]] * zoom
+  }
   # Initialize empty plot ######################################################
   int_p <- ggplot2::ggplot()
   .tick(verbose, progBar, ticks, shiny)
@@ -676,7 +679,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["polygons"]],
     fill = sample(themeOptions[["colors"]][["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = if (zoom >= 0.5) themeOptions[["colors"]][["contours"]] else NA,
+    color = themeOptions[["colors"]][["contours"]],
     linewidth = themeOptions[["size"]][["borders"]][["contours"]],
     inherit.aes = FALSE
   )
