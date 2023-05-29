@@ -12,32 +12,31 @@ knitr::opts_chunk$set(
 ## Introduction
 
 Welcome to the tutorial page of the `rcityviews` package! The aim of this page
-is to show you how you can use this package to create pretty images of the
+is to show you how you can use this package to create stylized images of the
 world's cities. For this tutorial, I will focus on rendering one of my favorite
 cities in the world: Amsterdam. Of course, feel free to adjust the code provided
-in this tutorial to create an image of any city of your choice.
+here to create an image of any city of your choice.
 
-First, allow me to share the motivation behind the development of this package.
-I like the look of printed city posters. For instance, I think they are a nice
-present for a friend's birthday or to use as a decoration for your own living
-space. However, the price tag and restricted options associated with buying such
-posters online often dissuaded me from making a purchase. Nonetheless, I wanted
-to have one depicting my hometown hanging on the wall in my living room.
-Luckily, we are fortunate enough to live in a fascinating time where open-source
-software can be used to accomplish almost anything. Thanks to the efforts made
-by the [OpenStreetMap](http://openstreetmap.org) contributors, a treasure trove
-of open geographical data is currently available, enabling everybody to
-effectively make high-quality city posters in R. Maybe more important than that
-these posters cost you no money, they are also
+First, allow me to shortly share the motivation behind the development of this
+package. I like the look of printed city posters. For instance, I think they are
+a nice present for a friend's birthday or to use as a decoration for my own
+living space. However, the price tag and restricted options associated with
+buying such posters online often dissuaded me from making a purchase.
+Nevertheless, I wanted to have one depicting my hometown hanging on the wall in
+my living room. Luckily, we are fortunate enough to live in a fascinating era
+where open-source software can be used to accomplish almost anything. Thanks to
+the incredible efforts made by the [OpenStreetMap](http://openstreetmap.org)
+contributors, a treasure trove of open geographical data is currently available,
+enabling everybody to effectively make high-quality city posters in R. Maybe
+even more important than that these posters cost no money, they are also
 [free](https://www.gnu.org/philosophy/free-sw.html).
 
 Before we start mapping, let's introduce the star of this tutorial. Amsterdam is
 the capital and most populous city of the Netherlands and is well-known for its
 canals, museums, bicycles, and coffee shops (not the ones that sell coffee). The
 city is also incredibly diverse, with residents from over 180 different
-nationalities living within the city limits. With so much variety in its urban
-and natural features, Amsterdam makes for a pretty picture to look at from
-the sky.
+nationalities living within its limits. With much variety in its urban and
+natural features, Amsterdam makes for a pretty picture to look at from the sky.
 
 ```{r, echo = FALSE, fig.cap ="Source: https://commons.wikimedia.org/wiki/File:Amsterdam_Satellite.jpg"}
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.jpg")
@@ -53,20 +52,20 @@ instructions) and load the package into your current R session.
 library("rcityviews")
 ```
 
-The package contains a large internal database of cities that you can access
-using the `list_cities()` function. Let's verify that Amsterdam is included in
-the database.
+The package contains a large internal database of cities names and coordinates
+that you can access using the `list_cities()` function. Let's verify that the
+city of Amsterdam is included in the internal database.
 
 ```{r}
 list_cities(match = "Amsterdam")
 ```
 
-As you can see, there are three entries in the database matched to the string
-"Amsterdam". Since we want to make an image of Amsterdam in the Netherlands (the
-first row of the output), we simply need to remember that the `name` of this
-city is denoted as `Amsterdam` in the database. Once you have matched the name
-of the city to its database entry, you can create the image by providing the
-city name directly to the `cityview()` function. 
+As you can see, there are three entries in the internal database matched to the
+name "Amsterdam". Since we want to make an image of Amsterdam in the Netherlands
+(the first row of the output), we simply need to remember that the `name` of
+this city is denoted as `Amsterdam` in the internal database. Once you have
+matched the name of the city to its database entry, you can create an image of
+the city by providing the city name as a string to the `cityview()` function.
 
 Please be aware that rendering times in RStudio can be quite long for crowded
 spatial images. You can avoid the render time entirely by specifying a file name
@@ -85,15 +84,15 @@ cityview(
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png")
 ```
 
-This basic setup is all you need to map any city in the database. However, there
-are more options to style the image to your liking. These options are accessible
-using the additional arguments of the `cityview()` function. For example, the
-`theme` argument enables you to set the color scheme and font used in the image,
-while the `border` argument enables you to set the type of border that surrounds
-the city. You can find detailed documentation and examples of these options on
+The basic setup in the code block above is all you need to map any city in the
+internal database. However, you can call the `cityview()` function with
+additional arguments to style the image to your liking. For example, the `theme`
+argument enables you to set the color scheme and font used in the image, while
+the `border` argument enables you to set the type of border that surrounds the
+city. You can find detailed documentation and examples of these arguments on
 the [home page](https://koenderks.github.io/rcityviews/).
 
-For instance, if you want to change the default style to a more minimalist one,
+For instance, if you want the image to be rendered in a more minimalist style
 and you want the the city to be surrounded by a circular border, you can use the
 `cityview()` function with the additional arguments `theme = "original"` and
 `border = "circle"`.
@@ -110,11 +109,11 @@ cityview(
 knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam2.png")
 ```
 
-## Exploring Amsterdam
+## Exploring the City
 
 Now that you have learned how to create a city view of Amsterdam, let's explore
 some specific districts within the city. Amsterdam is divided into seven
-districts, each with its own unique hotspots and features. You can use the
+main districts, each with its own unique hotspots and features. You can use the
 various themes in the package to create images of some of these districts and
 stylize them according to what makes them unique.
 
@@ -124,9 +123,9 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The Center: Historic and Outgoing
 
-First, let's explore the center of Amsterdam. This location is not featured in
-the internal database, which means that you will need to create a new city
-instance for it using the `new_city()` function.
+First, let's explore the center of Amsterdam. This specific location is not
+featured in the internal database, which means that you will need to create a
+new city instance for it using the `new_city()` function.
 
 ```{r}
 amsterdam <- list_cities("Amsterdam")[1, ]
@@ -139,17 +138,19 @@ center <- new_city(
 )
 ```
 
-You can isolate the center of Amsterdam by using the bounding box for the
-district as a border (`border = "bbox"`) for the image. Using the `bbox`
-border is slightly different from using the other border styles, since it
-attempts to retrieve a border using the [Nominatim API](https://nominatim.openstreetmap.org/ui/search.html).
+Instead of drawing a geometric border around this location, you can isolate the
+center of Amsterdam by using the bounding box for the district as a border
+(`border = "bbox"`) for the image. Using the `bbox` border is slightly different
+from using any other border style, since it attempts to retrieve a border
+polygon using the [Nominatim API](https://nominatim.openstreetmap.org/ui/search.html).
 This means that it is crucial that the name given to `new_city()` matches an
-entry in Nominatim. For instance, Nominatim contains the center of Amsterdam
-as [Centrum, Amsterdam](https://nominatim.openstreetmap.org/ui/search.html?q=centrum%2C+amsterdam),
+entry in Nominatim. You can verify this by searching for your city in the API. 
+For instance, Nominatim contains the center of Amsterdam as
+[Centrum, Amsterdam](https://nominatim.openstreetmap.org/ui/search.html?q=centrum%2C+amsterdam),
 which is why the `name` argument in the code above is specified as
 `"Centrum, Amsterdam"`.
 
-Next, you can use the `center` city instance as input for the `cityview()`
+Next, you can use the created city instance as input for the `cityview()`
 function, while also providing the argument `border = "bbox"`. This will render
 the image of the center of Amsterdam using the bounding box for the district.
 The center of Amsterdam is a historical and cultural hub, known for its canals,
@@ -171,14 +172,14 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The East: Cultural Melting Pot
 
-Let's expand our tour to some of the other districts in Amsterdam, like
+Let's expand our tour of Amsterdam to some of its other districts, like
 Amsterdam-Oost. Oost is a district located in the eastern part of Amsterdam,
 adjacent to the city center. It is well-known for its diverse neighborhoods,
-trendy cafes and cultural hot-spots, providing the charm of a cultural melting
-pot with a lively atmosphere.
+trendy cafes and cultural hot-spots, creating a cultural melting pot with a
+lively atmosphere.
 
 We can obtain the data for this district by creating a new city instance using
-`Oost, Amsterdam`, which is matched to the Nominatim API. Similar to before,
+`Oost, Amsterdam`, which is available in the Nominatim API. Similar to before,
 after your have created a new city instance using the `new_city()` function, you
 can use the `cityview()` function with the `border = "bbox"` argument to render
 the image using the bounding box for this district. Because Oost offers such a
@@ -207,19 +208,19 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The South: Refined Elegance
 
-We will continue our tour of Amsterdam by visiting another district.
+We will continue our tour of Amsterdam by visiting one of its other districts.
 Amsterdam-Zuid is a highly sought-after district nestled in the southern part of
 the city. This area is renowned for its beautiful architecture, featuring
 elegant homes and inspiring museums. The southern part of Amsterdam also boasts
-an abundance of beautiful parks and iconic squares, providing residents with
-ample green spaces to enjoy.
+an abundance of beautiful parks, providing residents with ample green spaces to
+enjoy.
 
-By creating a new city instance for `Zuid, Amsterdam`, matched to the Nominatim
-API, you can obtain the necessary data for this district. You probably know the
-drill by now, but you can use the `cityview()` function with the
+By creating a new city instance for `Zuid, Amsterdam`, which is available in the
+Nominatim API, you can obtain the necessary data for this district. You probably
+know the drill by now, but you can use the `cityview()` function with the
 `border = "bbox"` argument to render the image using the bounding box for this
 district. Because Zuid is a quite upscale, I decided to render this image with
-the `delftware` theme to add a touch of elegance to the image.
+the `delftware` theme to add a touch of elegance and traditional Dutch flair.
 
 ```{r, eval = FALSE}
 # Create instance
@@ -243,7 +244,7 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 
 ### The West: Contemporary Cool
 
-Let's explore Amsterdam-West, our fourth district. Situated between two
+Let's move on to Amsterdam-West, our fourth district. Situated between two
 sprawling parks and in close proximity to the city center, this
 once-working-class area has transformed into a hub of historic architecture,
 trendy concept stores, and lively local bars where the residents like to spend
