@@ -5,7 +5,8 @@ title: "Tutorial: Exploring Amsterdam"
 ```{r, include = FALSE, eval = TRUE}
 knitr::opts_chunk$set(
   fig.align = "center",
-  out.width = "60%"
+  out.width = "60%",
+  comment = "#>"
 )
 ```
 
