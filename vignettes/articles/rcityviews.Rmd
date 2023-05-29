@@ -113,7 +113,7 @@ knitr::include_graphics("https://github.com/koenderks/rcityviews/raw/development
 ## Exploring Amsterdam
 
 Now that you have learned how to create a city view of Amsterdam, let's explore
-some specific districts within the city. Amsterdam is divided into nine
+some specific districts within the city. Amsterdam is divided into seven
 districts, each with its own unique hotspots and features. You can use the
 various themes in the package to create images of some of these districts and
 stylize them according to what makes them unique.
