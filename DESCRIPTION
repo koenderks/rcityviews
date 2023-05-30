@@ -15,7 +15,7 @@ Depends:
 Imports:
     cowplot,
     geosphere,
-    ggplot2,
+    ggplot2 (>= 3.4.2),
     ggspatial,
     leaflet,
     leaflet.extras,
