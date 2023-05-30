@@ -8,7 +8,7 @@ name: Latest city view
 jobs:
   update:
     name: Create new city
-    runs-on: windows-latest
+    runs-on: macos-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
