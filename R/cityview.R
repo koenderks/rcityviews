@@ -64,9 +64,7 @@
 #'                 \code{octagon} (8 vertices), \code{decagon} (10 vertices) and
 #'                 \code{bbox} (the bounding box for the entire city, argument
 #'                 \code{zoom} will be ignored).
-#' @param halftone a character specifying the color of halftone to use. Possible
-#'                 options are \code{none}, \code{light} (white dither) and
-#'                 \code{dark} (black dither).
+#' @param halftone a character specifying the color of applied halftone dither.
 #' @param legend   logical. Whether to add a distance measurer and a compass in
 #'                 the bottom left corner of the image.
 #' @param places   an integer specifying how many suburb, quarter and

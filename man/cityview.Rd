@@ -52,9 +52,7 @@ options are \code{none} (default), \code{circle},
 \code{bbox} (the bounding box for the entire city, argument
 \code{zoom} will be ignored).}
 
-\item{halftone}{a character specifying the color of halftone to use. Possible
-options are \code{none}, \code{light} (white dither) and
-\code{dark} (black dither).}
+\item{halftone}{a character specifying the color of applied halftone dither.}
 
 \item{legend}{logical. Whether to add a distance measurer and a compass in
 the bottom left corner of the image.}
