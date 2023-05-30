@@ -203,6 +203,14 @@ cityview <- function(name = NULL,
                      filename = NULL,
                      verbose = TRUE,
                      bot = FALSE) {
+  # Error handling #############################################################
+  stopifnot("argument 'zoom' must be a single number > 0" = !is.null(zoom) && is.numeric(zoom) && length(zoom) == 1L && zoom > 0)
+  stopifnot("argument 'legend' must be a single logical" = !is.null(legend) && is.logical(legend) && length(legend) == 1L)
+  stopifnot("argument 'places' must be a single integer >= 0" = !is.null(places) && places %% 1 == 0 && places >= 0 && length(places) == 1L)
+  stopifnot("argument 'license' must be a single logical" = !is.null(license) && is.logical(license) && length(license) == 1L)
+  stopifnot("argument 'timeout' must be a single number >= 0" = !is.null(timeout) && is.numeric(timeout) && timeout >= 0 && length(timeout) == 1L)
+  stopifnot("argument 'verbose' must be a single logical" = !is.null(verbose) && is.logical(verbose) && length(verbose) == 1L)
+  stopifnot("argument 'bot' must be a single logical" = !is.null(bot) && is.logical(bot) && length(bot) == 1L)
   # Set image options ##########################################################
   if (is.list(theme)) {
     themeOptions <- theme
