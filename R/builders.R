@@ -287,7 +287,7 @@
   int_p <- int_p + ggplot2::geom_sf(
     data = obj[["lines"]],
     color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+    linewidth = themeOptions[["size"]][["streets"]][["path"]],
     lineend = "round",
     inherit.aes = FALSE
   )
