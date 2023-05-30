@@ -113,6 +113,7 @@ references:
     given-names: Dewey
     orcid: https://orcid.org/0000-0002-9415-4582
   year: '2023'
+  version: '>= 3.4.2'
 - type: software
   title: ggspatial
   abstract: 'ggspatial: Spatial Data Framework for ggplot2'
