@@ -23,9 +23,7 @@
   }
   # Scale the streets with the zoom
   themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
-  if (zoom < 1) {
-    themeOptions[["size"]][["borders"]] <- lapply(themeOptions[["size"]][["borders"]], FUN = "*", zoom)
-  }
+  themeOptions[["size"]][["borders"]] <- lapply(themeOptions[["size"]][["borders"]], FUN = "*", zoom)
   # Initialize empty plot ######################################################
   int_p <- ggplot2::ggplot()
   .tick(verbose, progBar, ticks, shiny)
@@ -699,7 +697,7 @@
     suppressMessages(expr = {
       int_p <- int_p + ggplot2::geom_sf(data = cropped, fill = NA, color = themeOptions[["colors"]][["background"]], size = 1)
       if (border != "bbox") {
-        int_p <- int_p + ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["colors"]][["text"]], size = if (border == "square") 5 else 1, inherit.aes = FALSE, lineend = "round")
+        int_p <- int_p + ggplot2::geom_path(data = borderPoints, mapping = ggplot2::aes(x = x, y = y), color = themeOptions[["colors"]][["text"]], size = if (border == "square") 5 else min(3, max(1, 1 * zoom)), inherit.aes = FALSE, lineend = "round")
       }
     })
   }
