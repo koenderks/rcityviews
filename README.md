@@ -85,10 +85,6 @@ p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)
 # see ?cityview for more input parameters of this function
 ```
 
-<p align="center">
-  <img src='https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png' width='100%'>
-</p>
-
 ### Saving the map
 
 Finally, render times in `R` or RStudio can be very long for crowded spatial
@@ -108,6 +104,10 @@ image is exported in an appropriate size and the function does not return a
 ```r
 cityview(name = "Amsterdam", filename = "Amsterdam.png")
 ```
+
+<p align="center">
+  <img src='https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png' width='100%'>
+</p>
 
 For personal (non-commercial) printing it is advised to use the option
 `license = FALSE` and save the image to a `.pdf` or `.svg` file. Afterwards, the

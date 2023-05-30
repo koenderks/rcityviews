@@ -241,7 +241,7 @@
   )
   size <- list()
   size[["borders"]] <- list(
-    "contours" = 0.3,
+    "contours" = 0.15,
     "water" = 0.4,
     "canal" = 0.5,
     "river" = 0.6
@@ -249,12 +249,12 @@
   size[["streets"]] <- list(
     "path" = 0.2,
     "residential" = 0.4,
-    "structure" = 0.5,
-    "tertiary" = 0.7,
-    "secondary" = 0.8,
-    "primary" = 0.9,
-    "motorway" = 1,
-    "rails" = 0.75,
+    "structure" = 0.45,
+    "tertiary" = 0.5,
+    "secondary" = 0.55,
+    "primary" = 0.6,
+    "motorway" = 0.7,
+    "rails" = 0.65,
     "runway" = 3
   )
   themeOptions <- list(

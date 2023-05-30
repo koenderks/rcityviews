@@ -23,8 +23,8 @@
   }
   # Scale the streets with the zoom
   themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
-  if (zoom < 0.5) {
-    themeOptions[["size"]][["borders"]][["contours"]] <- themeOptions[["size"]][["borders"]][["contours"]] * zoom
+  if (zoom < 1) {
+    themeOptions[["size"]][["borders"]] <- lapply(themeOptions[["size"]][["borders"]], FUN = "*", zoom)
   }
   # Initialize empty plot ######################################################
   int_p <- ggplot2::ggplot()
