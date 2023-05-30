@@ -23,9 +23,9 @@
       shiny::fluidRow(align = "center", shiny::HTML("<h2>Instructions</h2>")),
       shiny::HTML("<p><b>Step 1:</b> Drag the map, click <span style='color: #edb92e'><b>Randomize</b></span>, or use the search tool to find the area that you want to render.</p>
                      <p><b>Step 2:</b> Adjust the name of the city under <b>City name</b> and the country under <b>Country</b>.</p>
-                     <p><b>Step 3:</b> Click the <span style='color: #f85931'><b>Preview</b></span> button to preview the map in the panel below (this may take a while).</p>
-                     <p><b>Step 4:</b> Once the image is displayed you can click the <span style='color: #009989'><b>Download</b></span> button to export it as an <b>.svg</b> file.</p>
-                     <p><b>Note:</b> Previewing a (too) large or populated area may disconnect you from the server due to a data limit of 1 GB for free Shiny subscriptions. In this case, use <tt>rcityviews::cityview_shiny()</tt> or download <a href='https://raw.githubusercontent.com/koenderks/rcityviews/development/R/app.R' target='_blank'>app.R</a> from GitHub to run on your own computer.</p>"),
+                     <p><b>Step 3:</b> Click the <span style='color: #f85931'><b>Preview</b></span> button to preview the map in the panel below (this can take a while depending on the size of the area).</p>
+                     <p><b>Step 4:</b> Once the image is displayed you can click the <span style='color: #009989'><b>Download</b></span> button to export it as an <b>.svg</b> file, or <span style='color: #009989'><b>right-click + save as</b></span> on the image to export in <b>.png</b> format.</p>
+                     <p><b>Note:</b> Previewing a large area may disconnect you from the app due to the data limit for free Shiny subscriptions. Check out <a href='https://github.com/koenderks/rcityviews' target='_blank'>rcityviews on GitHub</a> for info on how to run this app locally.</p>"),
     ),
     shiny::column(4,
       offset = 1,
@@ -60,10 +60,12 @@
     )
   ),
   shiny::hr(),
+  shiny::column(1),
   shiny::mainPanel(
-    width = 12, style = "border: 4px double black;",
-    shiny::fluidRow(align = "center", shiny::plotOutput(outputId = "plotObject", width = "1400px", height = "1600px"))
-  )
+    width = 10, style = "border: 4px double black;",
+    shiny::fluidRow(align = "center", shiny::plotOutput(outputId = "plotObject", width = "1055px", height = "1055px"))
+  ),
+  shiny::column(1)
 )
 
 .shiny_server <- function(input, output, session) {
@@ -94,7 +96,7 @@
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)
     boundaries <- rcityviews:::.getBoundaries(city, tolower(input[["border"]]), input = input)
-    bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 25)
+    bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 1000)
     try <- try({
       shiny::withProgress(message = "Creating preview", value = 0, min = 0, max = 1, expr = {
         image <- rcityviews:::.buildCity(
