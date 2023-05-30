@@ -73,7 +73,9 @@ spatial images. You can avoid the render time entirely by specifying a file name
 as input for the `filename` argument in the `cityview()` function. By doing so,
 the image will be directly exported to your working directory in an appropriate
 format. This is the recommended approach because it ensures that the image is
-displayed properly at all times.
+displayed properly at all times. Moreover, if you want to make a high-quality
+poster (e.g., for printing), it is recommended to export the image to a `.pdf`
+or `.svg` file.
 
 ```{r, eval = FALSE}
 cityview(
