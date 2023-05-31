@@ -248,12 +248,12 @@
   )
   size[["streets"]] <- list(
     "path" = 0.2,
-    "residential" = 0.4,
-    "structure" = 0.45,
-    "tertiary" = 0.5,
-    "secondary" = 0.55,
+    "residential" = 0.3,
+    "structure" = 0.35,
+    "tertiary" = 0.4,
+    "secondary" = 0.5,
     "primary" = 0.6,
-    "motorway" = 0.7,
+    "motorway" = 0.8,
     "rails" = 0.65,
     "runway" = 3
   )
