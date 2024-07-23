@@ -11,7 +11,7 @@ Description: A user-friendly interface to create customizable stylized city maps
     in 'ggplot2' using data from OpenStreetMap <https://www.openstreetmap.org/>.
     This package is not affiliated with the OpenStreetMap.org mapping project.
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 Imports:
     cowplot,
     geosphere,
