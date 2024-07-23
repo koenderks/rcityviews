@@ -13,3 +13,5 @@ rcvRelease.R
 ^png$
 ^R\rsconnect$
 ^vignettes/articles$
+^.*\.Rproj$
+^\.Rproj\.user$
