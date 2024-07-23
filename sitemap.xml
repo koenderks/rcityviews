@@ -1,48 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/404.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/articles/rcityviews.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/index.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/cities.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/cityview.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/cityview_shiny.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/list_cities.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/new_city.html</loc>
-  </url>
-  <url>
-    <loc>https://koenderks.github.io/rcityviews/reference/rcityviews.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://koenderks.github.io/rcityviews/404.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/LICENSE.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/articles/index.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/articles/rcityviews.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/authors.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/index.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/news/index.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/cities.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/cityview.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/cityview_shiny.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/index.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/list_cities.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/new_city.html</loc></url>
+<url><loc>https://koenderks.github.io/rcityviews/reference/rcityviews.html</loc></url>
 </urlset>
+
