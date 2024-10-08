@@ -25,7 +25,7 @@
   sysfonts::font_add("American Uncial Regular", system.file("fonts", "uncial.otf", package = "rcityviews"))
   sysfonts::font_add("Rage", system.file("fonts", "rage.ttf", package = "rcityviews"))
   showtext::showtext_auto()
-  osmdata::set_overpass_url("https://overpass.kumi.systems/api/interpreter")
+  osmdata::set_overpass_url("https://overpass-api.de/api/interpreter")
 }
 
 .onAttach <- function(libname, pkgname) {
