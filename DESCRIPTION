@@ -14,9 +14,12 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cowplot,
+    dplyr,
     geosphere,
     ggplot2 (>= 3.4.2),
     ggspatial,
+    httr,
+    jsonlite,
     leaflet,
     leaflet.extras,
     methods,
@@ -30,6 +33,7 @@ Imports:
     stats,
     svglite,
     sysfonts,
+    tidygeocoder,
     utils
 Suggests:
     rmarkdown,

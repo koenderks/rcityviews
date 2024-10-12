@@ -1,25 +1,17 @@
-# Copyright (C) 2022-2022 Koen Derks
+# R/cityview.R
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+library(dplyr)
+library(ggplot2)
+library(osmdata)
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Import the geocoding helper function
+# Ensure that `geocode_helper.R` is sourced or the functions are available in the namespace
 
 #' Create a City View
 #'
 #' @description Create a city view showcasing a particular city or region using
-#'   OpenStreetMap (OSM) data retreived trough the Overpass API. Please note
-#'   that OpenStreetMap is open data and can be freely utilized for any purpose,
-#'   as long as proper credit is given to OpenStreetMap and its contributors.
-#'
+#'   OpenStreetMap (OSM) data retrieved through the Overpass API. Supports arbitrary
+#'   location names by integrating geocoding functionality.
 #'
 #' @usage cityview(
 #'   name = NULL,
@@ -39,14 +31,15 @@
 #'   timeout = 25,
 #'   filename = NULL,
 #'   verbose = TRUE,
-#'   bot = FALSE
+#'   bot = FALSE,
+#'   method = "osm" # Added parameter for geocoding method
 #' )
 #'
 #' @param name     a character specifying the name of the city as provided by
 #'                 \code{list_cities()}, or an object created using
-#'                 \code{new_city()}, or a row of the ouput of
-#'                 \code{list_cities()}. If \code{NULL} (default), chooses a
-#'                 random city.
+#'                 \code{new_city()}, or a row of the output of
+#'                 \code{list_cities()}. Alternatively, provide any location name as a string.
+#'                 If \code{NULL} (default), chooses a random city.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1
 #'                 increase zoom and speed up computation time, while values < 1
 #'                 decrease zoom and increase computation time. For zoom levels
@@ -81,6 +74,8 @@
 #'                 appropriate size and does not return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
+#' @param method   character. The geocoding service to use. Default is "osm" (OpenStreetMap).
+#'                 See \code{\link{tidygeocoder}} for other options.
 #'
 #' @details The \code{theme} argument can take a custom list as input (see the
 #'   example). This list must contain all of the following elements:
@@ -114,16 +109,17 @@
 #'  \item{\code{borders}:    A named list containing sizes for the borders
 #'                           \code{contours}, \code{water}, \code{canal} and
 #'                           \code{river}.}
-#'  \item{\code{streets}:    A named list contianing sizes for the streets
+#'  \item{\code{streets}:    A named list containing sizes for the streets
 #'                           \code{path}, \code{residential}, \code{structure},
 #'                           \code{tertiary}, \code{secondary}, \code{primary},
 #'                           \code{motorway}, \code{rails} and \code{runway}.}
 #' }
 #'
-#' @author Koen Derks, \email{koen-derks@hotmail.com}
+#' @author Koen Derks,
+#' \email{koen-derks@hotmail.com}
 #'
-#' @seealso \code{\link{list_cities}}
-#'          \code{\link{cityview_shiny}}
+#' @seealso \code{\link{list_cities}},
+#'          \code{\link{cityview_shiny}},
 #'          \code{\link{new_city}}
 #'
 #' @keywords create cities
@@ -180,6 +176,12 @@
 #'   name = "Amsterdam", theme = myTheme,
 #'   border = "square", filename = "Amsterdam.png"
 #' )
+#'
+#' # 3. Using an arbitrary location name
+#' cityview(
+#'   name = "Hellebecq, Belgium", method = "osm",
+#'   border = "hexagon", zoom = 1.5
+#' )
 #' }
 #' @export
 
@@ -200,7 +202,8 @@ cityview <- function(name = NULL,
                      timeout = 25,
                      filename = NULL,
                      verbose = TRUE,
-                     bot = FALSE) {
+                     bot = FALSE,
+                     method = "osm") { # Added 'method' parameter for geocoding
   # Error handling #############################################################
   stopifnot("argument 'zoom' must be a single number > 0" = !is.null(zoom) && is.numeric(zoom) && length(zoom) == 1L && zoom > 0)
   stopifnot("argument 'legend' must be a single logical" = !is.null(legend) && is.logical(legend) && length(legend) == 1L)
@@ -209,7 +212,9 @@ cityview <- function(name = NULL,
   stopifnot("argument 'timeout' must be a single number >= 0" = !is.null(timeout) && is.numeric(timeout) && timeout >= 0 && length(timeout) == 1L)
   stopifnot("argument 'verbose' must be a single logical" = !is.null(verbose) && is.logical(verbose) && length(verbose) == 1L)
   stopifnot("argument 'bot' must be a single logical" = !is.null(bot) && is.logical(bot) && length(bot) == 1L)
-  # Set image options ##########################################################
+  stopifnot("argument 'method' must be a single character string" = !is.null(method) && is.character(method) && length(method) == 1L)
+  
+  # Validate 'theme' and 'border' arguments
   if (is.list(theme)) {
     themeOptions <- theme
   } else {
@@ -218,18 +223,52 @@ cityview <- function(name = NULL,
   }
   border <- match.arg(border)
   ticks <- 61 + as.numeric(!is.null(halftone)) + as.numeric(places > 0)
-  # Look up city ###############################################################
-  city <- .getCity(name)
-  if (is.null(city)) {
-    return(invisible())
+  
+  # Geocoding Integration #######################################################
+  # If 'name' is provided, attempt to geocode it if it's not a predefined city
+  if (!is.null(name)) {
+    # Attempt to retrieve the city using existing .getCity function
+    city <- .getCity(name)
+    
+    if (nrow(city) == 0) {
+      # If city is not found, attempt to geocode the location name
+      if (verbose) {
+        message("Geocoding location: ", name)
+      }
+      coords <- geocode_raw(name, method = method)
+     
+      
+      # Create a city-like list with geocoded coordinates
+      split_locations <- strsplit(coords$display_name, split = ",")[[1]]
+      browser()
+      city <- data.frame(
+        name = split_locations[1],
+        country = split_locations[2],
+        lat = coords$lat,
+        long = coords$lon,
+        population = NA
+      )
+      
+    }
+  } else {
+    # If 'name' is NULL, choose a random city
+    city <- .getRandomCity()
+    if (is.null(city)) {
+      stop("No cities available to generate a city view.")
+    }
   }
+  
+  # If bot is TRUE, print the city name and country
   if (bot) {
     cat(paste0(city[["name"]], ", ", city[["country"]]))
   }
+  
   # Create the bounding box ####################################################
   boundaries <- .getBoundaries(city = city, border = border, zoom = zoom)
+  
   # Initialize the OSM query ###################################################
   bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = timeout)
+  
   # Build the plot #############################################################
   try <- try(
     {
@@ -253,6 +292,7 @@ cityview <- function(name = NULL,
     },
     silent = TRUE
   )
+  
   # Error handling #############################################################
   if ("try-error" %in% class(try)) {
     if (try[[1]] == "Error in resp_abort(resp, error_body(req, resp)) : \n  HTTP 504 Gateway Timeout.\n") {
@@ -261,6 +301,7 @@ cityview <- function(name = NULL,
       stop(try[[1]]) # Print original error message
     }
   }
+  
   # Save or return the plot ####################################################
   if (is.null(filename)) {
     return(image)
