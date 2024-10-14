@@ -145,14 +145,14 @@ demonstrated in the code block below.
 myTheme <- list(
   colors = list(
     background = "#232323",
-    water = NA,
-    landuse = NA,
-    contours = NA,
+    water = "#232323",
+    landuse = "#232323",
+    contours = "#232323",
     streets = "#d7b174",
     rails = c("#d7b174", "#232323"),
-    buildings = NA,
+    buildings = "#232323",
     text = "#ffffff",
-    waterlines = NA
+    waterlines = "#232323"
   ),
   font = list(
     family = "serif",
