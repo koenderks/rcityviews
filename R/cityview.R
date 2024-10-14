@@ -39,6 +39,7 @@
 #'   timeout = 25,
 #'   filename = NULL,
 #'   verbose = TRUE,
+#'   cache = TRUE,
 #'   bot = FALSE
 #' )
 #'
@@ -80,6 +81,9 @@
 #' @param filename character. If specified, the function exports the plot at an
 #'                 appropriate size and does not return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
+#' @param cache    logical. Whether to cache the data for the image so that they
+#'                 do not need to be requested again when calling the function
+#'                 with a different theme.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
 #'
 #' @details The \code{theme} argument can take a custom list as input (see the
@@ -200,6 +204,7 @@ cityview <- function(name = NULL,
                      timeout = 25,
                      filename = NULL,
                      verbose = TRUE,
+                     cache = TRUE,
                      bot = FALSE) {
   # Error handling #############################################################
   stopifnot("argument 'zoom' must be a single number > 0" = !is.null(zoom) && is.numeric(zoom) && length(zoom) == 1L && zoom > 0)
@@ -217,7 +222,6 @@ cityview <- function(name = NULL,
     themeOptions <- .themeOptions(theme)
   }
   border <- match.arg(border)
-  ticks <- 61 + as.numeric(!is.null(halftone)) + as.numeric(places > 0)
   # Look up city ###############################################################
   city <- .getCity(name)
   if (is.null(city)) {
@@ -230,10 +234,23 @@ cityview <- function(name = NULL,
   boundaries <- .getBoundaries(city = city, border = border, zoom = zoom)
   # Initialize the OSM query ###################################################
   bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = timeout)
+  # Determine whether to use caching
+  .requestData <- if (cache) .memoiseRequestData else .nonMemoiseRequestData
   # Build the plot #############################################################
   try <- try(
     {
+      imgData <- .requestData(
+        city = city,
+        bbox = bbox,
+        zoom = boundaries[["zoom"]],
+        panel = boundaries[["panel"]],
+        border = border,
+        cropped = boundaries[["cropped"]],
+        verbose = verbose,
+        shiny = FALSE
+      )
       image <- .buildCity(
+        imgData = imgData,
         city = city,
         bbox = bbox,
         zoom = boundaries[["zoom"]],
@@ -245,10 +262,7 @@ cityview <- function(name = NULL,
         places = places,
         cropped = boundaries[["cropped"]],
         borderPoints = boundaries[["borderPoints"]],
-        license = license,
-        verbose = verbose,
-        ticks = ticks,
-        shiny = FALSE
+        license = license
       )
     },
     silent = TRUE

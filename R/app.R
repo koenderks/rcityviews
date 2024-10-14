@@ -69,7 +69,7 @@
 )
 
 .shiny_server <- function(input, output, session) {
-  city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
+  city <- .randomCity(sample.int(100000, size = 1))
   shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
   shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
   output[["osm"]] <- leaflet::renderLeaflet({
@@ -79,7 +79,7 @@
       leaflet.extras::addSearchOSM()
   })
   shiny::observeEvent(input[["randomize"]], {
-    city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
+    city <- .randomCity(sample.int(100000, size = 1))
     shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
     shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
     output[["osm"]] <- leaflet::renderLeaflet({
@@ -91,29 +91,22 @@
   })
   output[["plotObject"]] <- shiny::renderPlot(NULL)
   shiny::observeEvent(input[["run"]], {
-    themeOptions <- rcityviews:::.themeOptions(tolower(input[["theme"]]))
+    themeOptions <- .themeOptions(tolower(input[["theme"]]))
     long <- stats::median(c(input[["osm_bounds"]][["east"]], input[["osm_bounds"]][["west"]]))
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)
-    boundaries <- rcityviews:::.getBoundaries(city, tolower(input[["border"]]), input = input)
+    boundaries <- .getBoundaries(city, tolower(input[["border"]]), input = input)
     bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 1000)
     try <- try({
       shiny::withProgress(message = "Creating preview", value = 0, min = 0, max = 1, expr = {
-        image <- rcityviews:::.buildCity(
+        imgData <- .memoiseRequestData(
           city = city,
           bbox = bbox,
           zoom = 0.0225 / (city[["lat"]] - boundaries[["panel"]][2]),
           panel = boundaries[["panel"]],
-          themeOptions = themeOptions,
           border = tolower(input[["border"]]),
-          halftone = NULL,
-          places = 0,
-          legend = input[["legend"]],
           cropped = boundaries[["cropped"]],
-          borderPoints = boundaries[["borderPoints"]],
           verbose = FALSE,
-          license = input[["license"]],
-          ticks = 61,
           shiny = TRUE
         )
       })
@@ -126,6 +119,21 @@
       }
       return()
     }
+    image <- .buildCity(
+      imgData = imgData,
+      city = city,
+      bbox = bbox,
+      zoom = 0.0225 / (city[["lat"]] - boundaries[["panel"]][2]),
+      panel = boundaries[["panel"]],
+      themeOptions = themeOptions,
+      border = tolower(input[["border"]]),
+      halftone = NULL,
+      legend = input[["legend"]],
+      places = 0,
+      cropped = boundaries[["cropped"]],
+      borderPoints = boundaries[["borderPoints"]],
+      license = input[["license"]]
+    )
     output[["plotObject"]] <- shiny::renderPlot(image)
     output[["downloadPlot"]] <- shiny::downloadHandler(
       filename = function() {

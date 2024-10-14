@@ -22,6 +22,7 @@ cityview(
   timeout = 25,
   filename = NULL,
   verbose = TRUE,
+  cache = TRUE,
   bot = FALSE
 )
 }
@@ -74,6 +75,10 @@ in "recurse" at line ... after ... seconds}.}
 appropriate size and does not return a \code{ggplot2} object.}
 
 \item{verbose}{logical. Whether to show a progress bar during execution.}
+
+\item{cache}{logical. Whether to cache the data for the image so that they
+do not need to be requested again when calling the function
+with a different theme.}
 
 \item{bot}{logical. Enable functionality used by the Twitter bot.}
 }
