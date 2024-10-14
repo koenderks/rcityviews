@@ -217,6 +217,7 @@ cityview <- function(name = NULL,
   # Set image options ##########################################################
   if (is.list(theme)) {
     themeOptions <- theme
+    stopifnot("Theme should not contain NA values" = !any(sapply(myTheme, anyNA)))
   } else {
     theme <- match.arg(theme)
     themeOptions <- .themeOptions(theme)
