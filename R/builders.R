@@ -766,7 +766,7 @@
 }
 
 .getBoundaries <- function(city, border, zoom = NULL, input = NULL) {
-  browser()
+  
   defaultRadius <- 0.0225
   if (!is.null(zoom)) {
     radius <- geosphere::distm(x = c(city[["long"]], city[["lat"]]), y = c(city[["long"]], city[["lat"]] + defaultRadius * (1 / zoom)), fun = geosphere::distHaversine)
@@ -788,6 +788,7 @@
   panel <- c(croppedBox[["xmin"]], croppedBox[["ymin"]], croppedBox[["xmax"]], croppedBox[["ymax"]])
   if (border == "bbox") {
     p <- try({
+      
       borderPoints <- osmdata::getbb(place_name = city[["name"]], format_out = "polygon")
       if (is.list(borderPoints)) {
         borderPoints <- borderPoints[[1]]

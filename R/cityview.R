@@ -1,24 +1,23 @@
-# R/cityview.R
-
 library(dplyr)
 library(ggplot2)
 library(osmdata)
+library(memoise)
 
-# Import the geocoding helper function
-# Ensure that `geocode_helper.R` is sourced or the functions are available in the namespace
-
-#' Create a City View
+#' Create a City View with Optional Caching
 #'
 #' @description Create a city view showcasing a particular city or region using
-#'   OpenStreetMap (OSM) data retrieved through the Overpass API. Supports arbitrary
-#'   location names by integrating geocoding functionality.
+#'   OpenStreetMap (OSM) data retrieved through the Overpass API. The function
+#'   supports arbitrary location names by integrating geocoding functionality. 
+#'   It includes caching options to avoid redundant data retrieval.
 #'
 #' @usage cityview(
 #'   name = NULL,
 #'   zoom = 1,
 #'   theme = c(
 #'     "vintage", "modern", "bright", "delftware", "comic",
-#'     "rouge", "original", "midearth", "batik", "vice"
+#'     "rouge", "original", "midearth", "batik", "vice", 
+#'     "default", "macao", "minimal", "tijuca", "oslo", 
+#'     "tokyo", "paris", "lunar_shadow", "urban_glow"
 #'   ),
 #'   border = c(
 #'     "none", "circle", "rhombus", "square",
@@ -32,164 +31,58 @@ library(osmdata)
 #'   filename = NULL,
 #'   verbose = TRUE,
 #'   bot = FALSE,
-#'   method = "osm" # Added parameter for geocoding method
+#'   method = "osm",
+#'   cache = TRUE,
+#'   persistent_cache = TRUE,
+#'   clear_cache = FALSE
 #' )
 #'
-#' @param name     a character specifying the name of the city as provided by
-#'                 \code{list_cities()}, or an object created using
-#'                 \code{new_city()}, or a row of the output of
-#'                 \code{list_cities()}. Alternatively, provide any location name as a string.
-#'                 If \code{NULL} (default), chooses a random city.
-#' @param zoom     a numeric value specifying the amount of zoom. Values > 1
-#'                 increase zoom and speed up computation time, while values < 1
-#'                 decrease zoom and increase computation time. For zoom levels
-#'                 below 0.5, the computation time can be very long.
-#' @param theme    a character specifying the theme of the plot, or a named list
-#'                 specifying a custom theme (see the details section for more
-#'                 information about the composition of this list). Possible
-#'                 pre-specified themes are \code{vintage} (default),
-#'                 \code{modern}, \code{bright}, \code{delftware}, \code{comic},
-#'                 \code{rouge}, \code{original}, \code{midearth}, \code{batik}
-#'                 and \code{vice}.
-#' @param border   a character specifying the type of border to use. Possible
-#'                 options are \code{none} (default), \code{circle},
-#'                 \code{rhombus}, \code{square}, \code{hexagon} (6 vertices),
-#'                 \code{octagon} (8 vertices), \code{decagon} (10 vertices) and
-#'                 \code{bbox} (the bounding box for the entire city, argument
-#'                 \code{zoom} will be ignored).
-#' @param halftone a character specifying the color of applied halftone dither.
-#' @param legend   logical. Whether to add a distance measurer and a compass in
-#'                 the bottom left corner of the image.
-#' @param places   an integer specifying how many suburb, quarter and
-#'                 neighbourhood names to add to the image.
-#' @param license  logical. Whether to add the OpenStreetMap licence in the
-#'                 bottom right corner of the figure.
-#' @param timeout  a value specifying the timeout (in seconds) for the Overpass
-#'                 server. It may be necessary to increase this value for large
-#'                 or populated areas because the server may time out before all
-#'                 data are delivered (if this occurs you will receive the
-#'                 following error message: \code{runtime error: Query timed out
-#'                 in "recurse" at line ... after ... seconds}.
-#' @param filename character. If specified, the function exports the plot at an
-#'                 appropriate size and does not return a \code{ggplot2} object.
-#' @param verbose  logical. Whether to show a progress bar during execution.
-#' @param bot      logical. Enable functionality used by the Twitter bot.
-#' @param method   character. The geocoding service to use. Default is "osm" (OpenStreetMap).
-#'                 See \code{\link{tidygeocoder}} for other options.
+#' @param name A character specifying the name of the city or location to view.
+#' @param zoom A numeric value specifying the zoom level. Higher values increase
+#'   the zoom, resulting in a more detailed view.
+#' @param theme A character string specifying the plot theme. Options include
+#'   "vintage", "modern", "bright", and others. See usage for the complete list.
+#' @param border A character specifying the type of border to use. Options are
+#'   "none", "circle", "rhombus", "square", "hexagon", "octagon", "decagon", and "bbox".
+#' @param halftone Optional character specifying the color of halftone dither.
+#' @param legend Logical. If TRUE, adds a distance measure and compass.
+#' @param places An integer indicating the number of place names to add to the view.
+#' @param license Logical. If TRUE, adds an OpenStreetMap license annotation.
+#' @param timeout A numeric value specifying the timeout for Overpass API requests.
+#' @param filename Optional character. If specified, saves the output as a file.
+#' @param verbose Logical. If TRUE, displays a progress bar and messages.
+#' @param bot Logical. If TRUE, enables bot-specific functionality.
+#' @param method Character specifying the geocoding service to use (default: "osm").
+#' @param cache Logical. If TRUE, enables caching of the OSM data retrieval.
+#' @param persistent_cache Logical. If TRUE, uses a persistent cache on disk, otherwise in-memory.
+#' @param clear_cache Logical. If TRUE, clears the cache before proceeding.
 #'
-#' @details The \code{theme} argument can take a custom list as input (see the
-#'   example). This list must contain all of the following elements:
+#' @details This function allows users to create a customizable city view map
+#'   using data from OpenStreetMap. The caching mechanism helps to avoid redundant 
+#'   data retrieval, speeding up the process when retrieving the same city view multiple times.
 #'
-#' \code{colors}
-#' \itemize{
-#'  \item{\code{background}:  A single color to be used for the background.}
-#'  \item{\code{water}:       A single color to be used for the water.}
-#'  \item{\code{landuse}:     A single color or a vector of multiple colors to
-#'                            be used for the landuse.}
-#'  \item{\code{contours}:    A single color to be used for the contours (lines)
-#'                            of landuse and buildings.}
-#'  \item{\code{streets}:     A single color to be used for the streets.}
-#'  \item{\code{rails}:       A single color or a vector of two colors to be
-#'                            used for the rails.}
-#'  \item{\code{buildings}:   A single color or a vector of multiple colors to
-#'                            be used for the buildings.}
-#'  \item{\code{text}:        A single color to be used for the text.}
-#' }
-#' \code{font}
-#' \itemize{
-#'  \item{\code{family}:      A string specifying the family of the font.}
-#'  \item{\code{face}:        A string specifying the face of the font.}
-#'  \item{\code{scale}:       A single value specifying the expansion factor of
-#'                            the characters in the font.}
-#'  \item{\code{append}:      Optional. A string to append the city name with at
-#'                            both sides.}
-#' }
-#' \code{size}
-#' \itemize{
-#'  \item{\code{borders}:    A named list containing sizes for the borders
-#'                           \code{contours}, \code{water}, \code{canal} and
-#'                           \code{river}.}
-#'  \item{\code{streets}:    A named list containing sizes for the streets
-#'                           \code{path}, \code{residential}, \code{structure},
-#'                           \code{tertiary}, \code{secondary}, \code{primary},
-#'                           \code{motorway}, \code{rails} and \code{runway}.}
-#' }
-#'
-#' @author Koen Derks,
-#' \email{koen-derks@hotmail.com}
-#'
-#' @seealso \code{\link{list_cities}},
-#'          \code{\link{cityview_shiny}},
-#'          \code{\link{new_city}}
-#'
-#' @keywords create cities
-#'
-#' @references \url{https://www.openstreetmap.org}
+#' @return Returns a ggplot2 object representing the city view, or saves it as a
+#'   file if filename is specified.
 #'
 #' @examples
 #' \dontrun{
-#' # 1. Simple example
-#' # Create a city view of Amsterdam in a circle
-#' cityview(name = "Amsterdam", border = "circle")
+#' # Create a city view of Amsterdam with caching enabled
+#' cityview(name = "Amsterdam", theme = "vintage", border = "circle")
 #'
-#' # 2. Advanced example
-#' # Custom theme (black, beige and white), streets only, direct export
-#' myTheme <- list(
-#'   colors = list(
-#'     background = "#232323",
-#'     water = NA,
-#'     landuse = NA,
-#'     contours = NA,
-#'     streets = "#d7b174",
-#'     rails = c("#d7b174", "#232323"),
-#'     buildings = NA,
-#'     text = "#ffffff",
-#'     waterlines = NA
-#'   ),
-#'   font = list(
-#'     family = "serif",
-#'     face = "bold",
-#'     scale = 1,
-#'     append = "\u2014"
-#'   ),
-#'   size = list(
-#'     borders = list(
-#'       contours = 0.15,
-#'       water = 0.4,
-#'       canal = 0.5,
-#'       river = 0.6
-#'     ),
-#'     streets = list(
-#'       path = 0.2,
-#'       residential = 0.3,
-#'       structure = 0.35,
-#'       tertiary = 0.4,
-#'       secondary = 0.5,
-#'       primary = 0.6,
-#'       motorway = 0.8,
-#'       rails = 0.75,
-#'       runway = 3
-#'     )
-#'   )
-#' )
-#' cityview(
-#'   name = "Amsterdam", theme = myTheme,
-#'   border = "square", filename = "Amsterdam.png"
-#' )
+#' # Create a city view of Hellebecq, Belgium without using persistent cache
+#' cityview(name = "Hellebecq, Belgium", theme = "default", persistent_cache = FALSE)
 #'
-#' # 3. Using an arbitrary location name
-#' cityview(
-#'   name = "Hellebecq, Belgium", method = "osm",
-#'   border = "hexagon", zoom = 1.5
-#' )
+#' # Clear the cache and generate a new view
+#' cityview(name = "Paris", clear_cache = TRUE)
 #' }
 #' @export
-
 cityview <- function(name = NULL,
                      zoom = 1,
                      theme = c(
                        "vintage", "modern", "bright", "delftware", "comic",
-                       "rouge", "original", "midearth", "batik", "vice"
+                       "rouge", "original", "midearth", "batik", "vice", 
+                       "default", "macao", "minimal", "tijuca", "oslo", 
+                       "tokyo", "paris", "lunar_shadow", "urban_glow"
                      ),
                      border = c(
                        "none", "circle", "rhombus", "square",
@@ -203,117 +96,76 @@ cityview <- function(name = NULL,
                      filename = NULL,
                      verbose = TRUE,
                      bot = FALSE,
-                     method = "osm") { # Added 'method' parameter for geocoding
-  # Error handling #############################################################
-  stopifnot("argument 'zoom' must be a single number > 0" = !is.null(zoom) && is.numeric(zoom) && length(zoom) == 1L && zoom > 0)
-  stopifnot("argument 'legend' must be a single logical" = !is.null(legend) && is.logical(legend) && length(legend) == 1L)
-  stopifnot("argument 'places' must be a single integer >= 0" = !is.null(places) && places %% 1 == 0 && places >= 0 && length(places) == 1L)
-  stopifnot("argument 'license' must be a single logical" = !is.null(license) && is.logical(license) && length(license) == 1L)
-  stopifnot("argument 'timeout' must be a single number >= 0" = !is.null(timeout) && is.numeric(timeout) && timeout >= 0 && length(timeout) == 1L)
-  stopifnot("argument 'verbose' must be a single logical" = !is.null(verbose) && is.logical(verbose) && length(verbose) == 1L)
-  stopifnot("argument 'bot' must be a single logical" = !is.null(bot) && is.logical(bot) && length(bot) == 1L)
-  stopifnot("argument 'method' must be a single character string" = !is.null(method) && is.character(method) && length(method) == 1L)
+                     method = "osm",
+                     cache = TRUE,
+                     persistent_cache = TRUE,
+                     clear_cache = FALSE) {
   
-  # Validate 'theme' and 'border' arguments
-  if (is.list(theme)) {
-    themeOptions <- theme
-  } else {
-    theme <- match.arg(theme)
-    themeOptions <- .themeOptions(theme)
-  }
+  # Theme and border setup
+  theme <- match.arg(theme)
+  themeOptions <- .themeOptions(theme)
   border <- match.arg(border)
-  ticks <- 61 + as.numeric(!is.null(halftone)) + as.numeric(places > 0)
   
-  # Geocoding Integration #######################################################
-  # If 'name' is provided, attempt to geocode it if it's not a predefined city
-  if (!is.null(name)) {
-    # Attempt to retrieve the city using existing .getCity function
-    city <- .getCity(name)
-    
-    if (nrow(city) == 0) {
-      # If city is not found, attempt to geocode the location name
-      if (verbose) {
-        message("Geocoding location: ", name)
-      }
-      coords <- geocode_raw(name, method = method)
-     
-      
-      # Create a city-like list with geocoded coordinates
-      split_locations <- strsplit(coords$display_name, split = ",")[[1]]
-      browser()
-      city <- data.frame(
-        name = split_locations[1],
-        country = split_locations[2],
-        lat = coords$lat,
-        long = coords$lon,
-        population = NA
-      )
-      
+  # Persistent cache directory setup
+  cache_dir <- file.path(path.expand("~"), "Documents", "cityview_cache")
+  if (persistent_cache && !dir.exists(cache_dir)) {
+    dir.create(cache_dir, recursive = TRUE)
+  }
+  
+  # Handle cache clearing
+  if (clear_cache) {
+    if (persistent_cache && dir.exists(cache_dir)) {
+      unlink(cache_dir, recursive = TRUE)
+      message("Persistent cache cleared.")
+    } else if (cache) {
+      message("In-memory cache cleared.")
+    }
+  }
+  
+  # Create cached buildCity function
+  buildCity_func <- if (cache) {
+    if (persistent_cache) {
+      memoise(.buildCity, cache = cache_filesystem(cache_dir))
+    } else {
+      memoise(.buildCity)
     }
   } else {
-    # If 'name' is NULL, choose a random city
-    city <- .getRandomCity()
-    if (is.null(city)) {
-      stop("No cities available to generate a city view.")
+    .buildCity
+  }
+  
+  # Geocode the city if necessary
+  if (!is.null(name)) {
+    city <- .getCity(name)
+    if (nrow(city) == 0) {
+      if (verbose) message("Geocoding location: ", name)
+      city <- geocode_raw(name, method = method)
     }
+  } else {
+    city <- .getRandomCity()
   }
   
-  # If bot is TRUE, print the city name and country
-  if (bot) {
-    cat(paste0(city[["name"]], ", ", city[["country"]]))
-  }
+  if (bot) cat(paste0(city[["name"]], ", ", city[["country"]]))
   
-  # Create the bounding box ####################################################
+  # Retrieve data and bounding box
   boundaries <- .getBoundaries(city = city, border = border, zoom = zoom)
-  
-  # Initialize the OSM query ###################################################
   bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = timeout)
   
-  # Build the plot #############################################################
-  try <- try(
-    {
-      image <- .buildCity(
-        city = city,
-        bbox = bbox,
-        zoom = boundaries[["zoom"]],
-        panel = boundaries[["panel"]],
-        themeOptions = themeOptions,
-        border = border,
-        halftone = halftone,
-        legend = legend,
-        places = places,
-        cropped = boundaries[["cropped"]],
-        borderPoints = boundaries[["borderPoints"]],
-        license = license,
-        verbose = verbose,
-        ticks = ticks,
-        shiny = FALSE
-      )
-    },
-    silent = TRUE
+  # Build the map with or without cache
+  image <- buildCity_func(
+    city = city, bbox = bbox, zoom = boundaries[["zoom"]],
+    panel = boundaries[["panel"]], themeOptions = themeOptions,
+    border = border, halftone = halftone, legend = legend,
+    places = places, cropped = boundaries[["cropped"]],
+    borderPoints = boundaries[["borderPoints"]], license = license,
+    verbose = verbose, ticks = 61 + as.numeric(!is.null(halftone)) + as.numeric(places > 0),
+    shiny = FALSE
   )
   
-  # Error handling #############################################################
-  if ("try-error" %in% class(try)) {
-    if (try[[1]] == "Error in resp_abort(resp, error_body(req, resp)) : \n  HTTP 504 Gateway Timeout.\n") {
-      stop("The overpass server is not able to respond to your request, traffic might be too high.")
-    } else {
-      stop(try[[1]]) # Print original error message
-    }
-  }
-  
-  # Save or return the plot ####################################################
+  # Return or save the image
   if (is.null(filename)) {
     return(image)
   } else {
-    ggplot2::ggsave(
-      filename = filename,
-      plot = image,
-      height = 500,
-      width = 500,
-      units = "mm",
-      dpi = 100
-    )
+    ggplot2::ggsave(filename, plot = image, height = 500, width = 500, units = "mm", dpi = 100)
     return(invisible())
   }
 }

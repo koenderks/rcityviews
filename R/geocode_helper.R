@@ -26,15 +26,29 @@ geocode_raw <- function(location, method = "osm") {
     geocode_df <- tibble::tibble(address = location) %>%
       tidygeocoder::geocode(address, method = method, quiet = TRUE)
     
+    
+    
     if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
       stop("Geocoding failed: Unable to find coordinates for the provided location.")
     }
     
-    list(
+    coords = list(
       lat = geocode_df$lat[1],
       lon = geocode_df$long[1],
       display_name = location
     )
+    
+    # Create a city-like df with geocoded coordinates
+    split_locations <- strsplit(coords$display_name, split = ",")[[1]]
+    
+    city <- data.frame(
+      name = split_locations[1],
+      country = split_locations[2],
+      lat = coords$lat,
+      long = coords$lon,
+      population = NA
+    )
+    
   }, error = function(e) {
     stop("Geocoding error: ", e$message)
   })

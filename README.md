@@ -227,6 +227,21 @@ accessible from within `R` by calling the function `cityview_shiny()`.
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/app.png' width='100%'>
 </p>
 
+## Register new fonts for themes
+
+Simply donwload the fonts from the web, add those to `./inst/fonts` and then register the fonts : 
+
+```{r}
+library(sysfonts)
+library(showtext)
+
+# Ensure the path is correct and use an absolute path if needed
+font_add("<font_name>", "./inst/fonts/<font_name>.ttf")
+
+# Enable showtext for font rendering in plots
+showtext_auto()
+```
+
 ## Acknowledgements
 
 The data is available under the [Open Database License](https://www.openstreetmap.org/copyright).

@@ -23,6 +23,7 @@ Imports:
     leaflet,
     leaflet.extras,
     methods,
+    memoise,
     osmdata,
     progress,
     s2,
