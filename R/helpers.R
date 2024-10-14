@@ -14,63 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# Memoise the osmdata_sf function aka caching of data to avoid redundant calls to osmdata
-# Create a caching wrapper function
-# Modify the caching wrapper to enable persistent caching
-# caching_wrapper <- function(func, cache_dir = tempdir()) {
-#   # Memoise with filesystem-based cache
-#   memoised_func <- memoise(func, cache = cache_filesystem(cache_dir))
-#   
-#   clear_cache <- function() {
-#     forget(memoised_func)
-#   }
-#   
-#   list(
-#     memoised_func = memoised_func,
-#     clear_cache = clear_cache
-#   )
-# }
-# 
-# .memoized_osmdata_sf <- function(cache = T, cache_dir = NULL){
-#   if(is.null(cache_dir)){
-#     documents_path <- file.path(path.expand("~"))
-#     cache_dir = file.path(documents_path, "rcityviews")
-#     if(!dir.exists(cache_dir)){
-#       dir.create(cache_dir)
-#     }
-#   }
-#   memoized_osmdata_sf <- memoise(osmdata::osmdata_sf, cache = cache_filesystem(cache_dir))
-# }
-
-cached_buildCity_wrapper <- function(cache = TRUE, persistent = TRUE, clear_cache = FALSE) {
-  cache_dir <- file.path(path.expand("~"), "Documents", "rcityview")
-  
-  # Set up persistent cache directory if it doesn't exist
-  if (persistent && !dir.exists(cache_dir)) dir.create(cache_dir, recursive = TRUE)
-  
-  # Clear cache if requested
-  if (clear_cache) {
-    if (persistent && dir.exists(cache_dir)) {
-      unlink(cache_dir, recursive = TRUE)
-      message("Persistent cache cleared.")
-    } else if (cache) {
-      message("In-memory cache cleared.")
-    }
-  }
-  
-  # Set up caching mechanism
-  if (cache) {
-    if (persistent) {
-      return(memoise(.buildCity, cache = cache_filesystem(cache_dir)))
-    } else {
-      return(memoise(.buildCity)) # In-memory caching
-    }
-  } else {
-    return(.buildCity) # No caching
-  }
-}
-
-
 .getCity <- function(name) {
   if (is.null(name)) {
     city <- .randomCity(NULL)
