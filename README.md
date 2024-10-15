@@ -78,7 +78,9 @@ Second, once you have obtained the name of the city you want to view or have
 specified a location of a city, you can use the `cityview()` function to create
 a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g.,
 `zoom > 1`, decreases computation time) or zoom out of your city (e.g.,
-`zoom < 0.5`, increases computation time).
+`zoom < 0.5`, increases computation time). By default, `cityview()` is called
+with the `cache = TRUE` flag, which means that it will cache the map data so
+that you can quickly try out different themes (see below).
 
 ```r
 p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)
@@ -145,14 +147,14 @@ demonstrated in the code block below.
 myTheme <- list(
   colors = list(
     background = "#232323",
-    water = NA,
-    landuse = NA,
-    contours = NA,
+    water = "#232323",
+    landuse = "#232323",
+    contours = "#232323",
     streets = "#d7b174",
     rails = c("#d7b174", "#232323"),
-    buildings = NA,
+    buildings = "#232323",
     text = "#ffffff",
-    waterlines = NA
+    waterlines = "#232323"
   ),
   font = list(
     family = "serif",
@@ -186,6 +188,14 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
 <p align="center">
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/Rio.png' width='100%'>
 </p>
+
+To use a custom font in `theme[["font"]][["family"]]`, simply donwload a `.ttf`
+file of the font from the web, save it as `path/to/font/<font_name>.ttf` and
+then register the font via the code below.
+
+```r
+sysfonts::font_add("<font_name>", "path/to/font/<font_name>.ttf")
+```
 
 ### Enclosing the map
 

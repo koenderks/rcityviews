@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .onLoad <- function(libname, pkgname) {
+  # Load fonts
   sysfonts::font_add_google("Caveat")
   sysfonts::font_add_google("Imbue")
   sysfonts::font_add_google("Damion")
@@ -24,8 +25,12 @@
   sysfonts::font_add_google("Walter Turncoat")
   sysfonts::font_add("American Uncial Regular", system.file("fonts", "uncial.otf", package = "rcityviews"))
   sysfonts::font_add("Rage", system.file("fonts", "rage.ttf", package = "rcityviews"))
+  # Call showtext_auto
   showtext::showtext_auto()
+  # Set overpass url
   osmdata::set_overpass_url("https://overpass-api.de/api/interpreter")
+  # Memoise function for requesting data (see https://memoise.r-lib.org/reference/memoise.html)
+  .memoiseRequestData <<- memoise::memoise(.nonMemoiseRequestData)
 }
 
 .onAttach <- function(libname, pkgname) {

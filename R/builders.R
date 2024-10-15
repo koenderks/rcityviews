@@ -13,675 +13,705 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.buildCity <- function(city, bbox, zoom, panel, themeOptions, border, halftone, legend, places, cropped, borderPoints, license, verbose, ticks, shiny) {
-  label <- NULL
+.nonMemoiseRequestData <- function(city, bbox, zoom, panel, border, cropped, verbose, shiny) {
+  ticks <- 60
   if (verbose) {
     # Initialize progress bar ##################################################
     progBar <- progress::progress_bar$new(format = "  :spin [:bar] :percent | Time remaining: :eta", total = ticks, clear = FALSE, show_after = 0)
     progBar$tick(0)
     progBar$message(paste0("Retrieving \u00A9 OpenStreetMap features for ", city[["name"]], ", ", city[["country"]]))
   }
-  # Scale the streets with the zoom
-  themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
-  themeOptions[["size"]][["borders"]] <- lapply(themeOptions[["size"]][["borders"]], FUN = "*", zoom)
-  # Initialize empty plot ######################################################
-  int_p <- ggplot2::ggplot()
+  # Initialize empty list ######################################################
+  imgData <- list()
   .tick(verbose, progBar, ticks, shiny)
   # Ocean and land features get special treatment ##############################
   query <- osmdata::osmdata_sf(q = osmdata::add_osm_feature(opq = bbox, key = "natural", value = "coastline"))
   if (!is.null(query[["osm_lines"]])) {
     motherObj <- .line2poly(obj = query[["osm_lines"]], bbox = panel)
     if (!is.null(motherObj[["sea"]])) {
-      obj <- .checkAndCrop(motherObj[["sea"]][["geometry"]], cropped, border)
-      int_p <- int_p + ggplot2::geom_sf(
-        data = obj,
-        fill = themeOptions[["colors"]][["water"]],
-        color = themeOptions[["colors"]][["waterlines"]],
-        linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-        inherit.aes = FALSE
-      )
+      imgData[["layer1"]] <- .checkAndCrop(motherObj[["sea"]][["geometry"]], cropped, border)
     }
     if (!is.null(motherObj[["land"]])) {
-      obj <- .checkAndCrop(motherObj[["land"]][["geometry"]], cropped, border)
-      int_p <- int_p + ggplot2::geom_sf(
-        data = obj,
-        fill = themeOptions[["colors"]][["background"]],
-        color = themeOptions[["colors"]][["contours"]],
-        linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-        inherit.aes = FALSE
-      )
+      imgData[["layer2"]] <- .checkAndCrop(motherObj[["land"]][["geometry"]], cropped, border)
     }
     if (!is.null(motherObj[["islands"]])) {
-      obj <- .checkAndCrop(motherObj[["islands"]][["geometry"]], cropped, border)
-      int_p <- int_p + ggplot2::geom_sf(
-        data = obj,
-        fill = themeOptions[["colors"]][["background"]],
-        color = themeOptions[["colors"]][["contours"]],
-        linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-        inherit.aes = FALSE
-      )
+      imgData[["layer3"]] <- .checkAndCrop(motherObj[["islands"]][["geometry"]], cropped, border)
     }
   }
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"coastline\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = themeOptions[["colors"]][["background"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer4"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"coastline\"")
   .tick(verbose, progBar, ticks, shiny)
   # Landuse ####################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"park\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer5"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"park\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"forest\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer6"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"forest\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wood\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer7"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wood\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"grass\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer8"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"grass\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"scrub\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer9"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"scrub\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"mud\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer10"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"mud\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"beach\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer11"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"beach\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"meadow\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer12"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"meadow\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"farmland\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer13"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"farmland\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wood\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer14"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wood\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"cemetery\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer15"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"cemetery\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"construction\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer16"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"landuse\"=\"construction\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"amenity\"=\"parking\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer17"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"amenity\"=\"parking\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"playground\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer18"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"playground\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"pitch\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer19"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"pitch\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"dog_park\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer20"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"dog_park\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"garden\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["landuse"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer21"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"leisure\"=\"garden\"")
   .tick(verbose, progBar, ticks, shiny)
   # Water ######################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"river\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    fill = themeOptions[["colors"]][["water"]],
-    color = themeOptions[["colors"]][["waterlines"]],
-    linewidth = themeOptions[["size"]][["borders"]][["river"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer22"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"river\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"canal\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    fill = themeOptions[["colors"]][["water"]],
-    color = themeOptions[["colors"]][["waterlines"]],
-    linewidth = themeOptions[["size"]][["borders"]][["canal"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer23"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"canal\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dock\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = themeOptions[["colors"]][["water"]],
-    color = themeOptions[["colors"]][["waterlines"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer24"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dock\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"water\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = themeOptions[["colors"]][["water"]],
-    color = themeOptions[["colors"]][["waterlines"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer25"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"water\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer26"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wetland\"")
   .tick(verbose, progBar, ticks, shiny)
   # Islands ####################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wetland\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = themeOptions[["colors"]][["background"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer27"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"islet\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"islet\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = themeOptions[["colors"]][["background"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"man_made\"=\"pier\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["streets"]][["path"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer28"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"man_made\"=\"pier\"")
   .tick(verbose, progBar, ticks, shiny)
   # Water lines ################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"riverbank\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["water"]],
-    linewidth = themeOptions[["size"]][["borders"]][["water"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer29"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"riverbank\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"stream\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["water"]],
-    linewidth = themeOptions[["size"]][["borders"]][["water"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer30"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"stream\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"ditch\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["water"]],
-    linewidth = themeOptions[["size"]][["borders"]][["water"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer31"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"ditch\"")
   .tick(verbose, progBar, ticks, shiny)
   # Landuse lines ##############################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"coastline\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer32"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"coastline\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"peninsula\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer33"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"peninsula\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"archipelago\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
+  imgData[["layer34"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"archipelago\"")
   .tick(verbose, progBar, ticks, shiny)
   # Airports ###################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"aeroway\"=\"taxiway\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer35"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"aeroway\"=\"taxiway\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"aeroway\"=\"runway\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["streets"]][["runway"]],
-    inherit.aes = FALSE
-  )
+  imgData[["layer36"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"aeroway\"=\"runway\"")
   .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"railway\"=\"rail\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["rails"]][1],
-    linewidth = themeOptions[["size"]][["streets"]][["rails"]],
-    inherit.aes = FALSE
-  ) +
+  imgData[["layer37"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"railway\"=\"rail\"")
+  .tick(verbose, progBar, ticks, shiny)
+  # Small streets ##############################################################
+  imgData[["layer38"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dam\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer39"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"lock_gate\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer40"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"sluice_gate\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer41"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"bridge\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer42"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"footway\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer43"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"cycleway\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer44"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"pedestrian\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer45"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"path\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer46"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"residential\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer47"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"living_street\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer48"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"unclassified\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer49"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"service\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer50"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"construction\"")
+  .tick(verbose, progBar, ticks, shiny)
+  # Medium streets #############################################################
+  imgData[["layer51"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary_link\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer52"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer53"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary_link\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer54"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary\"")
+  .tick(verbose, progBar, ticks, shiny)
+  # Large streets ##############################################################
+  imgData[["layer55"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary_link\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer56"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer57"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_link\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer58"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_loop\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer59"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer60"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
+  .tick(verbose, progBar, ticks, shiny)
+  imgData[["layer61"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway\"")
+  .tick(verbose, progBar, ticks, shiny)
+  # Buildings ##################################################################
+  imgData[["layer62"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"building\"")
+  .tick(verbose, progBar, ticks, shiny)
+  return(imgData)
+}
+
+.buildCity <- function(imgData, city, bbox, zoom, panel, themeOptions, border, halftone, legend, places, cropped, borderPoints, license) {
+  label <- NULL
+  # Scale the streets with the zoom
+  themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
+  themeOptions[["size"]][["borders"]] <- lapply(themeOptions[["size"]][["borders"]], FUN = "*", zoom)
+  # Initialize empty plot ######################################################
+  int_p <- ggplot2::ggplot()
+  # Ocean and land features ####################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer1"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer2"]],
+      fill = themeOptions[["colors"]][["background"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer3"]],
+      fill = themeOptions[["colors"]][["background"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer4"]][["polygons"]],
+      fill = themeOptions[["colors"]][["background"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    )
+  # Landuse ####################################################################
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer5"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer5"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer6"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer6"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer7"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer7"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer8"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer8"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer9"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer9"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer10"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer10"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer11"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer11"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer12"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer12"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer13"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer13"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer14"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer14"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer15"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer15"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer16"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer16"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer17"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer17"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer18"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer18"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer19"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer19"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer20"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer20"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer21"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["landuse"]], size = length(imgData[["layer21"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    )
+  # Water ######################################################################
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer22"]][["lines"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
+      linewidth = themeOptions[["size"]][["borders"]][["river"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer23"]][["lines"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
+      linewidth = themeOptions[["size"]][["borders"]][["canal"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer24"]][["polygons"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer25"]][["polygons"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer26"]][["polygons"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    )
+  # Islands ####################################################################
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer27"]][["polygons"]],
+      fill = themeOptions[["colors"]][["background"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer28"]][["lines"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["streets"]][["path"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
+  # Water lines ################################################################
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer29"]][["lines"]],
+      color = themeOptions[["colors"]][["water"]],
+      linewidth = themeOptions[["size"]][["borders"]][["water"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer30"]][["lines"]],
+      color = themeOptions[["colors"]][["water"]],
+      linewidth = themeOptions[["size"]][["borders"]][["water"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer31"]][["lines"]],
+      color = themeOptions[["colors"]][["water"]],
+      linewidth = themeOptions[["size"]][["borders"]][["water"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
+  # Landuse lines ##############################################################
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer32"]][["lines"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer33"]][["lines"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer34"]][["lines"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    )
+  # Airports ###################################################################
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer35"]][["lines"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer36"]][["lines"]],
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["streets"]][["runway"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer37"]][["lines"]],
+      color = themeOptions[["colors"]][["rails"]][1],
+      linewidth = themeOptions[["size"]][["streets"]][["rails"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer37"]][["lines"]],
       color = themeOptions[["colors"]][["rails"]][length(themeOptions[["colors"]][["rails"]])],
       linewidth = themeOptions[["size"]][["streets"]][["rails"]],
       linetype = "dashed",
       inherit.aes = FALSE
     )
-  .tick(verbose, progBar, ticks, shiny)
   # Small streets ##############################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"dam\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"lock_gate\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"sluice_gate\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"waterway\"=\"bridge\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["structure"]],
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"footway\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["path"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"cycleway\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["path"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"pedestrian\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["path"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"path\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["path"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"residential\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"living_street\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"unclassified\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"service\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"construction\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["lines"]],
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["residential"]],
-    lineend = "round",
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
+
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer38"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["structure"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer39"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["structure"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer40"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["structure"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer41"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["structure"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer42"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["path"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer43"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["path"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer44"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["path"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer45"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["path"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer46"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["residential"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer47"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["residential"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer48"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["residential"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer49"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["residential"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer50"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["residential"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer51"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
+      inherit.aes = FALSE
+    )
   # Medium streets #############################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary_link\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
-    inherit.aes = FALSE
-  ) +
+  int_p <- int_p +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer51"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"tertiary\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer52"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer52"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary_link\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer53"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer53"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"secondary\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer54"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer54"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["secondary"]],
       lineend = "round",
       inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer55"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
+      inherit.aes = FALSE
     )
-  .tick(verbose, progBar, ticks, shiny)
   # Large streets ##############################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary_link\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
-    inherit.aes = FALSE
-  ) +
+  int_p <- int_p +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer55"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"primary\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer56"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer56"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_link\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer57"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer57"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk_loop\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer58"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer58"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"trunk\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["primary"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer59"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["primary"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer59"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway_link\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
-    inherit.aes = FALSE
-  ) +
+    ) +
     ggplot2::geom_sf(
-      data = obj[["lines"]],
+      data = imgData[["layer60"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer60"]][["lines"]],
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
+      lineend = "round",
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer61"]][["polygons"]],
+      fill = NA,
+      color = themeOptions[["colors"]][["streets"]],
+      linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
+      inherit.aes = FALSE
+    ) +
+    ggplot2::geom_sf(
+      data = imgData[["layer61"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
       lineend = "round",
       inherit.aes = FALSE
     )
-  .tick(verbose, progBar, ticks, shiny)
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"highway\"=\"motorway\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = NA,
-    color = themeOptions[["colors"]][["streets"]],
-    linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
-    inherit.aes = FALSE
-  ) +
-    ggplot2::geom_sf(
-      data = obj[["lines"]],
-      color = themeOptions[["colors"]][["streets"]],
-      linewidth = themeOptions[["size"]][["streets"]][["motorway"]],
-      lineend = "round",
-      inherit.aes = FALSE
-    )
-  .tick(verbose, progBar, ticks, shiny)
   # Buildings ##################################################################
-  obj <- .getOsmFeatures(bbox, cropped, border, features = "\"building\"")
-  int_p <- int_p + ggplot2::geom_sf(
-    data = obj[["polygons"]],
-    fill = sample(themeOptions[["colors"]][["buildings"]], size = length(obj[["polygons"]]), replace = TRUE),
-    color = themeOptions[["colors"]][["contours"]],
-    linewidth = themeOptions[["size"]][["borders"]][["contours"]],
-    inherit.aes = FALSE
-  )
-  .tick(verbose, progBar, ticks, shiny)
+  int_p <- int_p +
+    ggplot2::geom_sf(
+      data = imgData[["layer62"]][["polygons"]],
+      fill = sample(themeOptions[["colors"]][["buildings"]], size = length(imgData[["layer62"]][["polygons"]]), replace = TRUE),
+      color = themeOptions[["colors"]][["contours"]],
+      linewidth = themeOptions[["size"]][["borders"]][["contours"]],
+      inherit.aes = FALSE
+    )
   # Specify coordinate system for plot #########################################
   int_p <- int_p + ggplot2::coord_sf(xlim = c(panel[1], panel[3]), ylim = c(panel[2], panel[4]), expand = (border != "none")) +
     ggplot2::theme_void()
@@ -704,7 +734,6 @@
   # Add names of places
   if (places > 0) {
     int_p <- .addPlaces(int_p, places, themeOptions, bbox, border, cropped, city)
-    .tick(verbose, progBar, ticks, shiny)
   }
   # Draw the plot
   p <- cowplot::ggdraw(int_p)
@@ -715,7 +744,6 @@
   # Add halftone
   if (!is.null(halftone)) {
     p <- .addHalftone(p, halftone)
-    .tick(verbose, progBar, ticks, shiny)
   }
   # Add the city name to the plot ##############################################
   plotName <- if (is.null(themeOptions[["font"]][["append"]])) city[["name"]] else paste0(themeOptions[["font"]][["append"]], city[["name"]], themeOptions[["font"]][["append"]])
@@ -761,7 +789,6 @@
       hjust = 1
     )
   }
-  .tick(verbose, progBar, ticks, shiny)
   return(p)
 }
 

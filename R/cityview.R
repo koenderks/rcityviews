@@ -39,6 +39,7 @@
 #'   timeout = 25,
 #'   filename = NULL,
 #'   verbose = TRUE,
+#'   cache = TRUE,
 #'   bot = FALSE
 #' )
 #'
@@ -80,6 +81,9 @@
 #' @param filename character. If specified, the function exports the plot at an
 #'                 appropriate size and does not return a \code{ggplot2} object.
 #' @param verbose  logical. Whether to show a progress bar during execution.
+#' @param cache    logical. Whether to cache the data for the image so that they
+#'                 do not need to be requested again when calling the function
+#'                 with a different theme.
 #' @param bot      logical. Enable functionality used by the Twitter bot.
 #'
 #' @details The \code{theme} argument can take a custom list as input (see the
@@ -141,14 +145,14 @@
 #' myTheme <- list(
 #'   colors = list(
 #'     background = "#232323",
-#'     water = NA,
-#'     landuse = NA,
-#'     contours = NA,
+#'     water = "#232323",
+#'     landuse = "#232323",
+#'     contours = "#232323",
 #'     streets = "#d7b174",
 #'     rails = c("#d7b174", "#232323"),
-#'     buildings = NA,
+#'     buildings = "#232323",
 #'     text = "#ffffff",
-#'     waterlines = NA
+#'     waterlines = "#232323"
 #'   ),
 #'   font = list(
 #'     family = "serif",
@@ -200,6 +204,7 @@ cityview <- function(name = NULL,
                      timeout = 25,
                      filename = NULL,
                      verbose = TRUE,
+                     cache = TRUE,
                      bot = FALSE) {
   # Error handling #############################################################
   stopifnot("argument 'zoom' must be a single number > 0" = !is.null(zoom) && is.numeric(zoom) && length(zoom) == 1L && zoom > 0)
@@ -208,16 +213,26 @@ cityview <- function(name = NULL,
   stopifnot("argument 'license' must be a single logical" = !is.null(license) && is.logical(license) && length(license) == 1L)
   stopifnot("argument 'timeout' must be a single number >= 0" = !is.null(timeout) && is.numeric(timeout) && timeout >= 0 && length(timeout) == 1L)
   stopifnot("argument 'verbose' must be a single logical" = !is.null(verbose) && is.logical(verbose) && length(verbose) == 1L)
+  stopifnot("argument 'cache' must be a single logical" = !is.null(cache) && is.logical(cache) && length(cache) == 1L)
   stopifnot("argument 'bot' must be a single logical" = !is.null(bot) && is.logical(bot) && length(bot) == 1L)
+  if (isTRUE(bot)) {
+    stopifnot("argument 'bot' should not be called in an interactive session" = !interactive())
+  }
+  if (!is.null(halftone)) {
+    stopifnot("'halftone' must be a single character representing a valid color" = .isColor(halftone) && length(halftone) == 1L)
+  }
   # Set image options ##########################################################
   if (is.list(theme)) {
     themeOptions <- theme
+    stopifnot("`theme` should not contain NA values" = !any(sapply(themeOptions, anyNA)))
+    stopifnot("the `colors` element in `theme` should contain all valid color representations" = all(sapply(themeOptions[["colors"]], .isColor)))
+    stopifnot("the `borders` list in the `size` element in `theme` should contain all numeric values" = all(sapply(themeOptions[["size"]][["borders"]], is.numeric)))
+    stopifnot("the `streets` list in the `size` element in `theme` should contain all numeric values" = all(sapply(themeOptions[["size"]][["streets"]], is.numeric)))
   } else {
     theme <- match.arg(theme)
     themeOptions <- .themeOptions(theme)
   }
   border <- match.arg(border)
-  ticks <- 61 + as.numeric(!is.null(halftone)) + as.numeric(places > 0)
   # Look up city ###############################################################
   city <- .getCity(name)
   if (is.null(city)) {
@@ -230,10 +245,23 @@ cityview <- function(name = NULL,
   boundaries <- .getBoundaries(city = city, border = border, zoom = zoom)
   # Initialize the OSM query ###################################################
   bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = timeout)
+  # Determine whether to use caching
+  .requestData <- if (cache) .memoiseRequestData else .nonMemoiseRequestData
   # Build the plot #############################################################
   try <- try(
     {
+      imgData <- .requestData(
+        city = city,
+        bbox = bbox,
+        zoom = boundaries[["zoom"]],
+        panel = boundaries[["panel"]],
+        border = border,
+        cropped = boundaries[["cropped"]],
+        verbose = verbose,
+        shiny = FALSE
+      )
       image <- .buildCity(
+        imgData = imgData,
         city = city,
         bbox = bbox,
         zoom = boundaries[["zoom"]],
@@ -245,10 +273,7 @@ cityview <- function(name = NULL,
         places = places,
         cropped = boundaries[["cropped"]],
         borderPoints = boundaries[["borderPoints"]],
-        license = license,
-        verbose = verbose,
-        ticks = ticks,
-        shiny = FALSE
+        license = license
       )
     },
     silent = TRUE
@@ -260,6 +285,9 @@ cityview <- function(name = NULL,
     } else {
       stop(try[[1]]) # Print original error message
     }
+  }
+  if (cache && utils::object.size(imgData) > (1024 * 1024^2)) {
+    message("The map data is not cached because it exceeds the maximum cache size of 1024 MB.")
   }
   # Save or return the plot ####################################################
   if (is.null(filename)) {

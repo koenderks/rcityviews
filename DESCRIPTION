@@ -1,7 +1,7 @@
 Package: rcityviews
 Title: Stylized City Maps using OpenStreetMap (OSM) Data
-Version: 1.1.1
-Date: 2023-05-28
+Version: 1.1.2
+Date: 2024-10-15
 Authors@R:
     person(given = "Koen",
            family = "Derks",
@@ -17,11 +17,13 @@ Imports:
     geosphere,
     ggplot2 (>= 3.4.2),
     ggspatial,
+    grDevices,
     leaflet,
     leaflet.extras,
     methods,
     osmdata,
     progress,
+    memoise,
     s2,
     sf,
     shadowtext,
