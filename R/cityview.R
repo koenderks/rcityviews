@@ -215,9 +215,6 @@ cityview <- function(name = NULL,
   stopifnot("argument 'verbose' must be a single logical" = !is.null(verbose) && is.logical(verbose) && length(verbose) == 1L)
   stopifnot("argument 'cache' must be a single logical" = !is.null(cache) && is.logical(cache) && length(cache) == 1L)
   stopifnot("argument 'bot' must be a single logical" = !is.null(bot) && is.logical(bot) && length(bot) == 1L)
-  if (isTRUE(bot)) {
-    stopifnot("argument 'bot' should not be called in an interactive session" = !interactive())
-  }
   if (!is.null(halftone)) {
     stopifnot("'halftone' must be a single character representing a valid color" = .isColor(halftone) && length(halftone) == 1L)
   }
