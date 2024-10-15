@@ -34,7 +34,7 @@ The functionality in this repository is implemented in the `R` package
 GitHub by running the command below in `R`.
 
 ```r
-# install.packages("remotes") # Uncomment if you do not have the 'remotes' package installed
+# install.packages("remotes") # Uncomment if 'remotes' package is not installed
 remotes::install_github("koenderks/rcityviews", dependencies = TRUE)
 ```
 
