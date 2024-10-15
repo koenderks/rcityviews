@@ -32,6 +32,7 @@
 #' @seealso \code{\link{list_cities}}
 #'          \code{\link{cityview}}
 #'          \code{\link{new_city}}
+#'          \code{\link{city_themes}}
 #'
 #' @keywords create cities shiny
 #'

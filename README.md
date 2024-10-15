@@ -189,6 +189,19 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/Rio.png' width='100%'>
 </p>
 
+You can store the custom theme in the package cache for retrieval in a future R
+session with the `city_themes()` function. This is illustrated below for
+the `myTheme` list.
+
+```r
+# Store the theme in the persistent cache
+city_themes(name = "blackyellow", theme = myTheme)
+# Retreive the theme from the persistent cache (e.g., in a future R session)
+city_themes(name = "blackyellow")
+# Remove the theme from the persistent cache
+city_themes(name = "blackyellow", remove = TRUE)
+```
+
 To use a custom font in `theme[["font"]][["family"]]`, simply donwload a `.ttf`
 file of the font from the web, save it as `path/to/font/<font_name>.ttf` and
 then register the font via the code below.

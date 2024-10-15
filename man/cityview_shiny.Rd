@@ -31,6 +31,7 @@ cityview_shiny()
 \code{\link{list_cities}}
          \code{\link{cityview}}
          \code{\link{new_city}}
+         \code{\link{city_themes}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}

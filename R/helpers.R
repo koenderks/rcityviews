@@ -269,3 +269,47 @@
   )
   return(themeOptions)
 }
+
+.checkThemeOptions <- function(themeOptions) {
+  # Check for NA's in theme
+  stopifnot("'theme' should not contain NA values" = !any(sapply(themeOptions, anyNA)))
+  # Checks for colors sublist
+  stopifnot("'theme' should contain a list element named 'colors'" = !is.null(themeOptions[["colors"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'background'" = !is.null(themeOptions[["colors"]][["background"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'water'" = !is.null(themeOptions[["colors"]][["water"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'landuse'" = !is.null(themeOptions[["colors"]][["landuse"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'contours'" = !is.null(themeOptions[["colors"]][["contours"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'streets'" = !is.null(themeOptions[["colors"]][["streets"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'rails'" = !is.null(themeOptions[["colors"]][["rails"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'buildings'" = !is.null(themeOptions[["colors"]][["buildings"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'text'" = !is.null(themeOptions[["colors"]][["text"]]))
+  stopifnot("the 'color' list in 'theme' should contain an entry named 'waterlines'" = !is.null(themeOptions[["colors"]][["waterlines"]]))
+  stopifnot("the 'colors' list in 'theme' should contain all valid color representations" = all(sapply(themeOptions[["colors"]], .isColor)))
+  # Checks for font sublist
+  stopifnot("'theme' should contain a list element named 'font'" = !is.null(themeOptions[["font"]]))
+  stopifnot("the 'font' list in 'theme' should contain an entry named 'family'" = !is.null(themeOptions[["font"]][["family"]]))
+  stopifnot("the 'font' list in 'theme' should contain an entry named 'face'" = !is.null(themeOptions[["font"]][["family"]]))
+  stopifnot("the 'font' list in 'theme' should contain an entry named 'scale'" = !is.null(themeOptions[["font"]][["family"]]))
+  stopifnot("the 'font' list in 'theme' should contain an entry named 'append'" = !is.null(themeOptions[["font"]][["family"]]))
+  # Checks for size sublist
+  stopifnot("'theme' should contain a list element named 'size'" = !is.null(themeOptions[["size"]]))
+  # Checks for borders sublist
+  stopifnot("the 'size' list in 'theme' should contain a list named 'borders'" = !is.null(themeOptions[["size"]][["borders"]]))
+  stopifnot("the 'borders' list in the 'size' list in 'theme' should contain an entry named 'contours'" = !is.null(themeOptions[["size"]][["borders"]][["contours"]]))
+  stopifnot("the 'borders' list in the 'size' list in 'theme' should contain an entry named 'water'" = !is.null(themeOptions[["size"]][["borders"]][["water"]]))
+  stopifnot("the 'borders' list in the 'size' list in 'theme' should contain an entry named 'canal'" = !is.null(themeOptions[["size"]][["borders"]][["canal"]]))
+  stopifnot("the 'borders' list in the 'size' list in 'theme' should contain an entry named 'river'" = !is.null(themeOptions[["size"]][["borders"]][["river"]]))
+  stopifnot("the 'borders' list in the 'size' list in 'theme' should contain all numeric values" = all(sapply(themeOptions[["size"]][["borders"]], is.numeric)))
+  # Checks for streets sublist
+  stopifnot("the 'size' list in 'theme' should contain a list named 'streets'" = !is.null(themeOptions[["size"]][["streets"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'path'" = !is.null(themeOptions[["size"]][["streets"]][["path"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'residential'" = !is.null(themeOptions[["size"]][["streets"]][["residential"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'structure'" = !is.null(themeOptions[["size"]][["streets"]][["structure"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'tertiary'" = !is.null(themeOptions[["size"]][["streets"]][["tertiary"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'secondary'" = !is.null(themeOptions[["size"]][["streets"]][["secondary"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'primary'" = !is.null(themeOptions[["size"]][["streets"]][["primary"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'motorway'" = !is.null(themeOptions[["size"]][["streets"]][["motorway"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'rails'" = !is.null(themeOptions[["size"]][["streets"]][["rails"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'runway'" = !is.null(themeOptions[["size"]][["streets"]][["runway"]]))
+  stopifnot("the 'streets' list in the 'size' list in 'theme' should contain all numeric values" = all(sapply(themeOptions[["size"]][["streets"]], is.numeric)))
+}

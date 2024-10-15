@@ -54,3 +54,8 @@ reference:
     contents:
       - cityview
       - cityview_shiny
+  - title: "Styling a city"
+    desc: >
+      These functions help you to style the city.
+    contents:
+      - city_themes

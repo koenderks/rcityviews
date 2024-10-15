@@ -186,6 +186,7 @@ cityview(
 \code{\link{list_cities}}
          \code{\link{cityview_shiny}}
          \code{\link{new_city}}
+         \code{\link{city_themes}}
 }
 \author{
 Koen Derks, \email{koen-derks@hotmail.com}

@@ -31,6 +31,7 @@
 #' @seealso \code{\link{cityview}}
 #'          \code{\link{cityview_shiny}}
 #'          \code{\link{new_city}}
+#'          \code{\link{city_themes}}
 #'
 #' @keywords cities search
 #'

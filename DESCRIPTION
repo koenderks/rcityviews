@@ -24,6 +24,7 @@ Imports:
     osmdata,
     progress,
     memoise,
+    rappdirs,
     s2,
     sf,
     shadowtext,

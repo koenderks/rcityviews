@@ -35,6 +35,7 @@
 #' @seealso \code{\link{cityview}}
 #'          \code{\link{cityview_shiny}}
 #'          \code{\link{list_cities}}
+#'          \code{\link{city_themes}}
 #'
 #' @keywords cities new
 #'

@@ -129,6 +129,7 @@
 #' @seealso \code{\link{list_cities}}
 #'          \code{\link{cityview_shiny}}
 #'          \code{\link{new_city}}
+#'          \code{\link{city_themes}}
 #'
 #' @keywords create cities
 #'
@@ -219,12 +220,11 @@ cityview <- function(name = NULL,
     stopifnot("'halftone' must be a single character representing a valid color" = .isColor(halftone) && length(halftone) == 1L)
   }
   # Set image options ##########################################################
-  if (is.list(theme)) {
+  if (inherits(theme, "rcityview.theme")) {
     themeOptions <- theme
-    stopifnot("`theme` should not contain NA values" = !any(sapply(themeOptions, anyNA)))
-    stopifnot("the `colors` element in `theme` should contain all valid color representations" = all(sapply(themeOptions[["colors"]], .isColor)))
-    stopifnot("the `borders` list in the `size` element in `theme` should contain all numeric values" = all(sapply(themeOptions[["size"]][["borders"]], is.numeric)))
-    stopifnot("the `streets` list in the `size` element in `theme` should contain all numeric values" = all(sapply(themeOptions[["size"]][["streets"]], is.numeric)))
+  } else if (is.list(theme)) {
+    themeOptions <- theme
+    .checkThemeOptions(themeOptions)
   } else {
     theme <- match.arg(theme)
     themeOptions <- .themeOptions(theme)
