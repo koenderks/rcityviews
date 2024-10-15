@@ -135,7 +135,15 @@ city_themes <- function(name,
         }
       }
     } else {
-      stopifnot("the 'theme' argument requires a non-null list input" = !is.null(theme) && is.list(theme))
+      if (is.null(theme)) {
+        if (length(existing_themes) == 0) {
+          message(paste0("no theme '", name, "' found, please provide the 'theme' argument"))
+        } else {
+          message(paste0("no theme '", name, "' found, please provide the 'theme' argument or choose an existing theme from the cache:\n  "), paste0(existing_themes, sep = "\n  "))
+        }
+        return(invisible())
+      }
+      stopifnot("the 'theme' argument requires a list input" = is.list(theme))
       .checkThemeOptions(theme)
       saveRDS(theme, theme_file)
     }
