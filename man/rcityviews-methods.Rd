@@ -8,9 +8,9 @@
 \method{print}{rcityviewsTheme}(x, ...)
 }
 \arguments{
-\item{...}{further arguments, currently ignored.}
+\item{x}{an object of class \code{rcityviewsTheme}.}
 
-\item{object, x}{an object of class \code{rcityviewsTheme}.}
+\item{...}{further arguments, currently ignored.}
 }
 \value{
 The \code{print} methods simply print and return nothing.

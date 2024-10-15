@@ -18,8 +18,8 @@
 #' Methods defined for objects returned from the \code{\link{city_themes}}
 #'   functions.
 #'
-#' @param object,x    an object of class \code{rcityviewsTheme}.
-#' @param ...         further arguments, currently ignored.
+#' @param x    an object of class \code{rcityviewsTheme}.
+#' @param ...  further arguments, currently ignored.
 #'
 #' @return
 #' The \code{print} methods simply print and return nothing.
