@@ -7,7 +7,6 @@ authors:
     href: https://koenderks.com
 
 template:
-  bootstrap: 5
   params:
     bootswatch: cosmo
 
