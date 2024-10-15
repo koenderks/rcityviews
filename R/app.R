@@ -69,7 +69,7 @@
 )
 
 .shiny_server <- function(input, output, session) {
-  city <- .randomCity(sample.int(100000, size = 1))
+  city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
   shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
   shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
   output[["osm"]] <- leaflet::renderLeaflet({
@@ -79,7 +79,7 @@
       leaflet.extras::addSearchOSM()
   })
   shiny::observeEvent(input[["randomize"]], {
-    city <- .randomCity(sample.int(100000, size = 1))
+    city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
     shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
     shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
     output[["osm"]] <- leaflet::renderLeaflet({
@@ -91,15 +91,15 @@
   })
   output[["plotObject"]] <- shiny::renderPlot(NULL)
   shiny::observeEvent(input[["run"]], {
-    themeOptions <- .themeOptions(tolower(input[["theme"]]))
+    themeOptions <- rcityviews:::.themeOptions(tolower(input[["theme"]]))
     long <- stats::median(c(input[["osm_bounds"]][["east"]], input[["osm_bounds"]][["west"]]))
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)
-    boundaries <- .getBoundaries(city, tolower(input[["border"]]), input = input)
+    boundaries <- rcityviews:::.getBoundaries(city, tolower(input[["border"]]), input = input)
     bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 1000)
     try <- try({
       shiny::withProgress(message = "Creating preview", value = 0, min = 0, max = 1, expr = {
-        imgData <- .memoiseRequestData(
+        imgData <- rcityviews:::.memoiseRequestData(
           city = city,
           bbox = bbox,
           zoom = 0.0225 / (city[["lat"]] - boundaries[["panel"]][2]),
@@ -119,7 +119,7 @@
       }
       return()
     }
-    image <- .buildCity(
+    image <- rcityviews:::.buildCity(
       imgData = imgData,
       city = city,
       bbox = bbox,
