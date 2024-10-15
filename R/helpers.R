@@ -63,7 +63,7 @@
 }
 
 .isColor <- function(x) {
-  res <- try(col2rgb(x), silent = TRUE)
+  res <- try(grDevices::col2rgb(x), silent = TRUE)
   return(!inherits(res, "try-error"))
 }
 

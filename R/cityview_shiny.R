@@ -43,6 +43,7 @@
 #' cityview_shiny()
 #' }
 #' @export
+#' @importFrom svglite svglite
 cityview_shiny <- function(launch.browser = FALSE) {
   shiny::shinyApp(
     ui = .shiny_ui, server = .shiny_server,

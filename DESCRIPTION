@@ -17,6 +17,7 @@ Imports:
     geosphere,
     ggplot2 (>= 3.4.2),
     ggspatial,
+    grDevices,
     leaflet,
     leaflet.extras,
     methods,

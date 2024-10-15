@@ -286,7 +286,7 @@ cityview <- function(name = NULL,
       stop(try[[1]]) # Print original error message
     }
   }
-  if (cache && object.size(imgData) > (1024 * 1024^2)) {
+  if (cache && utils::object.size(imgData) > (1024 * 1024^2)) {
     message("The map data is not cached because it exceeds the maximum cache size of 1024 MB.")
   }
   # Save or return the plot ####################################################
