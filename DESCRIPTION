@@ -36,7 +36,7 @@ Imports:
 Suggests:
     rmarkdown,
     testthat
-URL: https://github.com/koenderks/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
+URL: https://github.com/koenderks/rcityviews, https://koenderks.github.io/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
 BugReports: https://github.com/koenderks/rcityviews/issues
 License: GPL (>= 3)
 Encoding: UTF-8
