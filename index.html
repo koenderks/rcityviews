@@ -199,8 +199,16 @@
 <span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Rio de Janeiro"</span>, zoom <span class="op">=</span> <span class="fl">0.5</span>, theme <span class="op">=</span> <span class="va">myTheme</span>, border <span class="op">=</span> <span class="st">"square"</span>, filename <span class="op">=</span> <span class="st">"Rio.png"</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
 <img src="https://github.com/koenderks/rcityviews/raw/development/png/Rio.png" width="100%"></p>
-<p>To use a custom font in <code>theme[["font"]][["family"]]</code>, simply donwload a <code>.ttf</code> file of the font from the web, save it as <code>path/to/font/&lt;font_name&gt;.ttf</code> and then register the font via the code below.</p>
+<p>You can store the custom theme in the package cache for retrieval in a future R session with the <code><a href="reference/city_themes.html">city_themes()</a></code> function. This is illustrated below for the <code>myTheme</code> list.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Store the theme in the persistent cache</span></span>
+<span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span>, theme <span class="op">=</span> <span class="va">myTheme</span><span class="op">)</span></span>
+<span><span class="co"># Retreive the theme from the persistent cache (e.g., in a future R session)</span></span>
+<span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span><span class="op">)</span></span>
+<span><span class="co"># Remove the theme from the persistent cache</span></span>
+<span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span>, remove <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>To use a custom font in <code>theme[["font"]][["family"]]</code>, simply donwload a <code>.ttf</code> file of the font from the web, save it as <code>path/to/font/&lt;font_name&gt;.ttf</code> and then register the font via the code below.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add.html" class="external-link">font_add</a></span><span class="op">(</span><span class="st">"&lt;font_name&gt;"</span>, <span class="st">"path/to/font/&lt;font_name&gt;.ttf"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">

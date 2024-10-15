@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   articles/rcityviews: rcityviews.html
-last_built: 2024-10-15T10:26Z
+last_built: 2024-10-15T14:41Z
 urls:
   reference: https://koenderks.github.io/rcityviews/reference
   article: https://koenderks.github.io/rcityviews/articles
