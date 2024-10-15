@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rcityviews</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@
 <div class="section level3">
 <h3 id="creating-the-map">Creating the map<a class="anchor" aria-label="anchor" href="#creating-the-map"></a>
 </h3>
-<p>Second, once you have obtained the name of the city you want to view or have specified a location of a city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, decreases computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, increases computation time).</p>
+<p>Second, once you have obtained the name of the city you want to view or have specified a location of a city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, decreases computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, increases computation time). By default, <code><a href="reference/cityview.html">cityview()</a></code> is called with the <code>cache = TRUE</code> flag, which means that it will cache the map data so that you can quickly try out different themes (see below).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># or cityview(name = city)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
@@ -161,14 +161,14 @@
 <span><span class="va">myTheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    background <span class="op">=</span> <span class="st">"#232323"</span>,</span>
-<span>    water <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>    landuse <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>    contours <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    water <span class="op">=</span> <span class="st">"#232323"</span>,</span>
+<span>    landuse <span class="op">=</span> <span class="st">"#232323"</span>,</span>
+<span>    contours <span class="op">=</span> <span class="st">"#232323"</span>,</span>
 <span>    streets <span class="op">=</span> <span class="st">"#d7b174"</span>,</span>
 <span>    rails <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#d7b174"</span>, <span class="st">"#232323"</span><span class="op">)</span>,</span>
-<span>    buildings <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    buildings <span class="op">=</span> <span class="st">"#232323"</span>,</span>
 <span>    text <span class="op">=</span> <span class="st">"#ffffff"</span>,</span>
-<span>    waterlines <span class="op">=</span> <span class="cn">NA</span></span>
+<span>    waterlines <span class="op">=</span> <span class="st">"#232323"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    family <span class="op">=</span> <span class="st">"serif"</span>,</span>
@@ -199,6 +199,9 @@
 <span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Rio de Janeiro"</span>, zoom <span class="op">=</span> <span class="fl">0.5</span>, theme <span class="op">=</span> <span class="va">myTheme</span>, border <span class="op">=</span> <span class="st">"square"</span>, filename <span class="op">=</span> <span class="st">"Rio.png"</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
 <img src="https://github.com/koenderks/rcityviews/raw/development/png/Rio.png" width="100%"></p>
+<p>To use a custom font in <code>theme[["font"]][["family"]]</code>, simply donwload a <code>.ttf</code> file of the font from the web, save it as <code>path/to/font/&lt;font_name&gt;.ttf</code> and then register the font via the code below.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add.html" class="external-link">font_add</a></span><span class="op">(</span><span class="st">"&lt;font_name&gt;"</span>, <span class="st">"path/to/font/&lt;font_name&gt;.ttf"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="enclosing-the-map">Enclosing the map<a class="anchor" aria-label="anchor" href="#enclosing-the-map"></a>
