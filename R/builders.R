@@ -84,9 +84,9 @@
   .tick(verbose, progBar, ticks, shiny)
   imgData[["layer25"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"water\"")
   .tick(verbose, progBar, ticks, shiny)
-  # Islands ####################################################################
   imgData[["layer26"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"natural\"=\"wetland\"")
   .tick(verbose, progBar, ticks, shiny)
+  # Islands ####################################################################
   imgData[["layer27"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"place\"=\"islet\"")
   .tick(verbose, progBar, ticks, shiny)
   imgData[["layer28"]] <- .getOsmFeatures(bbox, cropped, border, features = "\"man_made\"=\"pier\"")
@@ -326,7 +326,9 @@
       color = themeOptions[["colors"]][["contours"]],
       linewidth = themeOptions[["size"]][["borders"]][["contours"]],
       inherit.aes = FALSE
-    ) +
+    )
+  # Water ######################################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer22"]][["lines"]],
       fill = themeOptions[["colors"]][["water"]],
@@ -334,9 +336,7 @@
       linewidth = themeOptions[["size"]][["borders"]][["river"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  # Water ######################################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer23"]][["lines"]],
       fill = themeOptions[["colors"]][["water"]],
@@ -361,8 +361,8 @@
     ) +
     ggplot2::geom_sf(
       data = imgData[["layer26"]][["polygons"]],
-      fill = themeOptions[["colors"]][["background"]],
-      color = themeOptions[["colors"]][["contours"]],
+      fill = themeOptions[["colors"]][["water"]],
+      color = themeOptions[["colors"]][["waterlines"]],
       linewidth = themeOptions[["size"]][["borders"]][["contours"]],
       inherit.aes = FALSE
     )
@@ -381,16 +381,16 @@
       linewidth = themeOptions[["size"]][["streets"]][["path"]],
       lineend = "round",
       inherit.aes = FALSE
-    ) +
+    )
+  # Water lines ################################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer29"]][["lines"]],
       color = themeOptions[["colors"]][["water"]],
       linewidth = themeOptions[["size"]][["borders"]][["water"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  # Water lines ################################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer30"]][["lines"]],
       color = themeOptions[["colors"]][["water"]],
@@ -404,16 +404,16 @@
       linewidth = themeOptions[["size"]][["borders"]][["water"]],
       lineend = "round",
       inherit.aes = FALSE
-    ) +
+    )
+  # Landuse lines ##############################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer32"]][["lines"]],
       color = themeOptions[["colors"]][["contours"]],
       linewidth = themeOptions[["size"]][["borders"]][["contours"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  # Landuse lines ##############################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer33"]][["lines"]],
       color = themeOptions[["colors"]][["contours"]],
@@ -427,15 +427,15 @@
       linewidth = themeOptions[["size"]][["borders"]][["contours"]],
       lineend = "round",
       inherit.aes = FALSE
-    ) +
+    )
+  # Airports ###################################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer35"]][["lines"]],
       color = themeOptions[["colors"]][["contours"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       inherit.aes = FALSE
-    )
-  # Airports ###################################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer36"]][["lines"]],
       color = themeOptions[["colors"]][["contours"]],
@@ -454,15 +454,16 @@
       linewidth = themeOptions[["size"]][["streets"]][["rails"]],
       linetype = "dashed",
       inherit.aes = FALSE
-    ) +
+    )
+  # Small streets ##############################################################
+
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer38"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["structure"]],
       inherit.aes = FALSE
-    )
-  # Small streets ##############################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer39"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
@@ -550,16 +551,16 @@
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
       inherit.aes = FALSE
-    ) +
+    )
+  # Medium streets #############################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer51"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["tertiary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  # Medium streets #############################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer52"]][["polygons"]],
       fill = NA,
@@ -608,16 +609,16 @@
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       inherit.aes = FALSE
-    ) +
+    )
+  # Large streets ##############################################################
+  int_p <- int_p +
     ggplot2::geom_sf(
       data = imgData[["layer55"]][["lines"]],
       color = themeOptions[["colors"]][["streets"]],
       linewidth = themeOptions[["size"]][["streets"]][["primary"]],
       lineend = "round",
       inherit.aes = FALSE
-    )
-  # Large streets ##############################################################
-  int_p <- int_p +
+    ) +
     ggplot2::geom_sf(
       data = imgData[["layer56"]][["polygons"]],
       fill = NA,
