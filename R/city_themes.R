@@ -148,6 +148,7 @@ city_themes <- function(name,
       saveRDS(theme, theme_file)
     }
   }
-  class(theme) <- c(class(theme), "rcityviews.theme")
+  class(theme) <- c("rcityviewsTheme", "list")
+  attr(theme, "name") <- name
   return(theme)
 }

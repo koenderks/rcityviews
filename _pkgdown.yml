@@ -59,3 +59,8 @@ reference:
       These functions help you to style the city.
     contents:
       - city_themes
+  - title: Miscellaneous
+    desc: >
+      Functions for working with output from the **rcityviews** package.
+    contents:
+      - rcityviews-methods
