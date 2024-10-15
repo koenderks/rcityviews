@@ -257,6 +257,22 @@ references:
   year: '2024'
   doi: 10.32614/CRAN.package.memoise
 - type: software
+  title: rappdirs
+  abstract: 'rappdirs: Application Directories: Determine Where to Save Data, Caches,
+    and Logs'
+  notes: Imports
+  url: https://rappdirs.r-lib.org
+  repository: https://CRAN.R-project.org/package=rappdirs
+  authors:
+  - family-names: Ratnakumar
+    given-names: Sridhar
+  - family-names: Mick
+    given-names: Trent
+  - family-names: Davis
+    given-names: Trevor
+  year: '2024'
+  doi: 10.32614/CRAN.package.rappdirs
+- type: software
   title: s2
   abstract: 's2: Spherical Geometry Operators Using the S2 Geometry Library'
   notes: Imports
