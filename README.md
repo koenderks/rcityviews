@@ -189,6 +189,14 @@ cityview(name = "Rio de Janeiro", zoom = 0.5, theme = myTheme, border = "square"
   <img src='https://github.com/koenderks/rcityviews/raw/development/png/Rio.png' width='100%'>
 </p>
 
+To use a custom font in `theme[["font"]][["family"]]`, simply donwload a `.ttf`
+file of the font from the web, save it as `path/to/font/<font_name>.ttf` and
+then register the font via the code below.
+
+```r
+sysfonts::font_add("<font_name>", "path/to/font/<font_name>.ttf")
+```
+
 ### Enclosing the map
 
 There are several types of borders that can be used to enclose the city. The
