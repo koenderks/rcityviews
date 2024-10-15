@@ -14,7 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .nonMemoiseRequestData <- function(city, bbox, zoom, panel, border, cropped, verbose, shiny) {
-  label <- NULL
   ticks <- 60
   if (verbose) {
     # Initialize progress bar ##################################################
@@ -170,9 +169,8 @@
   return(imgData)
 }
 
-.memoiseRequestData <- memoise::memoise(.nonMemoiseRequestData)
-
 .buildCity <- function(imgData, city, bbox, zoom, panel, themeOptions, border, halftone, legend, places, cropped, borderPoints, license) {
+  label <- NULL
   # Scale the streets with the zoom
   themeOptions[["size"]][["streets"]] <- lapply(themeOptions[["size"]][["streets"]], FUN = "*", zoom)
   themeOptions[["size"]][["borders"]] <- lapply(themeOptions[["size"]][["borders"]], FUN = "*", zoom)

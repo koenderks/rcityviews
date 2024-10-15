@@ -78,7 +78,9 @@ Second, once you have obtained the name of the city you want to view or have
 specified a location of a city, you can use the `cityview()` function to create
 a `ggplot2` object. Use the `zoom` argument to zoom in on your city (e.g.,
 `zoom > 1`, decreases computation time) or zoom out of your city (e.g.,
-`zoom < 0.5`, increases computation time).
+`zoom < 0.5`, increases computation time). By default, `cityview()` is called
+with the `cache = TRUE` flag, which means that it will cache the map data so
+that you can quickly try out different themes (see below).
 
 ```r
 p <- cityview(name = "Amsterdam", zoom = 1) # or cityview(name = city)

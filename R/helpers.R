@@ -62,6 +62,11 @@
   return(index)
 }
 
+.isColor <- function(x) {
+  res <- try(col2rgb(x), silent = TRUE)
+  return(!inherits(res, "try-error"))
+}
+
 .tick <- function(verbose, progBar, ticks, shiny) {
   if (shiny) {
     shiny::incProgress(amount = 1 / ticks)

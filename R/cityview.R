@@ -213,11 +213,21 @@ cityview <- function(name = NULL,
   stopifnot("argument 'license' must be a single logical" = !is.null(license) && is.logical(license) && length(license) == 1L)
   stopifnot("argument 'timeout' must be a single number >= 0" = !is.null(timeout) && is.numeric(timeout) && timeout >= 0 && length(timeout) == 1L)
   stopifnot("argument 'verbose' must be a single logical" = !is.null(verbose) && is.logical(verbose) && length(verbose) == 1L)
+  stopifnot("argument 'cache' must be a single logical" = !is.null(cache) && is.logical(cache) && length(cache) == 1L)
   stopifnot("argument 'bot' must be a single logical" = !is.null(bot) && is.logical(bot) && length(bot) == 1L)
+  if (isTRUE(bot)) {
+    stopifnot("argument 'bot' should not be called in an interactive session" = !interactive())
+  }
+  if (!is.null(halftone)) {
+    stopifnot("'halftone' must be a single character representing a valid color" = .isColor(halftone) && length(halftone) == 1L)
+  }
   # Set image options ##########################################################
   if (is.list(theme)) {
     themeOptions <- theme
-    stopifnot("Theme should not contain NA values" = !any(sapply(myTheme, anyNA)))
+    stopifnot("`theme` should not contain NA values" = !any(sapply(themeOptions, anyNA)))
+    stopifnot("the `colors` element in `theme` should contain all valid color representations" = all(sapply(themeOptions[["colors"]], .isColor)))
+    stopifnot("the `borders` list in the `size` element in `theme` should contain all numeric values" = all(sapply(themeOptions[["size"]][["borders"]], is.numeric)))
+    stopifnot("the `streets` list in the `size` element in `theme` should contain all numeric values" = all(sapply(themeOptions[["size"]][["streets"]], is.numeric)))
   } else {
     theme <- match.arg(theme)
     themeOptions <- .themeOptions(theme)
@@ -275,6 +285,9 @@ cityview <- function(name = NULL,
     } else {
       stop(try[[1]]) # Print original error message
     }
+  }
+  if (cache && object.size(imgData) > (1024 * 1024^2)) {
+    message("The map data is not cached because it exceeds the maximum cache size of 1024 MB.")
   }
   # Save or return the plot ####################################################
   if (is.null(filename)) {
