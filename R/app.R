@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2022 Koen Derks
+# Copyright (C) 2022-2024 Koen Derks
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -69,6 +69,7 @@
 )
 
 .shiny_server <- function(input, output, session) {
+  .memoisedReadData <- memoise::memoise(rcityviews:::.nonMemoiseRequestData)
   city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
   shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
   shiny::updateTextInput(session, "countryTitle", value = city[["country"]])
@@ -99,7 +100,7 @@
     bbox <- osmdata::opq(bbox = boundaries[["panel"]], timeout = 1000)
     try <- try({
       shiny::withProgress(message = "Creating preview", value = 0, min = 0, max = 1, expr = {
-        imgData <- rcityviews:::.memoiseRequestData(
+        imgData <- .memoisedReadData(
           city = city,
           bbox = bbox,
           zoom = 0.0225 / (city[["lat"]] - boundaries[["panel"]][2]),

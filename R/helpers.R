@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2022 Koen Derks
+# Copyright (C) 2022-2024 Koen Derks
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
