@@ -55,6 +55,27 @@
     }
   )
 
+  result <- tryCatch(
+    {
+      geocode_df <- tibble::tibble(address = paste0(name, " ", country)) %>%
+        tidygeocoder::geocode(address, method = method, quiet = TRUE)
+
+      if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
+        stop("Geocoding failed: Unable to find coordinates for the provided location name.")
+      }
+
+      city <- data.frame(
+        name = name,
+        country = country,
+        lat = geocode_df$lat[1],
+        long = geocode_df$long[1]
+      )
+    },
+    error = function(e) {
+      stop("Geocoding error: ", e$message)
+    }
+  )
+
   return(result)
 }
 
