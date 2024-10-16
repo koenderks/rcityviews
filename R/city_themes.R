@@ -119,7 +119,7 @@ city_themes <- function(name,
         if (length(remaining_themes) == 0) {
           message(paste0("theme '", name, "' removed from cache, no themes remaining in cache"))
         } else {
-          message(paste0("theme '", name, "' removed from cache, remaining themes in cache:\n  "), paste0(remaining_themes, sep = "\n  "))
+          message(paste0("theme '", name, "' removed from cache, remaining themes in cache:\n  "), paste0(remaining_themes, collapse = "\n  "))
         }
         return(invisible())
       } else if (is.null(theme)) {
@@ -127,25 +127,26 @@ city_themes <- function(name,
       } else {
         if (!force) {
           stop(paste0("theme '", name, "' already exists in cache, use 'force = TRUE' to overwrite"))
-          theme <- readRDS(theme_file)
         } else {
           stopifnot("the 'theme' argument requires a non-null list input" = !is.null(theme) && is.list(theme))
           .checkThemeOptions(theme)
           saveRDS(theme, theme_file)
+          message(paste0("theme '", name, "' overwritten in cache, currently contains ", length(existing_themes), " theme(s)"))
         }
       }
     } else {
       if (is.null(theme)) {
         if (length(existing_themes) == 0) {
-          message(paste0("no theme '", name, "' found, please provide the 'theme' argument"))
+          message(paste0("theme '", name, "' not found, please provide the 'theme' argument"))
         } else {
-          message(paste0("no theme '", name, "' found, please provide the 'theme' argument or choose an existing theme from the cache:\n  "), paste0(existing_themes, sep = "\n  "))
+          message(paste0("theme '", name, "' not found, please provide the 'theme' argument or choose an existing theme from the cache:\n  "), paste0(existing_themes, collapse = "\n  "))
         }
         return(invisible())
       }
       stopifnot("the 'theme' argument requires a list input" = is.list(theme))
       .checkThemeOptions(theme)
       saveRDS(theme, theme_file)
+      message(paste0("theme '", name, "' added to cache, currently contains ", length(existing_themes) + 1, " theme(s)"))
     }
   }
   class(theme) <- c("rcityviewsTheme", "list")
