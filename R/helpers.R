@@ -17,11 +17,13 @@
   if (missing(name) || !is.character(name)) {
     stop("Please provide a valid location name as a string.")
   }
-  
+
   # Use match.arg to validate the method parameter
-  method <- match.arg(method, choices = c("osm", "census", "arcgis", "census_simple", "geocodio",
-                                          "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
-  
+  method <- match.arg(method, choices = c(
+    "osm", "census", "arcgis", "census_simple", "geocodio",
+    "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"
+  ))
+
   # Handle API keys for methods that require them
   methods_with_keys <- c("google", "bing", "here", "tomtom", "mapbox", "geocodio")
   if (method %in% methods_with_keys) {
@@ -31,25 +33,28 @@
       stop(paste0("API key for ", method, " is required. Please set the '", api_key_env, "' environment variable."))
     }
   }
-  
-  result <- tryCatch({
-    geocode_df <- tibble::tibble(address = paste0(name, " ", country)) %>%
-      tidygeocoder::geocode(address, method = method, quiet = TRUE)
-    
-    if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
-      stop("Geocoding failed: Unable to find coordinates for the provided location name.")
+
+  result <- tryCatch(
+    {
+      geocode_df <- tibble::tibble(address = paste0(name, " ", country)) %>%
+        tidygeocoder::geocode(address, method = method, quiet = TRUE)
+
+      if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
+        stop("Geocoding failed: Unable to find coordinates for the provided location name.")
+      }
+
+      city <- data.frame(
+        name = name,
+        country = country,
+        lat = geocode_df$lat[1],
+        long = geocode_df$long[1]
+      )
+    },
+    error = function(e) {
+      stop("Geocoding error: ", e$message)
     }
-    
-    city <- data.frame(
-      name = name,
-      country = country,
-      lat = geocode_df$lat[1],
-      long = geocode_df$long[1]
-    )
-  }, error = function(e) {
-    stop("Geocoding error: ", e$message)
-  })
-  
+  )
+
   return(result)
 }
 
@@ -70,9 +75,10 @@
       indexes <- which(dataset[["name"]] == name)
       index <- .resolveConflicts(name, indexes, dataset)
       if (is.null(index)) {
-        city = .geocode(
-          name = name$name, country = name$country)
-      }else{
+        city <- .geocode(
+          name = name$name, country = name$country
+        )
+      } else {
         city <- dataset[index, ]
       }
       return(city)

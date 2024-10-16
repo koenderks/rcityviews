@@ -54,13 +54,15 @@
 
 new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = "osm") {
   # Use match.arg to validate the method parameter
-  method <- match.arg(method, choices = c("osm", "census", "arcgis", "census_simple", "geocodio",
-                                          "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
+  method <- match.arg(method, choices = c(
+    "osm", "census", "arcgis", "census_simple", "geocodio",
+    "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"
+  ))
   stopifnot("At least provide a location name and country" = all(c(length(name) == 1, length(country) == 1)))
-  if(is.null(lat) || is.null(long)){
-    out = .geocode(name, country)
-    lat = out$lat
-    long = out$long
+  if (is.null(lat) || is.null(long)) {
+    out <- .geocode(name, country)
+    lat <- out$lat
+    long <- out$long
   }
   stopifnot("'lat' must be >= -90 and <= 90" = lat >= -90 && lat <= 90)
   stopifnot("'long' must be >= -180 and <= 180" = long >= -180 && long <= 180)
