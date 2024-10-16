@@ -105,6 +105,15 @@ city_themes <- function(name,
     theme <- .themeOptions(name)
   } else {
     cache_location <- file.path(rappdirs::user_cache_dir("rcityviews"), "themes")
+    if (!is.null(theme) && interactive()) {
+      response <- utils::menu(choices = c("Yes", "No"), title = paste0("Do you give rcityviews permission to write the cache at ", cache_location))
+      if (response == 2) {
+        .checkThemeOptions(theme)
+        class(theme) <- c("rcityviewsTheme", "list")
+        attr(theme, "name") <- name
+        return(theme)
+      }
+    }
     if (!dir.exists(cache_location)) {
       dir.create(cache_location, recursive = TRUE)
     }
