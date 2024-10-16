@@ -2,9 +2,12 @@
 % Please edit documentation in R/rcityviews-methods.R
 \name{rcityviews-methods}
 \alias{rcityviews-methods}
+\alias{print.rcityviewsCity}
 \alias{print.rcityviewsTheme}
-\title{Methods for rcityviews objects}
+\title{Methods for rcityviews Objects}
 \usage{
+\method{print}{rcityviewsCity}(x, ...)
+
 \method{print}{rcityviewsTheme}(x, ...)
 }
 \arguments{

@@ -17,7 +17,9 @@
   if (is.null(name)) {
     city <- .randomCity(NULL)
   } else {
-    if (inherits(name, "data.frame")) {
+    if (inherits(name, "rcityviewsCity")) {
+      city <- name
+    } else if (inherits(name, "data.frame")) {
       stopifnot("input data frame is missing 'name' column" = "name" %in% colnames(name))
       stopifnot("input data frame is missing 'country' column" = "country" %in% colnames(name))
       stopifnot("input data frame is missing 'lat' column" = "lat" %in% colnames(name))

@@ -56,5 +56,6 @@ new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL) {
   stopifnot("'long' must be >= -180 and <= 180" = long >= -180 && long <= 180)
   message(paste0("Discovered the city of ", name, ", ", country, " at ", lat, "\u00B0 / ", long, "\u00B0!"))
   out <- data.frame("name" = name, "country" = country, "lat" = lat, "long" = long)
+  class(out) <- c("rcityviewsCity", "data.frame")
   return(out)
 }
