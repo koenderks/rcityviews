@@ -44,8 +44,9 @@
 #' )
 #'
 #' @param name     a character specifying the name of the city as provided by
-#'                 \code{list_cities()}, or an object created using
-#'                 \code{new_city()}, or a row of the ouput of
+#'                 \code{list_cities()}, or a character vector of length 2 where first
+#'                 element is location name and second element the country.
+#'                  or an object created using \code{new_city()}, or a row of the ouput of
 #'                 \code{list_cities()}. If \code{NULL} (default), chooses a
 #'                 random city.
 #' @param zoom     a numeric value specifying the amount of zoom. Values > 1
@@ -231,7 +232,14 @@ cityview <- function(name = NULL,
   }
   border <- match.arg(border)
   # Look up city ###############################################################
-  city <- .getCity(name)
+  # If location and country provided, we need to split
+  if(length(name == 2)){
+    country = name[2]
+  }else if(length(name == 1)){
+    country = ""
+  }
+  name = name[1]
+  city <- .getCity(name, country)
   if (is.null(city)) {
     return(invisible())
   }

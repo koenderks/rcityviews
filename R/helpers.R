@@ -13,7 +13,47 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.getCity <- function(name) {
+.geocode <- function(name, country, method = "osm") {
+  if (missing(name) || !is.character(name)) {
+    stop("Please provide a valid location name as a string.")
+  }
+  
+  # Use match.arg to validate the method parameter
+  method <- match.arg(method, choices = c("osm", "census", "arcgis", "census_simple", "geocodio",
+                                          "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
+  
+  # Handle API keys for methods that require them
+  methods_with_keys <- c("google", "bing", "here", "tomtom", "mapbox", "geocodio")
+  if (method %in% methods_with_keys) {
+    api_key_env <- paste0(toupper(method), "_API_KEY")
+    api_key <- Sys.getenv(api_key_env)
+    if (api_key == "") {
+      stop(paste0("API key for ", method, " is required. Please set the '", api_key_env, "' environment variable."))
+    }
+  }
+  
+  result <- tryCatch({
+    geocode_df <- tibble::tibble(address = paste0(name, " ", country)) %>%
+      tidygeocoder::geocode(address, method = method, quiet = TRUE)
+    
+    if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
+      stop("Geocoding failed: Unable to find coordinates for the provided location name.")
+    }
+    
+    city <- data.frame(
+      name = name,
+      country = country,
+      lat = geocode_df$lat[1],
+      long = geocode_df$long[1]
+    )
+  }, error = function(e) {
+    stop("Geocoding error: ", e$message)
+  })
+  
+  return(result)
+}
+
+.getCity <- function(name, country) {
   if (is.null(name)) {
     city <- .randomCity(NULL)
   } else {
@@ -30,9 +70,12 @@
       indexes <- which(dataset[["name"]] == name)
       index <- .resolveConflicts(name, indexes, dataset)
       if (is.null(index)) {
-        return(NULL)
+        city = .geocode(
+          name = name, country = country)
+      }else{
+        city <- dataset[index, ]
       }
-      city <- dataset[index, ]
+      return(city)
     }
   }
   return(city)
@@ -50,15 +93,13 @@
 .resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
-    stop(paste0("There is no city called '", name, "' in the available data.\nUse 'new_city()' or create an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
+    warning(paste0("There is no city called '", name, "' in the available data. \n Will try to geocode your location using 'osm'."))
+    return(NULL)
   } else if (length(indexes) > 1) {
     selection <- utils::menu(
       choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
       title = "More than one city matched to this name, which one to pick?"
     )
-    if (selection == 0) {
-      return(NULL)
-    }
     index <- indexes[selection]
   }
   return(index)
