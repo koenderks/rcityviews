@@ -18,7 +18,7 @@
 #' @description This function takes a location name as a string and returns the latitude and longitude coordinates using various geocoding methods.
 #'   It supports multiple geocoding services and handles API keys where necessary.
 #'
-#' @usage geocode_raw(location, method = "osm")
+#' @usage geocode(location, method = "osm")
 #'
 #' @param location A character string specifying the location name to geocode. It must be provided as a single string.
 #' @param method A character string specifying the geocoding method to use. Defaults to "osm" (OpenStreetMap). Supported methods include:
@@ -39,14 +39,14 @@
 #' @examples
 #' \dontrun{
 #'   # Geocode a location using OpenStreetMap (default)
-#'   geocode_raw("New York, USA")
+#'   geocode("New York, USA")
 #'
 #'   # Geocode a location using Google (API key required)
-#'   geocode_raw("Tokyo, Japan", method = "google")
+#'   geocode("Tokyo, Japan", method = "google")
 #' }
 #'
 #' @export
-geocode_raw <- function(location, method = "osm") {
+geocode <- function(location, method = "osm") {
   if (missing(location) || !is.character(location)) {
     stop("Please provide a valid location name as a string.")
   }
@@ -86,8 +86,7 @@ geocode_raw <- function(location, method = "osm") {
       name = split_locations[1],
       country = split_locations[2],
       lat = coords$lat,
-      long = coords$lon,
-      population = NA
+      long = coords$lon
     )
     
   }, error = function(e) {
