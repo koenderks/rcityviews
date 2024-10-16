@@ -11,7 +11,8 @@
 \method{print}{rcityviewsTheme}(x, ...)
 }
 \arguments{
-\item{x}{an object of class \code{rcityviewsTheme}.}
+\item{x}{an object of class \code{rcityviewsCity} or
+\code{rcityviewsTheme}.}
 
 \item{...}{further arguments, currently ignored.}
 }
@@ -19,6 +20,6 @@
 The \code{print} methods simply print and return nothing.
 }
 \description{
-Methods defined for objects returned from the \code{\link{city_themes}}
-  functions.
+Methods defined for objects returned from the \code{\link{city_themes}} and
+  \code{\link{city_themes}} functions.
 }

@@ -15,10 +15,11 @@
 
 #' Methods for rcityviews Objects
 #'
-#' Methods defined for objects returned from the \code{\link{city_themes}}
-#'   functions.
+#' Methods defined for objects returned from the \code{\link{city_themes}} and
+#'   \code{\link{city_themes}} functions.
 #'
-#' @param x    an object of class \code{rcityviewsTheme}.
+#' @param x    an object of class \code{rcityviewsCity} or
+#'             \code{rcityviewsTheme}.
 #' @param ...  further arguments, currently ignored.
 #'
 #' @return
