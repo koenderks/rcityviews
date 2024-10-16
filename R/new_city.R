@@ -26,7 +26,7 @@
 #' @param country A single string to be used as the country.
 #' @param lat     A single numeric value to be used as the latitude.
 #' @param long    A single numeric value to be used as the longitude.
-#' @param method A character string specifying the geocoding method to use. Defaults to "osm" (OpenStreetMap). Supported methods include:
+#' @param method  A character string specifying the geocoding method to use when the user does not specify \code{lat} or \code{long}. Defaults to "osm" (OpenStreetMap). Supported methods include:
 #'   \code{"osm"}, \code{"census"}, \code{"arcgis"}, \code{"census_simple"}, \code{"geocodio"}, \code{"mapbox"},
 #'   \code{"google"}, \code{"bing"}, \code{"here"}, \code{"tomtom"}, \code{"nominatim"}, and \code{"tiger"}. Visit \url{https://jessecambon.github.io/tidygeocoder/reference/geo.html} for more details
 #'
@@ -54,13 +54,11 @@
 
 new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = "osm") {
   # Use match.arg to validate the method parameter
-  method <- match.arg(method, choices = c(
-    "osm", "census", "arcgis", "census_simple", "geocodio",
-    "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"
-  ))
+  method <- c("osm", "census", "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger")
+  method <- match.arg(method)
   stopifnot("At least provide a location name and country" = all(c(length(name) == 1, length(country) == 1)))
   if (is.null(lat) || is.null(long)) {
-    out <- .geocode(name, country)
+    out <- .geocode(name, country, method)
     lat <- out$lat
     long <- out$long
   }

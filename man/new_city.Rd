@@ -15,7 +15,7 @@ new_city(name = NULL, country = NULL, lat = NULL, long = NULL)
 
 \item{long}{A single numeric value to be used as the longitude.}
 
-\item{method}{A character string specifying the geocoding method to use. Defaults to "osm" (OpenStreetMap). Supported methods include:
+\item{method}{A character string specifying the geocoding method to use when the user does not specify \code{lat} or \code{long}. Defaults to "osm" (OpenStreetMap). Supported methods include:
 \code{"osm"}, \code{"census"}, \code{"arcgis"}, \code{"census_simple"}, \code{"geocodio"}, \code{"mapbox"},
 \code{"google"}, \code{"bing"}, \code{"here"}, \code{"tomtom"}, \code{"nominatim"}, and \code{"tiger"}. Visit \url{https://jessecambon.github.io/tidygeocoder/reference/geo.html} for more details}
 }
