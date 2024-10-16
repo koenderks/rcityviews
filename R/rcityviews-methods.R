@@ -15,7 +15,7 @@
 
 #' Methods for rcityviews Objects
 #'
-#' Methods defined for objects returned from the \code{\link{city_themes}} and
+#' Methods defined for objects returned from the \code{\link{new_city}} and
 #'   \code{\link{city_themes}} functions.
 #'
 #' @param x    an object of class \code{rcityviewsCity} or

@@ -20,6 +20,6 @@
 The \code{print} methods simply print and return nothing.
 }
 \description{
-Methods defined for objects returned from the \code{\link{city_themes}} and
+Methods defined for objects returned from the \code{\link{new_city}} and
   \code{\link{city_themes}} functions.
 }
