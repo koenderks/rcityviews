@@ -19,14 +19,13 @@ city_themes(name,
 \item{remove}{logical. Whether to remove the theme from the cache.}
 }
 \value{
-A data frame containing all matched cities alongside their respective
-  country and coordinates. A row of the output can be used as input for the
-  \code{name} argument in the \code{cityview()} function.
+A list of class \code{rcityviewsTheme} containing the theme options.
 }
 \description{
 Conveniently store custom themes across R sessions using a
   persistent caching mechanism. This function creates a cache directory to
-  save the themes as individual RDS files.
+  save the themes as individual RDS files, and asks permission to the user
+  before writing.
 }
 \examples{
 \dontrun{
@@ -69,11 +68,11 @@ myTheme <- list(
     )
   )
 )
-# Store the custom theme
+# Store the custom theme in the cache
 city_themes("blackandyellow", theme = myTheme)
-# Retreive the custom theme
+# Retreive the custom theme from the cache
 city_themes("blackandyellow")
-# Remove theme from the cache
+# Remove the custom theme from the cache
 city_themes("blackandyellow", remove = TRUE)
 }
 }

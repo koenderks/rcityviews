@@ -17,7 +17,8 @@
 #'
 #' @description Conveniently store custom themes across R sessions using a
 #'   persistent caching mechanism. This function creates a cache directory to
-#'   save the themes as individual RDS files.
+#'   save the themes as individual RDS files, and asks permission to the user
+#'   before writing.
 #'
 #'
 #' @usage city_themes(name,
@@ -30,9 +31,7 @@
 #' @param force  logical. Whether to overwrite a theme if it already exists.
 #' @param remove logical. Whether to remove the theme from the cache.
 #'
-#' @return A data frame containing all matched cities alongside their respective
-#'   country and coordinates. A row of the output can be used as input for the
-#'   \code{name} argument in the \code{cityview()} function.
+#' @return A list of class \code{rcityviewsTheme} containing the theme options.
 #'
 #' @author Koen Derks, \email{koen-derks@hotmail.com}
 #'
@@ -84,11 +83,11 @@
 #'     )
 #'   )
 #' )
-#' # Store the custom theme
+#' # Store the custom theme in the cache
 #' city_themes("blackandyellow", theme = myTheme)
-#' # Retreive the custom theme
+#' # Retreive the custom theme from the cache
 #' city_themes("blackandyellow")
-#' # Remove theme from the cache
+#' # Remove the custom theme from the cache
 #' city_themes("blackandyellow", remove = TRUE)
 #' }
 #' @export
@@ -106,7 +105,7 @@ city_themes <- function(name,
   } else {
     cache_location <- file.path(rappdirs::user_cache_dir("rcityviews"), "themes")
     if (!is.null(theme) && interactive()) {
-      response <- utils::menu(choices = c("Yes", "No"), title = paste0("Do you give rcityviews permission to write the cache at ", cache_location))
+      response <- utils::menu(choices = c("Yes", "No"), title = paste0("Do you give rcityviews permission to write the persistent cache at ", cache_location), "?")
       if (response == 2) {
         .checkThemeOptions(theme)
         class(theme) <- c("rcityviewsTheme", "list")
