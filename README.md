@@ -202,9 +202,9 @@ city_themes(name = "blackyellow")
 city_themes(name = "blackyellow", remove = TRUE)
 ```
 
-To use a custom font in `theme[["font"]][["family"]]`, simply donwload a `.ttf`
-file of the font from the web, save it as `path/to/font/<font_name>.ttf` and
-then register the font via the code below.
+To use a custom font in `myTheme[["font"]][["family"]]`, simply donwload a
+`.ttf` file of the font from the web, save it as `path/to/font/<font_name>.ttf`
+and register the font via the code below. Then, use `<font_name>` for `family`.
 
 ```r
 sysfonts::font_add("<font_name>", "path/to/font/<font_name>.ttf")
