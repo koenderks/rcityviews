@@ -46,17 +46,14 @@
 #' }
 #'
 #' @export
-geocode <- function(location, method = "osm") {
+geocode_raw <- function(location, method = "osm") {
   if (missing(location) || !is.character(location)) {
     stop("Please provide a valid location name as a string.")
   }
   
-  # Validate geocoding method
-  supported_methods <- c("osm", "census", "arcgis", "census_simple", "geocodio",
-                         "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger")
-  if (!(method %in% supported_methods)) {
-    stop("Unsupported geocoding method. Please choose one of: ", paste(supported_methods, collapse = ", "))
-  }
+  # Use match.arg to validate the method parameter
+  method <- match.arg(method, choices = c("osm", "census", "arcgis", "census_simple", "geocodio",
+                                          "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
   
   # Handle API keys for methods that require them
   methods_with_keys <- c("google", "bing", "here", "tomtom", "mapbox", "geocodio")
@@ -76,7 +73,7 @@ geocode <- function(location, method = "osm") {
       stop("Geocoding failed: Unable to find coordinates for the provided location.")
     }
     
-    coords = list(
+    coords <- list(
       lat = geocode_df$lat[1],
       lon = geocode_df$long[1],
       display_name = location
