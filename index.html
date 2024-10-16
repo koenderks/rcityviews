@@ -207,7 +207,7 @@
 <span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span><span class="op">)</span></span>
 <span><span class="co"># Remove the theme from the persistent cache</span></span>
 <span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span>, remove <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>To use a custom font in <code>theme[["font"]][["family"]]</code>, simply donwload a <code>.ttf</code> file of the font from the web, save it as <code>path/to/font/&lt;font_name&gt;.ttf</code> and then register the font via the code below.</p>
+<p>To use a custom font in <code>myTheme[["font"]][["family"]]</code>, simply donwload a <code>.ttf</code> file of the font from the web, save it as <code>path/to/font/&lt;font_name&gt;.ttf</code> and register the font via the code below. Then, use <code>&lt;font_name&gt;</code> for <code>family</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add.html" class="external-link">font_add</a></span><span class="op">(</span><span class="st">"&lt;font_name&gt;"</span>, <span class="st">"path/to/font/&lt;font_name&gt;.ttf"</span><span class="op">)</span></span></code></pre></div>
 </div>
