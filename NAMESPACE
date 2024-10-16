@@ -2,7 +2,6 @@
 
 export(cityview)
 export(cityview_shiny)
-export(geocode)
 export(list_cities)
 export(new_city)
 importFrom(svglite,svglite)

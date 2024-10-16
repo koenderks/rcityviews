@@ -53,7 +53,7 @@
   return(result)
 }
 
-.getCity <- function(name, country) {
+.getCity <- function(name) {
   if (is.null(name)) {
     city <- .randomCity(NULL)
   } else {
@@ -69,7 +69,7 @@
       index <- .resolveConflicts(name, indexes, dataset)
       if (is.null(index)) {
         city = .geocode(
-          name = name, country = country)
+          name = name$name, country = name$country)
       }else{
         city <- dataset[index, ]
       }
