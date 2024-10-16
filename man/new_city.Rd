@@ -17,7 +17,7 @@ new_city(name = NULL, country = NULL, lat = NULL, long = NULL)
 
 \item{method}{A character string specifying the geocoding method to use. Defaults to "osm" (OpenStreetMap). Supported methods include:
 \code{"osm"}, \code{"census"}, \code{"arcgis"}, \code{"census_simple"}, \code{"geocodio"}, \code{"mapbox"},
-\code{"google"}, \code{"bing"}, \code{"here"}, \code{"tomtom"}, \code{"nominatim"}, and \code{"tiger"}. Visit tidygeocoder \url{https://jessecambon.github.io/tidygeocoder/reference/geo.html} for more details}
+\code{"google"}, \code{"bing"}, \code{"here"}, \code{"tomtom"}, \code{"nominatim"}, and \code{"tiger"}. Visit \url{https://jessecambon.github.io/tidygeocoder/reference/geo.html} for more details}
 }
 \value{
 a data frame containing the new city alongside its respective
