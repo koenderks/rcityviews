@@ -13,6 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+.geocode <- function(name, country, method) {
+  stopifnot("Please provide a location name as a string" = is.character(name))
+  methods_with_keys <- c("geocodio", "iq", "google", "opencage", "mapbox", "here", "tomtom", "mapquest", "bing", "geoapify")
+  keys <- c("GEOCODIO_API_KEY", "LOCATIONIQ_API_KEY", "GOOGLEGEOCODE_API_KEY", "OPENCAGE_KEY", "MAPBOX_API_KEY", "HERE_API_KEY", "TOMTOM_API_KEY", "MAPQUEST_API_KEY", "BINGMAPS_API_KEY", "GEOAPIFY_KEY")
+  if (method %in% methods_with_keys) {
+    api_key_env <- keys[which(methods_with_keys == method)]
+    api_key <- Sys.getenv(api_key_env)
+    if (api_key == "") {
+      stop(paste0("API key for ", method, " is required. Please set the '", api_key_env, "' environment variable using\nusethis::edit_r_environ() to open your .Renviron file and add the API key."))
+    }
+  }
+  result <- try({
+    tidygeocoder::geo(address = paste0(name, ", ", country), method = method, quiet = TRUE, progress_bar = FALSE, limit = 1)
+  })
+  if (inherits(result, "try-error")) {
+    stop(result[[1]])
+  }
+  if (any(is.na(result$lat)) || any(is.na(result$long))) {
+    stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter the latitude and longitude coordinates using the 'lat' and 'long' arguments")
+  }
+  city <- data.frame(name = name, country = country, lat = result$lat[1], long = result$long[1])
+  return(city)
+}
+
 .getCity <- function(name) {
   if (is.null(name)) {
     city <- .randomCity(NULL)
@@ -50,7 +74,7 @@
 .resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
-    stop(paste0("There is no city called '", name, "' in the available data.\nUse 'new_city()' or create an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
+    stop(paste0("There is no city called '", name, "' in the available data.\n Use the 'new_city()' function to geocode its location"))
   } else if (length(indexes) > 1) {
     selection <- utils::menu(
       choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),

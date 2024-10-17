@@ -20,12 +20,22 @@
 #'   \code{cityview()} function.
 #'
 #'
-#' @usage new_city(name = NULL, country = NULL, lat = NULL, long = NULL)
+#' @usage new_city(name = NULL,
+#'          country = NULL,
+#'          lat = NULL,
+#'          long = NULL,
+#'          method = "osm")
 #'
-#' @param name    A single string to be used as the city name.
-#' @param country A single string to be used as the country.
-#' @param lat     A single numeric value to be used as the latitude.
-#' @param long    A single numeric value to be used as the longitude.
+#' @param name    a single string to be used as the city name.
+#' @param country a single string to be used as the country.
+#' @param lat     a single numeric value to be used as the latitude.
+#' @param long    a single numeric value to be used as the longitude.
+#' @param method  a character string specifying the geocoding method to use when
+#'                the user does not specify \code{lat} or \code{long}. Supported
+#'                methods include \code{osm}, \code{census}, \code{arcgis},
+#'                \code{geocodio}, \code{iq}, \code{google}, \code{opencage},
+#'                \code{mapbox}, \code{here}, \code{tomtom}, \code{mapquest},
+#'                \code{bing}, and \code{geoapify}.
 #'
 #' @return a data frame containing the new city alongside its respective
 #'   country and coordinates.
@@ -49,12 +59,18 @@
 #' }
 #' @export
 
-new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL) {
-  stopifnot("specify all input arguments" = all(c(!is.null(name), !is.null(country), !is.null(lat), !is.null(long))))
-  stopifnot("all input must be of length 1" = all(c(length(name) == 1, length(country) == 1, length(lat) == 1, length(long) == 1)))
-  stopifnot("'lat' must be >= -90 and <= 90" = lat >= -90 && lat <= 90)
-  stopifnot("'long' must be >= -180 and <= 180" = long >= -180 && long <= 180)
-  message(paste0("Discovered the city of ", name, ", ", country, " at ", lat, "\u00B0 / ", long, "\u00B0!"))
+new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = "osm") {
+  stopifnot("At least provide a location name and country" = !is.null(name) && !is.null(country))
+  if (is.null(lat) || is.null(long)) {
+    method <- match.arg(method, choices = c("osm", "census", "arcgis", "geocodio", "iq", "google", "opencage", "mapbox", "here", "tomtom", "mapquest", "bing", "geoapify"))
+    out <- .geocode(name, country, method)
+    lat <- out$lat
+    long <- out$long
+  } else {
+    stopifnot("'lat' must be >= -90 and <= 90" = lat >= -90 && lat <= 90)
+    stopifnot("'long' must be >= -180 and <= 180" = long >= -180 && long <= 180)
+  }
+  message(paste0("Discovered ", name, ", ", country, " at ", lat, "\u00B0 / ", long, "\u00B0!"))
   out <- data.frame("name" = name, "country" = country, "lat" = lat, "long" = long)
   class(out) <- c("rcityviewsCity", "data.frame")
   return(out)

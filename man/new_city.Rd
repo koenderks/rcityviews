@@ -4,16 +4,27 @@
 \alias{new_city}
 \title{Specify a New City}
 \usage{
-new_city(name = NULL, country = NULL, lat = NULL, long = NULL)
+new_city(name = NULL,
+         country = NULL,
+         lat = NULL,
+         long = NULL,
+         method = "osm")
 }
 \arguments{
-\item{name}{A single string to be used as the city name.}
+\item{name}{a single string to be used as the city name.}
 
-\item{country}{A single string to be used as the country.}
+\item{country}{a single string to be used as the country.}
 
-\item{lat}{A single numeric value to be used as the latitude.}
+\item{lat}{a single numeric value to be used as the latitude.}
 
-\item{long}{A single numeric value to be used as the longitude.}
+\item{long}{a single numeric value to be used as the longitude.}
+
+\item{method}{a character string specifying the geocoding method to use when
+the user does not specify \code{lat} or \code{long}. Supported
+methods include \code{osm}, \code{census}, \code{arcgis},
+\code{geocodio}, \code{iq}, \code{google}, \code{opencage},
+\code{mapbox}, \code{here}, \code{tomtom}, \code{mapquest},
+\code{bing}, and \code{geoapify}.}
 }
 \value{
 a data frame containing the new city alongside its respective
