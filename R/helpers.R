@@ -22,18 +22,19 @@
     api_key_env <- paste0(toupper(method), "_API_KEY")
     api_key <- Sys.getenv(api_key_env)
     if (api_key == "") {
-      stop(paste0("API key for ", method, " is required. Please set the '", api_key_env, "' environment variable."))
+      stop(paste0("API key for ", method, " is required. Please set the '",
+        api_key_env, "' environment variable using usethis::edit_r_environ() to open your .Renviron file and add the API key."))
     }
   }
 
   result <- tryCatch(
     {
-      geocode_df <- tidygeocoder::geocode(
-        data.frame(address = paste0(name, " ", country)), "address",
-        method = method, quiet = TRUE
+      geocode_df <- tidygeocoder::geo(
+        address = paste0(name, " ", country),
+        method = method, quiet = TRUE, progress_bar = FALSE, limit = 1
       )
       if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
-        stop("Geocoding failed: Unable to find coordinates for the provided location name.")
+        stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter latitude and longitude coordinates using the 'lat' and 'long' arguments")
       }
       city <- data.frame(
         name = name,
@@ -67,13 +68,9 @@
       indexes <- which(dataset[["name"]] == name)
       index <- .resolveConflicts(name, indexes, dataset)
       if (is.null(index)) {
-        city <- .geocode(
-          name = name$name, country = name$country
-        )
-      } else {
-        city <- dataset[index, ]
+        return(NULL)
       }
-      return(city)
+      city <- dataset[index, ]
     }
   }
   return(city)
