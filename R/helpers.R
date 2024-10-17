@@ -24,15 +24,15 @@
     }
   }
   result <- try({
-    geocode_df <- tidygeocoder::geo(address = paste0(name, ", ", country), method = method, quiet = TRUE, progress_bar = FALSE, limit = 1)
-    if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
-      stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter latitude and longitude coordinates using the 'lat' and 'long' arguments")
-    }
+    tidygeocoder::geo(address = paste0(name, ", ", country), method = method, quiet = TRUE, progress_bar = FALSE, limit = 1)
   })
   if (inherits(result, "try-error")) {
     stop(result[[1]])
   }
-  city <- data.frame(name = name, country = country, lat = geocode_df$lat[1], long = geocode_df$long[1])
+  if (any(is.na(result$lat)) || any(is.na(result$long))) {
+    stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter the latitude and longitude coordinates using the 'lat' and 'long' arguments")
+  }
+  city <- data.frame(name = name, country = country, lat = result$lat[1], long = result$long[1])
   return(city)
 }
 
