@@ -63,13 +63,22 @@ list_cities(match = "Ams")
 #> 26031 Nieuw Amsterdam        Suriname  5.91 -55.07
 ```
 
-If you cannot find your preferred city in the internal package database, you can
-use the `new_city()` function to manually specify a location using its latitude
-and longitude coordinates.
+If you cannot find your preferred city in the internal package database but know
+its coordinates, you can use the `new_city()` function to manually specify the
+location using the latitude (`lat`)and longitude (`long`) arguments.
 
 ```r
 city <- new_city(name = "Lagos", country = "Portugal", lat = 37.10, long = -8.68)
-#> Discovered the city of Lagos, Portugal at 37.1° / -8.68°!
+#> Discovered Lagos, Portugal at 37.1° / -8.68°!
+```
+
+Alternatively, if you don't know the exact coordinates of your city, you can
+leave the `lat` and `long` arguments empty, and the `new_city()` function will
+automatically attempt to find the coordinates using geocoding.
+
+```r
+city <- new_city(name = "Coober Pedy", country = "Australia")
+#> Discovered Coober Pedy, Australia at -29.0133682° / 134.7536164°!
 ```
 
 ### Creating the map
