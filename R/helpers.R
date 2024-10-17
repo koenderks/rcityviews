@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-.geocode <- function(name, country, method = "osm") {
+.geocode <- function(name, country, method) {
   stopifnot("Please provide a location name as a string" = is.character(name))
 
   # Handle API keys for methods that require them
@@ -28,35 +28,13 @@
 
   result <- tryCatch(
     {
-      address <- NULL
-      geocode_df <- (address <- paste0(name, " ", country)) %>%
-        tidygeocoder::geocode(tidygeocoder::geocode(.tbl = data.frame(address = location), "address", method = method, quiet = TRUE))
-
-      if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
-        stop("Geocoding failed: Unable to find coordinates for the provided location name.")
-      }
-
-      city <- data.frame(
-        name = name,
-        country = country,
-        lat = geocode_df$lat[1],
-        long = geocode_df$long[1]
+      geocode_df <- tidygeocoder::geocode(
+        data.frame(address = paste0(name, " ", country)), "address",
+        method = method, quiet = TRUE
       )
-    },
-    error = function(e) {
-      stop("Geocoding error: ", e$message)
-    }
-  )
-
-  result <- tryCatch(
-    {
-      geocode_df <- tibble::tibble(address = paste0(name, " ", country)) %>%
-        tidygeocoder::geocode(address, method = method, quiet = TRUE)
-
       if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
         stop("Geocoding failed: Unable to find coordinates for the provided location name.")
       }
-
       city <- data.frame(
         name = name,
         country = country,

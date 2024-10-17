@@ -52,9 +52,10 @@
 #' }
 #' @export
 
-new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = "osm") {
-  # Use match.arg to validate the method parameter
-  method <- c("osm", "census", "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger")
+new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = c(
+                       "osm", "census",
+                       "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"
+                     )) {
   method <- match.arg(method)
   stopifnot("At least provide a location name and country" = all(c(length(name) == 1, length(country) == 1)))
   if (is.null(lat) || is.null(long)) {

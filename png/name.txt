@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 Ploiesti, Romania
-=======
+
 Barddhaman, India
 
-=======
-Barddhaman, India
->>>>>>> 5a391a1dd4790303777d0e7e39c3d720ba80d891
+Goiania, Brazil
