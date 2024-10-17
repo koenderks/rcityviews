@@ -62,7 +62,7 @@
 new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = "osm") {
   stopifnot("At least provide a location name and country" = !is.null(name) && !is.null(country))
   if (is.null(lat) || is.null(long)) {
-    method <- match.arg(method, choice = c("osm", "census", "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
+    method <- match.arg(method, choices = c("osm", "census", "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
     out <- .geocode(name, country, method)
     lat <- out$lat
     long <- out$long
