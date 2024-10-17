@@ -73,7 +73,7 @@
 .resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
-    stop(paste0("There is no city called '", name, "' in the available data.\n Use the 'new_city()' function to geocode the location"))
+    stop(paste0("There is no city called '", name, "' in the available data.\n Use the 'new_city()' function to geocode its location"))
   } else if (length(indexes) > 1) {
     selection <- utils::menu(
       choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
