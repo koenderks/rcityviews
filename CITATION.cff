@@ -421,6 +421,31 @@ references:
   year: '2024'
   doi: 10.32614/CRAN.package.sysfonts
 - type: software
+  title: tidygeocoder
+  abstract: 'tidygeocoder: Geocoding Made Easy'
+  notes: Imports
+  url: https://jessecambon.github.io/tidygeocoder/
+  repository: https://CRAN.R-project.org/package=tidygeocoder
+  authors:
+  - family-names: Cambon
+    given-names: Jesse
+    email: jesse.cambon@gmail.com
+    orcid: https://orcid.org/0000-0001-6854-1514
+  - family-names: Hernangómez
+    given-names: Diego
+    email: diego.hernangomezherrero@gmail.com
+    orcid: https://orcid.org/0000-0001-8457-4658
+  - family-names: Belanger
+    given-names: Christopher
+    email: christopher.a.belanger@gmail.com
+    orcid: https://orcid.org/0000-0003-2070-5721
+  - family-names: Possenriede
+    given-names: Daniel
+    email: possenriede+r@gmail.com
+    orcid: https://orcid.org/0000-0002-6738-9845
+  year: '2024'
+  doi: 10.32614/CRAN.package.tidygeocoder
+- type: software
   title: utils
   abstract: 'R: A Language and Environment for Statistical Computing'
   notes: Imports
