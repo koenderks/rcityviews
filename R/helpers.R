@@ -13,6 +13,44 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+.geocode <- function(name, country, method) {
+  stopifnot("Please provide a location name as a string" = is.character(name))
+
+  # Handle API keys for methods that require them
+  methods_with_keys <- c("google", "bing", "here", "tomtom", "mapbox", "geocodio")
+  if (method %in% methods_with_keys) {
+    api_key_env <- paste0(toupper(method), "_API_KEY")
+    api_key <- Sys.getenv(api_key_env)
+    if (api_key == "") {
+      stop(paste0("API key for ", method, " is required. Please set the '",
+        api_key_env, "' environment variable using usethis::edit_r_environ() to open your .Renviron file and add the API key."))
+    }
+  }
+
+  result <- tryCatch(
+    {
+      geocode_df <- tidygeocoder::geo(
+        address = paste0(name, " ", country),
+        method = method, quiet = TRUE, progress_bar = FALSE, limit = 1
+      )
+      if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
+        stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter latitude and longitude coordinates using the 'lat' and 'long' arguments")
+      }
+      city <- data.frame(
+        name = name,
+        country = country,
+        lat = geocode_df$lat[1],
+        long = geocode_df$long[1]
+      )
+    },
+    error = function(e) {
+      stop("Geocoding error: ", e$message)
+    }
+  )
+
+  return(result)
+}
+
 .getCity <- function(name) {
   if (is.null(name)) {
     city <- .randomCity(NULL)
@@ -50,15 +88,12 @@
 .resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
-    stop(paste0("There is no city called '", name, "' in the available data.\nUse 'new_city()' or create an issue including lat/long coordinates at https://github.com/koenderks/rcityviews/issues."))
+    stop(paste0("There is no city called '", name, "' in the available data.\n Use the 'new_city()' function to geocode the location"))
   } else if (length(indexes) > 1) {
     selection <- utils::menu(
       choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
       title = "More than one city matched to this name, which one to pick?"
     )
-    if (selection == 0) {
-      return(NULL)
-    }
     index <- indexes[selection]
   }
   return(index)

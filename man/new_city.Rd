@@ -4,7 +4,9 @@
 \alias{new_city}
 \title{Specify a New City}
 \usage{
-new_city(name = NULL, country = NULL, lat = NULL, long = NULL)
+new_city(name = NULL, country = NULL, lat = NULL, long = NULL, method = c(
+"osm", "census", "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing",
+"here", "tomtom", "nominatim", "tiger"))
 }
 \arguments{
 \item{name}{A single string to be used as the city name.}
@@ -14,6 +16,10 @@ new_city(name = NULL, country = NULL, lat = NULL, long = NULL)
 \item{lat}{A single numeric value to be used as the latitude.}
 
 \item{long}{A single numeric value to be used as the longitude.}
+
+\item{method}{A character string specifying the geocoding method to use when the user does not specify \code{lat} or \code{long}. Supported methods include:
+\code{"osm"}, \code{"census"}, \code{"arcgis"}, \code{"census_simple"}, \code{"geocodio"}, \code{"mapbox"},
+\code{"google"}, \code{"bing"}, \code{"here"}, \code{"tomtom"}, \code{"nominatim"}, and \code{"tiger"}. Visit \url{https://jessecambon.github.io/tidygeocoder/reference/geo.html} for more details}
 }
 \value{
 a data frame containing the new city alongside its respective

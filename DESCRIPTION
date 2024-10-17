@@ -33,6 +33,7 @@ Imports:
     stats,
     svglite,
     sysfonts,
+    tidygeocoder,
     utils
 Suggests:
     rmarkdown,
