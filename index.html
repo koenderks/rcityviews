@@ -123,16 +123,20 @@
 <span><span class="co">#&gt; 1358        Amstetten         Austria 48.13  14.86</span></span>
 <span><span class="co">#&gt; 25857   New Amsterdam          Guyana  6.25 -57.53</span></span>
 <span><span class="co">#&gt; 26031 Nieuw Amsterdam        Suriname  5.91 -55.07</span></span></code></pre></div>
-<p>If you cannot find your preferred city in the internal package database, you can use the <code><a href="reference/new_city.html">new_city()</a></code> function to manually specify a location using its latitude and longitude coordinates.</p>
+<p>If you cannot find your preferred city in the internal package database but know its coordinates, you can use the <code><a href="reference/new_city.html">new_city()</a></code> function to manually specify the location using the latitude (<code>lat</code>)and longitude (<code>long</code>) arguments.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_city.html">new_city</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Lagos"</span>, country <span class="op">=</span> <span class="st">"Portugal"</span>, lat <span class="op">=</span> <span class="fl">37.10</span>, long <span class="op">=</span> <span class="op">-</span><span class="fl">8.68</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Discovered the city of Lagos, Portugal at 37.1° / -8.68°!</span></span></code></pre></div>
+<span><span class="co">#&gt; Discovered Lagos, Portugal at 37.1° / -8.68°!</span></span></code></pre></div>
+<p>Alternatively, if you don’t know the exact coordinates of your city, you can leave the <code>lat</code> and <code>long</code> arguments empty, and the <code><a href="reference/new_city.html">new_city()</a></code> function will automatically attempt to find the coordinates using geocoding.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">city</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_city.html">new_city</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Coober Pedy"</span>, country <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Discovered Coober Pedy, Australia at -29.0133682° / 134.7536164°!</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="creating-the-map">Creating the map<a class="anchor" aria-label="anchor" href="#creating-the-map"></a>
 </h3>
 <p>Second, once you have obtained the name of the city you want to view or have specified a location of a city, you can use the <code><a href="reference/cityview.html">cityview()</a></code> function to create a <code>ggplot2</code> object. Use the <code>zoom</code> argument to zoom in on your city (e.g., <code>zoom &gt; 1</code>, decreases computation time) or zoom out of your city (e.g., <code>zoom &lt; 0.5</code>, increases computation time). By default, <code><a href="reference/cityview.html">cityview()</a></code> is called with the <code>cache = TRUE</code> flag, which means that it will cache the map data so that you can quickly try out different themes (see below).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, zoom <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># or cityview(name = city)</span></span>
 <span><span class="co"># see ?cityview for more input parameters of this function</span></span></code></pre></div>
 </div>
@@ -140,10 +144,10 @@
 <h3 id="saving-the-map">Saving the map<a class="anchor" aria-label="anchor" href="#saving-the-map"></a>
 </h3>
 <p>Finally, render times in <code>R</code> or RStudio can be very long for crowded spatial images. It is therefore recommended to directly save the image in a <code>500mm x 500mm</code> format. Typically, the ideal way to do this given a <code>ggplot2</code> object named <code>p</code> is to execute the command below.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span>, plot <span class="op">=</span> <span class="va">p</span>, height <span class="op">=</span> <span class="fl">500</span>, width <span class="op">=</span> <span class="fl">500</span>, units <span class="op">=</span> <span class="st">"mm"</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <p>However, you can also do this instantly by providing a filename directly to the <code><a href="reference/cityview.html">cityview()</a></code> function via its <code>filename</code> argument. To save rendering time, the image is exported in an appropriate size and the function does not return a <code>ggplot2</code> object.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Amsterdam"</span>, filename <span class="op">=</span> <span class="st">"Amsterdam.png"</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
 <img src="https://github.com/koenderks/rcityviews/raw/development/png/Amsterdam.png" width="100%"></p>
@@ -156,7 +160,7 @@
 <p align="center">
 <img src="https://github.com/koenderks/rcityviews/raw/development/png/Osaka.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Marseille.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/NewYork.png" width="30%"><br><img src="https://github.com/koenderks/rcityviews/raw/development/png/Florence.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Madrid.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/SanFrancisco.png" width="30%"><br><img src="https://github.com/koenderks/rcityviews/raw/development/png/Tokyo.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/London.png" width="30%"><img src="https://github.com/koenderks/rcityviews/raw/development/png/Adelaide.png" width="30%"></p>
 <p>In addition to the ten pre-specified themes, the package provides full flexibility to customize the theme by providing a named list. This is demonstrated in the code block below.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For example: black, beige and white theme, streets only</span></span>
 <span><span class="va">myTheme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -200,7 +204,7 @@
 <p align="center">
 <img src="https://github.com/koenderks/rcityviews/raw/development/png/Rio.png" width="100%"></p>
 <p>You can store the custom theme in the package cache for retrieval in a future R session with the <code><a href="reference/city_themes.html">city_themes()</a></code> function. This is illustrated below for the <code>myTheme</code> list.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Store the theme in the persistent cache</span></span>
 <span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span>, theme <span class="op">=</span> <span class="va">myTheme</span><span class="op">)</span></span>
 <span><span class="co"># Retreive the theme from the persistent cache (e.g., in a future R session)</span></span>
@@ -208,7 +212,7 @@
 <span><span class="co"># Remove the theme from the persistent cache</span></span>
 <span><span class="fu"><a href="reference/city_themes.html">city_themes</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"blackyellow"</span>, remove <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>To use a custom font in <code>myTheme[["font"]][["family"]]</code>, simply donwload a <code>.ttf</code> file of the font from the web, save it as <code>path/to/font/&lt;font_name&gt;.ttf</code> and register the font via the code below. Then, use <code>&lt;font_name&gt;</code> for <code>family</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sysfonts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sysfonts/man/font_add.html" class="external-link">font_add</a></span><span class="op">(</span><span class="st">"&lt;font_name&gt;"</span>, <span class="st">"path/to/font/&lt;font_name&gt;.ttf"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">

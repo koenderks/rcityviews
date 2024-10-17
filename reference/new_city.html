@@ -72,7 +72,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">new_city</span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>, country <span class="op">=</span> <span class="cn">NULL</span>, lat <span class="op">=</span> <span class="cn">NULL</span>, long <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">new_city</span><span class="op">(</span>name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>         country <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>         lat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>         long <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>         method <span class="op">=</span> <span class="st">"osm"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,19 +84,28 @@
 
 
 <dl><dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
-<dd><p>A single string to be used as the city name.</p></dd>
+<dd><p>a single string to be used as the city name.</p></dd>
 
 
 <dt id="arg-country">country<a class="anchor" aria-label="anchor" href="#arg-country"></a></dt>
-<dd><p>A single string to be used as the country.</p></dd>
+<dd><p>a single string to be used as the country.</p></dd>
 
 
 <dt id="arg-lat">lat<a class="anchor" aria-label="anchor" href="#arg-lat"></a></dt>
-<dd><p>A single numeric value to be used as the latitude.</p></dd>
+<dd><p>a single numeric value to be used as the latitude.</p></dd>
 
 
 <dt id="arg-long">long<a class="anchor" aria-label="anchor" href="#arg-long"></a></dt>
-<dd><p>A single numeric value to be used as the longitude.</p></dd>
+<dd><p>a single numeric value to be used as the longitude.</p></dd>
+
+
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p>a character string specifying the geocoding method to use when
+the user does not specify <code>lat</code> or <code>long</code>. Supported
+methods include <code>osm</code>, <code>census</code>, <code>arcgis</code>,
+<code>geocodio</code>, <code>iq</code>, <code>google</code>, <code>opencage</code>,
+<code>mapbox</code>, <code>here</code>, <code>tomtom</code>, <code>mapquest</code>,
+<code>bing</code>, and <code>geoapify</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -118,7 +131,7 @@
 <span class="r-in"><span>  name <span class="op">=</span> <span class="st">"Lagos"</span>, country <span class="op">=</span> <span class="st">"Portugal"</span>,</span></span>
 <span class="r-in"><span>  lat <span class="op">=</span> <span class="fl">37.10</span>, long <span class="op">=</span> <span class="op">-</span><span class="fl">8.68</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Discovered the city of Lagos, Portugal at 37.1° / -8.68°!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Discovered Lagos, Portugal at 37.1° / -8.68°!</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="cityview.html">cityview</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">city</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
