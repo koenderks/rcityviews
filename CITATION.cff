@@ -32,7 +32,7 @@ preferred-citation:
   notes: R package version 1.1.2
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.github.io/rcityviews
-date-released: '2024-10-15'
+date-released: '2024-10-17'
 contact:
 - family-names: Derks
   given-names: Koen
