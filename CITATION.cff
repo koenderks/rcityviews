@@ -28,7 +28,7 @@ preferred-citation:
   - family-names: Derks
     given-names: Koen
     email: koen-derks@hotmail.com
-  year: 2023=4
+  year: '2024'
   notes: R package version 1.1.2
 repository-code: https://github.com/koenderks/rcityviews
 url: https://koenderks.github.io/rcityviews
