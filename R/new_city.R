@@ -60,7 +60,7 @@
 #' @export
 
 new_city <- function(name = NULL, country = NULL, lat = NULL, long = NULL, method = "osm") {
-  stopifnot("At least provide a location name and country" = is.character(name) && is.character(country))
+  stopifnot("At least provide a location name and country" = !is.null(name) && !is.null(country))
   if (is.null(lat) || is.null(long)) {
     method <- match.arg(method, choice = c("osm", "census", "arcgis", "census_simple", "geocodio", "mapbox", "google", "bing", "here", "tomtom", "nominatim", "tiger"))
     out <- .geocode(name, country, method)
