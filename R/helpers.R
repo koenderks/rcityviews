@@ -24,7 +24,7 @@
     }
   }
   result <- try({
-    geocode_df <- tidygeocoder::geo(address = paste0(name, " ", country), method = method, quiet = TRUE, progress_bar = FALSE, limit = 1)
+    geocode_df <- tidygeocoder::geo(address = paste0(name, ", ", country), method = method, quiet = TRUE, progress_bar = FALSE, limit = 1)
     if (any(is.na(geocode_df$lat)) || any(is.na(geocode_df$long))) {
       stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter latitude and longitude coordinates using the 'lat' and 'long' arguments")
     }
