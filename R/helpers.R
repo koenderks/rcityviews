@@ -15,12 +15,13 @@
 
 .geocode <- function(name, country, method) {
   stopifnot("Please provide a location name as a string" = is.character(name))
-  methods_with_keys <- c("google", "bing", "here", "tomtom", "mapbox", "geocodio")
+  methods_with_keys <- c("geocodio", "iq", "google", "opencage", "mapbox", "here", "tomtom", "mapquest", "bing", "geoapify")
+  keys <- c("GEOCODIO_API_KEY", "LOCATIONIQ_API_KEY", "GOOGLEGEOCODE_API_KEY", "OPENCAGE_KEY", "MAPBOX_API_KEY", "HERE_API_KEY", "TOMTOM_API_KEY", "MAPQUEST_API_KEY", "BINGMAPS_API_KEY", "GEOAPIFY_KEY")
   if (method %in% methods_with_keys) {
-    api_key_env <- paste0(toupper(method), "_API_KEY")
+    api_key_env <- keys[which(methods_with_keys == method)]
     api_key <- Sys.getenv(api_key_env)
     if (api_key == "") {
-      stop(paste0("API key for ", method, " is required. Please set the '", api_key_env, "' environment variable using usethis::edit_r_environ() to open your .Renviron file and add the API key."))
+      stop(paste0("API key for ", method, " is required. Please set the '", api_key_env, "' environment variable using\nusethis::edit_r_environ() to open your .Renviron file and add the API key."))
     }
   }
   result <- try({

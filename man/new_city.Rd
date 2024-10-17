@@ -22,9 +22,9 @@ new_city(name = NULL,
 \item{method}{a character string specifying the geocoding method to use when
 the user does not specify \code{lat} or \code{long}. Supported
 methods include \code{osm}, \code{census}, \code{arcgis},
-\code{census_simple}, \code{geocodio}, \code{mapbox},
-\code{google}, \code{bing}, \code{here}, \code{tomtom},
-\code{nominatim}, and \code{tiger}.}
+\code{geocodio}, \code{iq}, \code{google}, \code{opencage},
+\code{mapbox}, \code{here}, \code{tomtom}, \code{mapquest},
+\code{bing}, and \code{geoapify}.}
 }
 \value{
 a data frame containing the new city alongside its respective
