@@ -4,5 +4,5 @@ bibentry(bibtype = "Manual",
          title = "rcityviews: Stylized City Maps using OpenStreetMap (OSM) Data",
          author = person("Koen", "Derks"),
          year = "2024",
-         note = "R package version 1.1.2",
-         textVersion = "Derks, K. (2024). rcityviews: Stylized city maps using OpenStreetMap (OSM) data. R package version 1.1.2.")
+         note = "R package version 1.1.3",
+         textVersion = "Derks, K. (2024). rcityviews: Stylized city maps using OpenStreetMap (OSM) data. R package version 1.1.3.")

@@ -1,3 +1,9 @@
+# rcityviews 1.1.3
+
+**Bug fixes**
+
+- `scale` in theme now also scales the `places`.
+
 # rcityviews 1.1.2
 
 **New features**

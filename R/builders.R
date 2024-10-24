@@ -968,7 +968,7 @@
     if (nrow(df) > 0) {
       df <- df[order(match(df[["place"]], desired)), ]
       df <- df[seq_len(min(nrow(df), places)), ]
-      df[["size"]] <- ifelse(df[["place"]] == "city", yes = 13, no = ifelse(df[["place"]] == "town", yes = 12, no = ifelse(df[["place"]] == "village", yes = 11, no = 9)))
+      df[["size"]] <- ifelse(df[["place"]] == "city", yes = 13 * themeOptions[["font"]][["scale"]], no = ifelse(df[["place"]] == "town", yes = 12 * themeOptions[["font"]][["scale"]], no = ifelse(df[["place"]] == "village", yes = 11 * themeOptions[["font"]][["scale"]], no = 9 * themeOptions[["font"]][["scale"]])))
       int_p <- int_p + shadowtext::geom_shadowtext(
         data = df,
         mapping = ggplot2::aes(x = x, y = y, label = name),
