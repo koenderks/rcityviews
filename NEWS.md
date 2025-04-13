@@ -2,6 +2,7 @@
 
 **Bug fixes**
 
+- Shiny app now acknowledges the custom themes stored in the cache.
 - `scale` in theme now also scales the `places`.
 
 # rcityviews 1.1.2

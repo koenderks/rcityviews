@@ -69,6 +69,7 @@
 )
 
 .shiny_server <- function(input, output, session) {
+  shiny::updateSelectInput(session, inputId = "theme", choices = rcityviews:::.shinyGetThemeNames(addCustomThemes = TRUE))
   .memoisedReadData <- memoise::memoise(rcityviews:::.nonMemoiseRequestData)
   city <- rcityviews:::.randomCity(sample.int(100000, size = 1))
   shiny::updateTextInput(session, "plotTitle", value = city[["name"]])
@@ -92,7 +93,12 @@
   })
   output[["plotObject"]] <- shiny::renderPlot(NULL)
   shiny::observeEvent(input[["run"]], {
-    themeOptions <- rcityviews:::.themeOptions(tolower(input[["theme"]]))
+    if (input[["theme"]] %in% rcityviews:::.shinyGetThemeNames()) {
+      themeName <- tolower(input[["theme"]])
+    } else {
+      themeName <- input[["theme"]]
+    }
+    themeOptions <- rcityviews:::city_themes(themeName)
     long <- stats::median(c(input[["osm_bounds"]][["east"]], input[["osm_bounds"]][["west"]]))
     lat <- stats::median(c(input[["osm_bounds"]][["north"]], input[["osm_bounds"]][["south"]]))
     city <- data.frame("name" = input[["plotTitle"]], "country" = input[["countryTitle"]], lat = lat, long = long)

@@ -31,7 +31,7 @@
     stop(result[[1]])
   }
   if (any(is.na(result$lat)) || any(is.na(result$long))) {
-    stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter the latitude and longitude coordinates using the 'lat' and 'long' arguments")
+    stop("Geocoding failed: Unable to find coordinates for the provided location name. Manually enter the latitude and longitude coordinates using the 'lat' and 'long' arguments.")
   }
   city <- data.frame(name = name, country = country, lat = result$lat[1], long = result$long[1])
   return(city)
@@ -74,7 +74,7 @@
 .resolveConflicts <- function(name, indexes, dataset) {
   index <- indexes
   if (length(indexes) == 0) {
-    stop(paste0("There is no city called '", name, "' in the available data.\n Use the 'new_city()' function to geocode its location"))
+    stop(paste0("There is no city called '", name, "' in the available data.\n Use the 'new_city()' function to geocode its location."))
   } else if (length(indexes) > 1) {
     selection <- utils::menu(
       choices = paste0(dataset[indexes, 1], ", ", dataset[indexes, 2], " | Lat: ", round(dataset[indexes, 3], 3), " | Long: ", round(dataset[indexes, 4], 3)),
@@ -338,4 +338,15 @@
   stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'rails'" = !is.null(themeOptions[["size"]][["streets"]][["rails"]]))
   stopifnot("the 'streets' list in the 'size' list in 'theme' should contain an entry named 'runway'" = !is.null(themeOptions[["size"]][["streets"]][["runway"]]))
   stopifnot("the 'streets' list in the 'size' list in 'theme' should contain all numeric values" = all(sapply(themeOptions[["size"]][["streets"]], is.numeric)))
+}
+
+.shinyGetThemeNames <- function(addCustomThemes = FALSE) {
+  themeNames <- c("Vintage", "Modern", "Bright", "Delftware", "Comic", "Rouge", "Original", "Midearth", "Batik", "Vice")
+  if (addCustomThemes) {
+    cache_location <- file.path(rappdirs::user_cache_dir("rcityviews"), "themes")
+    existing_theme_files <- list.files(cache_location)
+    existing_themes <- sub("_.*", "", existing_theme_files)
+    themeNames <- c(themeNames, existing_themes)
+  }
+  return(themeNames)
 }
