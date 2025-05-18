@@ -51,7 +51,9 @@ library(rcityviews)
 
 First, you can search for a city name in the package database using the
 `list_cities()` function. This function looks in the internal database and finds
-any city name that contains the expression in `match`.
+any city name that contains the expression in `match`. It returns a
+`data.frame`, so you can select a specific city by its row index (i.e.,
+`[rowIndex, ]`).
 
 ```r
 list_cities(match = "Ams")
@@ -61,6 +63,8 @@ list_cities(match = "Ams")
 #> 1358        Amstetten         Austria 48.13  14.86
 #> 25857   New Amsterdam          Guyana  6.25 -57.53
 #> 26031 Nieuw Amsterdam        Suriname  5.91 -55.07
+
+city <- list_cities(match = "Ams")[2, ] # Select Amsterdam
 ```
 
 If you cannot find your preferred city in the internal package database but know
