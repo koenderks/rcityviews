@@ -28,7 +28,7 @@
   # Call showtext_auto
   showtext::showtext_auto()
   # Set overpass url
-  osmdata::set_overpass_url("https://overpass-api.de/api/interpreter")
+  osmdata::set_overpass_url("https://overpass.private.coffee/api/interpreter") # default: https://overpass-api.de/api/interpreter
   # Memoise function for requesting data (see https://memoise.r-lib.org/reference/memoise.html)
   .memoiseRequestData <<- memoise::memoise(.nonMemoiseRequestData)
 }
