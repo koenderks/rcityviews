@@ -38,6 +38,8 @@ Imports:
 Suggests:
     rmarkdown,
     testthat
+Remotes:
+    trafficonese/leaflet.extras
 URL: https://github.com/koenderks/rcityviews, https://koenderks.github.io/rcityviews, https://koenderks.shinyapps.io/rcityviews/, https://twitter.com/rcityviews
 BugReports: https://github.com/koenderks/rcityviews/issues
 License: GPL (>= 3)
