@@ -5,5 +5,5 @@ p <- rcityviews::cityview(name = NULL, # Take a random city
                           verbose = FALSE,
                           cache = FALSE,
                           bot = TRUE,
-                          timeout = 1000)
+                          timeout = 5000)
 sink()
