@@ -22,8 +22,8 @@ a quick guide on how to get started.
 * [Create your own in Shiny](#create-your-own-in-shiny)
 * [Acknowledgements](#acknowledgements)
 
-Every three hours this repository creates and tweets a view of a random city.
-You can find all city views created so far at the twitter handle
+This repository used to tweets a view of a random city every three hours but this has stopped due to cancellation of the free API use.
+You can find all city views created at the twitter handle
 [`@rcityviews`](https://twitter.com/rcityviews). Please do not hesitate to share
 your own creations using the hashtag `#rcityviews`!
 
